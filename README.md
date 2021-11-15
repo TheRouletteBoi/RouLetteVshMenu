@@ -8,13 +8,13 @@
  
 ## Installation
 1. In your PS3 file system go to /dev_hdd0/plugins/ and create a new folder named RouLetteVshMenu
-![plugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/master/Resources/plugins.PNG)
+![plugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/plugins.PNG)
 2. Transfer RouLetteVshMenu.sprx into /dev_hdd0/plugins/RouLetteVshMenu/
-![sprx](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/master/Resources/sprx.PNG)
+![sprx](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/sprx.PNG)
 3. Navigate back to /dev_hdd0 and you will find a file named boot_plugins.txt (If file is not found just create one named boot_plugins.txt)
-![hdd0](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/master/Resources/hdd0.PNG)
+![hdd0](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/hdd0.PNG)
 4. Open boot_plugins.txt and make a new line and type /dev_hdd0/plugins/RouLetteVshMenu/RouLetteVshMenu.sprx
-![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/master/Resources/bootplugins.PNG)
+![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/bootplugins.PNG)
 5. Restart your console
 
 ## Features
