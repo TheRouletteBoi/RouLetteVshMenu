@@ -18,6 +18,5 @@ PS3_Debug/*
 PS3_Release/*
 bin/*
 bin-int/*
-Resources/*
 *.opensdf
 .vs/*
