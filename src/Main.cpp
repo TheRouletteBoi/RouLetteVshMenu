@@ -67,7 +67,9 @@ int RouLetteVshMenu_Stop(unsigned int args, void* argp)
 
    sys_timer_usleep(5000);
 
+   // Exit thread using directly the syscall and not the user mode library or else we will crash
    _sys_ppu_thread_exit(0);
+
    return 0;
 }
 CDECL_END

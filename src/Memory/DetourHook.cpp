@@ -270,7 +270,7 @@ void* ImportExportHook::HookByFnid(HookType type, const std::string& libaryName,
 opd_s* ImportExportHook::FindExportByName(const char* module, std::uint32_t fnid)
 {
    uint32_t* segment15 = *reinterpret_cast<uint32_t**>(0x1008C); // 0x1008C or 0x10094
-   uint32_t exportAdressTable = segment15[0x261];
+   uint32_t exportAdressTable = segment15[0x984 / sizeof(uint32_t)];
    exportStub_s* exportStub = reinterpret_cast<exportStub_s*>(exportAdressTable);
 
    while (exportStub->ssize == 0x1C00)
@@ -294,7 +294,7 @@ opd_s* ImportExportHook::FindExportByName(const char* module, std::uint32_t fnid
 opd_s* ImportExportHook::FindImportByName(const char* module, uint32_t fnid)
 {
    uint32_t* segment15 = *reinterpret_cast<uint32_t**>(0x1008C); // 0x1008C or 0x10094
-   uint32_t exportAdressTable = segment15[0x261];
+   uint32_t exportAdressTable = segment15[0x984 / sizeof(uint32_t)];
    importStub_s* importStub = reinterpret_cast<importStub_s*>(exportAdressTable);
 
    while (importStub->ssize == 0x2C00)
