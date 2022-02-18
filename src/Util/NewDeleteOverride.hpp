@@ -6,32 +6,32 @@
 
 void* operator new(std::size_t size) _THROW1(_XSTD bad_alloc) // allocate or throw exception
 {
-   return malloc(size);
+   return vsh::malloc(size);
 }
 
 void* operator new(std::size_t size, const _STD nothrow_t&) _THROW0() // allocate or return null pointer
 {
-   return malloc(size);
+   return vsh::malloc(size);
 }
 
 void* operator new(size_t size, size_t align)
 {
-   return memalign(align, size);
+   return vsh::memalign(align, size);
 }
 
 void* operator new(size_t size, size_t align, const _STD nothrow_t&) _THROW0()
 {
-   return memalign(align, size);
+   return vsh::memalign(align, size);
 }
 
 void* operator new[](std::size_t size) _THROW1(_XSTD bad_alloc)	// allocate array or throw exception
 {
-   return malloc(size);
+   return vsh::malloc(size);
 }
 
 void* operator new[](std::size_t size, const _STD nothrow_t&) _THROW0() // allocate array or return null pointer
 {
-   return malloc(size);
+   return vsh::malloc(size);
 }
 
 void* operator new[](size_t size, size_t align)
@@ -46,14 +46,14 @@ void* operator new[](size_t size, size_t align, const _STD nothrow_t&) _THROW0()
 
 void operator delete(void* mem) _THROW0()  // delete allocated storage
 {
-   free(mem);
+   vsh::free(mem);
 }
 
 // The rest of these deletes will be called if the correspond call to
 // new throws an exception.
 void operator delete(void* mem, const _STD nothrow_t&) _THROW0() // delete if nothrow new fails -- REPLACEABLE
 {
-   free(mem);
+   vsh::free(mem);
 }
 
 void operator delete(void* ptr, void* prt2)
@@ -78,12 +78,12 @@ void operator delete(void* ptr, size_t align, void* prt2)
 
 void operator delete[](void* mem) _THROW0() // delete allocated array
 {
-   free(mem);
+   vsh::free(mem);
 }
 
 void operator delete[](void* mem, const _STD nothrow_t&) _THROW0() // delete if nothrow array new fails -- REPLACEABLE
 {
-   free(mem);
+   vsh::free(mem);
 }
 
 void operator delete[](void* ptr, void* prt2)

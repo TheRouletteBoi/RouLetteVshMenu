@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <vsh/paf.h>
-#include "Symbols.hpp"
 #include "Memory/DetourHook.hpp"
 #include "Helpers.hpp"
+#include "GUI/Menu.hpp"
 
-void InstallHooks();
-void DestoryHooks();
+void HookingInitiate();
+void HookingRemoveAll();

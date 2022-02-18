@@ -26,7 +26,7 @@
 5. Restart your console
 
 ## Features
-- XMB Rainbow Mode
+- TBA
 
 ## Credits
-Assuming (for text color function)
+@Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground

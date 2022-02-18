@@ -94,6 +94,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="GUI\Base.cpp" />
+    <ClCompile Include="GUI\Menu.cpp" />
+    <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="Hooking.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -101,14 +105,18 @@
     <ClCompile Include="Memory\Pattern.cpp" />
     <ClCompile Include="Memory\Memory.cpp" />
     <ClCompile Include="Util\SystemCalls.cpp" />
+    <ClCompile Include="Util\Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GUI\Base.hpp" />
+    <ClInclude Include="GamePad.hpp" />
+    <ClInclude Include="GUI\Menu.hpp" />
+    <ClInclude Include="GUI\GUI.hpp" />
     <ClInclude Include="Helpers.hpp" />
     <ClInclude Include="Hooking.hpp" />
     <ClInclude Include="Memory\DetourHook.hpp" />
     <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Memory\Memory.hpp" />
-    <ClInclude Include="Symbols.hpp" />
     <ClInclude Include="Util\NewDeleteOverride.hpp" />
     <ClInclude Include="Util\SystemCalls.hpp" />
     <ClInclude Include="Util\Timers.hpp" />

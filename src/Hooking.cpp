@@ -1,37 +1,34 @@
 #include "Hooking.hpp"
 #include <vsh/stdc.h>
+#include <cell/pad/pad_codes.h>
 
-ImportExportHook* paf_75295C38Hk;
-ImportExportHook* paf_85D1D23BHk;
-ImportExportHook* sys_io_3733EA3CHk;
-DetourHook* RenderTextHk;
+ImportExportHook* pafFrameworkRenderHk;
+ImportExportHook* cellPadGetDataRawHk;
 
-void paf_75295C38Hook(uint32_t r3, uint32_t r4)
+uint32_t pafFrameworkRenderHook(void* framework, float frameTime)
 {
-   if (g_Helpers.xmbRainbowMode)
+   g_Menu.OnUpdate();
+   g_Helpers.OnUpdate();
+   return pafFrameworkRenderHk->GetOriginal<uint32_t>(framework, frameTime);
+}
+
+int32_t cellPadGetDataRawHook(uint32_t portNo, uint32_t deviceType, CellPadData* data)
+{
+   int32_t ret = cellPadGetDataRawHk->GetOriginal<int32_t>(portNo, deviceType, data);
+   if (ret == SUCCEEDED && portNo == 0) // first controller
    {
-      Color rgb = g_Helpers.UpdateRGBInterpolation();
+      if (data->len)
+      {
+         vsh::memcpy(&g_Helpers.padData, data, sizeof(CellPadData));
 
-      *(float*)(r4 + 0x120) = rgb.r / 255.0f;
-      *(float*)(r4 + 0x124) = rgb.g / 255.0f;
-      *(float*)(r4 + 0x128) = rgb.b / 255.0f;
+         // Clear VSH pad data when our menu is opened
+         if (g_Menu.IsOpened())
+            vsh::memset(&data->button[CELL_PAD_BTN_OFFSET_DIGITAL1], 0, 4);
+      }
+      else
+         vsh::memset(&g_Helpers.padData, 0, sizeof(CellPadData));
    }
-
-   paf_75295C38Hk->GetOriginal<void>(r3, r4);
-}
-
-uint32_t paf_85D1D23BHook(uint32_t r3, float f1)
-{
-   // text rendering?
-
-   return paf_85D1D23BHk->GetOriginal<uint32_t>(r3, f1);
-}
-
-uint32_t sys_io_3733EA3CHook(uint32_t r3, uint32_t r4, uint32_t r5)
-{
-   // button monitoring?
-
-   return sys_io_3733EA3CHk->GetOriginal<uint32_t>(r3, r4, r5);
+   return ret;
 }
 
 uint32_t RenderTextHook(uint32_t r3, uint32_t r4, uint32_t r5, uint32_t r6)
@@ -58,23 +55,17 @@ uint32_t RenderTextHook(uint32_t r3, uint32_t r4, uint32_t r5, uint32_t r6)
 
    // vshnet_FC7303C5(); // sceNpGetNpId
 
-   return RenderTextHk->GetOriginal<uint32_t>(r3, r4, r5, r6);
+   return 0;
 }
 
-void InstallHooks()
+void HookingInitiate()
 {
-   paf_75295C38Hk = new ImportExportHook(ImportExportHook::Export, "paf", 0x75295C38, (uintptr_t)paf_75295C38Hook, false);
-
-   paf_85D1D23BHk = new ImportExportHook(ImportExportHook::Export, "paf", 0x85D1D23B, (uintptr_t)paf_85D1D23BHook);
-
-   sys_io_3733EA3CHk = new ImportExportHook(ImportExportHook::Export, "sys_io", 0x3733EA3C, (uintptr_t)sys_io_3733EA3CHook);
-
-   //RenderTextHk = new DetourHook(RenderTextSymbol, (uintptr_t)RenderTextHook);
+   pafFrameworkRenderHk = new ImportExportHook(ImportExportHook::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkRenderHook);
+   cellPadGetDataRawHk = new ImportExportHook(ImportExportHook::Export, "sys_io", 0x3733EA3C, (uintptr_t)cellPadGetDataRawHook);
 }
 
-void DestoryHooks()
+void HookingRemoveAll()
 {
-   delete paf_75295C38Hk;
-   delete paf_85D1D23BHk;
-   delete sys_io_3733EA3CHk;
+   delete pafFrameworkRenderHk;
+   delete cellPadGetDataRawHk;
 }
