@@ -12,10 +12,10 @@ int WriteProcessMemory(uint32_t pid, void* address, const void* data, size_t siz
 
    if (!useHenSyscalls)
    {
-      int write = sys_dbg_write_process_memory(pid, address, data, size);
-      if (write == SUCCEEDED)
+      int canWrite = sys_dbg_write_process_memory(pid, address, data, size);
+      if (canWrite == SUCCEEDED)
       {
-         return write;
+         return canWrite;
       }
    }
 
@@ -29,10 +29,10 @@ int ReadProcessMemory(uint32_t pid, void* address, void* data, size_t size)
 
    if (!useHenSyscalls)
    {
-      int write = sys_dbg_read_process_memory(pid, address, data, size);
-      if (write == SUCCEEDED)
+      int canRead = sys_dbg_read_process_memory(pid, address, data, size);
+      if (canRead == SUCCEEDED)
       {
-         return write;
+         return canRead;
       }
    }
 
