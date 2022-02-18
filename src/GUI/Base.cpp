@@ -413,12 +413,6 @@ void Menu::OnUpdate()
    if (m_UpdateHelperGui != nullptr)
       m_UpdateHelperGui();
    GUI::EndDrawing();
-
-
-   Color _col = UpdateRGBInterpolation();
-   m_MenuRectColor[0] = _col.r / 255.0f;
-   m_MenuRectColor[1] = _col.g / 255.0f;
-   m_MenuRectColor[2] = _col.b / 255.0f;
 }
 
 void Menu::OnHelperGUI(Function onUpdate)
@@ -521,93 +515,4 @@ Menu& Menu::toggle(bool& var, Function onEnable, Function onDisable)
    }
 
    return *this;
-}
-
-// Clamps a value between a minimum float and maximum float value.
-float Clamp(float value, float min, float max)
-{
-   if (value < min)
-      value = min;
-   else if (value > max)
-      value = max;
-   return value;
-}
-
-// Clamps value between 0 and 1 and returns value
-float Clamp01(float value)
-{
-   if (value < 0.0f)
-      return 0.0f;
-   else if (value > 1.0f)
-      return 1.0f;
-   else
-      return value;
-}
-
-// Interpolates between /a/ and /b/ by /t/. /t/ is clamped between 0 and 1.
-float Lerp(float a, float b, float t)
-{
-   return a + (b - a) * Clamp01(t);
-}
-
-// Interpolates between /a/ and /b/ by /t/ without clamping the interpolant.
-float LerpUnclamped(float a, float b, float t)
-{
-   return a + (b - a) * t;
-}
-
-// Interpolates between colors /a/ and /b/ by /t/.
-vsh::vec4 Lerp(vsh::vec4 a, vsh::vec4 b, float t)
-{
-   t = Clamp01(t);
-   return vsh::vec4(
-      a.x + (b.x - a.x) * t,
-      a.y + (b.y - a.y) * t,
-      a.z + (b.z - a.z) * t,
-      a.w + (b.w - a.w) * t
-   );
-}
-
-// Interpolates between colors /a/ and /b/ by /t/ without clamping the interpolant
-vsh::vec4 LerpUnclamped(vsh::vec4 a, vsh::vec4 b, float t)
-{
-   return vsh::vec4(
-      a.x + (b.x - a.x) * t,
-      a.y + (b.y - a.y) * t,
-      a.z + (b.z - a.z) * t,
-      a.w + (b.w - a.w) * t
-   );
-}
-
-// Loops the value t, so that it is never larger than length and never smaller than 0.
-float Repeat(float t, float length)
-{
-   return Clamp(t - vsh::floor(t / length) * length, 0.0f, length);
-}
-
-// PingPongs the value t, so that it is never larger than length and never smaller than 0.
-float PingPong(float t, float length)
-{
-   t = Repeat(t, length * 2.0f);
-   return length - vsh::fabs(t - length);
-}
-
-// TODO(Roulette): Change into lerp function so it is easier to read
-Color Menu::UpdateRGBInterpolation()
-{
-   // Fades between -> Red, Orange, Yellow, Green, Blue, Purple, Pink, White, Black
-   Color rgb;
-   m_rainbowModeColorIndex += 1;
-
-   rgb.r = ((m_rainbowModeColorIndex < 255) * m_rainbowModeColorIndex) + ((m_rainbowModeColorIndex >= 255) * 255) + ((m_rainbowModeColorIndex > 511) * (512 - m_rainbowModeColorIndex)) + ((m_rainbowModeColorIndex > 766) * (m_rainbowModeColorIndex - 766)) + ((m_rainbowModeColorIndex >= 1276) * (m_rainbowModeColorIndex - 1276)) + ((m_rainbowModeColorIndex > 1530) * (1530 - m_rainbowModeColorIndex)) + ((m_rainbowModeColorIndex > 1786) * (1786 - m_rainbowModeColorIndex));
-
-   rgb.g = (m_rainbowModeColorIndex < 256) * (1) + (m_rainbowModeColorIndex > 255) * (m_rainbowModeColorIndex - 255) + (m_rainbowModeColorIndex > 510) * (510 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1020) * (1020 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1274) * (m_rainbowModeColorIndex - 1274) + (m_rainbowModeColorIndex > 1530) * (m_rainbowModeColorIndex - 1531) + (m_rainbowModeColorIndex > 1785) * (3571 - (2 * m_rainbowModeColorIndex));
-
-   rgb.b = (m_rainbowModeColorIndex < 764) * (1) + (m_rainbowModeColorIndex > 765) * (m_rainbowModeColorIndex - 765) + (m_rainbowModeColorIndex > 1020) * (1020 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1786) * (1786 - m_rainbowModeColorIndex);
-
-   // reset to black
-   if (m_rainbowModeColorIndex > 2040)
-      m_rainbowModeColorIndex = 1;
-
-   return rgb;
 }

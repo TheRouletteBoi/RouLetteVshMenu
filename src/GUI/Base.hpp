@@ -128,9 +128,6 @@ private:
    vsh::paf::View* m_system_plugin{};
    vsh::paf::PhWidget* m_page_autooff_guide{};
    Function m_UpdateHelperGui = nullptr;
-
-   // Rainbow Options
-   int m_rainbowModeColorIndex = 0;
 };
 
 extern Menu g_Menu;
