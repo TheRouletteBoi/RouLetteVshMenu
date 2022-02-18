@@ -43,6 +43,7 @@ struct exportStub_s
 
 uint32_t GetCurrentToc();
 int WriteProcessMemory(uint32_t pid, void* address, const void* data, size_t size);
+int ReadProcessMemory(uint32_t pid, void* address, void* data, size_t size);
 
 template <typename R, typename... TArgs>
 __ALWAYS_INLINE R GameCall(std::uint32_t addr, TArgs... args)

@@ -22,3 +22,20 @@ int WriteProcessMemory(uint32_t pid, void* address, const void* data, size_t siz
    useHenSyscalls = true;
    return PS3MAPISetMemory(pid, address, data, size);
 }
+
+int ReadProcessMemory(uint32_t pid, void* address, void* data, size_t size)
+{
+   static bool useHenSyscalls = false;
+
+   if (!useHenSyscalls)
+   {
+      int write = sys_dbg_read_process_memory(pid, address, data, size);
+      if (write == SUCCEEDED)
+      {
+         return write;
+      }
+   }
+
+   useHenSyscalls = true;
+   return PS3MAPIGetMemory(pid, address, data, size);
+}
