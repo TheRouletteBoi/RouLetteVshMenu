@@ -5,7 +5,7 @@
 _VSH_BEGIN
 CDECL_BEGIN
 
-enum CooperationMode : uint32_t
+enum class eCooperationMode : uint32_t
 {
    XmbMode,
    GameMode,
@@ -20,14 +20,14 @@ enum CooperationMode : uint32_t
 // vshmain_2E1AA6EF  //
 
 void vshmain_45D85C54(uint32_t flag);   // set running mode flag
-static void SetCooperationMode(CooperationMode mode) { vshmain_45D85C54(mode); }
+static void SetCooperationMode(eCooperationMode mode) { vshmain_45D85C54((uint32_t)mode); }
 
 uint32_t vshmain_EB757101(void);        // _ZN3vsh18GetCooperationModeEv	 | vsh::GetCooperationMode(void) 
 // get running mode flag, 0 = XMB is running
 //                        1 = PS3 Game is running
 //                        2 = Video Player (DVD/BD) is running
 //                        3 = PSX/PSP Emu is running
-static CooperationMode GetCooperationMode() { return (CooperationMode)vshmain_EB757101(); }
+static eCooperationMode GetCooperationMode() { return (eCooperationMode)vshmain_EB757101(); }
 
 uint32_t vshmain_5046CFAB(void); // vshmain_5046CFAB  // always return 0
 static void ApplyCooperationMode() { vshmain_5046CFAB(); }
@@ -92,8 +92,8 @@ static void ApplyCooperationMode() { vshmain_5046CFAB(); }
 // vshmain_CAA863A1  //
 
 int vshmain_87BB0001(int param);  // shutdown_reset()
-#define vsh_shutdown(a) vshmain_87BB0001(1)
-#define vsh_reboot(a)   vshmain_87BB0001(2)
+static int vsh_shutdown() { return vshmain_87BB0001(1); }
+static int vsh_reboot() { return vshmain_87BB0001(2); }
 
 // vshmain_7B3BBD9D  //
 // vshmain_242E9C0C  //
@@ -156,6 +156,7 @@ int vshmain_87BB0001(int param);  // shutdown_reset()
 // vshmain_97D7B33F  //
 
 int32_t vshmain_A4338777(void);  // get flag XXXX
+
 // vshmain_050CCCCE  // set u32
 
 int32_t vshmain_AE35CF2D(char *, int value);  // call_xmb_plugin | Executes Action based on Input (XMB Plugin XMM0 Interface 23), Examples: "http://www.psdevwiki.com",0; "copy:device",1; "regcam:reg?",1
@@ -176,7 +177,7 @@ int32_t vshmain_AE35CF2D(char *, int value);  // call_xmb_plugin | Executes Acti
 // vshmain_A3E81C3B  // "xmb_plugin", "ViewLoad_InGameXMB" | loads up Ingame XMB | int vshmain_A3E81C3B(-1,-1,0)
 
 int32_t vshmain_6D5FC398(int dev_type, int port_num, int intr_type);  // Show Ingame XMB || int vshmain_6D5FC398_0, 0, 0) | int vshmain_6D5FC398(int dev_type, int port_num (pad id), int intr_type)
-#define Show_InGameXMB(pad_id) vshmain_6D5FC398(0, pad_id, 0)
+static int32_t Show_InGameXMB(int port_num) { return vshmain_6D5FC398(0, port_num, 0); }
 
 // vshmain_BEFC4BA2  //
 // vshmain_6D8BD460  //
@@ -232,7 +233,7 @@ int32_t vshmain_BEF63A14(void);  // setting net, base pointer for recording stuf
 // vshmain_24C860B0  //
 
 uint32_t vshmain_0624D3AE(void);  // returns game u32 process id
-#define GetGameProcessID vshmain_0624D3AE
+static uint32_t GetGameProcessID() { return vshmain_0624D3AE(); }
 
 // vshmain_005B064D  // _ZN3vsh23sysutil_cxmlutil_server15MallocAllocatorEN4cxml14AllocationTypeEPvS3_jPS3_Pj | vsh::sysutil_cxmlutil_server::MallocAllocator(cxml::AllocationType, void *, void *, unsigned int, void **, unsigned int *)
 // vshmain_0D257CFF  // Get dev_type, port_num (pad id), intr_type | vshmain_D257CFF(1, int * [3] {dev_type, port_num (pad id), intr_type} )
@@ -319,7 +320,8 @@ uint32_t vshmain_0624D3AE(void);  // returns game u32 process id
 // vshmain_79B82B4D  // "PRIN"
 
 int32_t vshmain_981D7E9F(void);     // GetScreenshotFlag
-#define GetScreenshotFlag vshmain_981D7E9F
+static int32_t GetScreenshotFlag() { return vshmain_981D7E9F(); }
+
 // vshmain_08AA0F15  //
 
 // vshmain_9C741986  //
