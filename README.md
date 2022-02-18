@@ -1,6 +1,8 @@
 # RouLette Vsh Menu
 - Work In Progress.. 
-- The goal of this project is to build a VSH Menu without the need to pause the RSX
+
+## Features
+- TBA
 
 ## Prerequisites
 - Visual Studio 2013+
@@ -24,9 +26,6 @@
 ![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/bootplugins.PNG)
 
 5. Restart your console
-
-## Features
-- TBA
 
 ## Credits
 @Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
