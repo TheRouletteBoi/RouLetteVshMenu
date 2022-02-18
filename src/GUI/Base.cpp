@@ -311,7 +311,7 @@ void Menu::DrawBackground()
    GUI::DrawRect(
       vsh::vec2(position.x, position.y - (m_SizeHeader / 2) + (m_SizeFooter / 2)),
       vsh::vec2(m_SizeMenuWidth, m_SizeBackground),
-      vsh::vec4(0.0f, 0.0f, 0.0f, m_OpacityBackground),
+      vsh::vec4(m_MenuBackgroundColor[0], m_MenuBackgroundColor[1], m_MenuBackgroundColor[2], m_OpacityBackground),
       GUI::Alignment::Centered);
 }
 
@@ -325,7 +325,7 @@ void Menu::DrawFooter()
 
    GUI::DrawText(
       L"By TheRouLetteBoi",
-      vsh::vec2(position.x, position.y - (m_SizeMenu / 2) + (m_SizeFooter / 2)),
+      vsh::vec2(position.x - (m_SizeMenuWidth / 2) + 5, position.y - (m_SizeMenu / 2) + (m_SizeFooter / 2)),
       21,
       vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
       GUI::Alignment::Left);
@@ -391,7 +391,7 @@ void Menu::DrawMenuText(const std::wstring& text)
    if (optionIndex != 0) 
       GUI::DrawText(
          text,
-         vsh::vec2(position.x, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar + 3),
+         vsh::vec2(position.x - (m_SizeMenuWidth / 2) + 5, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar + 3),
          20,
          vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
          GUI::Alignment::Left);
@@ -403,7 +403,7 @@ void Menu::title(const std::wstring& text)
       text, 
       vsh::vec2(position.x, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - (m_HighlightBarStart / 2)),
       20, 
-      vsh::vec4(m_MenuTextColor[1], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
+      vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
       GUI::Alignment::Centered);
 }
 

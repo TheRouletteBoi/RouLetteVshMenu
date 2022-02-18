@@ -106,6 +106,7 @@ private:
 
    vsh::vec4 m_MenuRectColor{ 1.0f, 0.64f, 0.0f, 85.0f };
    vsh::vec4 m_MenuTextColor{ 1.0f, 1.0f, 1.0f, 1.0f };
+   vsh::vec4 m_MenuBackgroundColor{ 0.0, 0.0f, 0.0f, 0.85f };
 
    vsh::paf::View* m_system_plugin{};
    vsh::paf::PhWidget* m_page_autooff_guide{};
