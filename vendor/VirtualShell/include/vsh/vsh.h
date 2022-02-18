@@ -1,6 +1,10 @@
 #ifndef __VSH_H__
 #define __VSH_H__
+#include "vshtypes.h"
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 // vsh vm
 typedef struct _vsh_vm_info {
@@ -11,7 +15,7 @@ typedef struct _vsh_vm_info {
 
 
 
-extern "C" int vsh_E932A8C0(const char *text); // reboot_show_min_version
+int vsh_E932A8C0(const char *text); // reboot_show_min_version
 #define reboot_show_min_version vsh_E932A8C0
 
 // vsh_ED372406  // Export_vsh_update_manager_if_get_token_seed
@@ -57,10 +61,10 @@ extern "C" int vsh_E932A8C0(const char *text); // reboot_show_min_version
 // vsh_9121C0C6  // UpdateManagerIF_ReleaseBuffer
 // vsh_8A86B77C  // UpdateManagerrIF_AllocateBuffer
 
-extern "C" int vsh_172B05CD(uint32_t offset, uint8_t value);  // UpdateManagerIF_WriteEEPROM()
+int vsh_172B05CD(uint32_t offset, uint8_t value);  // UpdateManagerIF_WriteEEPROM()
 #define UpdateManagerIF_WriteEEPROM vsh_172B05CD
 
-extern "C" int vsh_2C563C92(uint32_t offset, uint8_t *value);  // UpdateManagerIF_ReadEEPROM()
+int vsh_2C563C92(uint32_t offset, uint8_t *value);  // UpdateManagerIF_ReadEEPROM()
 #define UpdateManagerIF_ReadEEPROM vsh_2C563C92
 
 // vsh_349F1535  // UpdateManagerIF_SetToken
@@ -87,19 +91,22 @@ extern "C" int vsh_2C563C92(uint32_t offset, uint8_t *value);  // UpdateManagerI
 
 // https://www.psdevwiki.com/ps3/AIM_Manager
 
-//extern "C" int vsh_3B4A1AC4(uint8_t *idps);  // AIMManagerIF_GetDeviceID
-//#define cellSsAimGetDeviceId vsh_3B4A1AC4
+int vsh_3B4A1AC4(uint8_t *idps);  // AIMManagerIF_GetDeviceID
+static int cellSsAimGetDeviceId(uint8_t out[0x10]) { return vsh_3B4A1AC4(out); }
 
-//extern "C" int vsh_3F062337(uint8_t *ps_code);  // AIMManagerIF_GetPSCode
-//#define cellSsAimGetPsCode vsh_3F062337
+int vsh_3F062337(uint8_t *ps_code);  // AIMManagerIF_GetPSCode
+static int cellSsAimGetPsCode(uint8_t out[0x8]) { return vsh_3F062337(out); }
 
-//extern "C" int vsh_9AD2E524(uint8_t *open_psid);  // sys_ss_get_open_psid
-//#define cellSsAimGetOpenPsId vsh_9AD2E524
+int vsh_9AD2E524(uint8_t *open_psid);  // sys_ss_get_open_psid
+static int cellSsAimGetOpenPSID(uint8_t out[0x10]) { return vsh_9AD2E524(out); }
 
 // vsh_C0E39B97  // ? (aim_manager_if_get_ps_code)
 // vsh_E35D54E3  // ?
 // vsh_E4A68606  // ?
-// vsh_8F71C2DF  // ?
+
+int vsh_8F71C2DF(uint8_t* type); // ?
+static int cellSsAimGetDeviceType(uint8_t out[0x10]) { return vsh_8F71C2DF(out); }
+
 // vsh_145991B4  // AIMManagerIF: 0x19002 (Get Device Type)
 // vsh_1F80E287  // AIMManagerIF: 0x19002 (Get Device Type)
 // vsh_8AD55D80  // AIMManagerIF: 0x19002 (Get Device Type)
@@ -115,7 +122,7 @@ extern "C" int vsh_2C563C92(uint32_t offset, uint8_t *value);  // UpdateManagerI
 
 // vsh_1C68CC75  // ?
 
-extern "C" void vsh_F4AD1B8A(int32_t arg, vsh_vm_info *info);  // get virtual memory info
+void vsh_F4AD1B8A(int32_t arg, vsh_vm_info *info);  // get virtual memory info
 #define vsh_get_vm_info(info) vsh_F4AD1B8A(0, info)
 
 // vsh_609635AB  // ? alloc
@@ -127,10 +134,10 @@ extern "C" void vsh_F4AD1B8A(int32_t arg, vsh_vm_info *info);  // get virtual me
 // vsh_5C5D84C1  // ?
 // vsh_3C186420  // ?
 
-extern "C" int32_t vsh_E7C34044(int32_t mc_id);	             // vsh_memory_container_by_id()
+int32_t vsh_E7C34044(int32_t mc_id);	             // vsh_memory_container_by_id()
 #define vsh_memory_container_by_id vsh_E7C34044
 
-extern "C" int32_t vsh_F399CA36(int32_t mc_id);              // destroy_vsh_memory_container_by_id()
+int32_t vsh_F399CA36(int32_t mc_id);              // destroy_vsh_memory_container_by_id()
 #define destroy_vsh_memory_container_by_id vsh_F399CA36
 
 // vsh_37857F3F  // create_vsh_memory_container_by_id (int32_t id)
@@ -168,13 +175,13 @@ extern "C" int32_t vsh_F399CA36(int32_t mc_id);              // destroy_vsh_memo
 
 // vsh_0D5CCC40  // ? syscall: sys_fs_fcntl(-1, 0x80000004, , 4)
 
-extern "C" int vsh_1714D098(uint32_t *size);                 // sys_fs_get_mount_info_size()
+int vsh_1714D098(uint32_t *size);                 // sys_fs_get_mount_info_size()
 #define sys_fs_get_mount_info_size vsh_1714D098
 
 // vsh_612496AA  // syscall: sys_fs_get_mount_info(CellFsMountInformation *, u32, u32 *)
 // vsh_E413CD78  // syscall: sys_fs_disk_free
 
-extern "C" int vsh_1B8D4287(const char *dir);  // sys_fs_sync, Param: Device Path (e.g. /dev_hdd0)
+int vsh_1B8D4287(const char *dir);  // sys_fs_sync, Param: Device Path (e.g. /dev_hdd0)
 #define sys_fs_sync vsh_1B8D4287
 
 // vsh_33ACD759  // (char const* mount, int32_t ?) -> sys_fs_unmount(char const* mount, int32_t, int32_t 0)
@@ -193,5 +200,8 @@ extern "C" int vsh_1B8D4287(const char *dir);  // sys_fs_sync, Param: Device Pat
 // vsh_D5B38646  // ?
 // vsh_71BBE625  // ?
 
+
+CDECL_END
+_VSH_END
 
 #endif // __VSH_H__

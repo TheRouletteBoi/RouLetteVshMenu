@@ -1,6 +1,11 @@
+#ifndef __PRX_DEBUG_H__
+#define __PRX_DEBUG_H__
+#include "vshtypes.h"
 #include <sys/prx.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+_VSH_BEGIN
 
 typedef struct sys_prx_dbg_get_module_list_t {
 	uint64_t size;				
@@ -70,3 +75,8 @@ int sys_dbg_get_process_list(sys_pid_t* pids, uint64_t* max, uint64_t* count)
 	//pokeq(0x80000000000845DCULL,0x48000038E80100F0ULL); // allow syscall_493
 
 	//sys_prx_get_module_list_t prx_list;
+
+
+_VSH_END
+
+#endif // __PRX_DEBUG_H__

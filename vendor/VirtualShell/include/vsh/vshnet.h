@@ -1,6 +1,10 @@
 #ifndef __VSHNET_H__
 #define __VSHNET_H__
+#include "vshtypes.h"
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 // vshnet_0153F84A  // ?
 // vshnet_015A7B72  // ?
@@ -677,5 +681,7 @@ extern "C" int32_t vshnet_731E546F(const char *);  // prints Firmware version ("
 // vshnet_FF500259  // sceNpCommerceGetDataFlagFinish 	int sceNpCommerceGetDataFlagFinish(int req_id)
 // vshnet_FFE3C63B  // ?
 
+CDECL_END
+_VSH_END
 
 #endif // __VSHNET_H__

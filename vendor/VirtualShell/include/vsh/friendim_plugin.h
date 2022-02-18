@@ -1,4 +1,10 @@
 // Mysis friend_plugin.h v0.1
+#ifndef __FRIENDIM_PLUGIN_H__
+#define __FRIENDIM_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*SetFriendimExit)(void);
@@ -44,4 +50,8 @@ typedef struct
 	int (*TellFriend)(void);
 } friendim_plugin_interface;
 
-friendim_plugin_interface * friendim_interface;
+
+
+_VSH_END
+
+#endif // __FRIENDIM_PLUGIN_H__

@@ -1,4 +1,10 @@
 // Mysis game_ext_plugin.h v0.1
+#ifndef __GAME_EXT_PLUGIN_H__
+#define __GAME_EXT_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*LoadPage)(void);                    // 0 Parameter: (creates page_game_main widget)
@@ -38,4 +44,6 @@ typedef struct
 	int (*installPKG)(char*);                 // 1 Parameter: char * pkg_path[0x400] (example: /dev_usb006/test.pkg)
 } game_ext_plugin_interface;
 
-game_ext_plugin_interface * game_ext_interface;
+_VSH_END
+
+#endif // __GAME_EXT_PLUGIN_H__

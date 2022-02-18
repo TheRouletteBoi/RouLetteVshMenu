@@ -1,4 +1,10 @@
 // Mysis impose_plugin.h v0.1
+#ifndef __IMPOSE_PLUGIN_H__
+#define __IMPOSE_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*DoUnk0)(int,void *);     // 2 Parameter: int value (1=Blue Screen of Death,2=Red Screen of Death,Else=page_btnnavi), void * ptr_handler
@@ -22,22 +28,8 @@ typedef struct
 	int (*DoUnk18)(void);
 } impose_plugin_interface;
 
-impose_plugin_interface * impose_interface;
 
 
+_VSH_END
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif // __IMPOSE_PLUGIN_H__

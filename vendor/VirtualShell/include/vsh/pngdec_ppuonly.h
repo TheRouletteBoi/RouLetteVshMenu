@@ -1,8 +1,12 @@
 #ifndef __PNGDEC_PPUONLY_H__
 #define __PNGDEC_PPUONLY_H__
+#include "vshtypes.h"
 
 
-extern "C" int pngdec_ppuonly_0C515302(CellPngDecMainHandle m,        // PngDecExtOpen()
+_VSH_BEGIN
+CDECL_BEGIN
+
+int pngdec_ppuonly_0C515302(CellPngDecMainHandle m,        // PngDecExtOpen()
                                    CellPngDecSubHandle *s,
                                    const CellPngDecSrc *src,
                                    CellPngDecOpnInfo *openInfo,
@@ -10,30 +14,30 @@ extern "C" int pngdec_ppuonly_0C515302(CellPngDecMainHandle m,        // PngDecE
                                    const CellPngDecOpnParam *opnParam);
 #define PngDecExtOpen pngdec_ppuonly_0C515302
 
-extern "C" int pngdec_ppuonly_157D30C5(CellPngDecMainHandle *m,       // PngDecCreate()
+int pngdec_ppuonly_157D30C5(CellPngDecMainHandle *m,       // PngDecCreate()
                                    const CellPngDecThreadInParam *in,
                                    CellPngDecThreadOutParam *out);
 #define PngDecCreate pngdec_ppuonly_157D30C5
 
-extern "C" int pngdec_ppuonly_2310F155(CellPngDecMainHandle m,        // PngDecDecodeData()
+int pngdec_ppuonly_2310F155(CellPngDecMainHandle m,        // PngDecDecodeData()
                                    CellPngDecSubHandle s,
                                    uint8_t *buf,
                                    const CellPngDecDataCtrlParam *ctl,
                                    CellPngDecDataOutInfo *out);
 #define PngDecDecodeData pngdec_ppuonly_2310F155
 
-extern "C" int pngdec_ppuonly_48436B2D(CellPngDecMainHandle *m,       // PngDecExtCreate()
+int pngdec_ppuonly_48436B2D(CellPngDecMainHandle *m,       // PngDecExtCreate()
                                    const CellPngDecThreadInParam *threadInParam,
                                    CellPngDecThreadOutParam *threadOutParam,
                                    const CellPngDecExtThreadInParam *extThreadInParam,
                                    CellPngDecExtThreadOutParam *extThreadOutParam);
 #define PngDecExtCreate pngdec_ppuonly_48436B2D
 
-extern "C" int pngdec_ppuonly_5B3D1FF1(CellPngDecMainHandle m,        // PngDecClose()
+int pngdec_ppuonly_5B3D1FF1(CellPngDecMainHandle m,        // PngDecClose()
                                    CellPngDecSubHandle s);
 #define PngDecClose pngdec_ppuonly_5B3D1FF1
 
-extern "C" int pngdec_ppuonly_726FC1D0(CellPngDecMainHandle m,        // PngDecExtDecodeData()
+int pngdec_ppuonly_726FC1D0(CellPngDecMainHandle m,        // PngDecExtDecodeData()
                                    CellPngDecSubHandle s,
                                    uint8_t *data,
                                    const CellPngDecDataCtrlParam *dataCtrlParam,
@@ -42,21 +46,21 @@ extern "C" int pngdec_ppuonly_726FC1D0(CellPngDecMainHandle m,        // PngDecE
                                    CellPngDecDispParam *dispParam);
 #define PngDecExtDecodeData pngdec_ppuonly_726FC1D0
 
-extern "C" int pngdec_ppuonly_820DAE1A(CellPngDecMainHandle m);       // PngDecDestroy()
+int pngdec_ppuonly_820DAE1A(CellPngDecMainHandle m);       // PngDecDestroy()
 #define PngDecDestroy pngdec_ppuonly_820DAE1A
 
-extern "C" int pngdec_ppuonly_8B33F863(CellPngDecMainHandle m,        // PngDecExtReadHeader()
+int pngdec_ppuonly_8B33F863(CellPngDecMainHandle m,        // PngDecExtReadHeader()
                                    CellPngDecSubHandle s,
                                    CellPngDecInfo *info,
                                    CellPngDecExtInfo *extInfo); 
 #define PngDecExtReadHeader pngdec_ppuonly_8B33F863
 
-extern "C" int pngdec_ppuonly_9CCDCC95(CellPngDecMainHandle m,        // PngDecReadHeader()
+int pngdec_ppuonly_9CCDCC95(CellPngDecMainHandle m,        // PngDecReadHeader()
                                    CellPngDecSubHandle s,
                                    CellPngDecInfo *info);
 #define PngDecReadHeader pngdec_ppuonly_9CCDCC95
 
-extern "C" int pngdec_ppuonly_9E9D7D42(CellPngDecMainHandle m,        // PngDecExtSetParameter()
+int pngdec_ppuonly_9E9D7D42(CellPngDecMainHandle m,        // PngDecExtSetParameter()
                                    CellPngDecSubHandle s,
                                    const CellPngDecInParam *inParam,
                                    CellPngDecOutParam *outParam,
@@ -64,17 +68,19 @@ extern "C" int pngdec_ppuonly_9E9D7D42(CellPngDecMainHandle m,        // PngDecE
                                    CellPngDecExtOutParam *extOutParam);
 #define PngDecExtSetParameter pngdec_ppuonly_9E9D7D42
 
-extern "C" int pngdec_ppuonly_D2BC5BFD(CellPngDecMainHandle m,        // PngDecOpen()
+int pngdec_ppuonly_D2BC5BFD(CellPngDecMainHandle m,        // PngDecOpen()
                                    CellPngDecSubHandle *s,
                                    const CellPngDecSrc *src,
                                    CellPngDecOpnInfo *info);
 #define PngDecOpen pngdec_ppuonly_D2BC5BFD
 
-extern "C" int pngdec_ppuonly_E97C9BD4(CellPngDecMainHandle m,        // PngDecSetParameter()
+int pngdec_ppuonly_E97C9BD4(CellPngDecMainHandle m,        // PngDecSetParameter()
                                    CellPngDecSubHandle s,
                                    const CellPngDecInParam *in,
                                    CellPngDecOutParam *out);
 #define PngDecSetParameter pngdec_ppuonly_E97C9BD4
 
+CDECL_END
+_VSH_END
 
 #endif // __PNGDEC_PPUONLY_H__ 

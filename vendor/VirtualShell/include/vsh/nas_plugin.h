@@ -1,4 +1,11 @@
 // Mysis nas_plugin.h v0.1
+#ifndef __NAS_PLUGIN_H__
+#define __NAS_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*DoUnk0)(int);                              // 1 Parameter: int (0 - 0x29) - create nas_dialog, nas_installer, page_nas - page_default_theme / page_wallpaper_theme (0, 1000.0f)
@@ -38,4 +45,7 @@ typedef struct
 	int (*DoUnk34)(void *);                                               //  1 Parameter: void * [0x178?]
 } nas_plugin_interface;
 
-nas_plugin_interface * nas_interface;
+
+_VSH_END
+
+#endif // __NAS_PLUGIN_H__

@@ -1,65 +1,72 @@
 // Mysis xmb_plugin.h v0.1
+#ifndef __XMB_PLUGIN_H__
+#define __XMB_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
+
 enum plugins
 {
-	system_plugin=0x00,
-	xmb_plugin=0x01,
-	explore_plugin=0x02,
-	category_setting_plugin=0x03,
-	user_plugin=0x04,
-	sysconf_plugin=0x05,
-	netconf_plugin=0x06,
-	software_update_plugin=0x07,
-	edy_plugin=0x08,
-	print_plugin=0x09,
-	deviceconf_plugin=0x0A,
-	photoviewer_plugin=0x0B,
-	audioplayer_plugin=0x0D,
-	sacd_plugin=0x0E,
-	eula_cddb_plugin=0x0F,
-	videoplayer_plugin=0x10,
-	bdp_plugin=0x11,
-	bdp_disccheck_plugin=0x12,
-	bdp_storage_plugin=0x13,
-	game_plugin=0x14,
-	gamedata_plugin=0x15,
-	game_ext_plugin=0x16,
-	ps3_savedata_plugin=0x17,
-	vmc_savedata_plugin=0x18,
-	premo_plugin=0x1A,
-	webbrowser_plugin=0x1B,
-	webrender_plugin=0x1C,
-	xai_plugin=0x1D,
-	friendim_plugin=0x1E,
-	friendml_plugin=0x1F,
-	avc_plugin=0x20,
-	avc2_text_plugin=0x21,
-	nas_plugin=0x22,
-	npsignin_plugin=0x23,
-	np_trophy_plugin=0x24,
-	np_trophy_ingame=0x25,
-	friendtrophy_plugin=0x26,
-	profile_plugin=0x27,
-	videodownloader_plugin=0x28,
-	download_plugin=0x29,
-	thumthum_plugin=0x2A,
-	micon_lock_plugin=0x2B,
-	dlna_plugin=0x2C,
-	strviewer_plugin=0x2D,
-	playlist_plugin=0x2F,
-	newstore_plugin=0x31,
-	hknw_plugin=0x32,
-	kensaku_plugin=0x34,
-	regcam_plugin=0x35,
-	idle_plugin=0x36,
-	filecopy_plugin=0x37,
-	wboard_plugin=0x38,
-	poweroff_plugin=0x39,
-	videoeditor_plugin=0x3A,
-	scenefolder_plugin=0x3B,
-	eula_hcopy_plugin=0x3C,
-	mtpinitiator_plugin=0x3E,
-	campaign_plugin=0x3F,
-	remotedownload_plugin=0x40
+	system_plugin = 0x00,
+	xmb_plugin = 0x01,
+	explore_plugin = 0x02,
+	category_setting_plugin = 0x03,
+	user_plugin = 0x04,
+	sysconf_plugin = 0x05,
+	netconf_plugin = 0x06,
+	software_update_plugin = 0x07,
+	edy_plugin = 0x08,
+	print_plugin = 0x09,
+	deviceconf_plugin = 0x0A,
+	photoviewer_plugin = 0x0B,
+	audioplayer_plugin = 0x0D,
+	sacd_plugin = 0x0E,
+	eula_cddb_plugin = 0x0F,
+	videoplayer_plugin = 0x10,
+	bdp_plugin = 0x11,
+	bdp_disccheck_plugin = 0x12,
+	bdp_storage_plugin = 0x13,
+	game_plugin = 0x14,
+	gamedata_plugin = 0x15,
+	game_ext_plugin = 0x16,
+	ps3_savedata_plugin = 0x17,
+	vmc_savedata_plugin = 0x18,
+	premo_plugin = 0x1A,
+	webbrowser_plugin = 0x1B,
+	webrender_plugin = 0x1C,
+	xai_plugin = 0x1D,
+	friendim_plugin = 0x1E,
+	friendml_plugin = 0x1F,
+	avc_plugin = 0x20,
+	avc2_text_plugin = 0x21,
+	nas_plugin = 0x22,
+	npsignin_plugin = 0x23,
+	np_trophy_plugin = 0x24,
+	np_trophy_ingame = 0x25,
+	friendtrophy_plugin = 0x26,
+	profile_plugin = 0x27,
+	videodownloader_plugin = 0x28,
+	download_plugin = 0x29,
+	thumthum_plugin = 0x2A,
+	micon_lock_plugin = 0x2B,
+	dlna_plugin = 0x2C,
+	strviewer_plugin = 0x2D,
+	playlist_plugin = 0x2F,
+	newstore_plugin = 0x31,
+	hknw_plugin = 0x32,
+	kensaku_plugin = 0x34,
+	regcam_plugin = 0x35,
+	idle_plugin = 0x36,
+	filecopy_plugin = 0x37,
+	wboard_plugin = 0x38,
+	poweroff_plugin = 0x39,
+	videoeditor_plugin = 0x3A,
+	scenefolder_plugin = 0x3B,
+	eula_hcopy_plugin = 0x3C,
+	mtpinitiator_plugin = 0x3E,
+	campaign_plugin = 0x3F,
+	remotedownload_plugin = 0x40
 };
 
 typedef struct
@@ -91,8 +98,6 @@ typedef struct
 	int (*DoUnk24)(const char *,int) ;           // Gets Plugin ID Enum based by Action string
 	int (*DoUnk25)(void) ;
 } xmb_plugin_xmm0;
-
-xmb_plugin_xmm0 * xmm0_interface;
 
 typedef struct
 {
@@ -131,12 +136,12 @@ typedef struct
 	int (*DoUnk32)(int);                        // int value (0=page close, else= setwidget) - page_xmb_fg
 } xmb_plugin_xmb2;
 
-xmb_plugin_xmb2 * xmb2_interface;
-
 typedef struct
 {
 	int (*DoUnk0)(void);
 	int (*DoUnk1)(void);
 } xmb_plugin_mod0;
 
-xmb_plugin_mod0 * mod0_interface;
+_VSH_END
+
+#endif // __XMB_PLUGIN_H__

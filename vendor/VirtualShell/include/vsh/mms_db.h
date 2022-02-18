@@ -1,6 +1,10 @@
 #ifndef __MMS_DB_H__
 #define __MMS_DB_H__
+#include "vshtypes.h"
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 // mms_db_003952CA  // ?
 // mms_db_00725E38  // ?
@@ -566,5 +570,7 @@
 // mms_db_FEF03153  // ?
 // mms_db_FF1EA2F5  // ?
 
+CDECL_END
+_VSH_END
 
 #endif // __MMS_DB_H__ 

@@ -1,5 +1,9 @@
 #ifndef __DOWNLOAD_PLUGIN_H__
 #define __DOWNLOAD_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
 
 typedef struct download_plugin_interface_t
 {
@@ -24,13 +28,12 @@ typedef struct download_plugin_interface_t
 	int32_t (*DoUnk18)(int, void *);													// 2 Parameter: int (0-4), unk_struct - "page_select_instant_play"
 } download_plugin_interface;
 
-download_plugin_interface * download_interface;
-
 typedef struct
 {
 	int32_t (*Action)(const char *);                   // 1 Parameter: char * numbers (Interface 1, func 0)
 } download_act0_if;                                    // Interface ACT0
 
-download_act0_if * download_act0;
+
+_VSH_END
 
 #endif // __DOWNLOAD_PLUGIN_H__

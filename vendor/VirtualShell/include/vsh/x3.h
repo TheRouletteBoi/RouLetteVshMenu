@@ -1,6 +1,9 @@
 #ifndef __X3_H__
 #define __X3_H__
+#include "vshtypes.h"
 
+_VSH_BEGIN
+CDECL_BEGIN
 
 // x3_003745F4  // ?
 // x3_05471587  // ?
@@ -129,5 +132,8 @@
 // x3_F85DD772  // ?
 // x3_FA705F30  // ?
 // x3_FBC581BF  // ?
+
+CDECL_END
+_VSH_END
 
 #endif // __X3_H__ 

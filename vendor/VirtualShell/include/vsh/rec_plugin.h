@@ -2,6 +2,9 @@
 // 3141card (C style version)
 #ifndef __REC_PLUGIN_H__
 #define __REC_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
 
 typedef struct rec_plugin_interface_t
 {
@@ -15,6 +18,6 @@ typedef struct rec_plugin_interface_t
 	int32_t (*etie)(int32_t end_time_msec); //RecSetInfo
 } rec_plugin_interface;
 
-rec_plugin_interface *rec_interface;
+_VSH_END
 
 #endif // __REC_PLUGIN_H__

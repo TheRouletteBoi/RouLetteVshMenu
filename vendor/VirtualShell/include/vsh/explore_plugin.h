@@ -1,4 +1,11 @@
 // Mysis explore_plugin.h v0.1 (http://www.psdevwiki.com/ps3/Explore_plugin)
+#ifndef __EXPLORE_PLUGIN_H__
+#define __EXPLORE_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*DoUnk0)(void);  // 1 Parameter: int value 0 - 4
@@ -33,4 +40,7 @@ typedef struct
 	int (*DoUnk29)(void); // 2 Parameter: char * ,
 } explore_plugin_interface;
 
-explore_plugin_interface * explore_interface;
+
+_VSH_END
+
+#endif // __EXPLORE_PLUGIN_H__

@@ -1,6 +1,10 @@
 #ifndef __ESECRON_H__
 #define __ESECRON_H__
+#include "vshtypes.h"
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 // esecron_0C8D7A60  // ?
 // esecron_179B1B1B  // ?
@@ -49,5 +53,8 @@
 // esecron_F421B2ED  // ?
 // esecron_F9889F5B  // ?
 
+
+CDECL_END
+_VSH_END
 
 #endif // __ESECRON_H__ 

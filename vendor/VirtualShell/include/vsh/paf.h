@@ -1,48 +1,54 @@
 #ifndef __PAF_H__
 #define __PAF_H__
+#include "vshtypes.h"
+#include "vshmath.h"
+#include <stdint.h>
 
+_VSH_BEGIN
+CDECL_BEGIN
 
 // paf_1565FC46  // ?
 
-extern "C" void* paf_AF58E756(void);  // Gets the base of loaded plugins. The pointer returned is used in paf::View::Find to find plugins.
-#define GetSPRXBaseAddr paf_AF58E756
+void* paf_AF58E756(void);  // Gets the base of loaded plugins. The pointer returned is used in paf::View::Find to find plugins.
+static void* GetSPRXBaseAddr() { return paf_AF58E756(); }
 
 // paf_A4819ADB  // ? main_mem / rwlock_unlock
 // paf_0EAA28B8  // ?
 // paf_59BDA198  // ? rsx command buffer
 
-extern "C" void paf_85D1D23B(void);  // ?, base pointer: pad_data / pad_lwmtx
+void paf_85D1D23B(void);  // ?, base pointer: pad_data / pad_lwmtx
 
 // paf_A5B4FB55  // ? init libs: gcm, io, ...
 
-extern "C" uint32_t *paf_23AFB290(uint32_t arg, uint32_t id);  // gets Interface from plugin, 	uint32_t plugin->GetInterface(uint32_t return from paf_F21655F3, uint32_t identifier)
-#define plugin_GetInterface paf_23AFB290
+uint32_t* paf_23AFB290(uint32_t arg, uint32_t id);  // gets Interface from plugin, 	uint32_t plugin->GetInterface(uint32_t return from paf_F21655F3, uint32_t identifier)
+static uint32_t* View_GetInterface(uint32_t arg, uint32_t id) { return paf_23AFB290(arg, id); }
+
 
 // paf_35A9C2F9  // ?
 // paf_728BFDFC  // ?
 // paf_F5BEB953  // ?
 // paf_2C4E7D1C  // ?
 
-extern "C" uint32_t paf_0A1DC401(uint32_t unknown, uint32_t identifier, void* ptr_structure);  // sets Interface from plugin 	uint32_t SetInterface(unknown, uint32_t identifier, void *ptr_structure)
-#define plugin_SetInterface paf_0A1DC401
+uint32_t paf_0A1DC401(uint32_t unknown, uint32_t identifier, void* ptr_structure);  // sets Interface from plugin 	uint32_t SetInterface(unknown, uint32_t identifier, void *ptr_structure)
+static uint32_t View_SetInterface(uint32_t unknown, uint32_t identifier, void* ptr_structure) { return paf_0A1DC401(unknown, identifier, ptr_structure); }
 
 // paf_2361E649  // ?
 // paf_2166E819  // ? PageActivate
 
-extern "C" uint32_t paf_794CEACB(uint32_t plugin, const char *widget); // paf_794CEACB  // finds widget in a plugin 	Example: plugin->FindWidget(return from paf_F21655F3, "page_autooff_guide")
-#define FindWidget paf_794CEACB
-															  
+uint32_t paf_794CEACB(uint32_t plugin, const char* widget); // paf_794CEACB  // finds widget in a plugin 	Example: plugin->FindWidget(return from paf_F21655F3, "page_autooff_guide")
+static uint32_t View_FindWidget(uint32_t plugin, const char* widget) { return paf_794CEACB(plugin, widget); }
+
 // paf_E014D3BA  // ?
 
-extern "C" uint32_t paf_50CDB465(uint32_t plugin, const char *sound);  // finds/gets Sound resource 	uint32_t paf_50CDB465(uint32_t plugin /*paf_F21655F3*/, const char *sound)
-#define GetRCOSound paf_50CDB465
+uint32_t paf_50CDB465(uint32_t plugin, const char* sound);  // finds/gets Sound resource 	uint32_t paf_50CDB465(uint32_t plugin /*paf_F21655F3*/, const char *sound)
+static uint32_t View_GetSound(uint32_t plugin, const char* sound) { return paf_50CDB465(plugin, sound); }
 
-extern "C" void paf_B93AFE7E(uint32_t plugin, const char* sound, float arg1, int arg2);  // Example: paf_B93AFE7E( paf_F21655F3("system_plugin"), "snd_trophy", 1, 0)
-#define PlayRCOSound paf_B93AFE7E
+void paf_B93AFE7E(uint32_t plugin, const char* sound, float arg1, int arg2);  // Example: paf_B93AFE7E( paf_F21655F3("system_plugin"), "snd_trophy", 1, 0)
+static void View_PlaySound(uint32_t plugin, const char* sound, float arg1, int arg2) { paf_B93AFE7E(plugin, sound, arg1, arg2); }
 //Example: PlayRCOSound( FindLoadedPlugin("system_plugin"), "snd_trophy", 1, 0)
 
-extern "C" uint32_t paf_3A8454FC(uint32_t* texture, uint32_t plugin, const char *texture_name);
-#define LoadRCOTexture paf_3A8454FC
+uint32_t paf_3A8454FC(uint32_t* texture, uint32_t plugin, const char* texture_name);
+static uint32_t View_GetTexture(uint32_t* texture, uint32_t plugin, const char* texture_name) { return paf_3A8454FC(texture, plugin, texture_name); }
 
 //void(*vshcommon_A20E43DB)(int32_t, const char* eventName, int32_t, int32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, int32_t, int32_t);
 //int dummy = 0; vshcommon_A20E43DB(0, const char* eventName, int32_t, int32_t* texture /*paf_3A8454FC*/, &dummy, "", "", 0f, L"notification", 0, 0, 0)
@@ -51,8 +57,8 @@ extern "C" uint32_t paf_3A8454FC(uint32_t* texture, uint32_t plugin, const char 
 // paf_A499E2BE  // ? texture
 // paf_3A8454FC  // finds/gets Texture resource 	Example: out: uint32_t* texture, return from paf_F21655F3, "tex_notification_info"
 
-extern "C" wchar_t* paf_89B67B9C(int p0, const char *p1); // paf_89B67B9C  // gets localized string text from plugin resource (Different strings are returned depending on the system language) 	Example: (w)char (paf_F21655F3("system_plugin"), "msg_signed_out")
-#define GetMsgString paf_89B67B9C
+wchar_t* paf_89B67B9C(int p0, const char* p1); // paf_89B67B9C  // gets localized string text from plugin resource (Different strings are returned depending on the system language) 	Example: (w)char (paf_F21655F3("system_plugin"), "msg_signed_out")
+static wchar_t* View_GetString(int p0, const char* p1) { return paf_89B67B9C(p0, p1); }
 
 // paf_E50657B1  // ?
 // paf_11E195B3  // Finds Resource Object (located in .rco) 	void* paf_11E195B3(uint32_t plugin, const char* object) // Example: paf_B93AFE7E( paf_F21655F3("system_plugin"), "page_notification")
@@ -60,29 +66,29 @@ extern "C" wchar_t* paf_89B67B9C(int p0, const char *p1); // paf_89B67B9C  // ge
 // paf_75457863  // ? close page
 // paf_3CEC3833  // ? sets up a plugin widget ? (page_...)
 
-extern "C" uint32_t paf_F21655F3(const char *sprx_name);  // finds a loaded plugin 	uint32_t paf::View::Find(const char* plugin) Example: uint32_t paf::View::Find("system_plugin")
-#define FindLoadedPlugin paf_F21655F3
+uint32_t paf_F21655F3(const char* sprx_name);  // finds a loaded plugin 	uint32_t paf::View::Find(const char* plugin) Example: uint32_t paf::View::Find("system_plugin")
+static uint32_t View_Find(const char* sprx_name) { return paf_F21655F3(sprx_name); }
 
 // paf_65BE85B3  // _UnloadView 	_paf_65BE85B3(char *sprx_name, 0, 0)
 // paf_C6B89CEE  // ?
 // paf_28B0A5D9  // ?
 
 // paf_B9152E15  // ? interface
-//extern "C" void paf_2F5CEE6D();  // stop and unload sprx 	void paf_2F5CEE6D(int32_t* prx_struct)
+//void paf_2F5CEE6D();  // stop and unload sprx 	void paf_2F5CEE6D(int32_t* prx_struct)
 // paf_CF068D31  // load (optional on memcontainer) and start sprx 	void paf_CF068D31(int32_t* prx_struct, const char* path, int /*ignored*/, int /*0*/, (optional) const sys_memory_container_t *mem_container)
 // paf_08598228  // ?
 // paf_01D59A4E  // ?
 
 // paf_D2CBEDF8  // ?
 // paf_E22D7B0C  // ?
-// extern "C" int32_t paf_EB793E25(void);  // ret -1
-// extern "C" int32_t paf_A28C8100(void);  // ret -1
-// extern "C" int32_t paf_B8979AD7(void);  // ret -1
-// extern "C" int32_t paf_57B6F6B2(void);  // ret -1
-// extern "C" int32_t paf_C35764DF(void);  // ret -1
-// extern "C" int32_t paf_DF3A2CA7(void);  // ret -1
-// extern "C" int32_t paf_BF575328(void);  // ret -1
-// extern "C" int32_t paf_29C739F4(void);  // ret -1
+// int32_t paf_EB793E25(void);  // ret -1
+// int32_t paf_A28C8100(void);  // ret -1
+// int32_t paf_B8979AD7(void);  // ret -1
+// int32_t paf_57B6F6B2(void);  // ret -1
+// int32_t paf_C35764DF(void);  // ret -1
+// int32_t paf_DF3A2CA7(void);  // ret -1
+// int32_t paf_BF575328(void);  // ret -1
+// int32_t paf_29C739F4(void);  // ret -1
 
 // paf_CC3EC021  // ?
 // paf_0BA57D3D  // ?
@@ -192,7 +198,7 @@ extern "C" uint32_t paf_F21655F3(const char *sprx_name);  // finds a loaded plug
 
 // paf_763D3390  // ?
 
-extern "C" const char *paf_546B3D02(void);  // returns "PhWidget"
+const char* paf_546B3D02(void);  // returns "PhWidget"
 
 // paf_FF527836  // ?
 // paf_00C9AFA5  // ?
@@ -210,7 +216,7 @@ extern "C" const char *paf_546B3D02(void);  // returns "PhWidget"
 // paf_9AB6B3EC  // ?
 // paf_6CD13DF4  // ?
 
-extern "C" void paf_75295C38(uint32_t r3, uint32_t r4);
+void paf_75295C38(uint32_t r3, uint32_t r4);
 
 // paf_5364F246  // ?
 
@@ -229,18 +235,18 @@ extern "C" void paf_75295C38(uint32_t r3, uint32_t r4);
 // paf_35556CA6  // ?
 
 
-extern "C" const char *paf_41BBFE5E(void);  // returns "PhScene"
+const char* paf_41BBFE5E(void);  // returns "PhScene"
 
 // paf_1802C687  // ?
 
-extern "C" const char *paf_10DEDCC7(void);  // returns "PhPlane"
+const char* paf_10DEDCC7(void);  // returns "PhPlane"
 
-extern "C" const char *paf_E36C18F5(void);  // returns "PhPlaneDiv"
+const char* paf_E36C18F5(void);  // returns "PhPlaneDiv"
 
 // paf_0C16A258  // ?
 // paf_8ABAE2F3  // ?
 
-extern "C" const char *paf_24A5BD6B(void);  // returns "PhButton"
+const char* paf_24A5BD6B(void);  // returns "PhButton"
 
 // paf_4427D818  // ?
 
@@ -250,29 +256,29 @@ extern "C" const char *paf_24A5BD6B(void);  // returns "PhButton"
 
 // paf_344BAB53  // ?
 
-extern "C" const char *paf_B7DFCE90(void);  // returns "PhText"
+const char* paf_B7DFCE90(void);  // returns "PhText"
 // paf_62685916  // ?
 // paf_B37491C6  // ?
 
 // paf_022FDDB8  // ?
 // paf_70AEB483  // ?
 
-extern "C" const char *paf_009207F4(void);  // returns "PhScroll"
+const char* paf_009207F4(void);  // returns "PhScroll"
 
-extern "C" const char *paf_BA6D149A(void);  // returns "PhLabelPrim"
+const char* paf_BA6D149A(void);  // returns "PhLabelPrim"
 
-extern "C" const char *paf_C88CA4B2(void);  // returns "PhLevelMeter"
+const char* paf_C88CA4B2(void);  // returns "PhLevelMeter"
 
-extern "C" const char *paf_E801C345(void);  // returns "PhProgress"
+const char* paf_E801C345(void);  // returns "PhProgress"
 
-extern "C" const char *paf_BF66BF2D(void);  // returns "PhCheckBox"
+const char* paf_BF66BF2D(void);  // returns "PhCheckBox"
 
 // paf_B7377945  // _ZN3paf10PhCheckBox6CreateEv	paf::PhCheckBox::Create(void)
 // paf_5A85BEFC  // _ZN3paf10PhCheckBox8SetCheckEbb	paf::PhCheckBox::SetCheck(bool, bool)
 
 // paf_176E3BC4  // _ZN3paf10PhCheckBoxC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhCheckBox::PhCheckBox(paf::PhWidget *, paf::PhAppear *)
 
-extern "C" const char *paf_703117AD(void);  // returns "PhXmBar"
+const char* paf_703117AD(void);  // returns "PhXmBar"
 
 // paf_C1A00166  // _ZN3paf7PhXmBar13GetListWidgetEi	paf::PhXmBar::GetListWidget(int)
 
@@ -285,7 +291,7 @@ extern "C" const char *paf_703117AD(void);  // returns "PhXmBar"
 // paf_85BAAAA8  // _ZN3paf7PhXmBar8IconMoveERK4vec4ffbiii	paf::PhXmBar::IconMove(vec4 const&, float, float, bool, int, int, int)
 // paf_6C8F62F7  // _ZN3paf7PhXmBar19GetFocusedItemIndexEi	paf::PhXmBar::GetFocusedItemIndex(int)
 
-extern "C" const char *paf_4FF7B8A9(void);  // returns "PhXmList"
+const char* paf_4FF7B8A9(void);  // returns "PhXmList"
 // paf_5DBA65AA  // ?
 // paf_01059AF3  // ?
 
@@ -296,7 +302,7 @@ extern "C" const char *paf_4FF7B8A9(void);  // returns "PhXmList"
 
 // paf_81840F26  // ?
 
-extern "C" const char *paf_C84FD77B(void);  // returns "PhXmItem"
+const char* paf_C84FD77B(void);  // returns "PhXmItem"
 
 // paf_E8149213  // ?
 
@@ -332,7 +338,7 @@ extern "C" const char *paf_C84FD77B(void);  // returns "PhXmItem"
 // paf_040D12CE  // ?
 // paf_053D12C7  // ?
 
-extern "C" const char *paf_4C36ABBB(void);  // returns "PhItemSpin"
+const char* paf_4C36ABBB(void);  // returns "PhItemSpin"
 
 // paf_46291F6A  // ?
 
@@ -344,32 +350,32 @@ extern "C" const char *paf_4C36ABBB(void);  // returns "PhItemSpin"
 // paf_05E98BC2  // ?
 // paf_9910148E  // ?
 
-extern "C" const char *paf_CA9160F6(void);  // returns "PhNumSpin"
-extern "C" const char *paf_59A11C82(void);  // returns "PhNumSpin"
+const char* paf_CA9160F6(void);  // returns "PhNumSpin"
+const char* paf_59A11C82(void);  // returns "PhNumSpin"
 
 // paf_E7C62F48  // ?
 // paf_D28C76AB  // ?
 // paf_40725ECF  // ?
 
-extern "C" const char *paf_D64EDE7C(void);  // returns "PhList"
+const char* paf_D64EDE7C(void);  // returns "PhList"
 
 // paf_094CD214  // ?
 
 // paf_43A9D78C  // ?
 
-extern "C" const char *paf_F7630798(void);  // returns "PhInfoList"
+const char* paf_F7630798(void);  // returns "PhInfoList"
 
 // paf_0D1BA494  // ?
 
 // paf_816D1A8F  // ?
 // paf_EE05CF53  // ?
 
-extern "C" const char *paf_A98865F8(void);  // returns "PhMenuList"
+const char* paf_A98865F8(void);  // returns "PhMenuList"
 // paf_88DB3841  // ?
 
-extern "C" const char *paf_90F4F801(void);  // returns "PhCheckBoxList"
+const char* paf_90F4F801(void);  // returns "PhCheckBoxList"
 
-extern "C" const char *paf_DDD4ACF6(void);  // returns "PhLabelText"
+const char* paf_DDD4ACF6(void);  // returns "PhLabelText"
 
 // paf_3976AFC7  // ?
 
@@ -377,7 +383,7 @@ extern "C" const char *paf_DDD4ACF6(void);  // returns "PhLabelText"
 
 // paf_1F54F28F  // ?
 
-extern "C" const char *paf_545D47A2(void);  // returns "PhClock"
+const char* paf_545D47A2(void);  // returns "PhClock"
 
 // paf_BBFF3B2F  // ? get.. (u32 address(IN), u16 arg2[4](OUT))
 
@@ -391,7 +397,7 @@ extern "C" const char *paf_545D47A2(void);  // returns "PhClock"
 
 
 ////////////////////////////////////////////////////////////////////////
-extern "C" const char *paf_3806365F(void);  // returns "PhIPAddr"
+const char* paf_3806365F(void);  // returns "PhIPAddr"
 
 // paf_685F1C8B  // ?
 
@@ -573,11 +579,11 @@ extern "C" const char *paf_3806365F(void);  // returns "PhIPAddr"
 // paf_BD1BF0B7  // ? set...
 // paf_0FFACD6D  // void get_local_memory_base_add_and_size(u32 *addr, u32 *size) // 0xC0000000(addr) 0x0FE00000(size, vsh.self)
 
-extern "C" uint32_t paf_F476E8AA(void);  //  u32 get_display_width
-#define getDisplayWidth paf_F476E8AA
+uint32_t paf_F476E8AA(void);  //  u32 get_display_width
+static uint32_t pafGuGetDrawSurfW() { return paf_F476E8AA(); }
 
-extern "C" uint32_t paf_AC984A12(void);  // u32 get_display_height
-#define getDisplayHeight paf_AC984A12
+uint32_t paf_AC984A12(void);  // u32 get_display_height
+static uint32_t pafGuGetDrawSurfH() { return paf_AC984A12(); }
 
 // paf_FED92BA1  // get window offset x
 // paf_04C8FC89  // get window offset y
@@ -600,19 +606,19 @@ extern "C" uint32_t paf_AC984A12(void);  // u32 get_display_height
 // paf_00DEAD04  // ? set...
 // paf_5D55D85E  // ? get...
 
-extern "C" int32_t paf_FFE0FBC9(uint32_t *pitch, uint32_t *unk1);  // unk1 = 0x12 color bit depth? ret 0
-#define getDisplayPitch paf_FFE0FBC9
+int32_t paf_FFE0FBC9(uint32_t* pitch, uint32_t* unk1);  // unk1 = 0x12 color bit depth? ret 0
+static int32_t getDisplayPitch(uint32_t* pitch, uint32_t* unk1) { return paf_FFE0FBC9(pitch, unk1); }
 
 // int32_t paf_076402CA  // ? get... (uint32_t *unk1, uint32_t *unk2, uint32_t *unk3) ret 0
 // paf_29EE6E08  // ? set...
 
-extern "C" void paf_92AA2072(uint32_t *unk1, uint32_t *offset, uint32_t *pitch);  // current displayed buffer values(offset only in xmb), unk1 = 0x12 color bit depth?
+void paf_92AA2072(uint32_t* unk1, uint32_t* offset, uint32_t* pitch);  // current displayed buffer values(offset only in xmb), unk1 = 0x12 color bit depth?
 
-extern "C" void paf_420FAB72(int32_t *x, int32_t *y, int32_t *w, int32_t *h);  // get viewport values
-#define getDisplayViewport paf_420FAB72
+void paf_420FAB72(int32_t* x, int32_t* y, int32_t* w, int32_t* h);  // get viewport values
+static void getDisplayViewport(int32_t* x, int32_t* y, int32_t* w, int32_t* h) { paf_420FAB72(x, y, w, h); }
 
-extern "C" void paf_94AE6813(int32_t *x, int32_t *y, int32_t *w, int32_t *h);  // get scissor box values
-#define getDisplayScissorBox paf_94AE6813
+void paf_94AE6813(int32_t* x, int32_t* y, int32_t* w, int32_t* h);  // get scissor box values
+static void getDisplayScissorBox(int32_t* x, int32_t* y, int32_t* w, int32_t* h) { paf_94AE6813(x, y, w, h); }
 
 // paf_3F2FD49C  // depth_buffer
 
@@ -630,7 +636,7 @@ extern "C" void paf_94AE6813(int32_t *x, int32_t *y, int32_t *w, int32_t *h);  /
 
 // paf_84D5E999  // gcm set clear color
 // paf_19731532  // gcm set clear depth stencil
-// extern "C" void paf_191AD326(uint16_t x, uint16_t y, uint16_t width, uint16_t height)  // gcm set viewport
+// void paf_191AD326(uint16_t x, uint16_t y, uint16_t width, uint16_t height)  // gcm set viewport
 // paf_ADD67C35  // ? gcm set a float array, (1,1,1,1) vertex data ?
 
 // paf_124DDBC5  // ? gcm set...
@@ -659,7 +665,7 @@ extern "C" void paf_94AE6813(int32_t *x, int32_t *y, int32_t *w, int32_t *h);  /
 
 // paf_D1748BF8  // ?
 // paf_F8140602  // ?
-extern "C" int32_t paf_0C74837D(int32_t *surfacePool, int32_t p1, int32_t p2, int32_t imageMode, int32_t imageOrder, bool p5, int32_t p6, int32_t p7);
+int32_t paf_0C74837D(int32_t* surfacePool, int32_t p1, int32_t p2, int32_t imageMode, int32_t imageOrder, bool p5, int32_t p6, int32_t p7);
 // paf_8EF81BFE  // ?
 
 // paf_4192B349  // ?
@@ -667,7 +673,7 @@ extern "C" int32_t paf_0C74837D(int32_t *surfacePool, int32_t p1, int32_t p2, in
 
 // paf_698E01BE  // ?
 
-extern "C" int32_t paf_BFA7DC8D(int32_t arg1, int32_t arg2);  // ? XMB(0, 1), else (0, 0), gcm_surface_spu_thread_group
+int32_t paf_BFA7DC8D(int32_t arg1, int32_t arg2);  // ? XMB(0, 1), else (0, 0), gcm_surface_spu_thread_group
 // paf_AA8860B9  // ?
 // paf_EDB089C8  // ?
 
@@ -706,7 +712,7 @@ extern "C" int32_t paf_BFA7DC8D(int32_t arg1, int32_t arg2);  // ? XMB(0, 1), el
 
 // paf_5687CB15  // ? pad...
 
-extern "C" void paf_503187C0(void);  // base pointer, pad
+void paf_503187C0(void);  // base pointer, pad
 
 // paf_0F9B4667  // ? pad...
 
@@ -725,7 +731,7 @@ extern "C" void paf_503187C0(void);  // base pointer, pad
 
 // paf_3139BCBD  // ?
 
-extern "C" int32_t paf_55F2C2A6(void);  // eject disk
+int32_t paf_55F2C2A6(void);  // eject disk
 
 // paf_5264AC5C	  // PAF_Resource_DOMGetNodeChildByID
 // paf_20BA8E1A	  // PAF_Resource_DOMGetNodeChildByPos
@@ -948,8 +954,8 @@ extern "C" int32_t paf_55F2C2A6(void);  // eject disk
 // paf_3ADA193F	  // _ZN3paf5Sound6Output8GetStateEjjP21xSettingAudioOutState	paf::Sound::Output::GetState(unsigned int, unsigned int, xSettingAudioOutState *)
 // paf_FC23139F	  // _ZN3paf5Sound6Output9ConfigureEjP29xSettingAudioOutConfigurationP22xSettingAudioOutOptionj	paf::Sound::Output::Configure(unsigned int, xSettingAudioOutConfiguration *, xSettingAudioOutOption *, unsigned int)
 
-extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12SetInterfaceEiPv	paf::Module::SetInterface(int, void *)
-#define plugin_SetInterface2 paf_3F7CB0BF
+int paf_3F7CB0BF(void*, int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12SetInterfaceEiPv	paf::Module::SetInterface(int, void *)
+static int plugin_SetInterface2(void* a1, int a2, void* a3) { return paf_3F7CB0BF(a1, a2, a3); }
 
 // paf_2F5CEE6D	  // _ZN3paf6ModuleD1Ev	paf::Module::~Module()
 // paf_27527B03	  // _ZN3paf6PhFont14GetNumFontListEv	paf::PhFont::GetNumFontList(void)
@@ -979,6 +985,7 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_A4091F9	  // _ZN3paf6PhSpin8GetStyleEiRi	paf::PhSpin::GetStyle(int, int &)
 // paf_2030C3B9	  // _ZN3paf6PhSpin8SetFocusEPNS_7PhEventEj	paf::PhSpin::SetFocus(paf::PhEvent *, unsigned int)
 // paf_1DCA42A6	  // _ZN3paf6PhSpin8SetStyleEii	paf::PhSpin::SetStyle(int, int)
+
 // paf_4569ABC3	  // _ZN3paf6PhText10InsertTextEjRKSbIwSt11char_traitsIwESaIwEE	paf::PhText::InsertText(unsigned int, std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>> const&)
 // paf_FE119299	  // _ZN3paf6PhText10SetVScrollEPNS_8PhScrollE	paf::PhText::SetVScroll(paf::PhScroll *)
 // paf_B7DFCE90	  // _ZN3paf6PhText10WidgetTypeEv	paf::PhText::WidgetType(void)
@@ -996,7 +1003,9 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_E75F9969	  // _ZN3paf6PhText8LineDownEj	paf::PhText::LineDown(unsigned int)
 // paf_6B620D94	  // _ZN3paf6PhText9EraseTextEjj	paf::PhText::EraseText(unsigned int, unsigned int)
 // paf_201528C1	  // _ZN3paf6PhText9ShowCaretEb	paf::PhText::ShowCaret(bool)
-// paf_7F0930C6	  // _ZN3paf6PhTextC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhText::PhText(paf::PhWidget *, paf::PhAppear *)
+void paf_7F0930C6(void* text, void* parent, void* appear);	  // _ZN3paf6PhTextC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhText::PhText(paf::PhWidget *, paf::PhAppear *)
+static void PhText_Constructor(void* text, void* parent, void* appear) { paf_7F0930C6(text, parent, appear); }
+
 // paf_9C1D60C4	  // _ZN3paf6Thread4JoinEv	paf::Thread::Join(void)
 // paf_97D7BF2A	  // _ZN3paf6Thread5StartEv	paf::Thread::Start(void)
 // paf_DFE8806F	  // _ZN3paf6ThreadC2EijPKcj	paf::Thread::Thread(int, unsigned int, char const*, unsigned int)
@@ -1009,10 +1018,17 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_2293AB67	  // _ZN3paf7PhClockC1EPNS_8PhWidgetE	paf::PhClock::PhClock(paf::PhWidget *)
 // paf_C2F5EAF9	  // _ZN3paf7PhEventC1EjPNS_8PhWidgetEjiiii	paf::PhEvent::PhEvent(unsigned int, paf::PhWidget *, unsigned int, int, int, int, int)
 // paf_9C4C1564	  // _ZN3paf7PhEventC1Ejjjiiii	paf::PhEvent::PhEvent(unsigned int, unsigned int, unsigned int, int, int, int, int)
+
 // paf_10DEDCC7	  // _ZN3paf7PhPlane10WidgetTypeEv	paf::PhPlane::WidgetType(void)
-// paf_D0197A7D	  // _ZN3paf7PhPlaneC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhPlane::PhPlane(paf::PhWidget *, paf::PhAppear *)
-// paf_CC58846C	  // _ZN3paf7PhPlaneC2EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhPlane::PhPlane(paf::PhWidget *, paf::PhAppear *)
-// paf_C16A258	  // _ZN3paf7PhPlaneD2Ev	paf::PhPlane::~PhPlane()
+void paf_D0197A7D(void* plane, void* widget, void* appear);	  // _ZN3paf7PhPlaneC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhPlane::PhPlane(paf::PhWidget *, paf::PhAppear *)
+static void PhPlane_Constructor(void* plane, void* widget, void* appear) { paf_D0197A7D(plane, widget, appear); }
+
+void paf_CC58846C(void* plane, void* widget, void* appear);	  // _ZN3paf7PhPlaneC2EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhPlane::PhPlane(paf::PhWidget *, paf::PhAppear *)
+static void PhPlane_Constructor2(void* plane, void* widget, void* appear) { paf_CC58846C(plane, widget, appear); }
+
+void paf_0C16A258(void* plane);	  // _ZN3paf7PhPlaneD2Ev	paf::PhPlane::~PhPlane()
+static void PhPlane_Destructor(void* plane) { paf_0C16A258(plane); }
+
 // paf_BFF616B8	  // _ZN3paf7PhSPrim17UpdateMatrixColorEPKNS_8PhWidgetERK4vec4	paf::PhSPrim::UpdateMatrixColor(paf::PhWidget const*, vec4 const&)
 // paf_E31907BE	  // _ZN3paf7PhSPrim6RenderEPKNS_8PhWidgetERK4vec4b	paf::PhSPrim::Render(paf::PhWidget const*, vec4 const&, bool)
 // paf_5063ACE	  // _ZN3paf7PhSPrim8SetStyleEiRK4vec4	paf::PhSPrim::SetStyle(int, vec4 const&)
@@ -1084,43 +1100,61 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_1C83C0B6	  // _ZN3paf8PhScroll16SetVisibleAmountEf	paf::PhScroll::SetVisibleAmount(float)
 // paf_1AD29E49	  // _ZN3paf8PhScroll8SetValueEf	paf::PhScroll::SetValue(float)
 // paf_BC2C23A8	  // _ZN3paf8PhScrollC1EPNS_8PhWidgetEPNS_8PhAppearE	paf::PhScroll::PhScroll(paf::PhWidget *, paf::PhAppear *)
+
 // paf_65F530A4	  // _ZN3paf8PhWidget10SetColor32Ej	paf::PhWidget::SetColor32(unsigned int)
 // paf_2557E245	  // _ZN3paf8PhWidget10SetPostureERK4vec4S3_PS0_	paf::PhWidget::SetPosture(vec4 const&, vec4 const&, paf::PhWidget*)
 // paf_B84F742B	  // _ZN3paf8PhWidget10SetTextureERKNS_12SurfaceRCPtrINS_7SurfaceEEEi	paf::PhWidget::SetTexture(paf::SurfaceRCPtr<paf::Surface> const&, int)
 // paf_546B3D02	  // _ZN3paf8PhWidget10WidgetTypeEv	paf::PhWidget::WidgetType(void)
 // paf_3F4844B4	  // _ZN3paf8PhWidget11EndEditTextEv	paf::PhWidget::EndEditText(void)
-// paf_190D4130	  // _ZN3paf8PhWidget11RegistChildEPS0_	paf::PhWidget::RegistChild(paf::PhWidget*)
-// paf_593FB1E5	  // _ZN3paf8PhWidget11RemoveChildEPKS0_	paf::PhWidget::RemoveChild(paf::PhWidget const*)
-// paf_D75F6183	  // _ZN3paf8PhWidget11RemoveChildEi	paf::PhWidget::RemoveChild(int)
+void paf_190D4130(void* widget, void* child);	  // _ZN3paf8PhWidget11RegistChildEPS0_	paf::PhWidget::RegistChild(paf::PhWidget*)
+static void PhWidget_RegistChild(void* widget, void* child) { paf_190D4130(widget, child); }
+
+void paf_593FB1E5(void* widget, void const* child);	  // _ZN3paf8PhWidget11RemoveChildEPKS0_	paf::PhWidget::RemoveChild(paf::PhWidget const*)
+static void PhWidget_RemoveChild(void* widget, void const* child) { paf_593FB1E5(widget, child); }
+                                                        // paf_D75F6183	  // _ZN3paf8PhWidget11RemoveChildEi	paf::PhWidget::RemoveChild(int)
 // paf_2CE5FF1D	  // _ZN3paf8PhWidget11SetDispatchEj	paf::PhWidget::SetDispatch(unsigned int)
 // paf_D1CDDADD	  // _ZN3paf8PhWidget11UpdateStateEv	paf::PhWidget::UpdateState(void)
 // paf_6846D51A	  // _ZN3paf8PhWidget12ReleaseFocusEb	paf::PhWidget::ReleaseFocus(bool)
 // paf_51F323AA	  // _ZN3paf8PhWidget12SetFocusAnimEii	paf::PhWidget::SetFocusAnim(int, int)
-// paf_AFB4ECB9	  // _ZN3paf8PhWidget12SetLayoutPosEiii4vec4	paf::PhWidget::SetLayoutPos(int, int, int, vec4)
+void paf_AFB4ECB9(void* widget, int layoutX, int layoutY, int layoutZ, vec4 pos);	  // _ZN3paf8PhWidget12SetLayoutPosEiii4vec4	paf::PhWidget::SetLayoutPos(int, int, int, vec4)
+static void PhWidget_SetLayoutPos(void* widget, int layoutX, int layoutY, int layoutZ, vec4 pos) { paf_AFB4ECB9(widget, layoutX, layoutY, layoutZ, pos); }
+
 // paf_4A6A2F04	  // _ZN3paf8PhWidget12UpdateLayoutEb	paf::PhWidget::UpdateLayout(bool)
 // paf_10893289	  // _ZN3paf8PhWidget12UpdateMatrixEv	paf::PhWidget::UpdateMatrix(void)
 // paf_2BD63EAD	  // _ZN3paf8PhWidget13BeginEditTextERKNS_10PhEditText8OskParamEi	paf::PhWidget::BeginEditText(paf::PhEditText::OskParam const&, int)
 // paf_16A3B00	  // _ZN3paf8PhWidget13DestroyWidgetEv	paf::PhWidget::DestroyWidget(void)
 // paf_EE3D6DD0	  // _ZN3paf8PhWidget13SetAppearanceEPNS_8PhAppearE	paf::PhWidget::SetAppearance(paf::PhAppear *)
-// paf_6B2A00C5	  // _ZN3paf8PhWidget13SetLayoutSizeEiii4vec4	paf::PhWidget::SetLayoutSize(int, int, int, vec4)
+void paf_6B2A00C5(void* widget, int layoutX, int layoutY, int layoutZ, vec4 size);	  // _ZN3paf8PhWidget13SetLayoutSizeEiii4vec4	paf::PhWidget::SetLayoutSize(int, int, int, vec4)
+static void PhWidget_SetLayoutSize(void* widget, int layoutX, int layoutY, int layoutZ, vec4 size) { paf_6B2A00C5(widget, layoutX, layoutY, layoutZ, size); }
+
 // paf_613A24BF	  // _ZN3paf8PhWidget13UpdateCamerasEv	paf::PhWidget::UpdateCameras(void)
-// paf_384F93FC	  // _ZN3paf8PhWidget13UpdatePrepareEv	paf::PhWidget::UpdatePrepare(void)
+void paf_384F93FC(void* widget);	  // _ZN3paf8PhWidget13UpdatePrepareEv	paf::PhWidget::UpdatePrepare(void)
+static void PhWidget_UpdatePrepare(void* widget) { paf_384F93FC(widget); }
+
 // paf_695E35BE	  // _ZN3paf8PhWidget14GetLayoutStyleEiRiRf	paf::PhWidget::GetLayoutStyle(int, int &, float &)
 // paf_4B619490	  // _ZN3paf8PhWidget14GetLayoutStyleEiRiS1_S1_R4vec4	paf::PhWidget::GetLayoutStyle(int, int &, int &, int &, vec4 &)
 // paf_B36CA4B4	  // _ZN3paf8PhWidget14GetLayoutStyleEiiRiRf	paf::PhWidget::GetLayoutStyle(int, int, int &, float &)
 // paf_C9AFA5	  // _ZN3paf8PhWidget14GetLayoutStyleEiiRiS1_S1_R4vec4	paf::PhWidget::GetLayoutStyle(int, int, int &, int &, int &, vec4 &)
-// paf_F6E0A48F	  // _ZN3paf8PhWidget14SetLayoutStyleEiif	paf::PhWidget::SetLayoutStyle(int, int, float)
+void paf_F6E0A48F(void* widget, int r4, int r5, float f1);	  // _ZN3paf8PhWidget14SetLayoutStyleEiif	paf::PhWidget::SetLayoutStyle(int, int, float)
+static void PhWidget_SetLayoutStyleIIF(void* widget, int r4, int r5, float f1) { paf_F6E0A48F(widget, r4, r5, f1); }
+
 // paf_EF6C6834	  // _ZN3paf8PhWidget14SetLayoutStyleEiiif	paf::PhWidget::SetLayoutStyle(int, int, int, float)
 // paf_9DF5AAD4	  // _ZN3paf8PhWidget14SetLayoutStyleEiiii4vec4	paf::PhWidget::SetLayoutStyle(int, int, int, int, vec4)
 // paf_D6135FC4	  // _ZN3paf8PhWidget14SetLayoutStyleEiiiii4vec4	paf::PhWidget::SetLayoutStyle(int, int, int, int, int, vec4)
 // paf_ADF743E4	  // _ZN3paf8PhWidget14SetPos_ontimerERK4vec4PS0_	paf::PhWidget::SetPos_ontimer(vec4 const&, paf::PhWidget*)
-// paf_67437488	  // _ZN3paf8PhWidget14SetRot_ontimerERK4vec4PS0_i	paf::PhWidget::SetRot_ontimer(vec4 const&, paf::PhWidget*, int)
+void paf_67437488(void* widget, float* rotation, void* widgetTemplate, int r6);	  // _ZN3paf8PhWidget14SetRot_ontimerERK4vec4PS0_i	paf::PhWidget::SetRot_ontimer(vec4 const&, paf::PhWidget*, int)
+static void PhWidget_SetRot_ontimer(void* widget, float* rotation, void* widgetTemplate, int r6) { paf_67437488(widget, rotation, widgetTemplate, r6); }
+
 // paf_B5505299	  // _ZN3paf8PhWidget15ReorderChildrenEPKS0_S2_i	paf::PhWidget::ReorderChildren(paf::PhWidget const*, paf::PhWidget const*, int)
 // paf_5FD00911	  // _ZN3paf8PhWidget15SetSize_ontimerERK4vec4	paf::PhWidget::SetSize_ontimer(vec4 const&)
-// paf_BF4B155C	  // _ZN3paf8PhWidget15UpdateLayoutPosEv	paf::PhWidget::UpdateLayoutPos(void)
+void paf_BF4B155C(void* widget);	  // _ZN3paf8PhWidget15UpdateLayoutPosEv	paf::PhWidget::UpdateLayoutPos(void)
+static void PhWidget_UpdateLayoutPos(void* widget) { paf_BF4B155C(widget); }
+
 // paf_6BDB86A9	  // _ZN3paf8PhWidget16SetMetaAlphaModeEi	paf::PhWidget::SetMetaAlphaMode(int)
 // paf_73C6B7C4	  // _ZN3paf8PhWidget16SetScale_ontimerERK4vec4	paf::PhWidget::SetScale_ontimer(vec4 const&)
-// paf_DF031EDD	  // _ZN3paf8PhWidget16UpdateLayoutSizeEv	paf::PhWidget::UpdateLayoutSize(void)
+void paf_DF031EDD(void* widget);	  // _ZN3paf8PhWidget16UpdateLayoutSizeEv	paf::PhWidget::UpdateLayoutSize(void)
+static void PhWidget_UpdateLayoutSize(void* widget) { paf_DF031EDD(widget); }
+
 // paf_E434952C	  // _ZN3paf8PhWidget17GetLayoutPosValueEv	paf::PhWidget::GetLayoutPosValue(void)
 // paf_B527E7E5	  // _ZN3paf8PhWidget17HandleAnalogEventEPNS_7PhEventE	paf::PhWidget::HandleAnalogEvent(paf::PhEvent *)
 // paf_9DF5EBC4	  // _ZN3paf8PhWidget17UpdateLayoutStyleEi	paf::PhWidget::UpdateLayoutStyle(int)
@@ -1149,17 +1183,31 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_B4F7ED4F	  // _ZN3paf8PhWidget8GetStyleEiiRi	paf::PhWidget::GetStyle(int, int, int &)
 // paf_D2649242	  // _ZN3paf8PhWidget8SetFocusEPNS_7PhEventEj	paf::PhWidget::SetFocus(paf::PhEvent *, unsigned int)
 // paf_F467C45F	  // _ZN3paf8PhWidget8SetStyleEiRK4vec4	paf::PhWidget::SetStyle(int, vec4 const&)
-// paf_7A7BCEED	  // _ZN3paf8PhWidget8SetStyleEib	paf::PhWidget::SetStyle(int, bool)
-// paf_A97D0803	  // _ZN3paf8PhWidget8SetStyleEif	paf::PhWidget::SetStyle(int, float)
-// paf_4EC636E	  // _ZN3paf8PhWidget8SetStyleEii	paf::PhWidget::SetStyle(int, int)
+
+void paf_7A7BCEED(void* widget, int style, bool value);	  // _ZN3paf8PhWidget8SetStyleEib	paf::PhWidget::SetStyle(int, bool)
+static void PhWidget_SetStyleB(void* widget, int style, bool value) { paf_7A7BCEED(widget, style, value); }
+
+void paf_A97D0803(void* widget, int style, float value);	  // _ZN3paf8PhWidget8SetStyleEif	paf::PhWidget::SetStyle(int, float)
+static void PhWidget_SetStyleF(void* widget, int style, float value) { paf_A97D0803(widget, style, value); }
+
+void paf_04EC636E(void* widget, int style, int value);	  // _ZN3paf8PhWidget8SetStyleEii	paf::PhWidget::SetStyle(int, int)
+static void PhWidget_SetStyleI(void* widget, int style, int value) { paf_04EC636E(widget, style, value); }
+
 // paf_E8129023	  // _ZN3paf8PhWidget8SetStyleEiiRK4vec4	paf::PhWidget::SetStyle(int, int, vec4 const&)
 // paf_B902CB91	  // _ZN3paf8PhWidget8SetStyleEiib	paf::PhWidget::SetStyle(int, int, bool)
 // paf_38162763	  // _ZN3paf8PhWidget8SetStyleEiif	paf::PhWidget::SetStyle(int, int, float)
 // paf_88161054	  // _ZN3paf8PhWidget8SetStyleEiii	paf::PhWidget::SetStyle(int, int, int)
-// paf_D557F850	  // _ZN3paf8PhWidget9FindChildEPKci	paf::PhWidget::FindChild(char const*, int)
+
+void* paf_D557F850(void* widget, char const* child, int r5);	  // _ZN3paf8PhWidget9FindChildEPKci	paf::PhWidget::FindChild(char const*, int)
+static void* PhWidget_FindChild(void* widget, char const* child, int r5) { return paf_D557F850(widget, child, r5); }
+
+
 // paf_24A977F7	  // _ZN3paf8PhWidget9PauseAnimEb	paf::PhWidget::PauseAnim(bool)
 // paf_C028CB7C	  // _ZN3paf8PhWidget9StartAnimEb	paf::PhWidget::StartAnim(bool)
-// paf_738BAAC0	  // _ZN3paf8PhWidgetD2Ev	paf::PhWidget::~PhWidget()
+
+void paf_738BAAC0(void* widget);	  // _ZN3paf8PhWidgetD2Ev	paf::PhWidget::~PhWidget()
+static void PhWidget_Destructor(void* widget) { paf_738BAAC0(widget); }
+
 // paf_55FE8B14	  // _ZN3paf8PhXmItem10BlinkStartEf	paf::PhXmItem::BlinkStart(float)
 // paf_C84FD77B	  // _ZN3paf8PhXmItem10WidgetTypeEv	paf::PhXmItem::WidgetType(void)
 // paf_A4438D60	  // _ZN3paf8PhXmItem11AnimIconSetERKNS_12SurfaceRCPtrINS_7SurfaceEEES5_RK4vec4iiiS8_iiiii	paf::PhXmItem::AnimIconSet(paf::SurfaceRCPtr<paf::Surface> const&, paf::SurfaceRCPtr<paf::Surface> const&, vec4 const&, int, int, int, vec4 const&, int, int, int, int, int)
@@ -1227,18 +1275,43 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_868C48A1	  // _ZN3paf9HalfImageEPvPKviiii	paf::HalfImage(void *, void const*, int, int, int, int)
 // paf_FDCB65D3	  // _ZN3paf9ImageAttr12SetDecOptionENS_15ImageOptionCodeEi	paf::ImageAttr::SetDecOption(paf::ImageOptionCode, int)
 // paf_350B4536	  // _ZN3paf9Job_StartEPNS_9Job_QueueEPFiPvPNS_10Job_ThreadEES2_iiPFviS2_S4_iE	paf::Job_Start(paf::Job_Queue *, int (*)(void *, paf::Job_Thread *), void *, int, int, void (*)(int, void *, paf::Job_Thread *, int))
-// paf_FE5A7950	  // _ZN3paf9PhHandler10DoCallBackEiPNS_7PhEventE	paf::PhHandler::DoCallBack(int, paf::PhEvent *)
-// paf_B60C4316	  // _ZN3paf9PhHandler11HandlerProcEPNS_7PhEventE	paf::PhHandler::HandlerProc(paf::PhEvent *)
-// paf_2CBA5A33	  // _ZN3paf9PhHandler11KillTimerCBEi	paf::PhHandler::KillTimerCB(int)
-// paf_986427A7	  // _ZN3paf9PhHandler11SetCallBackEiPFvPNS_8PhWidgetEPNS_7PhEventEPvES5_	paf::PhHandler::SetCallBack(int, void (*)(paf::PhWidget *, paf::PhEvent *, void *), void *)
-// paf_818162F2	  // _ZN3paf9PhHandler11SetDeleteCBEPFvPNS_8PhWidgetEPNS_7PhEventEPvES5_	paf::PhHandler::SetDeleteCB(void (*)(paf::PhWidget *, paf::PhEvent *, void *), void *)
-// paf_F7D65DC1	  // _ZN3paf9PhHandler16HandleFocusEventEPNS_7PhEventE	paf::PhHandler::HandleFocusEvent(paf::PhEvent *)
-// paf_DBFE46EA	  // _ZN3paf9PhHandler16HandlePointEventEPNS_7PhEventE	paf::PhHandler::HandlePointEvent(paf::PhEvent *)
-// paf_C051D361	  // _ZN3paf9PhHandler16HandleStateEventEPNS_7PhEventE	paf::PhHandler::HandleStateEvent(paf::PhEvent *)
-// paf_C96D94F	  // _ZN3paf9PhHandler17HandleSystemEventEPNS_7PhEventE	paf::PhHandler::HandleSystemEvent(paf::PhEvent *)
-// paf_CE14748C	  // _ZN3paf9PhHandler18HandleCommandEventEPNS_7PhEventE	paf::PhHandler::HandleCommandEvent(paf::PhEvent *)
-// paf_A4D0FDCB	  // _ZN3paf9PhHandler18HandleKeycodeEventEPNS_7PhEventE	paf::PhHandler::HandleKeycodeEvent(paf::PhEvent *)
-// paf_4D0CAA13	  // _ZN3paf9PhHandler9IsTimerCBEi	paf::PhHandler::IsTimerCB(int)
+
+int paf_FE5A7950(void* handler, int cbId, void* phEvent);	  // _ZN3paf9PhHandler10DoCallBackEiPNS_7PhEventE	paf::PhHandler::DoCallBack(int, paf::PhEvent *)
+static int PhHandler_DoCallback(void* handler, int cbId, void* phEvent) { return paf_FE5A7950(handler, cbId, phEvent); }
+
+int paf_B60C4316(void* handler, void* phEvent);	  // _ZN3paf9PhHandler11HandlerProcEPNS_7PhEventE	paf::PhHandler::HandlerProc(paf::PhEvent *)
+static int PhHandler_HandlerProc(void* handler, void* phEvent) { return paf_B60C4316(handler, phEvent); }
+
+int paf_2CBA5A33(void* handler, int cb);	  // _ZN3paf9PhHandler11KillTimerCBEi	paf::PhHandler::KillTimerCB(int)
+static int PhHandler_KillTimerCB(void* handler, int cb) { return paf_2CBA5A33(handler, cb); }
+
+int paf_986427A7(void* handler, int cbId, void(*cb)(void* widget, void* phEvent, void*), void*);	  // _ZN3paf9PhHandler11SetCallBackEiPFvPNS_8PhWidgetEPNS_7PhEventEPvES5_	paf::PhHandler::SetCallBack(int, void (*)(paf::PhWidget *, paf::PhEvent *, void *), void *)
+static int PhHandler_SetCallback(void* handler, int cbId, void(*cb)(void* widget, void* phEvent, void*), void* a3) { return paf_986427A7(handler, cbId, cb, a3); }
+
+int paf_818162F2(void* handler, void(*cb)(void* widget, void* phEvent, void*), void*);		  // _ZN3paf9PhHandler11SetDeleteCBEPFvPNS_8PhWidgetEPNS_7PhEventEPvES5_	paf::PhHandler::SetDeleteCB(void (*)(paf::PhWidget *, paf::PhEvent *, void *), void *)
+static int PhHandler_SetDeleteCB(void* handler, void(*cb)(void* widget, void* phEvent, void*), void* a3) { return paf_818162F2(handler, cb, a3); }
+
+int paf_F7D65DC1(void* handler, void* phEvent);	  // _ZN3paf9PhHandler16HandleFocusEventEPNS_7PhEventE	paf::PhHandler::HandleFocusEvent(paf::PhEvent *)
+static int PhHandler_HandleFocusEvent(void* handler, void* phEvent) { return paf_F7D65DC1(handler, phEvent); }
+
+int paf_DBFE46EA(void* handler, void* phEvent);	  // _ZN3paf9PhHandler16HandlePointEventEPNS_7PhEventE	paf::PhHandler::HandlePointEvent(paf::PhEvent *)
+static int PhHandler_HandlePointEvent(void* handler, void* phEvent) { return paf_DBFE46EA(handler, phEvent); }
+
+int paf_C051D361(void* handler, void* phEvent);	  // _ZN3paf9PhHandler16HandleStateEventEPNS_7PhEventE	paf::PhHandler::HandleStateEvent(paf::PhEvent *)
+static int PhHandler_HandleStateEvent(void* handler, void* phEvent) { return paf_C051D361(handler, phEvent); }
+
+int paf_C96D94F(void* handler, void* phEvent);	  // _ZN3paf9PhHandler17HandleSystemEventEPNS_7PhEventE	paf::PhHandler::HandleSystemEvent(paf::PhEvent *)
+static int PhHandler_HandleSystemEvent(void* handler, void* phEvent) { return paf_C96D94F(handler, phEvent); }
+
+int paf_CE14748C(void* handler, void* phEvent);	  // _ZN3paf9PhHandler18HandleCommandEventEPNS_7PhEventE	paf::PhHandler::HandleCommandEvent(paf::PhEvent *)
+static int PhHandler_HandleCommandEvent(void* handler, void* phEvent) { return paf_CE14748C(handler, phEvent); }
+
+int paf_A4D0FDCB(void* handler, void* phEvent);	  // _ZN3paf9PhHandler18HandleKeycodeEventEPNS_7PhEventE	paf::PhHandler::HandleKeycodeEvent(paf::PhEvent *)
+static int PhHandler_HandleKeycodeEvent(void* handler, void* phEvent) { return paf_A4D0FDCB(handler, phEvent); }
+
+bool paf_4D0CAA13(void* handler, int cbId);	  // _ZN3paf9PhHandler9IsTimerCBEi	paf::PhHandler::IsTimerCB(int)
+static bool PhHandler_IsTimerCB(void* handler, int cbId) { return paf_4D0CAA13(handler, cbId); }
+
 // paf_59A11C82	  // _ZN3paf9PhNumSpin10WidgetTypeEv	paf::PhNumSpin::WidgetType(void)
 // paf_B923666A	  // _ZN3paf9PhNumSpin11UpdateStateEv	paf::PhNumSpin::UpdateState(void)
 // paf_B367A64E	  // _ZN3paf9PhNumSpin12UpdateLayoutEb	paf::PhNumSpin::UpdateLayout(bool)
@@ -1304,18 +1377,27 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_11E195B3	  // _ZNK3paf4View8PageRootEPKc	paf::View::PageRoot(char const*)const
 // paf_BCAACE40	  // _ZNK3paf4View8PageRootEPv	paf::View::PageRoot(void *)const
 // paf_89B67B9C	  // _ZNK3paf4View9GetStringEPKc	paf::View::GetString(char const*)const
-// paf_B9152E15	  // _ZNK3paf6Module12GetInterfaceEi	paf::Module::GetInterface(int)const
+int paf_B9152E15(void*, int);	  // _ZNK3paf6Module12GetInterfaceEi	paf::Module::GetInterface(int)const
 // paf_2AB5840	  // _ZNK3paf6PhFont11GetCharInfoENS0_9GlyphTypeEtP18SceFont_t_charInfo	paf::PhFont::GetCharInfo(paf::PhFont::GlyphType, unsigned short, SceFont_t_charInfo *)const
 // paf_723DB220	  // _ZNK3paf6PhFont11GetCharInfoENS0_9GlyphTypeEtPNS0_10BitmapInfoEPi	paf::PhFont::GetCharInfo(paf::PhFont::GlyphType, unsigned short, paf::PhFont::BitmapInfo *, int *)const
+
 // paf_304EAE6F	  // _ZNK3paf6PhText12GetFirstLineEv	paf::PhText::GetFirstLine(void)const
-// paf_E8355FCC	  // _ZNK3paf6PhText12GetLineCountEv	paf::PhText::GetLineCount(void)const
-// paf_65036474	  // _ZNK3paf6PhText12GetTextWidthEv	paf::PhText::GetTextWidth(void)const
+int paf_E8355FCC(void* text);	  // _ZNK3paf6PhText12GetLineCountEv	paf::PhText::GetLineCount(void)const
+static int PhText_GetLineCount(void* text) { return paf_E8355FCC(text); }
+
+float paf_65036474(void* text);	  // _ZNK3paf6PhText12GetTextWidthEv	paf::PhText::GetTextWidth(void)const
+static float PhText_GetTextWidth(void* text) { return paf_65036474(text); }
+
 // paf_77479F6F	  // _ZNK3paf6PhText13GetCurrentPosEv	paf::PhText::GetCurrentPos(void)const
-// paf_20477524	  // _ZNK3paf6PhText13GetLineHeightEv	paf::PhText::GetLineHeight(void)const
+
+float paf_20477524(void* text);	  // _ZNK3paf6PhText13GetLineHeightEv	paf::PhText::GetLineHeight(void)const
+static float PhText_GetLineHeight(void* text) { return paf_20477524(text); }
+
 // paf_3F10A8D7	  // _ZNK3paf6PhText13GetTextLengthEv	paf::PhText::GetTextLength(void)const
 // paf_4F5319E0	  // _ZNK3paf6PhText14GetCurrentLineEv	paf::PhText::GetCurrentLine(void)const
 // paf_9196EEB8	  // _ZNK3paf6PhText15GetColumnOffsetEv	paf::PhText::GetColumnOffset(void)const
 // paf_68D2B06D	  // _ZNK3paf6PhText15GetVisibleLinesEv	paf::PhText::GetVisibleLines(void)const
+
 // paf_9FBCD5C8	  // _ZNK3paf7PhPlane9IsInheritEPKc	paf::PhPlane::IsInherit(char const*)const
 // paf_29C739F4	  // _ZNK3paf7PhSPrim8GetStyleEiR4mat4	paf::PhSPrim::GetStyle(int, mat4 &)const
 // paf_99DB254A	  // _ZNK3paf7PhSPrim8GetStyleEiR4vec4	paf::PhSPrim::GetStyle(int, vec4 &)const
@@ -1427,8 +1509,8 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_794CEACB	  // finds widget in a plugin	Example: plugin->FindWidget(return from paf_F21655F3, "page_autooff_guide")
 // paf_89B67B9C	  // gets localized string text from plugin resource (Different strings are returned depending on the system language)	Example: (w)char (paf_F21655F3("system_plugin"), "msg_signed_out")
 // paf_F21655F3	  // finds a loaded plugin	uint32_t paf::View::Find(const char* plugin) Example: uint32_t paf::View::Find("system_plugin")
-// paf_CF068D31	  // load (optional on memcontainer) and start sprx	void paf_CF068D31(int32_t* prx_struct, const char* path, int /*ignored*/, int /*0*/, (optional) const sys_memory_container_t *mem_container)
-// paf_2F5CEE6D	  // stop and unload sprx	void paf_2F5CEE6D(int32_t* prx_struct)
+void paf_CF068D31(void*, const char*, int, int, void*);	  // load (optional on memcontainer) and start sprx	void paf_CF068D31(int32_t* prx_struct, const char* path, int /*ignored*/, int /*0*/, (optional) const sys_memory_container_t *mem_container)
+void paf_2F5CEE6D(void*);	  // stop and unload sprx	void paf_2F5CEE6D(int32_t* prx_struct)
 
 // paf_546B3D02	  // returns "PhWidget"	const char* paf_546B3D02()
 // paf_41BBFE5E	  // returns "PhScene"	const char* paf_41BBFE5E()
@@ -1457,5 +1539,8 @@ extern "C" void paf_3F7CB0BF(int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12S
 // paf_AF58E756	  // Gets the base of loaded plugins. The pointer returned is used in paf::View::Find to find plugins.	void* paf_AF58E756()
 // paf_5F5DA385	  // Gets Dialog Size	int paf_5F5DA385( uint16_t * size_width, uint16_t * size_height, int dialog_type)
 
+
+CDECL_END
+_VSH_END
 
 #endif // __PAF_H__

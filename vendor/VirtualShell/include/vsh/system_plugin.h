@@ -1,4 +1,11 @@
 // Mysis system_plugin.h v0.1
+#ifndef __SYSTEM_PLUGIN_H__
+#define __SYSTEM_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*DoUnk0)(const char *, int); // char * , int flags - dev_hdd0/theme related, loads theme?
@@ -39,4 +46,8 @@ typedef struct
 	int (*DoUnk35)(void); // Dummy XMB start/stop (DEX)
 } system_plugin_interface;
 
-system_plugin_interface * system_interface;
+
+
+_VSH_END
+
+#endif // __SYSTEM_PLUGIN_H__

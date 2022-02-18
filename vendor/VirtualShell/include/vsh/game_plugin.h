@@ -2,6 +2,9 @@
 // 3141card (C style version)
 #ifndef __GAME_PLUGIN_H__
 #define __GAME_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
 
 typedef struct game_plugin_interface_t
 {
@@ -112,10 +115,7 @@ typedef struct game_plugin_interface_t
 	int32_t (*DoUnk104)(char *);                                   // 1 Parameter: char * pkg?_filepath
 } game_plugin_interface;
 
-extern game_plugin_interface * game_interface;
 
-//int (*View_Find)(const char *) = 0;
-//int (*plugin_GetInterface)(int,int) = 0;
-//int (*vsh_sprintf)( char*, const char*,...) = 0;
+_VSH_END
 
 #endif // __GAME_PLUGIN_H__

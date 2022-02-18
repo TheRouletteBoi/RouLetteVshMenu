@@ -2,7 +2,11 @@
 // 3141card (C style version) source: http://www.psdevwiki.com/ps3/Talk:VSH
 #ifndef __XREGISTRY_H__
 #define __XREGISTRY_H__
+#include "vshtypes.h"
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 typedef struct xsetting_0AF1F161_class_t  // 28
 {
@@ -869,7 +873,6 @@ typedef struct xsetting_F48C0548_class_t  // 38 net
 	int32_t (*GetWirelessSsidAndPassPhrase)(wireless_info *);  // get wirelessSsid[0x20] and wirelessPassPhrase[0x41]
 } xsetting_F48C0548_class;
 
-
 typedef struct xsetting_FFAF9B19_class_t  // 12
 {
 	//int32_t (*sub_45DEC0) ?
@@ -888,27 +891,29 @@ typedef struct xsetting_FFAF9B19_class_t  // 12
 
 
 // class pointers (vsh/lib/libxsetting_export_stub.a)
-extern "C" xsetting_0AF1F161_class* xsetting_0AF1F161(void);
-extern "C" xsetting_154430FC_class* xsetting_154430FC(void);
-extern "C" xsetting_16A8A805_class* xsetting_16A8A805(void);
-extern "C" xsetting_1D6D60D4_class* xsetting_1D6D60D4(void);
-extern "C" xsetting_43F98936_class* xsetting_43F98936(void);
-extern "C" xsetting_4712F276_class* xsetting_4712F276(void);
-extern "C" xsetting_58560CA4_class* xsetting_58560CA4(void);
-extern "C" xsetting_5FB90B89_class* xsetting_5FB90B89(void);
-extern "C" xsetting_660ECC35_class* xsetting_660ECC35(void);
-extern "C" xsetting_69C19C7F_class* xsetting_69C19C7F(void);
-extern "C" xsetting_7125FEB5_class* xsetting_7125FEB5(void);
-extern "C" xsetting_7EDDAD29_class* xsetting_7EDDAD29(void);
-extern "C" xsetting_8B69F85A_class* xsetting_8B69F85A(void);
-extern "C" xsetting_9EE60B4E_class* xsetting_9EE60B4E(void);
-extern "C" xsetting_C1008335_class* xsetting_C1008335(void);
-extern "C" xsetting_CC56EB2D_class* xsetting_CC56EB2D(void);
-extern "C" xsetting_CE27E884_class* xsetting_CE27E884(void);
-extern "C" xsetting_D0261D72_class* xsetting_D0261D72(void);
-extern "C" xsetting_ED5B559F_class* xsetting_ED5B559F(void);
-extern "C" xsetting_F48C0548_class* xsetting_F48C0548(void);
-extern "C" xsetting_FFAF9B19_class* xsetting_FFAF9B19(void);
+xsetting_0AF1F161_class* xsetting_0AF1F161(void);
+xsetting_154430FC_class* xsetting_154430FC(void);
+xsetting_16A8A805_class* xsetting_16A8A805(void);
+xsetting_1D6D60D4_class* xsetting_1D6D60D4(void);
+xsetting_43F98936_class* xsetting_43F98936(void);
+xsetting_4712F276_class* xsetting_4712F276(void);
+xsetting_58560CA4_class* xsetting_58560CA4(void);
+xsetting_5FB90B89_class* xsetting_5FB90B89(void);
+xsetting_660ECC35_class* xsetting_660ECC35(void);
+xsetting_69C19C7F_class* xsetting_69C19C7F(void);
+xsetting_7125FEB5_class* xsetting_7125FEB5(void);
+xsetting_7EDDAD29_class* xsetting_7EDDAD29(void);
+xsetting_8B69F85A_class* xsetting_8B69F85A(void);
+xsetting_9EE60B4E_class* xsetting_9EE60B4E(void);
+xsetting_C1008335_class* xsetting_C1008335(void);
+xsetting_CC56EB2D_class* xsetting_CC56EB2D(void);
+xsetting_CE27E884_class* xsetting_CE27E884(void);
+xsetting_D0261D72_class* xsetting_D0261D72(void);
+xsetting_ED5B559F_class* xsetting_ED5B559F(void);
+xsetting_F48C0548_class* xsetting_F48C0548(void);
+xsetting_FFAF9B19_class* xsetting_FFAF9B19(void);
 
+CDECL_END
+_VSH_END
 
 #endif // __XREGISTRY_H__

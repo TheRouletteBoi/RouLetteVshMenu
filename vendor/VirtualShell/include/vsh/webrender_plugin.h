@@ -1,6 +1,10 @@
+// bguerville webrender_plugin.h v0.1
 #ifndef __WEBRENDER_PLUGIN_H__
 #define __WEBRENDER_PLUGIN_H__
-// bguerville webrender_plugin.h v0.1
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct webrender_plugin_interface_t
 {
 
@@ -8,15 +12,11 @@ typedef struct webrender_plugin_interface_t
 
 } webrender_plugin_interface; // Interface Id 1
 
-webrender_plugin_interface * webrender_interface;
-
 typedef struct
 {
 	int (*Action)(const char *);
 
 } webrender_act0_interface; // Interface ACT0
-
-webrender_act0_interface * webrender_act0;
 
 typedef struct
 {
@@ -28,6 +28,5 @@ typedef struct
 
 } webrender_plugin_mod0;
 
-webrender_plugin_mod0 * webrender_mod0_interface;
-
+_VSH_END
 #endif // __WEBRENDER_PLUGIN_H__

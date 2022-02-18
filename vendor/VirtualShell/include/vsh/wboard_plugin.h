@@ -1,4 +1,11 @@
 // Mysis wboard_plugin.h v0.1
+#ifndef __WBOARD_PLUGIN_H__
+#define __WBOARD_PLUGIN_H__
+#include "vshtypes.h"
+
+
+_VSH_BEGIN
+
 typedef struct
 {
 	int (*DoUnk0)(int);
@@ -6,14 +13,10 @@ typedef struct
 	int (*SetWBEXBTInfoText)(wchar_t *);
 } wboard_if; // Interface Id 1
 
-wboard_if * wboard_interface;
-
 typedef struct
 {
 	int (*Action)(char *);
 } wboard_act0_if; // Interface ACT0
-
-wboard_act0_if * wboard_act0;
 
 typedef struct
 {
@@ -23,4 +26,7 @@ typedef struct
 	int (*DoUnk3)(int);
 } wboard_mod0_if; // Interface MOD0
 
-wboard_mod0_if * wboard_mod0;
+
+_VSH_END
+
+#endif // __WBOARD_PLUGIN_H__

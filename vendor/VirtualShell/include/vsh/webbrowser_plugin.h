@@ -1,6 +1,10 @@
+// Mysis webbrowser_plugin.h v0.1
 #ifndef __WEBBROWSER_PLUGIN_H__
 #define __WEBBROWSER_PLUGIN_H__
-// Mysis webbrowser_plugin.h v0.1
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct webbrowser_plugin_interface_t
 {
 	int (*PluginWakeup)(int);
@@ -16,14 +20,12 @@ typedef struct webbrowser_plugin_interface_t
 	int (*UpdatePointerDisplayPos)(int, int, int);
 } webbrowser_plugin_interface; // Interface Id 1
 
-webbrowser_plugin_interface * webbrowser_interface;
-
 typedef struct
 {
 	int (*Action)(const char *);
 } webbrowser_act0_if; // Interface ACT0
 
-webbrowser_act0_if * webbrowser_act0;
+_VSH_END
 
 #endif // __WEBBROWSER_PLUGIN_H__
 

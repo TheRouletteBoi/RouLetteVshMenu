@@ -1,6 +1,12 @@
 #ifndef __VSHCOMMON_H__
 #define __VSHCOMMON_H__
+#include "vshtypes.h"
+#include "pafView.h"
+#include <stdint.h>
 
+
+_VSH_BEGIN
+CDECL_BEGIN
 
 // vshcommon_6FD850FF(void);  // custom_render_plugin IF 1: - (decrease)
 // vshcommon_EC73D438(void);  // custom_render_plugin IF 1: - (increase)
@@ -92,8 +98,20 @@
 // vshcommon_F06004CD  // ?
 
 
-extern "C" int vshcommon_A20E43DB(int32_t, const char* eventName, int32_t, uint32_t* texture, int32_t*, const char*, const char*, float, wchar_t* text, int32_t, bool is_looped, int32_t);  //  // vshcommon_A20E43DB  // ? Displays a notification in XMB with texture -> void(*vshcommon_A20E43DB)(int32_t, const char* eventName, int32_t, int32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, int32_t, int32_t); int dummy = 0; vshcommon_A20E43DB(0, const char* eventName, int32_t, int32_t* texture /*paf_3A8454FC*/, &dummy, "", "", 0f, L"notification", 0, 0, 0)
-#define ShowSystemNotification vshcommon_A20E43DB
+int vshcommon_A20E43DB(int32_t, const char* eventName, int32_t, uint32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, bool is_looped, int32_t);  //  // vshcommon_A20E43DB  // ? Displays a notification in XMB with texture -> void(*vshcommon_A20E43DB)(int32_t, const char* eventName, int32_t, int32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, int32_t, int32_t); int dummy = 0; vshcommon_A20E43DB(0, const char* eventName, int32_t, int32_t* texture /*paf_3A8454FC*/, &dummy, "", "", 0f, L"notification", 0, 0, 0)
+static void ShowSystemNotification(const wchar_t* message, const char* texture)
+{
+   paf::View* system_plugin = paf::View::Find("system_plugin");
+   if (!system_plugin)
+      return;
+
+   uint32_t pTexture = (uint32_t)system_plugin->GetTexture(texture);
+   if (!pTexture)
+      return;
+
+   int32_t unknownOut = 0;
+   vshcommon_A20E43DB(0, texture, 0, &pTexture, &unknownOut, "", "", 0.0f, message, 0, false, 0);
+}
 
 
 // vshcommon_7504447B  // ?
@@ -103,8 +121,19 @@ extern "C" int vshcommon_A20E43DB(int32_t, const char* eventName, int32_t, uint3
 // vshcommon_21806775  // ?
 
 
-extern "C" int vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t);
-#define ShowButtonNavigationText vshcommon_F55812AE
+int vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t);
+static void ShowButtonNavigationMessage(const wchar_t* message)
+{
+   paf::View* system_plugin = paf::View::Find("system_plugin");
+   if (!system_plugin)
+      return;
+
+   paf::PhWidget* page_autooff_guide = system_plugin->FindWidget("page_autooff_guide");
+   if (!page_autooff_guide)
+      return;
+
+   vshcommon_F55812AE((int32_t)page_autooff_guide, (wchar_t*)message, 4, 0);
+}
 
 
 // vshcommon_61D17188  // ?
@@ -246,5 +275,8 @@ extern "C" int vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t);
 // vshcommon_8B2110D5  // reads boot_history.dat
 // vshcommon_9EA67737  // vsh::ws_boot_history::Set() { uint8 type, char TitleId [0x1F] } titleid to boot_history.dat (creates if not present)
 
+
+CDECL_END
+_VSH_END
 
 #endif // __VSHCOMMON_H__

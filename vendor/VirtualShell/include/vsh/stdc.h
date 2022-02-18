@@ -1,8 +1,7 @@
 #ifndef __STDC_H__
 #define __STDC_H__
-
-
-
+#include "vshtypes.h"
+//#include "math.h"
 #include <stdlib.h> // for ldiv_t
 #include <stdio.h> // for FILE
 #include <wchar.h> // for mbstate_t
@@ -16,99 +15,84 @@
 //#define _STD_USING_STRING
 //#define  _STD_USING_STDLIB
 
+_VSH_BEGIN
+CDECL_BEGIN
+
+extern uint64_t stdc_1ACBEFAC;  // ? dword_747E48
+extern uint64_t stdc_26A34F81;  // ? dword_6F7B38
+extern uint64_t stdc_57DBCF27;  // _Inf
+extern uint64_t stdc_6524499E;  // _FInf
+extern uint64_t stdc_7BC88211;  // ? off_707E80
+extern uint64_t stdc_985FC057;  // ? dword_6F7B80
+extern uint64_t stdc_AAAACE57;  // ? dword_6D5368
+extern uint64_t stdc_B5D2F53B;  // ? off_707E84
+extern uint64_t stdc_D59C193C;  // _Nan
+extern uint64_t stdc_210B2F6E;  // _FNan
+extern uint64_t stdc_D97B0687;  // _Ctype
+extern uint64_t stdc_67D1406B;  // __ctype_ptr
+extern FILE stdc_32E56B1A;  // _Stdin
+extern FILE stdc_FB2BD688;  // _Stdout
+extern FILE stdc_FEFBE065;  // _Stderr
 
 
+int stdc_24C9E021(int n);                                                      // abs()
+static int abs(int n) { return stdc_24C9E021(n); }
 
+double stdc_58EB9E57(double x);                                                // fabs()
+static double fabs(double x) { return stdc_58EB9E57(x); }
 
-
-
-
-
-extern "C" uint64_t stdc_1ACBEFAC;  // ? dword_747E48
-extern "C" uint64_t stdc_26A34F81;  // ? dword_6F7B38
-extern "C" uint64_t stdc_57DBCF27;  // _Inf
-extern "C" uint64_t stdc_6524499E;  // _FInf
-extern "C" uint64_t stdc_7BC88211;  // ? off_707E80
-extern "C" uint64_t stdc_985FC057;  // ? dword_6F7B80
-extern "C" uint64_t stdc_AAAACE57;  // ? dword_6D5368
-extern "C" uint64_t stdc_B5D2F53B;  // ? off_707E84
-extern "C" uint64_t stdc_D59C193C;  // _Nan
-extern "C" uint64_t stdc_210B2F6E;  // _FNan
-extern "C" uint64_t stdc_D97B0687;  // _Ctype
-extern "C" uint64_t stdc_67D1406B;  // __ctype_ptr
-extern "C" FILE stdc_32E56B1A;  // _Stdin
-extern "C" FILE stdc_FB2BD688;  // _Stdout
-extern "C" FILE stdc_FEFBE065;  // _Stderr
-
-
-//#define std__ctype_ptr (char*)stdc_D97B0687
-//#define std_Stdin (stdc_32E56B1A)
-//#define std_Stdout (stdc_FB2BD688)
-#define std_Stderr (stdc_FEFBE065)
-
-//#define std_stdin		(& std_Stdin)
-//#define std_stdout		(& std_Stdout)
-#define std_stderr		(& std_Stderr)
-
-
-extern "C" int stdc_24C9E021(int n);                                                      // abs()
-#define _abs stdc_24C9E021
-
-extern "C" double stdc_58EB9E57(double x);                                                // fabs()
-#define fabs stdc_58EB9E57
-
-extern "C" int stdc_EE303936(double);                                                     // _Dsign()
+int stdc_EE303936(double);                                                     // _Dsign()
 #define _Dsign stdc_EE303936
 
-extern "C" double stdc_0F428F0F(double x);                                                // rint()
+double stdc_0F428F0F(double x);                                                // rint()
 #define rint stdc_0F428F0F
 
-extern "C" int stdc_3AD203FA(double x);                                                   // lrint()
+int stdc_3AD203FA(double x);                                                   // lrint()
 #define lrint stdc_3AD203FA
 
-extern "C" long int stdc_9558ED08(float x);                                               // lrintf()
+long int stdc_9558ED08(float x);                                               // lrintf()
 #define lrintf stdc_9558ED08
 
-extern "C" double stdc_21E6D304(double x);                                                // ceil()
+double stdc_21E6D304(double x);                                                // ceil()
 #define ceil stdc_21E6D304
 
-extern "C" float stdc_BAF11866(float x);                                                  // ceilf()
+float stdc_BAF11866(float x);                                                  // ceilf()
 #define ceilf stdc_BAF11866
 
-extern "C" double stdc_475D855B(double x);                                                // trunc()
+double stdc_475D855B(double x);                                                // trunc()
 #define trunc stdc_475D855B
 
-extern "C" double stdc_519EBB77(double x);                                                // floor()
+double stdc_519EBB77(double x);                                                // floor()
 #define floor stdc_519EBB77
 
-extern "C" float stdc_23B985F7(float x);                                                  // floorf()
+float stdc_23B985F7(float x);                                                  // floorf()
 #define floorf stdc_23B985F7
 
-extern "C" double stdc_F3EC0258(double x);                                                // round()
+double stdc_F3EC0258(double x);                                                // round()
 #define round stdc_F3EC0258
 
-extern "C" float stdc_C984BF53(float x);                                                   // roundf()
+float stdc_C984BF53(float x);                                                   // roundf()
 #define roundf stdc_C984BF53
 
-extern "C" long int stdc_772F1E4D(double x);                                              // lround()
+long int stdc_772F1E4D(double x);                                              // lround()
 #define lround stdc_772F1E4D
 
-extern "C" long int stdc_FBB4047A(float x);                                               // lroundf()
+long int stdc_FBB4047A(float x);                                               // lroundf()
 #define lroundf stdc_FBB4047A
 
-extern "C" float stdc_7C2EAEB5(float x, float y);                                         // fminf()
+float stdc_7C2EAEB5(float x, float y);                                         // fminf()
 #define fminf stdc_7C2EAEB5
 
-extern "C" float stdc_895CDB49(float x, float y);                                         // fmaxf()
+float stdc_895CDB49(float x, float y);                                         // fmaxf()
 #define fmaxf stdc_895CDB49
 
-extern "C" double stdc_A713F8CF(double x, double* intpart);                               // modf()
+double stdc_A713F8CF(double x, double* intpart);                               // modf()
 #define modf stdc_A713F8CF
 
-extern "C" double stdc_E769E5CF(double numer, double denom);                              // fmod()
+double stdc_E769E5CF(double numer, double denom);                              // fmod()
 #define fmod stdc_E769E5CF
 
-extern "C" float stdc_9A81E583(float numer, float denom);                                 // fmodf()
+float stdc_9A81E583(float numer, float denom);                                 // fmodf()
 #define fmodf stdc_9A81E583
 
 /*
@@ -117,493 +101,507 @@ typedef struct {
 	long int rem;
 } ldiv_t;*/
 
-extern "C" std::ldiv_t stdc_AD62A342(long int numer, long int denom);                          // ldiv()
-#define ldiv stdc_AD62A342
+std::ldiv_t stdc_AD62A342(long int numer, long int denom);                          // ldiv()
+static std::ldiv_t ldiv(long int numer, long int denom) { return stdc_AD62A342(numer, denom); }
 
-extern "C" int stdc_15BDCC00(void);                                                       // rand()
-#define rand stdc_15BDCC00
+int stdc_15BDCC00(void);                                                       // rand()
+static int rand() { return stdc_15BDCC00(); }
 
-extern "C" void stdc_0D2A593B(unsigned seed);                                             // srand()
-#define srand stdc_0D2A593B
+void stdc_0D2A593B(unsigned seed);                                             // srand()
+static void srand(unsigned seed) { return stdc_0D2A593B(seed); }
 
-extern "C" double stdc_18668CE3(double x);                                                // exp()
-#define exp stdc_18668CE3
+double stdc_18668CE3(double x);                                                // exp()
+static double exp(double x) { return stdc_18668CE3(x); }
 
-extern "C" float stdc_FCF08193(float x);                                                  // expf()
+float stdc_FCF08193(float x);                                                  // expf()
 #define expf stdc_FCF08193
 
-extern "C" double stdc_7F381837(double x, int *_exp);                                      // frexp()
+double stdc_7F381837(double x, int *_exp);                                      // frexp()
 #define frexp stdc_7F381837
 
-extern "C" double stdc_38E69F09(double x, double y);                                      // pow()
+double stdc_38E69F09(double x, double y);                                      // pow()
 #define pow stdc_38E69F09
 
-extern "C" float stdc_4DDB926B(float x, float y);                                         // powf()
+float stdc_4DDB926B(float x, float y);                                         // powf()
 #define powf stdc_4DDB926B
 
-extern "C" float stdc_00FDE072(float x, float y);                                         // f_powf()
+float stdc_00FDE072(float x, float y);                                         // f_powf()
 #define f_powf stdc_00FDE072
 
-extern "C" double stdc_659E011E(double x);                                                // sqrt()
-#define sqrt stdc_659E011E
+double stdc_659E011E(double x);                                                // sqrt()
+static double sqrt(double x) { return stdc_659E011E(x); }
 
-extern "C" double stdc_8451EDF0(double x);                                                // sqrtf()
-#define sqrtf stdc_8451EDF0
+double stdc_8451EDF0(double x);                                                // sqrtf()
+static double sqrtf(double x) { return stdc_8451EDF0(x); }
 
-extern "C" double stdc_CA463458(double, int);                                              // _Log()
+double stdc_CA463458(double, int);                                              // _Log()
 #define _Log stdc_CA463458
 
-extern "C" float stdc_71293B71(float, int);										         // _FLog()
+float stdc_71293B71(float, int);										         // _FLog()
 #define _FLog stdc_71293B71
 
-extern "C" double stdc_742F12B4(double, unsigned int);                                    // _Sin()
+double stdc_742F12B4(double, unsigned int);                                    // _Sin()
 #define _Sin stdc_742F12B4
 
-extern "C" float stdc_B54CC9A1(float x);                                                  // f_sinf()
-#define f_sinf stdc_B54CC9A1
+float stdc_B54CC9A1(float x);                                                  // f_sinf()
+static float f_sinf(float x) { return stdc_B54CC9A1(x); }
 
-extern "C" float stdc_B5E28191(float, unsigned int);                                      // _FSin()
+float stdc_B5E28191(float, unsigned int);                                      // _FSin()
 #define _FSin stdc_B5E28191
 
-extern "C" double stdc_05EFC660(double x);                                                // asin()
+double stdc_05EFC660(double x);                                                // asin()
 #define asin stdc_05EFC660
 
-extern "C" float stdc_411434BB(float x);                                                  // asinf()
+float stdc_411434BB(float x);                                                  // asinf()
 #define asinf stdc_411434BB
 
-extern "C" float stdc_7AB679DA(float x);                                                  // f_cosf()
-#define f_cosf stdc_7AB679DA
+float stdc_7AB679DA(float x);                                                  // f_cosf()
+static float f_cosf(float x) { return stdc_7AB679DA(x); }
 
-extern "C" double stdc_1313A420(double x);                                                // acos()
+double stdc_1313A420(double x);                                                // acos()
 #define acos stdc_1313A420
 
-extern "C" float stdc_DECE76A6(float x);                                                  // acosf()
+float stdc_DECE76A6(float x);                                                  // acosf()
 #define acosf stdc_DECE76A6
 
-extern "C" float stdc_705D9E24(float);                                                    // f_acosf()
+float stdc_705D9E24(float);                                                    // f_acosf()
 #define f_acosf stdc_705D9E24
 
-extern "C" double stdc_D50277AD(double x);                                                // tan()
+double stdc_D50277AD(double x);                                                // tan()
 #define tan stdc_D50277AD
 
-extern "C" float stdc_9379E36E(float x);                                                  // tanf()
+float stdc_9379E36E(float x);                                                  // tanf()
 #define tanf stdc_9379E36E
 
-extern "C" double stdc_7F579E03(double x);                                                // atan()
+double stdc_7F579E03(double x);                                                // atan()
 #define atan stdc_7F579E03
 
-extern "C" float stdc_3C057FBD(float x);                                                  // atanf()
+float stdc_3C057FBD(float x);                                                  // atanf()
 #define atanf stdc_3C057FBD
 
-extern "C" double stdc_31DB8C89(double y, double x);                                      // atan2()
+double stdc_31DB8C89(double y, double x);                                      // atan2()
 #define atan2 stdc_31DB8C89
 
-extern "C" float stdc_FB932A56(float y, float x);                                         // atan2f()
+float stdc_FB932A56(float y, float x);                                         // atan2f()
 #define atan2f stdc_FB932A56
 
-extern "C" float stdc_ABDCCC7A(float, float);                                             // f_atan2f()
+float stdc_ABDCCC7A(float, float);                                             // f_atan2f()
 #define f_atan2f stdc_ABDCCC7A
 
-extern "C" float stdc_B7696143(float x, float y);                                                // nextafterf()
+float stdc_B7696143(float x, float y);                                                // nextafterf()
 #define nextafterf stdc_B7696143
 
-extern "C" int* stdc_44115DD0();														// _Geterrno()
-#define _Geterrno stdc_44115DD0
-// eliminate warning about redefinition
-#ifdef errno
-#undef errno
-#endif
-#define errno (*_Geterrno())
+int* stdc_44115DD0();														// _Geterrno()
+//static int errno() { return (*stdc_44115DD0()); }
 
-extern "C" void stdc_8B439438(FILE *stream);                                              // clearerr()
+void stdc_8B439438(FILE *stream);                                              // clearerr()
 #define clearerr stdc_8B439438
 
-extern "C" void stdc_692B497F(const char *str);                                           // perror()
+void stdc_692B497F(const char *str);                                           // perror()
 #define perror stdc_692B497F
 
-extern "C" int stdc_33D6AE54(FILE *stream);                                               // ferror()
+int stdc_33D6AE54(FILE *stream);                                               // ferror()
 #define ferror stdc_33D6AE54
 
-extern "C" char *stdc_44796E5C(int errnum);                                               // strerror()
-#define strerror stdc_44796E5C
+char *stdc_44796E5C(int errnum);                                               // strerror()
+static char* strerror(int errnum) { return stdc_44796E5C(errnum); }
 
-//namespace std
-//{
-extern "C" size_t stdc_2F45D39C(const char *str);                                         // strlen()
-#define strlen stdc_2F45D39C
+size_t stdc_2F45D39C(const char *str);                                         // strlen()
+static size_t strlen(const char* str) { return stdc_2F45D39C(str); }
 
-	extern "C" size_t stdc_65E8D4D0(const wchar_t *ws);                                       // wcslen()
-#define wcslen stdc_65E8D4D0
+size_t stdc_65E8D4D0(const wchar_t *ws);                                       // wcslen()
+static size_t wcslen(const wchar_t* ws) { return stdc_65E8D4D0(ws); }
 
+void *stdc_CBAC7AD7(const char *ptr, int value, size_t num);                         // memchr()
+static void* memchr(const char* ptr, int value, size_t num) { return stdc_CBAC7AD7(ptr, value, num); }
 
-	extern "C" void *stdc_CBAC7AD7(const char *ptr, int value, size_t num);                         // memchr()
-#define _memchr stdc_CBAC7AD7
+wchar_t *stdc_4E72F810(const wchar_t *s, wchar_t c, size_t n);                 // wmemchr()
+static wchar_t* wmemchr(const wchar_t* s, wchar_t c, size_t n) { return stdc_4E72F810(s, c, n); }
 
-	extern "C" wchar_t *stdc_4E72F810(const wchar_t *s, wchar_t c, size_t n);                 // wmemchr()
-#define wmemchr stdc_4E72F810
+int stdc_C3E14CBE(const void *ptr1, const void *ptr2, size_t num);             // memcmp()
+static int memcmp(const void* ptr1, const void* ptr2, size_t num) { return stdc_C3E14CBE(ptr1, ptr2, num); }
 
-	extern "C" int stdc_C3E14CBE(const void *ptr1, const void *ptr2, size_t num);             // memcmp()
-#define memcmp stdc_C3E14CBE
+int stdc_AC758D20(const wchar_t *ptr1, const wchar_t *ptr2, size_t num);       // wmemcmp()
+static int wmemcmp(const wchar_t* ptr1, const wchar_t* ptr2, size_t num) { return stdc_AC758D20(ptr1, ptr2, num); }
 
-	extern "C" int stdc_AC758D20(const wchar_t *ptr1, const wchar_t *ptr2, size_t num);       // wmemcmp()
-#define wmemcmp stdc_AC758D20
+void *stdc_5909E3C4(void *str, int c, size_t n);                               // memset()
+static void* memset(void* str, int c, size_t n) { return stdc_5909E3C4(str, c, n); }
 
-#define memset stdc_5909E3C4
-	extern "C" void *stdc_5909E3C4(void *str, int c, size_t n);                               // memset()
+wchar_t *stdc_F06EED36(wchar_t *ptr, wchar_t wc, size_t num);                  // wmemset()
+static wchar_t* wmemset(wchar_t* ptr, wchar_t wc, size_t num) { return stdc_F06EED36(ptr, wc, num); }
 
+void *stdc_5B162B7F(void *str1, const void *str2, size_t n);                   // memmove()
+static void* memmove(void* str1, const void* str2, size_t n) { return stdc_5B162B7F(str1, str2, n); }
 
+wchar_t *stdc_99B38CE7(wchar_t *dest, const wchar_t *src, size_t num);         // wmemmove()
+static wchar_t* wmemmove(wchar_t* dest, const wchar_t* src, size_t num) { return stdc_99B38CE7(dest, src, num); }
 
-	extern "C" wchar_t *stdc_F06EED36(wchar_t *ptr, wchar_t wc, size_t num);                  // wmemset()
-#define wmemset stdc_F06EED36
+void *stdc_831D70A5(void *dest, const void *src, size_t num);                  // memcpy()
+static void* memcpy(void* dest, const void* src, size_t num) { return stdc_831D70A5(dest, src, num); }
 
-	extern "C" void *stdc_5B162B7F(void *str1, const void *str2, size_t n);                   // memmove()
-#define memmove stdc_5B162B7F
+wchar_t *stdc_A8B07F1B(wchar_t *dest, const wchar_t *src, size_t num);         // wmemcpy()
+static wchar_t* wmemcpy(wchar_t* dest, const wchar_t* src, size_t num) { return stdc_A8B07F1B(dest, src, num); }
 
-	extern "C" wchar_t *stdc_99B38CE7(wchar_t *dest, const wchar_t *src, size_t num);         // wmemmove()
-#define wmemmove stdc_99B38CE7
+wchar_t *stdc_84378DDC(wchar_t *dest, const wchar_t *src, size_t num);         // wcsncpy()
+static wchar_t* wcsncpy(wchar_t* dest, const wchar_t* src, size_t num) { return stdc_84378DDC(dest, src, num); }
 
-	extern "C" void *stdc_831D70A5(void *dest, const void *src, size_t num);                  // memcpy()
-#define memcpy stdc_831D70A5
+int stdc_3D85D6F8(const char *str1, const char *str2);                         // strcmp()
+static int strcmp(const char* str1, const char* str2) { return stdc_3D85D6F8(str1, str2); }
 
-	extern "C" wchar_t *stdc_A8B07F1B(wchar_t *dest, const wchar_t *src, size_t num);         // wmemcpy()
-#define wmemcpy stdc_A8B07F1B
-//};
-extern "C" wchar_t *stdc_84378DDC(wchar_t *dest, const wchar_t *src, size_t num);         // wcsncpy()
-#define wcsncpy stdc_84378DDC
+int stdc_F0776A44(const wchar_t *wcs1, const wchar_t *wcs2);                   // wcscmp()
+static int wcscmp(const wchar_t* wcs1, const wchar_t* wcs2) { return stdc_F0776A44(wcs1, wcs2); }
 
-extern "C" int stdc_3D85D6F8(const char *str1, const char *str2);                         // strcmp()
-#define strcmp stdc_3D85D6F8
+int stdc_E1E83C65(const char *str1, const char *str2, size_t num);             // strncmp()
+static int strncmp(const char* str1, const char* str2, size_t num) { return stdc_E1E83C65(str1, str2, num); }
 
-extern "C" int stdc_F0776A44(const wchar_t *wcs1, const wchar_t *wcs2);                   // wcscmp()
-#define wcscmp stdc_F0776A44
+int stdc_6D5115B0(const wchar_t *ws1, const wchar_t *ws2, size_t n);           // wcsncmp()
+static int wcsncmp(const wchar_t* ws1, const wchar_t* ws2, size_t n) { return stdc_6D5115B0(ws1, ws2, n); }
 
-extern "C" int stdc_E1E83C65(const char *str1, const char *str2, size_t num);             // strncmp()
-#define strncmp stdc_E1E83C65
+int stdc_B6D92AC3(const char *s1, const char *s2);                             // strcasecmp()
+static int strcasecmp(const char* s1, const char* s2) { return stdc_B6D92AC3(s1, s2); }
 
-extern "C" int stdc_6D5115B0(const wchar_t *ws1, const wchar_t *ws2, size_t n);           // wcsncmp()
-#define wcsncmp stdc_6D5115B0
+int stdc_B6257E3D(const char *s1, const char *s2, size_t n);                   // strncasecmp()
+static int strncasecmp(const char* s1, const char* s2, size_t n) { return stdc_B6257E3D(s1, s2, n); }
 
-extern "C" int stdc_B6D92AC3(const char *s1, const char *s2);                             // strcasecmp()
-#define strcasecmp stdc_B6D92AC3
+char *stdc_04A183FC(char *dest, const char *src);                              // strcpy()
+static char* strcpy(char* dest, const char* src) { return stdc_04A183FC(dest, src); }
 
-extern "C" int stdc_B6257E3D(const char *s1, const char *s2, size_t n);                   // strncasecmp()
-#define strncasecmp stdc_B6257E3D
+wchar_t *stdc_F41355F9(wchar_t *dest, const wchar_t *src);                     // wcscpy()
+static wchar_t* wcscpy(wchar_t* dest, const wchar_t* src) { return stdc_F41355F9(dest, src); }
 
-extern "C" char *stdc_04A183FC(char *dest, const char *src);                              // strcpy()
-#define strcpy stdc_04A183FC
+char *stdc_8AB0ABC6(char *dest, const char *src, size_t num);                  // strncpy()
+static char* strncpy(char* dest, const char* src, size_t num) { return stdc_8AB0ABC6(dest, src, num); }
 
-extern "C" wchar_t *stdc_F41355F9(wchar_t *dest, const wchar_t *src);                     // wcscpy()
-#define wcscpy stdc_F41355F9
+char *stdc_FC0428A6(const char *s);                                            // strdup()
+static char* strdup(const char* s) { return stdc_FC0428A6(s); }
 
-extern "C" char *stdc_8AB0ABC6(char *dest, const char *src, size_t num);                  // strncpy()
-#define strncpy stdc_8AB0ABC6
+char *stdc_AA9635D7(char *dest, const char *src);                              // strcat()
+static char* strcat(char* dest, const char* src) { return stdc_AA9635D7(dest, src); }
 
-extern "C" char *stdc_FC0428A6(const char *s);                                            // strdup()
-#define strdup stdc_FC0428A6
+wchar_t *stdc_7FDCF73E(wchar_t *dest, const wchar_t *src);                     // wcscat()
+static wchar_t* wcscat(wchar_t* dest, const wchar_t* src) { return stdc_7FDCF73E(dest, src); }
 
-extern "C" char *stdc_AA9635D7(char *dest, const char *src);                              // strcat()
-#define strcat stdc_AA9635D7
+char *stdc_589B5314(char *dest, const char *src, size_t n);                    // strncat()
+static char* strncat(char* dest, const char* src, size_t n) { return stdc_589B5314(dest, src, n); }
 
-extern "C" wchar_t *stdc_7FDCF73E(wchar_t *dest, const wchar_t *src);                     // wcscat()
-#define wcscat stdc_7FDCF73E
+wchar_t *stdc_9439E4CD(wchar_t* dest, const wchar_t* source, size_t num);      // wcsncat()
+static wchar_t* wcsncat(wchar_t* dest, const wchar_t* source, size_t num) { return stdc_9439E4CD(dest, source, num); }
 
-extern "C" char *stdc_589B5314(char *dest, const char *src, size_t n);                    // strncat()
-#define strncat stdc_589B5314
+char *stdc_DEBEE2AF(const char *str, int c);                                         // strchr()
+static char* strchr(const char* str, int c) { return stdc_DEBEE2AF(str, c); }
 
-extern "C" wchar_t *stdc_9439E4CD(wchar_t* dest, const wchar_t* source, size_t num);      // wcsncat()
-#define wcsncat stdc_9439E4CD
+wchar_t *stdc_82A3CC30(wchar_t* ws, wchar_t wc);                               // wcschr()
+static wchar_t* wcschr(wchar_t* ws, wchar_t wc) { return stdc_82A3CC30(ws, wc); }
 
-//namespace std
-//{
+char *stdc_73EAE03D(const char *s, int c);                                     // strrchr()
+static char* strrchr(const char* s, int c) { return stdc_73EAE03D(s, c); }
 
-	extern "C" char *stdc_DEBEE2AF(const char *str, int c);                                         // strchr()
-#define strchr stdc_DEBEE2AF
-//};
-extern "C" wchar_t *stdc_82A3CC30(wchar_t* ws, wchar_t wc);                               // wcschr()
-#define wcschr stdc_82A3CC30
+wchar_t *stdc_B7AB5127(const wchar_t *ws, wchar_t wc);                         // wcsrchr()
+static wchar_t* wcsrchr(const wchar_t* ws, wchar_t wc) { return stdc_B7AB5127(ws, wc); }
 
-extern "C" char *stdc_73EAE03D(const char *s, int c);                                     // strrchr()
-#define strrchr stdc_73EAE03D
+char *stdc_C5C09834(const char *str1, const char *str2);                             // strstr()
+static char* strstr(const char* str1, const char* str2) { return stdc_C5C09834(str1, str2); }
 
-extern "C" wchar_t *stdc_B7AB5127(const wchar_t *ws, wchar_t wc);                         // wcsrchr()
-#define wcsrchr stdc_B7AB5127
+wchar_t *stdc_A797790F(wchar_t* wcs1, const wchar_t* wcs2);                    // wcsstr()
+static wchar_t* wcsstr(wchar_t* wcs1, const wchar_t* wcs2) { return stdc_A797790F(wcs1, wcs2); }
 
-extern "C" char *stdc_C5C09834(const char *str1, const char *str2);                             // strstr()
-#define strstr stdc_C5C09834
+size_t stdc_F3EF3678(const wchar_t *wcs1, const wchar_t *wcs2);                // wcscspn()
+static size_t wcscspn(const wchar_t* wcs1, const wchar_t* wcs2) { return stdc_F3EF3678(wcs1, wcs2); }
 
-extern "C" wchar_t *stdc_A797790F(wchar_t* wcs1, const wchar_t* wcs2);                    // wcsstr()
-#define wcsstr stdc_A797790F
+char *stdc_E40BA755(char *str, const char *delimiters);                        // strtok()
+static char* strtok(char* str, const char* delimiters) { return stdc_E40BA755(str, delimiters); }
 
-extern "C" size_t stdc_F3EF3678(const wchar_t *wcs1, const wchar_t *wcs2);                // wcscspn()
-#define wcscspn stdc_F3EF3678
+char *stdc_B738027A(char *str, const char *delim, char **saveptr);             // strtok_r()
+static char* strtok_r(char* str, const char* delim, char** saveptr) { return stdc_B738027A(str, delim, saveptr); }
 
-extern "C" char *stdc_E40BA755(char *str, const char *delimiters);                        // strtok()
-#define strtok stdc_E40BA755
+long int stdc_D14ECE90(const char *str, char **endptr, int base);              // strtol()
+static long int strtol(const char* str, char** endptr, int base) { return stdc_D14ECE90(str, endptr, base); }
 
-extern "C" char *stdc_B738027A(char *str, const char *delim, char **saveptr);             // strtok_r()
-#define strtok_r stdc_B738027A
-
-extern "C" long int stdc_D14ECE90(const char *str, char **endptr, int base);              // strtol()
-#define strtol stdc_D14ECE90
-
-extern "C" double stdc_D1D69CB8(const char *a, char **b, long x);                         // _Stod()
+double stdc_D1D69CB8(const char *a, char **b, long x);                         // _Stod()
 #define _Stod stdc_D1D69CB8
 #define strtod(str, endptr)	_Stod(str, endptr, 0)
 #define atof(str)	_Stod(str, 0, 0)
 
-extern "C" uint64_t stdc_36C067C1(const char *a, char **b, int x);                        // _Stoll
+uint64_t stdc_36C067C1(const char *a, char **b, int x);                        // _Stoll
 #define _Stoll stdc_36C067C1
 #define strtoll(str, endptr, base)	_Stoll(str, endptr, base)
 
-extern "C" unsigned long stdc_867275D7(const char *a, char **b, int x);                   // _Stoul()
+unsigned long stdc_867275D7(const char *a, char **b, int x);                   // _Stoul()
 #define _Stoul stdc_867275D7
 #define strtoul(str, endptr, base)	_Stoul(str, endptr, base)
 #define atoi(str)	(int)_Stoul(str, 0, 10)
 #define atol(str)	(long)_Stoul(str, 0, 10)
 
-extern "C" uint64_t stdc_D417EEB5(const char *a, char **b, int x);                        // _Stoull()
+uint64_t stdc_D417EEB5(const char *a, char **b, int x);                        // _Stoull()
 #define _Stoull stdc_D417EEB5
 
-extern "C" long stdc_116CDA13(const wchar_t *restrict_nptr, wchar_t **restrict_endptr, int base);  // wcstol
+long stdc_116CDA13(const wchar_t *restrict_nptr, wchar_t **restrict_endptr, int base);  // wcstol
 #define wcstol stdc_116CDA13
 
-extern "C" long long int stdc_A30D4797(const wchar_t* str, wchar_t** endptr, int base);   // wcstoll()
+long long int stdc_A30D4797(const wchar_t* str, wchar_t** endptr, int base);   // wcstoll()
 #define wcstoll stdc_A30D4797
 
+size_t stdc_B2702E15(char *pmb, wchar_t wc, std::mbstate_t *ps);                    // wcrtomb()
+static size_t wcrtomb(char* pmb, wchar_t wc, std::mbstate_t* ps) { return stdc_B2702E15(pmb, wc, ps); }
 
-extern "C" size_t stdc_B2702E15(char *pmb, wchar_t wc, std::mbstate_t *ps);                    // wcrtomb()
-#define wcrtomb stdc_B2702E15
-
-extern "C" size_t stdc_12A55FB7(wchar_t *restrict_pwc, const char *restrict_s, size_t n, std::mbstate_t *restrict_ps);  // mbrtowc
-#define mbrtowc stdc_12A55FB7
+size_t stdc_12A55FB7(wchar_t *pwc, const char *s, size_t n, std::mbstate_t *ps);  // mbrtowc
+static size_t mbrtowc(wchar_t* pwc, const char* s, size_t n, std::mbstate_t* ps) { return stdc_12A55FB7(pwc, s, n, ps); }
 
 
-/*int mbtowc(wchar_t * restrict_pwc, const char * restrict_s, size_t n)
+/*static int mbtowc(wchar_t* pwc, const char* s, size_t n)
 {
-static mbstate_t mbs;
-size_t rval;
+   static mbstate_t mbs;
+   size_t rval;
 
-if (restrict_s == NULL) {
-memset(&mbs, 0, sizeof(mbs));
-return (0);
+   if (s == NULL) {
+      memset(&mbs, 0, sizeof(mbs));
+      return (0);
+   }
+   rval = mbrtowc(pwc, s, n, &mbs);
+   if (rval == (size_t)-1 || rval == (size_t)-2)
+      return (-1);
+   return ((int)rval);
 }
-rval = mbrtowc(restrict_pwc, restrict_s, n, &mbs);
-if (rval == (size_t)-1 || rval == (size_t)-2)
-return (-1);
-return ((int)rval);
-}
-int wctomb(char *s, wchar_t wchar)
+
+static int wctomb(char* s, wchar_t wchar)
 {
-static mbstate_t mbs;
-size_t rval;
+   static mbstate_t mbs;
+   size_t rval;
 
-if (s == NULL) {
-memset(&mbs, 0, sizeof(mbs));
-return (0);
-}
-if ((rval = wcrtomb(s, wchar, &mbs)) == (size_t)-1)
-return (-1);
-return ((int)rval);
+   if (s == NULL) {
+      memset(&mbs, 0, sizeof(mbs));
+      return (0);
+   }
+   if ((rval = wcrtomb(s, wchar, &mbs)) == (size_t)-1)
+      return (-1);
+   return ((int)rval);
 }*/
 
 
-extern "C" size_t stdc_FCAC2E8E(wchar_t *dest, const char *src, size_t max);              // mbstowcs()
-#define mbstowcs stdc_FCAC2E8E
+size_t stdc_FCAC2E8E(wchar_t *dest, const char *src, size_t max);              // mbstowcs()
+static size_t mbstowcs(wchar_t* dest, const char* src, size_t max) { return stdc_FCAC2E8E(dest, src, max); }
 
-extern "C" size_t stdc_B680E240(char *dest, const wchar_t *src, size_t max);              // wcstombs()
-#define wcstombs stdc_B680E240
+size_t stdc_B680E240(char *dest, const wchar_t *src, size_t max);              // wcstombs()
+static size_t wcstombs(char* dest, const wchar_t* src, size_t max) { return stdc_B680E240(dest, src, max); }
 
-extern "C" int stdc_C01D9F97(const char *fmt, ...);                                       // printf()
-#define printf stdc_C01D9F97
+int stdc_C01D9F97(const char *fmt, ...);                                       // printf()
 
-extern "C" int stdc_E48348E9(const char *format, va_list arg);                            // vprintf()
-#define vprintf stdc_E48348E9
+int stdc_E48348E9(const char * fmt, va_list arg);                            // vprintf()
+static int vprintf(const char* fmt, va_list arg) { return stdc_E48348E9(fmt, arg); }
 
-extern "C" int stdc_273B9711(char *str, const char *fmt, ...);                            // sprintf()
-#define sprintf stdc_273B9711
+static int printf(const char* fmt, ...)
+{
+   int r;
+   va_list args;
+   va_start(args, fmt);
+   r = vprintf(fmt, args);
+   va_end(args);
+   return r;
+}
 
-extern "C" int stdc_3A840AE3(char *str, size_t size, const char *fmt, ...);               // snprintf()
-#define snprintf stdc_3A840AE3
+int stdc_273B9711(char *str, const char *fmt, ...);                            // sprintf()
 
-extern "C" int stdc_7AE82E0F(char *str, const char *format, va_list arg);                 // vsprintf()
+int stdc_3A840AE3(char *str, size_t size, const char *fmt, ...);               // snprintf()
+
+int stdc_7AE82E0F(char *str, const char *format, va_list arg);                 // vsprintf()
 #define vsprintf stdc_7AE82E0F
 
-extern "C" int stdc_FAEC8C60(FILE *stream, const char *fmt, ...);                         // fprintf()
-#define fprintf stdc_FAEC8C60
+int stdc_FAEC8C60(FILE *stream, const char *fmt, ...);                         // fprintf()
 
-extern "C" int stdc_FB2081FD(FILE *stream, const char *fmt, va_list arg);                 // vfprintf()
+int stdc_FB2081FD(FILE *stream, const char *fmt, va_list arg);                 // vfprintf()
 #define vfprintf stdc_FB2081FD
 
-extern "C" int stdc_99A72146(char *s, size_t n, const char *fmt, va_list arg);            // vsnprintf()
-#define vsnprintf stdc_99A72146
+int stdc_99A72146(char *s, size_t n, const char *fmt, va_list arg);            // vsnprintf()
+static int vsnprintf(char* s, size_t n, const char* fmt, va_list arg) { return stdc_99A72146(s, n, fmt, arg); }
 
-extern "C" int stdc_E9137453(FILE *stream, const wchar_t *fmt, ...);                      // fwprintf()
-#define fwprintf stdc_E9137453
+static int snprintf(char* str, size_t size, const char* format, ...)
+{
+   int r;
+   va_list args;
+   va_start(args, format);
+   r = vsnprintf(str, size, format, args);
+   va_end(args);
+   return r;
+}
 
-extern "C" int stdc_62BF1D6C(wchar_t *wcs, size_t maxlen, const wchar_t *format, ...);    // swprintf()
-#define swprintf stdc_62BF1D6C
 
-extern "C" int stdc_4B6A4010(wchar_t * ws, size_t len, const wchar_t * fmt, va_list arg); // vswprintf()
-#define vswprintf stdc_4B6A4010
+int stdc_E9137453(FILE *stream, const wchar_t *fmt, ...);                      // fwprintf()
 
-extern "C" int stdc_B1F4779D(sys_spu_thread_t id, uint32_t arg_addr);                     // spu_thread_printf()
+int stdc_62BF1D6C(wchar_t *wcs, size_t maxlen, const wchar_t *format, ...);    // swprintf()
+
+int stdc_4B6A4010(wchar_t * ws, size_t len, const wchar_t * fmt, va_list arg); // vswprintf()
+static int vswprintf(wchar_t* ws, size_t len, const wchar_t* fmt, va_list arg) { return stdc_4B6A4010(ws, len, fmt, arg); }
+
+static int swprintf(wchar_t* s, size_t n, const wchar_t* fmt, ...)
+{
+   int ret;
+   va_list ap;
+
+   va_start(ap, fmt);
+   ret = vswprintf(s, n, fmt, ap);
+   va_end(ap);
+
+   return (ret);
+}
+
+int stdc_B1F4779D(sys_spu_thread_t id, uint32_t arg_addr);                     // spu_thread_printf()
 #define spu_thread_printf stdc_B1F4779D
 
-extern "C" int stdc_F0E022C6(FILE *stream);                                               // getc()
-#define getc stdc_F0E022C6
+int stdc_F0E022C6(FILE *stream);                                               // getc()
+static int getc(FILE* stream) { return stdc_F0E022C6(stream); }
 
-extern "C" int stdc_A5BC0E19(void);                                                       // getchar()
-#define getchar stdc_A5BC0E19
+int stdc_A5BC0E19(void);                                                       // getchar()
+static int getchar(void) { return stdc_A5BC0E19(); }
 
-extern "C" char *stdc_90010029(char *str);                                                // gets()
-#define gets stdc_90010029
+char *stdc_90010029(char *str);                                                // gets()
+static char* gets(char* str) { return stdc_90010029(str); }
 
-extern "C" char *stdc_AF44A615(char *str, int num, FILE * stream);                        // fgets()
-#define fgets stdc_AF44A615
+char *stdc_AF44A615(char *str, int num, FILE * stream);                        // fgets()
+static char* fgets(char* str, int num, FILE* stream) { return stdc_AF44A615(str, num, stream); }
 
-extern "C" int stdc_AC893127(FILE *stream);                                               // fgetc()
-#define fgetc stdc_AC893127
+int stdc_AC893127(FILE *stream);                                               // fgetc()
+static int fgetc(FILE* stream) { return stdc_AC893127(stream); }
 
-extern "C" wchar_t *stdc_55D4866E(wchar_t *ws, int n, FILE *stream);                      // fgetws()
-#define fgetws stdc_55D4866E
+wchar_t *stdc_55D4866E(wchar_t *ws, int n, FILE *stream);                      // fgetws()
+static wchar_t* fgetws(wchar_t* ws, int n, FILE* stream) { return stdc_55D4866E(ws, n, stream); }
 
 // stdc_82A4561A  // _put_fd()
 
-extern "C" int stdc_2677568C(int c);                                                      // putchar()
+int stdc_2677568C(int c);                                                      // putchar()
 #define putchar stdc_2677568C
 
-extern "C" int stdc_79819DBF(int c, FILE *stream);                                        // fputc()
+int stdc_79819DBF(int c, FILE *stream);                                        // fputc()
 #define fputc stdc_79819DBF
 
-extern "C" int stdc_E3CC73F3(const char *str);                                            // puts()
-#define puts stdc_E3CC73F3
+int stdc_E3CC73F3(const char *str);                                            // puts()
+static int puts(const char* str) { return stdc_E3CC73F3(str); }
 
-extern "C" int stdc_4D348427(const char *str, FILE *stream);                              // fputs()
-#define fputs stdc_4D348427
+int stdc_4D348427(const char *str, FILE *stream);                              // fputs()
+static int fputs(const char* str, FILE* stream) { return stdc_4D348427(str, stream); }
 
-extern "C" int stdc_FE88E97E(FILE *stream, const char *fmt, ...);                         // fscanf()
+int stdc_FE88E97E(FILE *stream, const char *fmt, ...);                         // fscanf()
 #define fscanf stdc_FE88E97E
 
-extern "C" int stdc_E9B560A5(const char *s, const char *fmt, ...);                        // sscanf()
+int stdc_E9B560A5(const char *s, const char *fmt, ...);                        // sscanf()
 #define sscanf stdc_E9B560A5
 
-extern "C" int stdc_3A210C93(const wchar_t* ws, const wchar_t* fmt, ...);                 // swscanf
+int stdc_3A210C93(const wchar_t* ws, const wchar_t* fmt, ...);                 // swscanf
 #define swscanf stdc_3A210C93
 
-extern "C" int stdc_3BD9CE0A(int fd);                                                     // fsync()
+int stdc_3BD9CE0A(int fd);                                                     // fsync()
 #define fsync stdc_3BD9CE0A
 
-extern "C" int stdc_F356418C(const char *, int, ...);                                     // open()
-#define _open stdc_F356418C
+int stdc_F356418C(const char *, int, ...);                                     // open()
+#define stdc_open stdc_F356418C
 
-extern "C" FILE *stdc_69C27C12(const char *filename, const char *mode);                   // fopen()
-#define fopen stdc_69C27C12
+FILE *stdc_69C27C12(const char *filename, const char *mode);                   // fopen()
+static FILE* fopen(const char* filename, const char* mode) { return stdc_69C27C12(filename, mode); }
 
-extern "C" FILE *stdc_E3812672(int fd, const char *mode);                                 // fdopen()
-#define fdopen stdc_E3812672
+FILE *stdc_E3812672(int fd, const char *mode);                                 // fdopen()
+static FILE* fdopen(int fd, const char* mode) { return stdc_E3812672(fd, mode); }
 
-extern "C" int stdc_4FFBA189(FILE *stream);                                               // feof()
-#define feof stdc_4FFBA189
+int stdc_4FFBA189(FILE *stream);                                               // feof()
+static int feof(FILE* stream) { return stdc_4FFBA189(stream); }
 
-extern "C" int stdc_26F023D5(FILE *stream);                                               // ftell()
-#define ftell stdc_26F023D5
+int stdc_26F023D5(FILE *stream);                                               // ftell()
+static int ftell(FILE* stream) { return stdc_26F023D5(stream); }
 
-extern "C" int stdc_D360DCB4(FILE *stream);                                               // fileno()
+int stdc_D360DCB4(FILE *stream);                                               // fileno()
 #define fileno stdc_D360DCB4
 
-extern "C" void stdc_54F57626(FILE *stream);                                              // rewind()
-#define rewind stdc_54F57626
+void stdc_54F57626(FILE *stream);                                              // rewind()
+static void rewind(FILE* stream) { stdc_54F57626(stream); }
 
-extern "C" int stdc_69FF1B9B(FILE *stream, long int offset, int whence);                  // fseek()
-#define fseek stdc_69FF1B9B
+int stdc_69FF1B9B(FILE *stream, long int offset, int whence);                  // fseek()
+static int fseek(FILE* stream, long int offset, int whence) { return stdc_69FF1B9B(stream, offset, whence); }
 
-extern "C" off_t stdc_AEC7C970(int fd, off_t offset, int whence);                         // lseek()
+off_t stdc_AEC7C970(int fd, off_t offset, int whence);                         // lseek()
 #define lseek stdc_AEC7C970
 
-extern "C" size_t stdc_FA00D211(int fd, void *buf, size_t nbytes);                        // read()
-#define read stdc_FA00D211
+size_t stdc_FA00D211(int fd, void *buf, size_t nbytes);                        // read()
+static size_t read(int fd, void* buf, size_t nbytes) { return stdc_FA00D211(fd, buf, nbytes); }
 
-extern "C" size_t stdc_D40723D6(void *ptr, size_t size, size_t count, FILE *stream);      // fread()
-#define fread stdc_D40723D6
+size_t stdc_D40723D6(void *ptr, size_t size, size_t count, FILE *stream);      // fread()
+static size_t fread(void* ptr, size_t size, size_t count, FILE* stream) { return stdc_D40723D6(ptr, size, count, stream); }
 
-extern "C" size_t stdc_526A496A(int fildes, const void *buf, size_t nbytes);              // write()
-#define write stdc_526A496A
+size_t stdc_526A496A(int fildes, const void *buf, size_t nbytes);              // write()
+static size_t write(int fildes, const void* buf, size_t nbytes) { return stdc_526A496A(fildes, buf, nbytes); }
 
-extern "C" size_t stdc_F88F26C4(const void *ptr, size_t size, size_t count, FILE *stream);  // fwrite()
-#define fwrite stdc_F88F26C4
+size_t stdc_F88F26C4(const void *ptr, size_t size, size_t count, FILE *stream);  // fwrite()
+static size_t fwrite(const void* ptr, size_t size, size_t count, FILE* stream) { return stdc_F88F26C4(ptr, size, count, stream); }
 
-extern "C" int stdc_814D8CB0(FILE * stream);                                              // fflush()
-#define fflush stdc_814D8CB0
+int stdc_814D8CB0(FILE * stream);                                              // fflush()
+static int fflush(FILE* stream) { return stdc_814D8CB0(stream); }
 
-extern "C" int stdc_B120F6CA(int fd);                                                     // close()
-#define _close stdc_B120F6CA
+int stdc_B120F6CA(int fd);                                                     // close()
+static int close(int fd) { return stdc_B120F6CA(fd); }
 
-extern "C" int stdc_E1BD3587(FILE *stream);                                               // fclose()
-#define fclose stdc_E1BD3587
+int stdc_E1BD3587(FILE *stream);                                               // fclose()
+static int fclose(FILE* stream) { return stdc_E1BD3587(stream); }
 
-extern "C" int stdc_153B364A(const char *path, mode_t mode);                              // mkdir()
-#define mkdir stdc_153B364A
+int stdc_153B364A(const char *path, mode_t mode);                              // mkdir()
+static int mkdir(const char* path, mode_t mode) { return stdc_153B364A(path, mode); }
 
-extern "C" int stdc_7E7017B1(const char *path);                                           // rmdir()
-#define rmdir stdc_7E7017B1
+int stdc_7E7017B1(const char *path);                                           // rmdir()
+static int rmdir(const char* path) { return stdc_7E7017B1(path); }
 
-extern "C" int stdc_75D4485C(const char *old_filename, const char *new_filename);         // rename()
-#define rename stdc_75D4485C
+int stdc_75D4485C(const char *old_filename, const char *new_filename);         // rename()
+static int rename(const char* old_filename, const char* new_filename) { return stdc_75D4485C(old_filename, new_filename); }
 
-extern "C" int stdc_EF110B6B(const char *path);                                           // unlink()
-#define unlink stdc_EF110B6B
+int stdc_EF110B6B(const char *path);                                           // unlink()
+static int unlink(const char* path) { return stdc_EF110B6B(path); }
 
-extern "C" int stdc_717B2502(const char *restrict_path, struct stat *restrict_buf);       // stat()
-#define std_stat stdc_717B2502
+int stdc_717B2502(const char *path, struct stat *buf);       // stat()
+static int stat(const char* path, struct stat* buf) { return stdc_717B2502(path, buf); }
 
 // stdc_AB77019F  // fstat()
 
-extern "C" void stdc_8A6830E7(void);                                                      // abort()
-#define abort stdc_8A6830E7
+void stdc_8A6830E7(void);                                                      // abort()
+static void abort() { stdc_8A6830E7(); }
 
-extern "C" void stdc_C291E698(int status);                                                // exit()
-#define exit stdc_C291E698
+void stdc_C291E698(int status);                                                // exit()
+static void exit(int status) { stdc_C291E698(status); }
 
 // stdc_1A00F889  // _ZNSt9exceptionD2Ev
 
-extern "C" clock_t stdc_24F6CBDD(void);                                                   // clock()
-#define clock stdc_24F6CBDD
+clock_t stdc_24F6CBDD(void);                                                   // clock()
+static clock_t clock() { return stdc_24F6CBDD(); }
 
-extern "C" time_t stdc_89F6F026(time_t *timer);                                           // time()
-#define time stdc_89F6F026
+time_t stdc_89F6F026(time_t *timer);                                           // time()
+static time_t time(time_t* timer) { return stdc_89F6F026(timer); }
 
-extern "C" char *stdc_BC7B4B8E(const time_t *timer);                                      // ctime()
-#define ctime stdc_BC7B4B8E
+char *stdc_BC7B4B8E(const time_t *timer);                                      // ctime()
+static char* ctime(const time_t* timer) { return stdc_BC7B4B8E(timer); }
 
-extern "C" struct tm *stdc_EB26298C(const time_t *timer);                                 // gmtime()
-#define gmtime stdc_EB26298C
+struct tm *stdc_EB26298C(const time_t *timer);                                 // gmtime()
+static struct tm* gmtime(const time_t* timer) { return stdc_EB26298C(timer); }
 
-extern "C" time_t stdc_19CCBB81(struct tm *timeptr);                                      // mktime()
-#define mktime stdc_19CCBB81
+time_t stdc_19CCBB81(struct tm *timeptr);                                      // mktime()
+static time_t mktime(struct tm* timeptr) { return stdc_19CCBB81(timeptr); }
 
-extern "C" struct tm *stdc_266311A0(const time_t *timer);                                 // localtime()
-#define localtime stdc_266311A0
+struct tm *stdc_266311A0(const time_t *timer);                                 // localtime()
+static struct tm* localtime(const time_t* timer) { return stdc_266311A0(timer); }
 
-extern "C" double stdc_4217B4CF(time_t time1, time_t time2);                              // difftime()
-#define difftime stdc_4217B4CF
+double stdc_4217B4CF(time_t time1, time_t time2);                              // difftime()
+static double difftime(time_t time1, time_t time2) { return stdc_4217B4CF(time1, time2); }
 
-extern "C" size_t stdc_CB9C535B(char *ptr, size_t maxsize, const char *fmt, const struct tm *timeptr);  // strftime()
-#define strftime stdc_CB9C535B
+size_t stdc_CB9C535B(char *ptr, size_t maxsize, const char *fmt, const struct tm *timeptr);  // strftime()
+static size_t strftime(char* ptr, size_t maxsize, const char* fmt, const struct tm* timeptr) { return stdc_CB9C535B(ptr, maxsize, fmt, timeptr); }
 
-extern "C" void stdc_A9F68EFF(void *base, size_t num, size_t size, int(*compar)(const void*, const void*));  // qsort()
+void stdc_A9F68EFF(void *base, size_t num, size_t size, int(*compar)(const void*, const void*));  // qsort()
 #define qsort stdc_A9F68EFF
 
-extern "C" void *stdc_5E7888F0(const void *key, const void *base, size_t nitems, size_t size, int(*compar)(const void *, const void *));  // bsearch()
+void *stdc_5E7888F0(const void *key, const void *base, size_t nitems, size_t size, int(*compar)(const void *, const void *));  // bsearch()
 #define bsearch stdc_5E7888F0
 
-extern "C" DIR *stdc_3DBC3BEE(const char *name);                                          // opendir()
-#define opendir stdc_3DBC3BEE
+DIR *stdc_3DBC3BEE(const char *name);                                          // opendir()
+static DIR* opendir(const char* name) { return stdc_3DBC3BEE(name); }
 
-extern "C" struct dirent *stdc_2B81FB7F(DIR *dirp);                                       // readdir()
-#define readdir stdc_2B81FB7F
+struct dirent *stdc_2B81FB7F(DIR *dirp);                                       // readdir()
+static struct dirent* readdir(DIR* dirp) { return stdc_2B81FB7F(dirp); }
 
-extern "C" int stdc_A3440924(DIR *dirp);                                                  // closedir()
-#define closedir stdc_A3440924
+int stdc_A3440924(DIR *dirp);                                                  // closedir()
+static int closedir(DIR* dirp) { return stdc_A3440924(dirp); }
 
 
 // stdc_2D8BE7E8  // _ZNKSt9exception6_RaiseEv
@@ -616,37 +614,39 @@ extern "C" int stdc_A3440924(DIR *dirp);                                        
 
 // stdc_418BDFE1  // _get_fd()
 
-extern "C" double stdc_45034943(const char* tagp);                                        // nan()
-#define nan stdc_45034943
+double stdc_45034943(const char* tagp);                                        // nan()
+static double nan(const char* tagp) { return stdc_45034943(tagp); }
 
 // stdc_683CA70A  // _ZNKSt12_String_base5_XlenEv
 
-extern "C" int stdc_703EC767(FILE *restrict_stream, char *restrict_buf, int type, size_t size);  // setvbuf()
+int stdc_703EC767(FILE *restrict_stream, char *restrict_buf, int type, size_t size);  // setvbuf()
 #define setvbuf stdc_703EC767
 
 // stdc_7670FF88  // ?
 
-extern "C" double stdc_8ECAE294(double x, double y);                                      // nextafter()
+double stdc_8ECAE294(double x, double y);                                      // nextafter()
 #define nextafter stdc_8ECAE294
 
-extern "C" short stdc_9232BAEA(float *);                                                  // _FDtes()
+short stdc_9232BAEA(float *);                                                  // _FDtes()
 #define _FDtest stdc_9232BAEA
 
 // stdc_9CB73EE0  // _ZSt6_ThrowRKSt9exception
 
-extern "C" void stdc_AF89FDBD(const char *, const char *);                                // _Assert()
+void stdc_AF89FDBD(const char *, const char *);                                // _Assert()
 #define _Assert stdc_AF89FDBD
 #define assert(test)	((test) ? (void)0 \
 	: _Assert(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
 
 
-extern "C" void stdc_DDC71A75(const char *, const char *);                                // _SCE_Assert()
+void stdc_DDC71A75(const char *, const char *);                                // _SCE_Assert()
 #define _SCE_Assert stdc_DDC71A75
 
-extern "C" short stdc_B94B9D13(double *);                                                 // _Dtest()
+short stdc_B94B9D13(double *);                                                 // _Dtest()
 #define _Dtest stdc_B94B9D13
 
 // stdc_C7931798  // _ZNKSt12_String_base5_XranEv
 
+CDECL_END
+_VSH_END
 
 #endif // __STDC_H__

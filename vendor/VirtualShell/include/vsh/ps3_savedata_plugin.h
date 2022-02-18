@@ -1,4 +1,10 @@
 // Mysis ps3_savedata_plugin.h v0.1
+#ifndef __PS3_SAVEDATA_PLUGIN_H__
+#define __PS3_SAVEDATA_PLUGIN_H__
+#include "vshtypes.h"
+
+_VSH_BEGIN
+
 typedef struct ps3_savedata_plugin_game_interface_t
 {
 	int (*DoUnk0)(void);
@@ -60,3 +66,8 @@ typedef struct ps3_savedata_plugin_game_interface_t
 	int (*DoUnk56)(void);
 	int (*DoUnk57)(void);
 } ps3_savedata_plugin_game_interface;
+
+
+_VSH_END
+
+#endif // __PS3_SAVEDATA_PLUGIN_H__
