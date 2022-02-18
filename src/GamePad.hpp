@@ -2,7 +2,6 @@
 
 #include <cell/pad/pad_codes.h>
 #include "Util/Timers.hpp"
-#include "Helpers.hpp"
 
 enum eButtons : uint8_t
 {
@@ -25,5 +24,6 @@ enum eButtons : uint8_t
    BUTTON_MASTER,
 };
 
+extern CellPadData gPadData;
 bool IsButtonDownFor(eButtons button, uint64_t millis);
 bool IsButtonBinds(eButtons button1, eButtons button2);

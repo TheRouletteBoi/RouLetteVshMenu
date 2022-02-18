@@ -19,14 +19,14 @@ int32_t cellPadGetDataRawHook(uint32_t portNo, uint32_t deviceType, CellPadData*
    {
       if (data->len)
       {
-         vsh::memcpy(&g_Helpers.padData, data, sizeof(CellPadData));
+         vsh::memcpy(&gPadData, data, sizeof(CellPadData));
 
          // Clear VSH pad data when our menu is opened
          if (g_Menu.IsOpened())
             vsh::memset(&data->button[CELL_PAD_BTN_OFFSET_DIGITAL1], 0, 4);
       }
       else
-         vsh::memset(&g_Helpers.padData, 0, sizeof(CellPadData));
+         vsh::memset(&gPadData, 0, sizeof(CellPadData));
    }
    return ret;
 }

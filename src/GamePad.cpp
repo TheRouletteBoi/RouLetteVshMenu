@@ -1,15 +1,18 @@
 
 #include "GamePad.hpp"
 
+CellPadData gPadData;
+uint64_t gButtonLastTime[17];
+
 bool IsButtonDownFor(eButtons button, uint64_t millis)
 {
    uint64_t timeNow = get_time_now();
-   if (timeNow - g_Helpers.buttonLastTime[button] > millis)
+   if (timeNow - gButtonLastTime[button] > millis)
    {
-      uint32_t keyData = ((g_Helpers.padData.button[CELL_PAD_BTN_OFFSET_DIGITAL1] << 8) | g_Helpers.padData.button[CELL_PAD_BTN_OFFSET_DIGITAL2]);
+      uint32_t keyData = ((gPadData.button[CELL_PAD_BTN_OFFSET_DIGITAL1] << 8) | gPadData.button[CELL_PAD_BTN_OFFSET_DIGITAL2]);
       if (keyData & (1 << button))
       {
-         g_Helpers.buttonLastTime[button] = timeNow;
+         gButtonLastTime[button] = timeNow;
          return true;
       }
    }
