@@ -1,5 +1,6 @@
 
 #include "GUI.hpp"
+#include "Helpers.hpp"
 
 vsh::paf::PhPlane* GUI::GuiMakeWindow(const std::string& windowName)
 {

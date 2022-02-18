@@ -4,7 +4,6 @@
 #include <vsh/pafView.h>
 #include <vsh/pafPhPlane.h>
 #include <vsh/pafPhText.h>
-#include "Helpers.hpp"
 
 class GUI
 {
