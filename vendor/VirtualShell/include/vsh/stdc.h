@@ -63,10 +63,10 @@ double stdc_475D855B(double x);                                                /
 #define trunc stdc_475D855B
 
 double stdc_519EBB77(double x);                                                // floor()
-#define floor stdc_519EBB77
+static double floor(double x) { return stdc_519EBB77(x); }
 
 float stdc_23B985F7(float x);                                                  // floorf()
-#define floorf stdc_23B985F7
+static float floorf(float x) { return stdc_23B985F7(x); }
 
 double stdc_F3EC0258(double x);                                                // round()
 #define round stdc_F3EC0258
@@ -404,12 +404,12 @@ int stdc_273B9711(char *str, const char *fmt, ...);                            /
 int stdc_3A840AE3(char *str, size_t size, const char *fmt, ...);               // snprintf()
 
 int stdc_7AE82E0F(char *str, const char *format, va_list arg);                 // vsprintf()
-#define vsprintf stdc_7AE82E0F
+static int vsprintf(char* str, const char* format, va_list arg) { return stdc_7AE82E0F(str, format, arg); }
 
 int stdc_FAEC8C60(FILE *stream, const char *fmt, ...);                         // fprintf()
 
 int stdc_FB2081FD(FILE *stream, const char *fmt, va_list arg);                 // vfprintf()
-#define vfprintf stdc_FB2081FD
+static int vfprintf(FILE* stream, const char* fmt, va_list arg) { return stdc_FB2081FD(stream, fmt, arg); }
 
 int stdc_99A72146(char *s, size_t n, const char *fmt, va_list arg);            // vsnprintf()
 static int vsnprintf(char* s, size_t n, const char* fmt, va_list arg) { return stdc_99A72146(s, n, fmt, arg); }
