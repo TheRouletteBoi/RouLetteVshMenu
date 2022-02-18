@@ -340,6 +340,46 @@ void Menu::DrawHighlightBar()
       GUI::Alignment::Centered);
 }
 
+void Menu::DrawMenuText(const std::wstring& text)
+{
+   int optionIndex = 0;
+   if (m_CurrentOption <= m_OptionsPerPage && m_PrintingOption <= m_OptionsPerPage)
+      optionIndex = m_PrintingOption;
+   else if ((m_PrintingOption > (m_CurrentOption - m_OptionsPerPage)) && m_PrintingOption <= m_CurrentOption)
+      optionIndex = m_PrintingOption - (m_CurrentOption - m_OptionsPerPage);
+
+   if (optionIndex != 0)
+      GUI::DrawText(
+         text,
+         vsh::vec2(position.x - (m_SizeMenuWidth / 2) + 5, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar + 3),
+         20,
+         vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
+         GUI::Alignment::Left);
+}
+
+void Menu::DrawMenuToggle(bool var)
+{
+   int optionIndex = 0;
+   if (m_CurrentOption <= m_OptionsPerPage && m_PrintingOption <= m_OptionsPerPage)
+      optionIndex = m_PrintingOption;
+   else if ((m_PrintingOption > (m_CurrentOption - m_OptionsPerPage)) && m_PrintingOption <= m_CurrentOption)
+      optionIndex = m_PrintingOption - (m_CurrentOption - m_OptionsPerPage);
+
+   if (optionIndex != 0)
+   {
+      vsh::vec4 toggleColor =
+         var ? vsh::vec4(m_MenuToggleColorOn[0], m_MenuToggleColorOn[1], m_MenuToggleColorOn[2], m_OpacityHighlightBar)
+         : vsh::vec4(m_MenuToggleColorOff[0], m_MenuToggleColorOff[1], m_MenuToggleColorOff[2], m_OpacityHighlightBar);
+
+      GUI::DrawTexture(
+         "tex_busy",
+         vsh::vec2(position.x + (m_SizeMenuWidth / 2) - 5, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar),
+         vsh::vec2(20.0f, m_SizeHighlightBar),
+         toggleColor,
+         GUI::Alignment::Right);
+   }
+}
+
 void Menu::OnUpdate()
 {
    m_system_plugin = vsh::paf::View::Find("system_plugin");
@@ -370,7 +410,20 @@ void Menu::OnUpdate()
    UpdateButtons();
    GUI::BeginDrawing();
    UpdateGUI();
+   if (m_UpdateHelperGui != nullptr)
+      m_UpdateHelperGui();
    GUI::EndDrawing();
+
+
+   Color col = UpdateRGBInterpolation();
+   m_MenuRectColor[0] = col.r / 255.0f;
+   m_MenuRectColor[1] = col.g / 255.0f;
+   m_MenuRectColor[2] = col.b / 255.0f;
+}
+
+void Menu::OnHelperGUI(Function onUpdate)
+{
+   m_UpdateHelperGui = onUpdate;
 }
 
 void Menu::ShutDown()
@@ -378,23 +431,6 @@ void Menu::ShutDown()
    // Used only when the module is unloaded manually
    m_Opened = false;
    GUI::DestoryPlanesAndText();
-}
-
-void Menu::DrawMenuText(const std::wstring& text)
-{
-   int optionIndex = 0;
-   if (m_CurrentOption <= m_OptionsPerPage && m_PrintingOption <= m_OptionsPerPage)
-      optionIndex = m_PrintingOption;
-   else if ((m_PrintingOption > (m_CurrentOption - m_OptionsPerPage)) && m_PrintingOption <= m_CurrentOption)
-      optionIndex = m_PrintingOption - (m_CurrentOption - m_OptionsPerPage);
-
-   if (optionIndex != 0) 
-      GUI::DrawText(
-         text,
-         vsh::vec2(position.x - (m_SizeMenuWidth / 2) + 5, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar + 3),
-         20,
-         vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
-         GUI::Alignment::Left);
 }
 
 void Menu::title(const std::wstring& text)
@@ -456,7 +492,7 @@ Menu& Menu::action(Function fn)
 
 Menu& Menu::toggle(bool& var)
 {
-   //DrawMenuToggle(var);
+   DrawMenuToggle(var);
 
    if (IsPressed())
       var ^= 1;
@@ -466,7 +502,7 @@ Menu& Menu::toggle(bool& var)
 
 Menu& Menu::toggle(bool& var, Function onEnable, Function onDisable)
 {
-   //DrawMenuToggle(var);
+   DrawMenuToggle(var);
 
    if (IsPressed())
    {

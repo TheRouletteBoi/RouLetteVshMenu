@@ -6,26 +6,18 @@
 #include <vsh/vshcommon.h>
 #include <vsh/vshmain.h>
 #include "GamePad.hpp"
-
-struct Color
-{
-   uint8_t r;
-   uint8_t g;
-   uint8_t b;
-   uint8_t a;
-};
+#include "GUI/Base.hpp"
 
 class Helpers
 {
 public:
    void Initialize();
    void OnUpdate();
-   Color UpdateRGBInterpolation();
    void TakeScreenshot();
 
 private:
-   void UpdateFPS();
-   int GetFramesPerSecond();
+   void UpdateCalculateFps();
+   int GetFps();
 
 
 
@@ -34,14 +26,7 @@ public:
    vsh::paf::View* system_plugin{};
    vsh::paf::PhWidget* page_autooff_guide{};
 
-   // Controller Options
-   CellPadData padData;
-   uint64_t buttonLastTime[17];
-
 private:
-   // Rainbow Options
-   int m_rainbowModeColorIndex = 0;
-
    // Frames Per Second Options
    uint64_t m_FpsLastTime{};
    int m_FpsFrameCount{};
@@ -58,6 +43,15 @@ std::string to_string(T in)
    vsh::memset(buf, 0, 25);
    int len = vsh::snprintf(buf, sizeof(buf), "%d", in);
    return std::string(buf);
+}
+
+template<class T>
+std::wstring to_wstring(T in)
+{
+   wchar_t buf[25];
+   vsh::memset(buf, 0, 25);
+   int len = vsh::swprintf(buf, sizeof(buf), L"%d", in);
+   return std::wstring(buf);
 }
 
 extern Helpers g_Helpers;

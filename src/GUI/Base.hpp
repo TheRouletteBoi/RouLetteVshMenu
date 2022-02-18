@@ -11,6 +11,16 @@
 
 using Function = void(*)();
 
+struct Color
+{
+   uint8_t r;
+   uint8_t g;
+   uint8_t b;
+   uint8_t a;
+};
+
+
+
 class Menu
 {
 public:
@@ -20,6 +30,7 @@ public:
 
    bool IsOpened();
    void OnUpdate();
+   void OnHelperGUI(Function onUpdate);
    void ShutDown();
 
    void title(const std::wstring& text);
@@ -29,6 +40,9 @@ public:
    Menu& toggle(bool& var);
    Menu& toggle(bool& var, Function onEnable, Function onDisable);
    Menu& action(Function fn);
+
+
+   Color UpdateRGBInterpolation();
 
 private:
    bool IsInitialized();
@@ -55,11 +69,12 @@ private:
    void WhileClosed();
    void UpdateGUI();
 
-   void DrawMenuText(const std::wstring& text);
    void DrawHeader();
    void DrawBackground();
    void DrawFooter();
    void DrawHighlightBar();
+   void DrawMenuText(const std::wstring& text);
+   void DrawMenuToggle(bool var);
 
 public:
    vsh::vec2 position{ 320.0f, 0.0f };
@@ -107,9 +122,15 @@ private:
    vsh::vec4 m_MenuRectColor{ 1.0f, 0.64f, 0.0f, 85.0f };
    vsh::vec4 m_MenuTextColor{ 1.0f, 1.0f, 1.0f, 1.0f };
    vsh::vec4 m_MenuBackgroundColor{ 0.0, 0.0f, 0.0f, 0.85f };
+   vsh::vec4 m_MenuToggleColorOn{ 0.0f, 1.0f, 0.0f, 0.85f };
+   vsh::vec4 m_MenuToggleColorOff{ 1.0f, 0.0f, 0.0f, 0.85f };
 
    vsh::paf::View* m_system_plugin{};
    vsh::paf::PhWidget* m_page_autooff_guide{};
+   Function m_UpdateHelperGui = nullptr;
+
+   // Rainbow Options
+   int m_rainbowModeColorIndex = 0;
 };
 
 extern Menu g_Menu;

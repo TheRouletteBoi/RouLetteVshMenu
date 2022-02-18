@@ -13,30 +13,19 @@ void Helpers::OnUpdate()
    if (system_plugin)
       page_autooff_guide = system_plugin->FindWidget("page_autooff_guide");
 
-   UpdateFPS();
+   UpdateCalculateFps();
 
+   g_Menu.OnHelperGUI([] 
+   {
+      const std::wstring& fps = L"Frames per second: " + to_wstring(g_Helpers.GetFps());
+      GUI::DrawText(fps, vsh::vec2(-590.0f, 310.0f), 20, vsh::vec4(1.0f, 1.0f, 1.0f, 1.0f), GUI::Alignment::Left);
+   });
+
+   if (IsButtonBinds(BUTTON_L1, BUTTON_PAD_UP))
+      TakeScreenshot();
 }
 
-// TODO(Roulette): Change into lerp function so it is easier to read
-Color Helpers::UpdateRGBInterpolation()
-{
-   Color rgb;
-   m_rainbowModeColorIndex += 1;
-
-   rgb.r = ((m_rainbowModeColorIndex < 255) * m_rainbowModeColorIndex) + ((m_rainbowModeColorIndex >= 255) * 255) + ((m_rainbowModeColorIndex > 511) * (512 - m_rainbowModeColorIndex)) + ((m_rainbowModeColorIndex > 766) * (m_rainbowModeColorIndex - 766)) + ((m_rainbowModeColorIndex >= 1276) * (m_rainbowModeColorIndex - 1276)) + ((m_rainbowModeColorIndex > 1530) * (1530 - m_rainbowModeColorIndex)) + ((m_rainbowModeColorIndex > 1786) * (1786 - m_rainbowModeColorIndex));
-
-   rgb.g = (m_rainbowModeColorIndex < 256) * (1) + (m_rainbowModeColorIndex > 255) * (m_rainbowModeColorIndex - 255) + (m_rainbowModeColorIndex > 510) * (510 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1020) * (1020 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1274) * (m_rainbowModeColorIndex - 1274) + (m_rainbowModeColorIndex > 1530) * (m_rainbowModeColorIndex - 1531) + (m_rainbowModeColorIndex > 1785) * (3571 - (2 * m_rainbowModeColorIndex));
-
-   rgb.b = (m_rainbowModeColorIndex < 764) * (1) + (m_rainbowModeColorIndex > 765) * (m_rainbowModeColorIndex - 765) + (m_rainbowModeColorIndex > 1020) * (1020 - m_rainbowModeColorIndex) + (m_rainbowModeColorIndex > 1786) * (1786 - m_rainbowModeColorIndex);
-
-   // reset to black
-   if (m_rainbowModeColorIndex > 2040)
-      m_rainbowModeColorIndex = 1;
-
-   return rgb;
-}
-
-void Helpers::UpdateFPS()
+void Helpers::UpdateCalculateFps()
 {
    uint64_t timeNow = get_time_now();
 
@@ -55,7 +44,7 @@ void Helpers::UpdateFPS()
    m_FpsFrameCount++;
 }
 
-int Helpers::GetFramesPerSecond()
+int Helpers::GetFps()
 {
    return m_Fps;
 }
