@@ -16,7 +16,7 @@ SYS_MODULE_STOP(RouLetteVshMenu_Stop);
 
 /***
 * 
-* PS Vita Vsh Menu, they hook into sceDisplaySetFrameBuf to draw text
+* PS Vita Vsh Menu, they hook into sceDisplaySetFrameBuf to draw text. This will allow drawing in XMB and In Game if done on PS3
 * https://github.com/joel16/PSV-VSH-Menu/blob/master/source/vsh.c
 * 
 * 
@@ -53,7 +53,6 @@ int RouLetteVshMenu_Stop(unsigned int args, void* argp)
    int ret = sys_ppu_thread_create(&stopPpuThreadId, [](uint64_t arg)
    {
       HookingRemoveAll();
-
       g_Menu.ShutDown();
 
       // Prevent unload too fast (give time to other threads to finish)
