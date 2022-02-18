@@ -13,9 +13,9 @@
 
 _VSH_BEGIN
 
-struct download_plugin_interface;
+// TODO(Roulette): convert all structs to classes for C++ and use CallMethod when calling functions. Insterface functions should start with a capital 'I'
+/*struct download_plugin_interface;
 struct download_act0_if;
-struct explore_plugin_interface;
 struct friendim_plugin_interface;
 struct game_ext_plugin_interface;
 struct game_plugin_interface;
@@ -57,7 +57,7 @@ struct lease_info;
 struct wireless_info;
 struct net_info;
 struct xsetting_F48C0548_class;
-struct xsetting_FFAF9B19_class;
+struct xsetting_FFAF9B19_class;*/
 class vec2;
 class vec3;
 class vec4;

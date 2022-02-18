@@ -1,12 +1,94 @@
 #ifndef __VSHCOMMON_H__
 #define __VSHCOMMON_H__
 #include "vshtypes.h"
+#include "vshmain.h"
 #include "pafView.h"
 #include <stdint.h>
+#include <string>
 
 
 _VSH_BEGIN
 CDECL_BEGIN
+
+
+enum class eNotifyIcon
+{
+   // system_plugin
+   Info,
+   Caution,
+   Friend,
+   Slider,
+   WrongWay,
+   Dialog,
+   DalogShadow,
+   Text,
+   Pointer,
+   Grab,
+   Hand,
+   Pen,
+   Finger,
+   Arrow,
+   ArrowRight,
+   Progress,
+   Trophy1,
+   Trophy2,
+   Trophy3,
+   Trophy4,
+   Keypad,
+   Mediaserver,
+   Music,
+   Settings,
+   Triangle,
+
+   // explore_plugin
+   PS3,
+   PS4,
+   Vita,
+   DefaultAvatar,
+   Lock,
+   PlusSign,
+   WhiteController,
+   BlueDisc,
+   BrownDisc,
+   GrayDisc,
+   Walkman,
+   PSButtons,
+   Error,
+   Pause,
+   Facebook,
+   Rench,
+   PSNFolder,
+   BronzeStarTrophy,
+   PSStore,
+   PS3Logo,
+   BlueVerifiedCheckmark,
+   Blocked,
+   AFK,
+   OrangeWait,
+   BlueCircle,
+   RedCirleCross,
+   OrangeCircleNEW,
+   PSPlus,
+   PSPlusBig,
+   PSNIcon,
+   PSNIconBig,
+   RedExclamationPoint
+};
+
+enum class eNotifySound
+{
+   None = -1,
+   Cancel = 0,
+   CategoryDecide,
+   Cursor,
+   Decide,
+   Error,
+   Option,
+   NG,
+   OK,
+   Trophy,
+};
+
 
 // vshcommon_6FD850FF(void);  // custom_render_plugin IF 1: - (decrease)
 // vshcommon_EC73D438(void);  // custom_render_plugin IF 1: - (increase)
@@ -99,6 +181,7 @@ CDECL_BEGIN
 
 
 int vshcommon_A20E43DB(int32_t, const char* eventName, int32_t, uint32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, bool is_looped, int32_t);  //  // vshcommon_A20E43DB  // ? Displays a notification in XMB with texture -> void(*vshcommon_A20E43DB)(int32_t, const char* eventName, int32_t, int32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, int32_t, int32_t); int dummy = 0; vshcommon_A20E43DB(0, const char* eventName, int32_t, int32_t* texture /*paf_3A8454FC*/, &dummy, "", "", 0f, L"notification", 0, 0, 0)
+static int ShowNotificationBySurfaceTexture(int32_t a1, const char* eventName, int32_t a3, uint32_t* texture, int32_t* a5, const char* a6, const char* a7, float a8, const wchar_t* text, int32_t a10, bool is_looped, int32_t a12) { return vshcommon_A20E43DB(a1, eventName, a3, texture, a5, a6, a7, a8, text, a10, is_looped, a12); }
 static void ShowSystemNotification(const wchar_t* message, const char* texture)
 {
    paf::View* system_plugin = paf::View::Find("system_plugin");
@@ -110,7 +193,67 @@ static void ShowSystemNotification(const wchar_t* message, const char* texture)
       return;
 
    int32_t unknownOut = 0;
-   vshcommon_A20E43DB(0, texture, 0, &pTexture, &unknownOut, "", "", 0.0f, message, 0, false, 0);
+   ShowNotificationBySurfaceTexture(0, texture, 0, &pTexture, &unknownOut, "", "", 0.0f, message, 0, false, 0);
+}
+
+static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType, eNotifySound soundType = eNotifySound::None)
+{
+   vsh::paf::View* explorePlugin = vsh::paf::View::Find("explore_plugin");
+   vsh::paf::View* systemPlugin = vsh::paf::View::Find("system_plugin");
+
+   if (!systemPlugin)
+      return;
+
+   const char* system_plugin__sound_names[] =
+   {
+      "snd_cancel", "snd_category_decide", "snd_cursor", "snd_decide",
+      "snd_error", "snd_option", "snd_system_ng", "snd_system_ok", "snd_trophy"
+   };
+
+   const char* notification_texture_names[] =
+   {
+      // "system_plugin"
+      "tex_notification_info", "tex_notification_caution", "tex_notification_friend",
+      "tex_default_scroll_slider", "tex_notification_psbutton_insensitive", "tex_common_dialog",
+      "tex_common_dialog_shadow", "tex_3x3_focus", "tex_pointer_click", "tex_pointer_grab",
+      "tex_pointer_hand", "tex_pointer_pen", "tex_pointer_finger", "tex_pointer_arrow",
+      "tex_arrow_right", "tex_default_progress_slider", "tex_notification_trophy_bronze",
+      "tex_notification_trophy_silver", "tex_notification_trophy_gold",
+      "tex_notification_trophy_platinum", "tex_notification_keypad", "tex_notification_mediasever",
+      "tex_notification_music", "tex_notification_settings", "tex_triangle",
+
+      // "explore_plugin" & "explore_plugin_full"
+      "item_tex_ps3format", "item_tex_ps4format", "item_tex_vitaformat", "tex_Avatar_Default",
+      "tex_lock_icon", "trophy_tex_addon", "game_tex_load", "item_tex_disc_bd", "item_tex_disc_dvd",
+      "item_tex_disc_icon", "item_tex_walkman", "ps3sd_tex_default", "bgdl_tex_error", "bgdl_tex_pause",
+      "item_tex_cam_facebook", "item_tex_cam_icon", "item_tex_online_storage", "item_tex_Profile_LevelIcon",
+      "item_tex_ps_store", "item_tex_ps3logo", "tex_check_ws", "tex_go_bubu", "tex_indi_AFK", "tex_indi_NewRoom",
+      "tex_indi_Sign_in", "tex_indi_Sign_out", "tex_new_ws", "tex_psplus_icon", "tex_ps_plus_invitation",
+      "tex_psn", "tex_psn_big", "tex_urgent_ws"
+   };
+
+
+   uint32_t pTexture = 0;
+   if (explorePlugin != nullptr && GetCooperationMode() == eCooperationMode::XmbMode)
+   {
+      if (notifyType < eNotifyIcon::PS3)
+         pTexture = (uint32_t)systemPlugin->GetTexture(notification_texture_names[(int)notifyType]);
+      else
+         pTexture = (uint32_t)explorePlugin->GetTexture(notification_texture_names[(int)notifyType]);
+   }
+   else
+   {
+      if (notifyType < eNotifyIcon::PS3)
+         pTexture = (uint32_t)systemPlugin->GetTexture(notification_texture_names[(int)notifyType]);
+      else
+         pTexture = (uint32_t)systemPlugin->GetTexture(notification_texture_names[(int)eNotifyIcon::Pen]); // default
+   }
+
+   int32_t unknownOut = 0;
+   ShowNotificationBySurfaceTexture(0, "", 0, &pTexture, &unknownOut, "", "", 0.0, text.c_str(), 0, 0, 0);
+
+   if (soundType != eNotifySound::None)
+      systemPlugin->PlaySound(system_plugin__sound_names[(int)soundType], 1.0f, 0);
 }
 
 
