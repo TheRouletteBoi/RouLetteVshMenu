@@ -62,7 +62,7 @@ void Helpers::TakeScreenshot()
 
    m_ScreenshotLastTime = timeNow;
 
-   if (vsh::GetCooperationMode() == vsh::XmbMode)
+   if (vsh::GetCooperationMode() == vsh::eCooperationMode::XmbMode)
    {
       if (!system_plugin)
          return;

@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="Games\FindActiveGame.cpp" />
     <ClCompile Include="GUI\Base.cpp" />
     <ClCompile Include="GUI\Menu.cpp" />
     <ClCompile Include="GUI\GUI.cpp" />
@@ -108,6 +109,9 @@
     <ClCompile Include="Util\Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Games\FindActiveGame.hpp" />
+    <ClInclude Include="Games\GamePatching.hpp" />
+    <ClInclude Include="Games\GTAV.hpp" />
     <ClInclude Include="GUI\Base.hpp" />
     <ClInclude Include="GamePad.hpp" />
     <ClInclude Include="GUI\Menu.hpp" />

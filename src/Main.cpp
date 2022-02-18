@@ -8,6 +8,7 @@
 #include "Util/Timers.hpp"
 #include "Helpers.hpp"
 #include "Hooking.hpp"
+#include "Games/FindActiveGame.hpp"
 
 SYS_MODULE_INFO(RouLetteVshMenu, 0, 1, 1);
 SYS_MODULE_START(RouLetteVshMenu_Main);
@@ -22,6 +23,9 @@ SYS_MODULE_STOP(RouLetteVshMenu_Stop);
 * 
 * TODO:
 * Smoother closing animation
+* When there are 20 options and you scroll to the bottom then close the menu and open it again the highlight bar is out of bounds
+* we need a way to clear textures just like text because they are still visible after leaving the submenu with toggle's
+* Closing the menu destroy's FPS counter
 * 
 */ 
 
@@ -34,8 +38,10 @@ int RouLetteVshMenu_Main(unsigned int args, void* argp)
    {
       g_Helpers = Helpers();
       g_Menu = Menu(MainSubmenu);
+      g_FindActiveGame = CFindActiveGame();
 
       HookingInitiate();
+      g_FindActiveGame.Initialize();
 
       sys_ppu_thread_exit(0);
 
@@ -54,6 +60,7 @@ int RouLetteVshMenu_Stop(unsigned int args, void* argp)
    {
       HookingRemoveAll();
       g_Menu.ShutDown();
+      g_FindActiveGame.ShutDown();
 
       // Prevent unload too fast (give time to other threads to finish)
       sys_ppu_thread_yield();

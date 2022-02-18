@@ -20,7 +20,13 @@ bool testToggle2 = false;
 void GtavSubmenu()
 {
    g_Menu.title(L"GTAV Menus");
-   g_Menu.option(L"Menu 1");
+   g_Menu.option(L"Terrorizer").action([] 
+   {
+      if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::Terrorizer))
+         vsh::ShowNofityWithSound(L"Terrorizer is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+      
+   });
+
    g_Menu.option(L"Menu 2");
    g_Menu.option(L"Menu 3").toggle(testToggle1);
    g_Menu.option(L"Menu 4");
