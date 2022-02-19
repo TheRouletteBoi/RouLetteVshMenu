@@ -161,8 +161,6 @@ void GUI::DrawTextureImpl(const char* systemTexture, vsh::vec2 position, vsh::ve
    m_TotalConcurrentPhPlanes++;
 }
 
-#include <algorithm>
-
 void GUI::CreatePlanesAndTextImpl()
 {
    if (!g_Helpers.page_autooff_guide)
@@ -187,53 +185,9 @@ void GUI::CreatePlanesAndTextImpl()
          break;
       m_TextList.push_back(phText);
    }
-
-   for (int i = 0; i < 10; i++)
-   {
-      vsh::paf::PhText* phText = GuiMakeText("RouLetteVshMenuHelperText_" + to_string(i));
-      if (!phText)
-         break;
-      m_TextList.push_back(phText);
-   }
 }
 
-void GUI::DestoryMenuPlanesAndTextImpl()
-{
-   for (int i = 0; i < MAX_SHADERS; i++)
-   {
-      vsh::paf::PhPlane* phPlane = GuiGetWindow(i);
-      if (!phPlane)
-         break;
-
-      delete phPlane;
-   }
-
-   m_PlaneList.clear();
-
-
-   // only delete menu text.
-   // The only problem with the is that the user will not know which DrawText(...) to use with different purposes 
-   for (int i = 0; i < MAX_SHADERS; i++)
-   {
-      vsh::paf::PhText* phText = GuiGetText(i);
-      if (!phText)
-         break;
-
-      const std::string& windowName = "RouLetteVshMenuText_" + to_string(i);
-      if (phText->HasChild(windowName.c_str()))
-         delete phText;
-   }
-
-   auto textToRemove = std::remove_if(m_TextList.begin(), m_TextList.end(), [](vsh::paf::PhText* phText)
-   {
-      const std::string& windowName = "RouLetteVshMenuText_" + to_string(i);
-      return phText->HasChild(windowName.c_str());
-   });
-
-   m_TextList.erase(textToRemove, m_TextList.end());
-}
-
-void GUI::DestoryAllPlanesAndTextImpl()
+void GUI::DestoryPlanesAndTextImpl()
 {
    for (int i = 0; i < MAX_SHADERS; i++)
    {
