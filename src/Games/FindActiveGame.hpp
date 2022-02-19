@@ -36,7 +36,7 @@ public:
 
 private:
    void SetRunningGameProcessId(uint32_t pid);
-   void GetGameName(GameName& name);
+   void GetGameName(char outTitleId[16], char outTitleName[64]);
    bool IsGameGTAV(const std::string& titleId);
    bool IsGameRDR(const std::string& titleId);
    bool IsGameMinecraft(const std::string& titleId);
@@ -47,7 +47,7 @@ private:
    bool IsGameBO3(const std::string& titleId);
    bool IsGameAW(const std::string& titleId);
    bool IsGameCodGhosts(const std::string& titleId);
-   void WhileInGame(uint32_t pid, const std::string& titleId, const std::string& titleName);
+   void WhileInGame(uint32_t pid, const char* titleId, const char* titleName);
 
 public:
    PatchedMenu m_MenuToLoad = PatchedMenu::None;

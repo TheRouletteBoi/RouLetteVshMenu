@@ -33,7 +33,7 @@ void CFindActiveGame::SetRunningGameProcessId(uint32_t pid)
    m_CurrentGamePid = pid;
 }
 
-void CFindActiveGame::GetGameName(GameName& name)
+void CFindActiveGame::GetGameName(char outTitleId[16], char outTitleName[64])
 {
    vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
    if (!gamePlugin)
@@ -45,8 +45,8 @@ void CFindActiveGame::GetGameName(GameName& name)
 
    char _gameInfo[0x120]{};
    game_interface->gameInfo(_gameInfo);
-   vsh::snprintf(&name.titleId[0], 10, "%s", _gameInfo + 0x04);
-   vsh::snprintf(&name.titleName[0], 63, "%s", _gameInfo + 0x14);
+   vsh::snprintf(outTitleId, 10, "%s", _gameInfo + 0x04);
+   vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
 
 bool CFindActiveGame::IsGameGTAV(const std::string& titleId)
@@ -130,11 +130,10 @@ bool CFindActiveGame::IsGameAW(const std::string& titleId)
    return false;
 }
 
-void CFindActiveGame::WhileInGame(uint32_t pid, const std::string& titleId, const std::string& titleName)
+void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char* titleName)
 {
-   if (IsGameGTAV(titleId)) // doesn't seem to work wtf???
+   if (IsGameGTAV(titleId))
    {
-      vsh::printf("we are in gtav\n");
       if (!hasGameInitialized)
       {
          GTAV::Initialize();
@@ -170,9 +169,10 @@ void CFindActiveGame::GameProcessThread(uint64_t arg)
          g_FindActiveGame.SetRunningGameProcessId(gameProcessID);
          if (g_FindActiveGame.GetRunningGameProcessId())
          {
-            CFindActiveGame::GameName name;
-            g_FindActiveGame.GetGameName(name);
-            g_FindActiveGame.WhileInGame(g_FindActiveGame.GetRunningGameProcessId(), name.titleId, name.titleName);
+            char gameTitleId[16]{};
+            char gameTitleName[64]{};
+            g_FindActiveGame.GetGameName(gameTitleId, gameTitleName);
+            g_FindActiveGame.WhileInGame(g_FindActiveGame.GetRunningGameProcessId(), gameTitleId, gameTitleName);
          }
       }
       else
