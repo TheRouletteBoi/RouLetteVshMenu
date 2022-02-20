@@ -4,8 +4,8 @@ Vsh Menu that loads Playstation 3 game menus like Lexicon, Serendipity, Paradox 
 To open the vsh menu press R3 + L1
 
 ## Features
-- Load sprx menus
-- InGame payloads
+- Load sprx menus into game without eboots (.sprx)
+- Load InGame payloads (.bin)
 - Write to in game memory on boot or constant
 
 Preview:
