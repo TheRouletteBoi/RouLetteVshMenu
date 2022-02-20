@@ -132,7 +132,7 @@ int ps3mapi_get_process_module_info(sys_pid_t pid, sys_prx_id_t prx_id, sys_prx_
    return_to_user_prog(int);
 }
 
-int ps3mapi_create_process_thread(sys_pid_t pid, thread_t* thread, void* entry, uint64_t arg, int prio, size_t stacksize, char* threadname)
+int ps3mapi_create_process_thread(sys_pid_t pid, thread_t* thread, void* entry, uint64_t arg, int prio, size_t stacksize, const char* threadname)
 {
    system_call_8(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PROC_CREATE_THREAD, (uint64_t)pid, (uint64_t)thread, (uint64_t)entry, (uint64_t)arg, (uint64_t)prio, (uint64_t)stacksize, (uint64_t)threadname);
    return_to_user_prog(int);

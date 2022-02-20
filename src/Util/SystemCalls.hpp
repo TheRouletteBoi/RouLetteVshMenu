@@ -285,7 +285,7 @@ int ps3mapi_get_hen_rev();
 int ps3mapi_poke_hen(uint64_t address, uint64_t value);
 int ps3mapi_process_page_allocate(sys_pid_t pid, uint64_t size, uint64_t page_size, uint64_t flags, uint64_t is_executable, uint64_t* page_address);
 int ps3mapi_get_process_module_info(sys_pid_t pid, sys_prx_id_t prx_id, sys_prx_module_info_t* info);
-int ps3mapi_create_process_thread(sys_pid_t pid, thread_t* thread, void* entry, uint64_t arg, int prio, size_t stacksize, char* threadname);
+int ps3mapi_create_process_thread(sys_pid_t pid, thread_t* thread, void* entry, uint64_t arg, int prio, size_t stacksize, const char* threadname);
 int ps3mapi_get_all_processes_pid(uint32_t* pid_list);
 int ps3mapi_get_process_name_by_pid(uint32_t pid, char* pid_name);
 int ps3mapi_get_process_by_pid(uint32_t pid, process_t process);
