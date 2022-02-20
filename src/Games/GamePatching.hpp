@@ -1,18 +1,13 @@
 #pragma once
+#include <vsh/allocator.h>
 #include "FindActiveGame.hpp"
 #include "Memory/Memory.hpp"
+#include "Util/Timers.hpp"
+
+#define KB(n) (1024*n)
 
 namespace GamePatching
 {
-   bool StartSprx(const char* path)
-   {
-      vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
-      if (!gamePlugin)
-         return false;
-
-      return (ps3mapi_load_process_modules(g_FindActiveGame.GetRunningGameProcessId(), (char*)path, nullptr, 0) == SUCCEEDED);
-   }
-
    template <typename var>
    var GetMem(uint32_t address)
    {
@@ -71,12 +66,12 @@ namespace GamePatching
 
    void SetReturnFalse(uint32_t address)
    {
-      // li r3, 1
+      // li r3, 0
       // blr
       SetMem<uint64_t>(address, 0x386000004E800020);
    }
 
-   uint32_t GetFirstUserModuleBaseAddress()
+   uint32_t GetModuleBaseAddress()
    {
       // MW3 0x23D0000
       // GTAV 0x24D0000
@@ -85,6 +80,95 @@ namespace GamePatching
 
    uint32_t Ida2Mem(uint32_t address)
    {
-      return (GetFirstUserModuleBaseAddress() + address);
+      return (GetModuleBaseAddress() + address);
+   }
+
+   bool StartSprx(const char* path)
+   {
+      // check that we are in game
+      vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
+      if (!gamePlugin)
+         return false;
+
+      return (ps3mapi_load_process_modules(g_FindActiveGame.GetRunningGameProcessId(), (char*)path, nullptr, 0) == SUCCEEDED);
+   }
+
+   int WritePayload(uintptr_t startAddr, const char* fileName)
+   {
+      constexpr int BYTES_PER_WRITE = 0x6000;
+      int next_write = 0;
+
+      int fd = 0; uint64_t read_amount = 1;
+
+      if (cellFsOpen(fileName, CELL_FS_O_RDONLY, &fd, NULL, 0) == CELL_FS_SUCCEEDED)
+      {
+         while (read_amount)
+         {
+            char* data = (char*)vsh::malloc(BYTES_PER_WRITE);
+            if (cellFsRead(fd, (void*)(data), BYTES_PER_WRITE, &read_amount) == CELL_FS_SUCCEEDED)
+            {
+               WriteProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(startAddr + next_write), data, (size_t)read_amount);
+               next_write += read_amount;
+               if (data)
+                  vsh::free(data);
+            }
+         }
+
+         cellFsClose(fd);
+      }
+      else
+      {
+         return ENOENT;
+      }
+
+      return SUCCEEDED;
+   }
+
+   bool StartPayload(const char* fileName, uint32_t fileSize, int prio, size_t stacksize)
+   {
+      vsh::printf("Starting to inject payload %s\n", fileName);
+      uint64_t executableMemoryAddress = 0;
+      int ret = ps3mapi_process_page_allocate(g_FindActiveGame.GetRunningGameProcessId(), fileSize, 0x100, 0x2F, 0x1, &executableMemoryAddress);
+      vsh::printf("executableMemoryAddress 0x%X\n", executableMemoryAddress);
+      if (ret != SUCCEEDED)
+      {
+         vsh::printf("Failed to allocate executable memory 0x%X\n", ret);
+         return false;
+      }
+
+      sleep_for(1000);
+
+      uint32_t temp_bytes = 0;
+      ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(uintptr_t)executableMemoryAddress, (void*)&temp_bytes, 4);
+      if (ret != SUCCEEDED)
+      {
+         vsh::printf("Failed read executable memory 0x%X\n", ret);
+         return false;
+      }
+
+      sleep_for(1000);
+
+      ret = WritePayload((uintptr_t)executableMemoryAddress, fileName);
+      if (ret != SUCCEEDED)
+      {
+         vsh::printf("Failed read payload file %s 0x%X\n", fileName, ret);
+         return false;
+      }
+
+      sleep_for(1000);
+
+      uint32_t threadOpd[2]{};
+      threadOpd[0] = executableMemoryAddress;
+      threadOpd[1] = 0x00000000;
+      thread_t th;
+      ret = ps3mapi_create_process_thread(g_FindActiveGame.GetRunningGameProcessId(), &th, threadOpd, 0, prio, stacksize, "PayloadThread");
+      if (ret != SUCCEEDED)
+      {
+         vsh::printf("Failed to start payload 0x%X\n", ret);
+         return false;
+      }
+
+      vsh::printf("Successfully started payload\n");
+      return true;
    }
 }
