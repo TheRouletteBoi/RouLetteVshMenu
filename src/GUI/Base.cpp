@@ -329,6 +329,13 @@ void Menu::DrawFooter()
       21,
       vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
       GUI::Alignment::Left);
+
+   GUI::DrawText(
+      L"v0.01",
+      vsh::vec2(position.x + (m_SizeMenuWidth / 2) - 5, position.y - (m_SizeMenu / 2) + (m_SizeFooter / 2)),
+      21,
+      vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
+      GUI::Alignment::Right);
 }
 
 void Menu::DrawHighlightBar()
