@@ -11,7 +11,8 @@ namespace CODBO3
       {
          case CFindActiveGame::PatchedMenu::BO3Fatality:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/fatality_by_enstone_102_patched.bin", KB(444), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fatality_by_enstone_102_patched.bin";
+            if (StartPayload(fileName.c_str(), KB(444), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Fatality is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }

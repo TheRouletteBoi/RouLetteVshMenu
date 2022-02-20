@@ -41,7 +41,8 @@ namespace CODAW
          }
          case CFindActiveGame::PatchedMenu::AWFury:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/fury_by_enstone_220_patched.bin", KB(496), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fury_by_enstone_220_patched.bin";
+            if (StartPayload(fileName.c_str(), KB(496), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Fury is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }

@@ -45,13 +45,15 @@ namespace CODMW3
          }
          case CFindActiveGame::PatchedMenu::MW3Phantom:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/phantom_by_enstone_221.bin", KB(484), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/phantom_by_enstone_221.bin";
+            if (StartPayload(fileName.c_str(), KB(484), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Phantom is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }
          case CFindActiveGame::PatchedMenu::MW3ProjectMemories:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/project_memories_by_enstone_388.bin", KB(112), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/project_memories_by_enstone_388.bin";
+            if (StartPayload(fileName.c_str(), KB(112), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Project Memories is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }

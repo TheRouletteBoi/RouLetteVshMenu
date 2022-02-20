@@ -40,7 +40,8 @@ namespace CODGhost
          }
          case CFindActiveGame::PatchedMenu::GhostEternity:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/eternity_by_enstone_105.bin", KB(300), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/eternity_by_enstone_105.bin";
+            if (StartPayload(fileName.c_str(), KB(300), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Eternity is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }

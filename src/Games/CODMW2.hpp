@@ -40,7 +40,8 @@ namespace CODMW2
          }
          case CFindActiveGame::PatchedMenu::MW2Reborn:
          {
-            if (StartPayload("/dev_hdd0/plugins/RouLetteVshMenu/modmenus/enstone/reborn_by_enstone_446.bin", KB(140), 0x7D0, 0x4000))
+            const std::string& fileName = GetCurrentDir() + "modmenus/enstone/reborn_by_enstone_446.bin";
+            if (StartPayload(fileName.c_str(), KB(140), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Reborn is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          }

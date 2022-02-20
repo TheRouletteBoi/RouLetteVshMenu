@@ -3,6 +3,7 @@
 #include "FindActiveGame.hpp"
 #include "Memory/Memory.hpp"
 #include "Util/Timers.hpp"
+#include "Util/FileSystem.hpp"
 
 #define KB(n) (1024*n)
 

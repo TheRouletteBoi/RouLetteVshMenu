@@ -49,11 +49,6 @@ int Helpers::GetFps()
    return m_Fps;
 }
 
-// TODO: make a function to get current path to avoid this nonsense 
-#include <cell/fs/cell_fs_file_api.h>
-#include <sys/moduleexport.h>
-extern SceModuleInfo __psp_moduleinfo;
-
 void Helpers::TakeScreenshot()
 {
    uint64_t timeNow = get_time_now();
@@ -71,13 +66,8 @@ void Helpers::TakeScreenshot()
       if (!sys_interface)
          return;
 
-      // Create directory if it doens't exist
-      cellFsMkdir("/dev_hdd0/plugins", 40777);
-
-      std::string modulePath = "/dev_hdd0/plugins/" + std::string(__psp_moduleinfo.modname);
-      cellFsMkdir(modulePath.c_str(), 40777);
-      std::string screenshotPath = "/dev_hdd0/plugins/" + std::string(__psp_moduleinfo.modname) + "/Screenshots";
-      cellFsMkdir(screenshotPath.c_str(), 40777);
+      const std::string& screenshotPath = GetCurrentDir() + "Screenshots";
+      vsh::mkdir(screenshotPath.c_str(), 40777);
 
       time_t rawtime;
       vsh::time(&rawtime);
@@ -86,15 +76,12 @@ void Helpers::TakeScreenshot()
       char datestr[80];
       vsh::strftime(datestr, sizeof(datestr), "%Y-%m-%d_%H-%M-%S", timeinfo);
 
-      char screenshotName[0x80];
-      vsh::snprintf(screenshotName, sizeof(screenshotName),
-         "/dev_hdd0/plugins/%s/Screenshots/%s.bmp",
-         __psp_moduleinfo.modname, datestr);
+      const std::string& screenshotName = screenshotPath + "/" + datestr + ".bmp";
 
-      sys_interface->saveBMP(screenshotName);
+      sys_interface->saveBMP(screenshotName.c_str());
 
       wchar_t buffer[0xA0];
-      vsh::swprintf(buffer, 0xA0, L"Screenshot saved in: %s", screenshotName);
+      vsh::swprintf(buffer, 0xA0, L"Screenshot saved in: %s", screenshotName.c_str());
       vsh::ShowButtonNavigationMessage(buffer);
    }
    else

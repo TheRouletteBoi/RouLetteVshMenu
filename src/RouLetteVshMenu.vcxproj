@@ -105,6 +105,7 @@
     <ClCompile Include="Memory\DetourHook.cpp" />
     <ClCompile Include="Memory\Pattern.cpp" />
     <ClCompile Include="Memory\Memory.cpp" />
+    <ClCompile Include="Util\FileSystem.cpp" />
     <ClCompile Include="Util\SystemCalls.cpp" />
     <ClCompile Include="Util\Timers.cpp" />
   </ItemGroup>
@@ -128,6 +129,7 @@
     <ClInclude Include="Memory\DetourHook.hpp" />
     <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Memory\Memory.hpp" />
+    <ClInclude Include="Util\FileSystem.hpp" />
     <ClInclude Include="Util\NewDeleteOverride.hpp" />
     <ClInclude Include="Util\SystemCalls.hpp" />
     <ClInclude Include="Util\Timers.hpp" />

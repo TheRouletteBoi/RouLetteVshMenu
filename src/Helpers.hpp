@@ -7,6 +7,7 @@
 #include <vsh/vshmain.h>
 #include "GamePad.hpp"
 #include "GUI/Base.hpp"
+#include "Util/FileSystem.hpp"
 
 class Helpers
 {
