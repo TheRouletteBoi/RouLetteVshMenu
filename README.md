@@ -18,11 +18,6 @@ Preview:
 - Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
 - Cobra 8.2 or above is required to use enstone menus. If you are on 4.84 Rebug DEX and want to use Cobra 8.3 download [4.84 DEX stage2.bin](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/NORMAL/DEX/BIN/stage2.bin "4.84 DEX stage2.bin") transfer the file to /dev_rebug/rebug/cobra/ to your PS3 and then change the .bin to .dex
 - CCAPI 2.80rev5 or lower is required to use enstone menus
-
-## Prerequisites
-- Visual Studio 2013+
-- Sony PS3 4.75+ SDK w/ Visual Studio Integration
-- [Fixed std::string library](https://github.com/skiff/libpsutil/releases "Fixed std::string library")
  
 ## Installation
 1. In your PS3 file system go to /dev_hdd0/plugins/ and create a new folder named RouLetteVshMenu
@@ -42,6 +37,11 @@ Preview:
 ![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/bootplugins.PNG)
 
 5. Restart your console
+
+## Prerequisites
+- Visual Studio 2013+
+- Sony PS3 4.75+ SDK w/ Visual Studio Integration
+- [Fixed std::string library](https://github.com/skiff/libpsutil/releases "Fixed std::string library")
 
 ## Credits
 @Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
