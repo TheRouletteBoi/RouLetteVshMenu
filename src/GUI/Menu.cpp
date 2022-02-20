@@ -269,7 +269,7 @@ void CodAwSubmenu()
 
 void DebugTogglesSubmenu()
 {
-   g_Menu.title(L"GTAV Menus");
+   g_Menu.title(L"Debug Toggles");
    g_Menu.option(L"Option 1");
    g_Menu.option(L"Option 2");
    g_Menu.option(L"Option 3").toggle(g_Helpers.testToggle1);
