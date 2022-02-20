@@ -59,10 +59,11 @@ public:
    virtual void* Hook(uint32_t fnAddress, uintptr_t fnCallback, bool preserveRegisters = true, uint32_t tocOverride = 0) override;
    virtual void UnHook() override;
 
+   static opd_s* FindExportByName(const char* module, uint32_t fnid);
+   static opd_s* FindImportByName(const char* module, uint32_t fnid);
+
 private:
    void* HookByFnid(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback, bool preserveRegisters = true);
-   opd_s* FindExportByName(const char* module, uint32_t fnid);
-   opd_s* FindImportByName(const char* module, uint32_t fnid);
 
 private:
    std::string libaryName;
