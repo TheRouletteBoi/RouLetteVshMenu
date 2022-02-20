@@ -22,10 +22,15 @@ SYS_MODULE_STOP(RouLetteVshMenu_Stop);
 * 
 * 
 * TODO:
-* Smoother closing animation
-* When there are 20 options and you scroll to the bottom then close the menu and open it again the highlight bar is out of bounds
-* we need a way to clear textures just like text because they are still visible after leaving the submenu with toggle's
-* Closing the menu destroy's FPS counter
+* Enhancement: Smoother closing animation
+* BUG: When there are 20 options and you scroll to the bottom then close the menu and open it again the highlight bar is out of bounds
+* BUG: We need a way to clear textures just like text because they are still visible after leaving the submenu with toggle's
+* BUG: Closing the menu destroy's FPS counter
+* BUG: Menu stretches when in game XMB
+* MISSING PARTS: to load a enstone menu you need to load the RouLetteVshMenu in game using webman. the reason is because the ccapi vsh enables ccapi syscall 0x123 (Enable CCAPI). To solve this we need to enable it ourselfs 
+* Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
+* Enhancement: add LUA scripting support
+* Enhancement: add config to load your favorite menu
 * 
 */ 
 
@@ -36,6 +41,14 @@ int RouLetteVshMenu_Main(unsigned int args, void* argp)
 {
    sys_ppu_thread_create(&gVshMenuPpuThreadId, [](uint64_t arg)
    {
+      // prevent crashing when both vsh menu and ccapi menu are loaded
+      uint32_t ccapiDetourSysio_3733EA3C = ImportExportHook::FindExportByName("sys_io", 0x3733EA3C)->func + 0x0C;
+      uint32_t ccapiDetourPaf_85D1D23B = ImportExportHook::FindExportByName("paf", 0x85D1D23B)->func + 0x14;
+      uint32_t sysio_3733EA3C_default = 0xF8010080;
+      uint32_t paf_85D1D23B_default = 0xF80100D0;
+      WriteProcessMemory(sys_process_getpid(), (void*)ccapiDetourSysio_3733EA3C, &sysio_3733EA3C_default, sizeof(sysio_3733EA3C_default));
+      WriteProcessMemory(sys_process_getpid(), (void*)ccapiDetourPaf_85D1D23B, &paf_85D1D23B_default, sizeof(paf_85D1D23B_default));
+
       g_Helpers = Helpers();
       g_Menu = Menu(MainSubmenu);
       g_FindActiveGame = CFindActiveGame();

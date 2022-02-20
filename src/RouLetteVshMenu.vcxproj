@@ -109,6 +109,13 @@
     <ClCompile Include="Util\Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Games\CODAdvanceWarfare.hpp" />
+    <ClInclude Include="Games\CODBO1.hpp" />
+    <ClInclude Include="Games\CODBO2.hpp" />
+    <ClInclude Include="Games\CODBO3.hpp" />
+    <ClInclude Include="Games\CODGhost.hpp" />
+    <ClInclude Include="Games\CODMW2.hpp" />
+    <ClInclude Include="Games\CODMW3.hpp" />
     <ClInclude Include="Games\FindActiveGame.hpp" />
     <ClInclude Include="Games\GamePatching.hpp" />
     <ClInclude Include="Games\GTAV.hpp" />

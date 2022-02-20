@@ -1,5 +1,13 @@
 #include "FindActiveGame.hpp"
 #include "GTAV.hpp"
+#include "CODBO1.hpp"
+#include "CODBO2.hpp"
+#include "CODBO3.hpp"
+#include "CODMW2.hpp"
+#include "CODMW3.hpp"
+#include "CODGhost.hpp"
+#include "CODAdvanceWarfare.hpp"
+
 
 CFindActiveGame g_FindActiveGame;
 
@@ -75,22 +83,6 @@ bool CFindActiveGame::IsGameMinecraft(const std::string& titleId)
    return false;
 }
 
-bool CFindActiveGame::IsGameMW2(const std::string& titleId)
-{
-   if (titleId == "BLES00683" || titleId == "BLUS30377" || titleId == "NPEB00731")
-      return true;
-
-   return false;
-}
-
-bool CFindActiveGame::IsGameMW3(const std::string& titleId)
-{
-   if (titleId == "BLES01428" || titleId == "BLUS30838" || titleId == "NPUB30787")
-      return true;
-
-   return false;
-}
-
 bool CFindActiveGame::IsGameBO1(const std::string& titleId)
 {
    if (titleId == "BLUS30591" || titleId == "BLES01031" || titleId == "BLES01032" || titleId == "BLES01033"
@@ -117,7 +109,23 @@ bool CFindActiveGame::IsGameBO3(const std::string& titleId)
    return false;
 }
 
-bool IsGameCodGhosts(const std::string& titleId)
+bool CFindActiveGame::IsGameMW2(const std::string& titleId)
+{
+   if (titleId == "BLES00683" || titleId == "BLUS30377" || titleId == "NPEB00731")
+      return true;
+
+   return false;
+}
+
+bool CFindActiveGame::IsGameMW3(const std::string& titleId)
+{
+   if (titleId == "BLES01428" || titleId == "BLUS30838" || titleId == "NPUB30787")
+      return true;
+
+   return false;
+}
+
+bool CFindActiveGame::IsGameCodGhost(const std::string& titleId)
 {
    return false;
 }
@@ -142,6 +150,63 @@ void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char*
 
       //GTAV::Update();
    }
+   else if (IsGameBO1(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODBO1::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameBO2(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODBO2::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameBO3(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODBO3::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameMW2(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODMW2::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameMW3(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODMW3::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameCodGhost(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODGhost::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+   else if (IsGameAW(titleId))
+   {
+      if (!hasGameInitialized)
+      {
+         CODAW::Initialize();
+         hasGameInitialized = true;
+      }
+   }
+
 }
 
 bool CFindActiveGame::LoadMenu(PatchedMenu menuId)
@@ -166,6 +231,12 @@ void CFindActiveGame::GameProcessThread(uint64_t arg)
 
       if (gameProcessID != 0)
       {
+         for (int x = 0; x < (10 * 100); x++) // 10 second delay
+         {
+            sys_timer_usleep(10000);
+            sys_ppu_thread_yield();
+         }
+
          g_FindActiveGame.SetRunningGameProcessId(gameProcessID);
          if (g_FindActiveGame.GetRunningGameProcessId())
          {
@@ -188,8 +259,8 @@ void CFindActiveGame::GameProcessThread(uint64_t arg)
 
       // Good Bye CPU! Smallest sleep because we need to execute the patches as fast as possible 
       sys_timer_usleep(1668);
+      sys_ppu_thread_yield();
    }
-
 
    sys_ppu_thread_exit(0);
 }

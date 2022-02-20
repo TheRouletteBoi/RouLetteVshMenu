@@ -12,18 +12,43 @@
 class CFindActiveGame
 {
 public:
-   struct GameName
-   {
-      std::string titleId;
-      std::string titleName;
-   };
-
    enum class PatchedMenu
    {
       None,
 
       // GTAV
-      Terrorizer,
+      GTAVLexicon,
+      GTAVSerendipity,
+      GTAVTerrorizer,
+
+      // COD Black Ops 1
+      BO1Paradox,
+      BO1Fusion,
+
+      // COD Black Ops 2
+      BO2Paradox,
+      BO2Sprxio,
+      BO2Destiny,
+
+      // COD Black Ops 3
+      BO3Fatality,
+
+      // COD Modern Warfare 2
+      MW2Paradox,
+      MW2Reborn,
+
+      // COD Modern Warfare 3
+      MW3Paradox,
+      MW3Phantom,
+      MW3ProjectMemories,
+
+      // COD Ghost
+      GhostParadox,
+      GhostEternity,
+
+      // COD Advance warfare
+      AWParadox,
+      AWFury,
    };
 
 public:
@@ -40,13 +65,13 @@ private:
    bool IsGameGTAV(const std::string& titleId);
    bool IsGameRDR(const std::string& titleId);
    bool IsGameMinecraft(const std::string& titleId);
-   bool IsGameMW2(const std::string& titleId);
-   bool IsGameMW3(const std::string& titleId);
    bool IsGameBO1(const std::string& titleId);
    bool IsGameBO2(const std::string& titleId);
    bool IsGameBO3(const std::string& titleId);
+   bool IsGameMW2(const std::string& titleId);
+   bool IsGameMW3(const std::string& titleId);
+   bool IsGameCodGhost(const std::string& titleId);
    bool IsGameAW(const std::string& titleId);
-   bool IsGameCodGhosts(const std::string& titleId);
    void WhileInGame(uint32_t pid, const char* titleId, const char* titleName);
 
 public:

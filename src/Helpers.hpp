@@ -26,6 +26,9 @@ public:
    vsh::paf::View* system_plugin{};
    vsh::paf::PhWidget* page_autooff_guide{};
 
+   bool testToggle1{};
+   bool testToggle2{};
+
 private:
    // Frames Per Second Options
    uint64_t m_FpsLastTime{};
