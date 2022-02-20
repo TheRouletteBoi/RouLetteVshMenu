@@ -329,6 +329,9 @@ int sys_storage_write(int fd, uint64_t start_sector, uint64_t sectors, uint8_t* 
 int sys_storage_get_cache_of_flash_ext_flag(uint8_t* flag);
 bool is_nor();
 int get_target_type(uint64_t* type); // 1-CEX, 2-DEX, 3-DECR/RefTool
+bool IsConsoleCex();
+bool IsConsoleDex();
+bool IsConsoleDeh();
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value);
 int update_mgr_read_eprom(uint64_t* flag_offset, uint64_t value);
 int set_recovery_mode();

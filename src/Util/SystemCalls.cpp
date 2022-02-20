@@ -383,6 +383,27 @@ int get_target_type(uint64_t* type) // 1-CEX, 2-DEX, 3-DECR/RefTool
    return_to_user_prog(int);
 }
 
+bool IsConsoleCex()
+{
+   uint64_t type;
+   get_target_type(&type);
+   return type == 1;
+}
+
+bool IsConsoleDex()
+{
+   uint64_t type;
+   get_target_type(&type);
+   return type == 2;
+}
+
+bool IsConsoleDeh()
+{
+   uint64_t type;
+   get_target_type(&type);
+   return type == 3;
+}
+
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value)
 {
    system_call_7(SC_UPDATE_MANAGER_IF, UPDATE_MGR_PACKET_ID_WRITE_EPROM, flag_offset, value, 0, 0, 0, 0);
