@@ -40,6 +40,7 @@ public:
    Menu& toggle(bool& var);
    Menu& toggle(bool& var, Function onEnable, Function onDisable);
    Menu& action(Function fn);
+   Menu& rightText(const std::wstring& text);
 
 
    Color UpdateRGBInterpolation();
@@ -75,6 +76,7 @@ private:
    void DrawHighlightBar();
    void DrawMenuText(const std::wstring& text);
    void DrawMenuToggle(bool var);
+   void DrawMenuRightText(const std::wstring& text);
 
 public:
    vsh::vec2 position{ 320.0f, 0.0f };

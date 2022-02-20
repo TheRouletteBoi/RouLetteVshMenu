@@ -279,7 +279,7 @@ void DebugTogglesSubmenu()
    g_Menu.option(L"Option 7");
    g_Menu.option(L"Option 8");
    g_Menu.option(L"Option 9");
-   g_Menu.option(L"Option 10");
+   g_Menu.option(L"Option 10").rightText(L"ON\uF8B4 OFF\uF8B5");
    g_Menu.option(L"Option 11");
    g_Menu.option(L"Option 12");
    g_Menu.option(L"Option 13");

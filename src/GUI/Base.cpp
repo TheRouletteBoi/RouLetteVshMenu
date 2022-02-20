@@ -387,6 +387,23 @@ void Menu::DrawMenuToggle(bool var)
    }
 }
 
+void Menu::DrawMenuRightText(const std::wstring& text)
+{
+   int optionIndex = 0;
+   if (m_CurrentOption <= m_OptionsPerPage && m_PrintingOption <= m_OptionsPerPage)
+      optionIndex = m_PrintingOption;
+   else if ((m_PrintingOption > (m_CurrentOption - m_OptionsPerPage)) && m_PrintingOption <= m_CurrentOption)
+      optionIndex = m_PrintingOption - (m_CurrentOption - m_OptionsPerPage);
+
+   if (optionIndex != 0)
+      GUI::DrawText(
+         text,
+         vsh::vec2(position.x + (m_SizeMenuWidth / 2) - 5, position.y + (m_SizeMenuMaximumHeight / 2) - m_SizeHeader - m_HighlightBarStart - (m_SizeHighlightBar / 2) - (optionIndex - 1) * m_SizeHighlightBar + 3),
+         20,
+         vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
+         GUI::Alignment::Right);
+}
+
 void Menu::OnUpdate()
 {
    m_system_plugin = vsh::paf::View::Find("system_plugin");
@@ -521,5 +538,11 @@ Menu& Menu::toggle(bool& var, Function onEnable, Function onDisable)
       }
    }
 
+   return *this;
+}
+
+Menu& Menu::rightText(const std::wstring& text)
+{
+   DrawMenuRightText(text);
    return *this;
 }
