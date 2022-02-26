@@ -288,6 +288,10 @@ void Menu::UpdateGUI()
       EnterSubmenu(m_SubmenuDelay);
       m_SubmenuDelay = nullptr;
    }
+
+   // Drawing method for helper class
+   if (m_UpdateHelperGui != nullptr)
+      m_UpdateHelperGui();
 }
 
 void Menu::DrawHeader()
@@ -434,8 +438,6 @@ void Menu::OnUpdate()
    UpdateButtons();
    GUI::BeginDrawing();
    UpdateGUI();
-   if (m_UpdateHelperGui != nullptr)
-      m_UpdateHelperGui();
    GUI::EndDrawing();
 }
 

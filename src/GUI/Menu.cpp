@@ -55,6 +55,12 @@ void GtavSubmenu()
          vsh::ShowNofityWithSound(L"Terrorizer GTAV is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
 
    });
+
+   g_Menu.option(L"Debug Payload").action([]
+   {
+      if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVDebugPayload))
+         vsh::ShowNofityWithSound(L"GTAV Debug payload is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+   });
 }
 
 void CodBo1Submenu()

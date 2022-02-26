@@ -196,7 +196,7 @@ static void ShowSystemNotification(const wchar_t* message, const char* texture)
    ShowNotificationBySurfaceTexture(0, texture, 0, &pTexture, &unknownOut, "", "", 0.0f, message, 0, false, 0);
 }
 
-static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType, eNotifySound soundType = eNotifySound::None)
+static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType, eNotifySound soundType = eNotifySound::Trophy)
 {
    vsh::paf::View* explorePlugin = vsh::paf::View::Find("explore_plugin");
    vsh::paf::View* systemPlugin = vsh::paf::View::Find("system_plugin");

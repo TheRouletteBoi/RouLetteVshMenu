@@ -20,6 +20,7 @@ public:
       GTAVLexicon,
       GTAVSerendipity,
       GTAVTerrorizer,
+      GTAVDebugPayload,
 
       // COD Black Ops 1
       BO1Paradox,

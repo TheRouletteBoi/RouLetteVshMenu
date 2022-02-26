@@ -50,6 +50,13 @@ namespace GTAV
             SetBranchless(Ida2Mem(0x48BF4));                // branch where he sets up all the hooks
             vsh::ShowNofityWithSound(L"Terrorizer has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
+         case CFindActiveGame::PatchedMenu::GTAVDebugPayload:
+         {
+            const std::string& fileName = GetCurrentDir() + "modmenus/GTAV/GTAVPayload.bin";
+            if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000))
+               vsh::ShowNofityWithSound(L"GTAV Debug Payload is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+            break;
+         }
       }
    }
 }

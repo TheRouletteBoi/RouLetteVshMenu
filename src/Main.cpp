@@ -25,7 +25,7 @@ SYS_MODULE_STOP(RouLetteVshMenu_Stop);
 * Enhancement: Smoother closing animation
 * BUG: When there are 20 options and you scroll to the bottom then close the menu and open it again the highlight bar is out of bounds
 * BUG: We need a way to clear textures just like text because they are still visible after leaving the submenu with toggle's
-* BUG: Closing the menu destroy's FPS counter
+* BUG: Closing the menu destroy's FPS counter and or Any Helper Drawing
 * BUG: Menu stretches when in game XMB
 * MISSING PARTS: to load a enstone menu you need to load the RouLetteVshMenu in game using webman. the reason is because the ccapi vsh enables ccapi syscall 0x123 (Enable CCAPI). To solve this we need to enable it ourselfs 
 * Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
