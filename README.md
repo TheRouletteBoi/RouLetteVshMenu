@@ -45,3 +45,4 @@ Preview:
 
 ## Credits
 @Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
+@CaneHaxs for some of the Paradox patches and terrorizer patch
