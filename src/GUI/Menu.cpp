@@ -43,7 +43,7 @@ void GtavSubmenu()
 
    });
 
-   g_Menu.option(L"Terrorizer      \uF888 + \uF886").action([]
+   g_Menu.option(L"Terrorizer      \uF88B + \uF886").action([]
    {
       if (!IsConsoleDex())
       {
