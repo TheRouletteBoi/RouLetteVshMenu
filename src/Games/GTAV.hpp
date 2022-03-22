@@ -10,12 +10,12 @@ namespace GTAV
       switch (g_FindActiveGame.m_MenuToLoad)
       {
          case CFindActiveGame::PatchedMenu::GTAVLexicon:
-            SetBranch(Ida2Mem(0x57BC0), Ida2Mem(0x57C5C));  // so you can load the menu offline
-            SetNop(Ida2Mem(0x561E8));                       // nop read license key
-            SetBranch(Ida2Mem(0x56200), Ida2Mem(0x57AE8));  // skip to hooking
-            SetNop(Ida2Mem(0x57B28));                       // nop address decrypter
-            SetNop(Ida2Mem(0x57B3C));                       // nop thread for server settings
-            SetNop(Ida2Mem(0x57B40));                       // nop thread for server settings 2
+            SetBranch(Ida2Mem("Lexicon", 0x57BC0), Ida2Mem("Lexicon", 0x57C5C));  // so you can load the menu offline
+            SetNop(Ida2Mem("Lexicon", 0x561E8));                                  // nop read license key
+            SetBranch(Ida2Mem("Lexicon", 0x56200), Ida2Mem("Lexicon", 0x57AE8));  // skip to hooking
+            SetNop(Ida2Mem("Lexicon", 0x57B28));                                  // nop address decrypter
+            SetNop(Ida2Mem("Lexicon", 0x57B3C));                                  // nop thread for server settings
+            SetNop(Ida2Mem("Lexicon", 0x57B40));                                  // nop thread for server settings 2
             SetMem<uint32_t>(0x1C2BB80, 0x2520878);         // hook is player online
             //SetMem<uint32_t>(0x1C271E0, 0x2520878);       // hook GET_INDEX_OF_CURRENT_LEVEL  an old hook he used in his previous versions of lexicon
             SetMem<uint32_t>(0x1C2A3D0, 0x2520DEC);         // hook disable control actions
@@ -43,11 +43,11 @@ namespace GTAV
             break;
          }
          case CFindActiveGame::PatchedMenu::GTAVTerrorizer:
-            SetNop(Ida2Mem(0x4FD58));                       // nop auther thread
-            SetNop(Ida2Mem(0x48B40));                       // bypass check in PatchInJump
-            SetMem<uint32_t>(Ida2Mem(0x48D74), 0x2C030001); // set some check to true
-            SetMem<uint32_t>(Ida2Mem(0x48E48), 0x38600001); // set check to true
-            SetBranchless(Ida2Mem(0x48BF4));                // branch where he sets up all the hooks
+            SetNop(Ida2Mem("GTAOTerrorizer", 0x4FD58));                       // nop auther thread
+            SetNop(Ida2Mem("GTAOTerrorizer", 0x48B40));                       // bypass check in PatchInJump
+            SetMem<uint32_t>(Ida2Mem("GTAOTerrorizer", 0x48D74), 0x2C030001); // set some check to true
+            SetMem<uint32_t>(Ida2Mem("GTAOTerrorizer", 0x48E48), 0x38600001); // set check to true
+            SetBranchless(Ida2Mem("GTAOTerrorizer", 0x48BF4));                // branch where he sets up all the hooks
             vsh::ShowNofityWithSound(L"Terrorizer has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
             break;
          case CFindActiveGame::PatchedMenu::GTAVDebugPayload:

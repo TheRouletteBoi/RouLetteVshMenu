@@ -13,7 +13,7 @@ CFindActiveGame g_FindActiveGame;
 
 void CFindActiveGame::Initialize()
 {
-   sys_ppu_thread_create(&m_GameProcessPpuThreadId, GameProcessThread, 0, 1109, 2048, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteGameProcess");
+   sys_ppu_thread_create(&m_GameProcessPpuThreadId, GameProcessThread, 0, 1109, 0x8000, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteGameProcess");
 }
 
 void CFindActiveGame::ShutDown()

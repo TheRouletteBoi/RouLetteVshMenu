@@ -9,6 +9,14 @@
 
 namespace GamePatching
 {
+   enum class eSegmentType
+   {
+      Text = 0,   // text
+      Data,       // data/bss
+      RoData,     // rodata
+      RoData2,    // rodata 2
+   };
+
    template <typename var>
    var GetMem(uint32_t address)
    {
@@ -72,16 +80,99 @@ namespace GamePatching
       SetMem<uint64_t>(address, 0x386000004E800020);
    }
 
-   uint32_t GetModuleBaseAddress()
+   sys_prx_id_t GetProcessModuleIdByName(sys_pid_t pid, const char* moduleName)
    {
-      // MW3 0x23D0000
-      // GTAV 0x24D0000
-      return 0x24D0000;
+      constexpr int MAX_MODULES = 128;
+      sys_prx_id_t moduleList[MAX_MODULES]{};
+      vsh::memset(moduleList, 0, sizeof(moduleList));
+      ps3mapi_get_all_process_modules_prx_id(pid, moduleList);
+
+      sys_prx_module_info_t moduleInfo{};
+      sys_prx_segment_info_t segments[10]{};
+      char filename[SYS_PRX_MODULE_FILENAME_SIZE]{};
+      moduleInfo.size = sizeof(moduleInfo);
+      moduleInfo.segments = segments;
+      moduleInfo.segments_num = sizeof(segments) / sizeof(sys_prx_segment_info_t);
+      moduleInfo.filename = filename;
+      moduleInfo.filename_size = sizeof(filename);
+
+      for (int i = 0; i < MAX_MODULES; i++)
+      {
+         if (moduleList[i] != 0)
+         {
+            vsh::memset(moduleInfo.segments, 0, sizeof(moduleInfo.segments));
+            vsh::memset(moduleInfo.filename, 0, sizeof(moduleInfo.filename));
+
+            ps3mapi_get_process_module_segments(pid, moduleList[i], &moduleInfo);
+
+            if (vsh::strcmp(moduleInfo.name, moduleName) == 0)
+            {
+               return moduleList[i];
+            }
+         }
+      }
+
+      return 0;
    }
 
-   uint32_t Ida2Mem(uint32_t address)
+   sys_prx_module_info_t GetProcessModuleInfoByName(sys_pid_t pid, const char* moduleName)
    {
-      return (GetModuleBaseAddress() + address);
+      constexpr int MAX_MODULES = 128;
+      sys_prx_id_t moduleList[MAX_MODULES]{};
+      vsh::memset(moduleList, 0, sizeof(moduleList));
+      ps3mapi_get_all_process_modules_prx_id(pid, moduleList);
+
+      sys_prx_module_info_t moduleInfo{};
+      sys_prx_segment_info_t segments[10]{};
+      char filename[SYS_PRX_MODULE_FILENAME_SIZE]{};
+      moduleInfo.size = sizeof(moduleInfo);
+      moduleInfo.segments = segments;
+      moduleInfo.segments_num = sizeof(segments) / sizeof(sys_prx_segment_info_t);
+      moduleInfo.filename = filename;
+      moduleInfo.filename_size = sizeof(filename);
+
+      for (int i = 0; i < MAX_MODULES; i++)
+      {
+         if (moduleList[i] != 0)
+         {
+            vsh::memset(moduleInfo.segments, 0, sizeof(moduleInfo.segments));
+            vsh::memset(moduleInfo.filename, 0, sizeof(moduleInfo.filename));
+
+            ps3mapi_get_process_module_segments(pid, moduleList[i], &moduleInfo);
+
+            if (vsh::strcmp(moduleInfo.name, moduleName) == 0)
+            {
+               return moduleInfo;
+            }
+         }
+      }
+
+      return {};
+   }
+
+   sys_prx_module_info_t GetProcessModuleInfoByPrxId(sys_pid_t pid, sys_prx_id_t prxId)
+   {
+      sys_prx_module_info_t info{};
+      sys_prx_segment_info_t segments[10]{};
+      char filename[SYS_PRX_MODULE_FILENAME_SIZE]{};
+      info.size = sizeof(info);
+      info.segments = segments;
+      info.segments_num = sizeof(segments) / sizeof(sys_prx_segment_info_t);
+      info.filename = filename;
+      info.filename_size = sizeof(filename);
+      ps3mapi_get_process_module_segments(pid, prxId, &info);
+      return info;
+   }
+
+   uint32_t GetModuleBaseAddress(const char* moduleName)
+   {
+      sys_prx_module_info_t info = GetProcessModuleInfoByName(g_FindActiveGame.GetRunningGameProcessId(), moduleName);
+      return info.segments[(int)eSegmentType::Text].base;
+   }
+
+   uint32_t Ida2Mem(const char* moduleName, uint32_t address)
+   {
+      return (GetModuleBaseAddress(moduleName) + address);
    }
 
    bool StartSprx(const char* path)
