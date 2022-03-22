@@ -126,9 +126,9 @@ int ps3mapi_process_page_allocate(sys_pid_t pid, uint64_t size, uint64_t page_si
    return_to_user_prog(int);
 }
 
-int ps3mapi_get_process_module_info(sys_pid_t pid, sys_prx_id_t prx_id, sys_prx_module_info_t* info)
+int ps3mapi_get_process_module_segments(sys_pid_t pid, sys_prx_id_t prx_id, sys_prx_module_info_t* info)
 {
-   system_call_5(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_GET_PROC_MODULE_INFO, (uint64_t)pid, (uint64_t)prx_id, (uint64_t)info);
+   system_call_5(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_GET_PROC_MODULE_SEGMENTS, (uint64_t)pid, (uint64_t)prx_id, (uint64_t)info);
    return_to_user_prog(int);
 }
 
