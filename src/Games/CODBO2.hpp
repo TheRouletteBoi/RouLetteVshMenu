@@ -58,13 +58,14 @@ namespace CODBO2
 			case CFindActiveGame::PatchedMenu::BO2Sprxio:
 			{
 				// Incomplete... ##Crashes as soon as you press load 'yes'
-				SetBlr(0x3101A34);								// block read license key
+				/*SetBlr(0x3101A34);								// block read license key
 				SetBlr(0x3101CBC);								// block updates
 				SetBlr(0x3101C28);								// block get psid
 				SetBlr(0x3101E7C);								// block auth sprx
 				SetBlr(0x3102190);								// block auth welcome
 				SetMem<uint32_t>(0x313D224, 0x00000001);	// has auth success
-				vsh::ShowNofityWithSound(L"SPRX.IO has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+				vsh::ShowNofityWithSound(L"SPRX.IO has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);*/
+				vsh::ShowNofityWithSound(L"Unable to patch SPRX.IO", vsh::eNotifyIcon::Caution, vsh::eNotifySound::Trophy);
 				break;
 			}
          case CFindActiveGame::PatchedMenu::BO2Destiny:
