@@ -41,21 +41,39 @@ private:
 };
 
 template<class T>
-std::string to_string(T in)
+std::string to_string(T value)
 {
    char buf[25];
    vsh::memset(buf, 0, 25);
-   int len = vsh::snprintf(buf, sizeof(buf), "%d", in);
+   int len = vsh::snprintf(buf, sizeof(buf), "%d", value);
    return std::string(buf);
 }
 
 template<class T>
-std::wstring to_wstring(T in)
+std::wstring to_wstring(T value)
 {
    wchar_t buf[25];
    vsh::memset(buf, 0, 25);
-   int len = vsh::swprintf(buf, sizeof(buf), L"%d", in);
+   int len = vsh::swprintf(buf, sizeof(buf), L"%d", value);
    return std::wstring(buf);
 }
+
+template<>
+std::string to_string(uint64_t value);
+
+template<>
+std::string to_string(float value);
+
+template<>
+std::string to_string(double value);
+
+template<>
+std::wstring to_wstring(uint64_t value);
+
+template<>
+std::wstring to_wstring(float value);
+
+template<>
+std::wstring to_wstring(double value);
 
 extern Helpers g_Helpers;
