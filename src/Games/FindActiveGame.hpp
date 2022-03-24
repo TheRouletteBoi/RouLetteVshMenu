@@ -53,8 +53,10 @@ public:
    };
 
 public:
-   static void GameProcessThread(uint64_t arg);
+   CFindActiveGame();
+   ~CFindActiveGame() noexcept = default;
 
+   static void GameProcessThread(uint64_t arg);
    void Initialize();
    void ShutDown();
    bool LoadMenu(PatchedMenu menuId);

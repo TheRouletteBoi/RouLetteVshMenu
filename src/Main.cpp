@@ -54,7 +54,6 @@ int RouLetteVshMenu_Main(unsigned int args, void* argp)
       g_FindActiveGame = CFindActiveGame();
 
       HookingInitiate();
-      g_FindActiveGame.Initialize();
 
       sys_ppu_thread_exit(0);
 
