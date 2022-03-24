@@ -585,8 +585,12 @@ static uint32_t pafGuGetDrawSurfW() { return paf_F476E8AA(); }
 uint32_t paf_AC984A12(void);  // u32 get_display_height
 static uint32_t pafGuGetDrawSurfH() { return paf_AC984A12(); }
 
-// paf_FED92BA1  // get window offset x
-// paf_04C8FC89  // get window offset y
+uint32_t paf_FED92BA1(void);  // get window offset x
+static uint32_t pafGuGetWindowOffsetX() { return paf_FED92BA1(); }
+
+uint32_t paf_04C8FC89(void);  // get window offset x
+static uint32_t pafGuGetWindowOffsetY() { return paf_04C8FC89(); }
+
 // paf_A01698C9  // u32 set_display_width(u32 width) // ret = old value
 // paf_9C1A2D6A  // u32 set_display_height(u32 height) // ret = old value
 // paf_EACF4E4B  // u32 set_window_offset_x(u32 offset) // ret = old value
