@@ -8,7 +8,8 @@ To open the vsh menu press R3 + L1
 - Load InGame payloads (.bin)
 - Write to into game memory on boot or constant
 
-Preview:
+
+## Preview
 ![2022-02-19_23-13-22](https://user-images.githubusercontent.com/9206290/154830967-b154e1f3-ba8d-42b9-b5db-ac16975186e1.png)
 ![2022-02-19_23-55-07](https://user-images.githubusercontent.com/9206290/154832074-0e72906e-e717-4c78-b5b7-9e81271b5cb9.png)
 ![2022-02-19_23-58-49](https://user-images.githubusercontent.com/9206290/154832079-eeb3c28a-f648-4c90-bafd-5fa49c64f15e.png)
@@ -38,13 +39,16 @@ Preview:
 
 5. Restart your console
 
+
 # Download 
  [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
+
 
 ## Building Requirements
 - Visual Studio 2013+
 - Sony PS3 4.75+ SDK w/ Visual Studio Integration
 - [Fixed std::string library](https://github.com/skiff/libpsutil/releases "Fixed std::string library")
+
 
 ## Credits
 @Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
