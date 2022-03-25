@@ -377,8 +377,10 @@ int get_temperature_celcius(uint32_t& cpu_temp, uint32_t& rsx_temp);
 int sys_sm_set_fan_policy(uint8_t arg0, uint8_t arg1, uint8_t arg2);
 int sys_sm_get_fan_policy(uint8_t id, uint8_t* st, uint8_t* mode, uint8_t* speed, uint8_t* unknown);
 void ps3_set_recovery_mode();
-int sys_prx_unload_module_sys_call(sys_prx_id_t id);
-int sys_stop_prx_module_sys_call(sys_prx_id_t id);
-sys_prx_id_t prx_get_module_id_by_address(void* addr);
+int _sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, const sys_prx_unload_module_option_t* pOpt);
+int _sys_prx_stop_module(sys_prx_id_t id, size_t args, void* argp, int* modres, sys_prx_flags_t flags, sys_prx_stop_module_option_t* pOpt);
+sys_prx_id_t _sys_prx_get_module_id_by_name(const char* name, sys_prx_flags_t flags, sys_prx_get_module_id_by_name_option_t* pOpt);
+sys_prx_id_t _sys_prx_get_module_id_by_address(void* addr);
+sys_prx_id_t _sys_prx_get_my_module_id();
 // prxloader = mandatory; cobra = optional; ccapi = don't use !!!
 void _sys_ppu_thread_exit(uint64_t val);

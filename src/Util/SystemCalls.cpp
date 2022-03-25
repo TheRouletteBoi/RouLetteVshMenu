@@ -603,28 +603,33 @@ void ps3_set_recovery_mode()
    ps3_hard_restart();
 }
 
-int sys_prx_unload_module_sys_call(sys_prx_id_t id)
+int _sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, const sys_prx_unload_module_option_t* pOpt)
 {
-   system_call_3(483, (uint64_t)id, 0, NULL);
+   system_call_3(483, (uint64_t)id, (uint64_t)flags, (uint64_t)pOpt);
    return_to_user_prog(int);
 }
 
-int sys_stop_prx_module_sys_call(sys_prx_id_t id)
+int _sys_prx_stop_module(sys_prx_id_t id, size_t args, void* argp, int* modres, sys_prx_flags_t flags, sys_prx_stop_module_option_t* pOpt)
 {
-   uint64_t meminfo[5];
-
-   meminfo[0] = 0x28;
-   meminfo[1] = 2;
-   meminfo[3] = 0;
-
-   system_call_3(482, id, 0, (uint64_t)(uint32_t)meminfo);
+   system_call_6(482, (uint64_t)id, (uint64_t)args, (uint64_t)argp, (uint64_t)modres, (uint64_t)flags, (uint64_t)pOpt);
    return_to_user_prog(int);
 }
 
-sys_prx_id_t prx_get_module_id_by_address(void* addr)
+sys_prx_id_t _sys_prx_get_module_id_by_name(const char* name, sys_prx_flags_t flags, sys_prx_get_module_id_by_name_option_t* pOpt)
+{
+   system_call_3(496, (uint64_t)name, (uint64_t)flags, (uint64_t)pOpt);
+   return_to_user_prog(sys_prx_id_t);
+}
+
+sys_prx_id_t _sys_prx_get_module_id_by_address(void* addr)
 {
    system_call_1(461, (uint64_t)addr);
    return_to_user_prog(sys_prx_id_t);
+}
+
+sys_prx_id_t _sys_prx_get_my_module_id()
+{
+   return _sys_prx_get_module_id_by_address((void*)_sys_prx_get_my_module_id);
 }
 
 void _sys_ppu_thread_exit(uint64_t val)

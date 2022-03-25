@@ -79,7 +79,8 @@ int RouLetteVshMenu_Stop(unsigned int args, void* argp)
       sys_timer_sleep(2);
 
       uint64_t exitCode;
-      sys_ppu_thread_join(gVshMenuPpuThreadId, &exitCode);
+      if (gVshMenuPpuThreadId != SYS_PPU_THREAD_ID_INVALID)
+         sys_ppu_thread_join(gVshMenuPpuThreadId, &exitCode);
 
       sys_ppu_thread_exit(0);
    },
@@ -90,6 +91,11 @@ int RouLetteVshMenu_Stop(unsigned int args, void* argp)
       sys_ppu_thread_join(stopPpuThreadId, &exitCode);
 
    sys_timer_usleep(5000);
+
+   // unloading prx from memory
+   sys_prx_id_t prxId = _sys_prx_get_my_module_id();
+   uint64_t meminfo[5]{ 0x28, 2, 0, 0, 0 };
+   _sys_prx_stop_module(prxId, 0, meminfo, NULL, 0, NULL);
 
    // Exit thread using directly the syscall and not the user mode library or else we will crash
    _sys_ppu_thread_exit(0);
