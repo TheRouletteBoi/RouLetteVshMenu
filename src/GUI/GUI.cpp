@@ -166,9 +166,13 @@ void GUI::CreatePlanesAndTextImpl()
    if (!g_Helpers.page_autooff_guide)
       return;
 
-   // not required??
    if (g_Helpers.page_autooff_guide->FindChild("RouLetteVshMenuPlane_0", 0))
       return;
+   else
+   {
+      m_PlaneList.clear();
+      m_TextList.clear();
+   }
 
    for (int i = 0; i < MAX_SHADERS; i++)
    {
@@ -189,6 +193,16 @@ void GUI::CreatePlanesAndTextImpl()
 
 void GUI::DestoryPlanesAndTextImpl()
 {
+   if (!g_Helpers.page_autooff_guide)
+      return;
+
+   if (!g_Helpers.page_autooff_guide->FindChild("RouLetteVshMenuPlane_0", 0))
+   {
+      m_PlaneList.clear();
+      m_TextList.clear();
+      return;
+   }
+
    for (int i = 0; i < MAX_SHADERS; i++)
    {
       vsh::paf::PhPlane* phPlane = GuiGetWindow(i);
@@ -213,6 +227,12 @@ void GUI::DestoryPlanesAndTextImpl()
 
 void GUI::ClearWidgetTextImpl()
 {
+   if (!g_Helpers.page_autooff_guide)
+      return;
+
+   if (!g_Helpers.page_autooff_guide->FindChild("RouLetteVshMenuText_0", 0))
+      return;
+
    for (int i = 0; i < MAX_SHADERS; i++)
    {
       vsh::paf::PhText* phText = GuiGetText(i);

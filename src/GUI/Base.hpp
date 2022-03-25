@@ -84,6 +84,7 @@ public:
 private:
    bool m_Initialized{};
    bool m_Opened{};
+   bool m_waitUtilFullyClosed{};
    Function m_OnMain{};
    Function m_MainMenu{};
    Function m_CurrentMenu{};

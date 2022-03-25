@@ -113,6 +113,7 @@ void Menu::OnOpen()
 
 void Menu::OnClose()
 {
+   m_waitUtilFullyClosed = true;
    m_Opened = false;
    m_SavedMenu = m_CurrentMenu;
    m_SavedSubmenuLevel = m_SubmenuLevel;
@@ -265,7 +266,11 @@ void Menu::WhileOpen()
 void Menu::WhileClosed()
 {
    // Delete widgets if the menu is closed
-   GUI::DestoryPlanesAndText();
+   if (m_waitUtilFullyClosed)
+   {
+      GUI::DestoryPlanesAndText();
+      m_waitUtilFullyClosed = false;
+   }
 }
 
 void Menu::UpdateGUI()
@@ -426,14 +431,6 @@ void Menu::OnUpdate()
 
    if (!m_Opened && m_OpacityHeaderAndFooter == 0.0f)
       WhileClosed();
-
-   // Close the menu if the xmb isn't loaded
-   if (!vsh::paf::View::Find("xmb_plugin"))
-   {
-      if (m_Opened)
-         OnClose();
-      return;
-   }
 
    UpdateButtons();
    GUI::BeginDrawing();
