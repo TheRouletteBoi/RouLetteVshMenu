@@ -69,12 +69,12 @@ namespace CODBO2
 				break;
 			}
          case CFindActiveGame::PatchedMenu::BO2Destiny:
-         {
+			{
 				const std::string& fileName = GetCurrentDir() + "modmenus/enstone/destiny_by_enstone_120_patched.bin";
-            if (StartPayload(fileName.c_str(), KB(628), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Destiny is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
-            break;
-         }
+				if (StartPayload(fileName.c_str(), KB(628), 0x7D0, 0x4000))
+					vsh::ShowNofityWithSound(L"Destiny is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+				break;
+			}
 		}
 	}
 }
