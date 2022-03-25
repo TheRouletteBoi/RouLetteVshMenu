@@ -38,6 +38,9 @@ Preview:
 
 5. Restart your console
 
+# Download 
+ [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
+
 ## Building Requirements
 - Visual Studio 2013+
 - Sony PS3 4.75+ SDK w/ Visual Studio Integration
