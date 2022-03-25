@@ -122,14 +122,14 @@ public:
    {
       float screenWidth = static_cast<float>(pafGuGetDrawSurfW());
       float screenHeight = static_cast<float>(pafGuGetDrawSurfH());
-      this->SetLayoutPos(6, 5, 0, vec4((screenWidth / 1280.0f) * pos.x, (screenHeight / 720.0f) * pos.y, 0.0f, 0.0f));
+      this->SetLayoutPos(6, 5, 0, vec4((screenWidth / 1280.0f) * pos.x, (screenHeight / 1080.0f) * pos.y, 0.0f, 0.0f));
    }
 
    void SetSize(vec2 size)
    {
       float screenWidth = static_cast<float>(pafGuGetDrawSurfW());
       float screenHeight = static_cast<float>(pafGuGetDrawSurfH());
-      this->SetLayoutSize(6, 5, 0, vec4((screenWidth / 1280.0f) * size.x, (screenHeight / 720.0f) * size.y, 0.0f, 0.0f));
+      this->SetLayoutSize(6, 5, 0, vec4((screenWidth / 1280.0f) * size.x, (screenHeight / 1080.0f) * size.y, 0.0f, 0.0f));
    }
 
    void SetRotation(vec4 rotation, PhWidget* widget, bool useRadian)
