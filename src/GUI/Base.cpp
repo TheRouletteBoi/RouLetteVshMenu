@@ -99,7 +99,7 @@ void Menu::OnOpen()
    GUI::ClearWidgetText();
 
    // Opening animation
-   g_ChangeOvertime.Add(&m_OpacityHeaderAndFooter, 0.7f, 500);
+   g_ChangeOvertime.Add(&m_OpacityHeaderAndFooterAndDescription, 0.7f, 500);
    g_ChangeOvertime.Add(&m_OpacityTitle, 1.0f, 500);
    g_ChangeOvertime.Add(&m_OpacityText, 1.0f, 500, 500);
    g_ChangeOvertime.Add(&m_OpacityBackground, 0.5f, 500);
@@ -120,7 +120,7 @@ void Menu::OnClose()
    m_SavedCurrentOption = m_CurrentOption;
 
    // Closing animation
-   g_ChangeOvertime.Add(&m_OpacityHeaderAndFooter, 0.0f, 500, 500);
+   g_ChangeOvertime.Add(&m_OpacityHeaderAndFooterAndDescription, 0.0f, 500, 500);
    g_ChangeOvertime.Add(&m_OpacityTitle, 0.0f, 500, 500);
    g_ChangeOvertime.Add(&m_OpacityText, 0.0f, 500);
    g_ChangeOvertime.Add(&m_OpacityBackground, 0.0f, 500, 500);
@@ -232,7 +232,7 @@ bool Menu::IsPressed()
 
 void Menu::UpdateButtons()
 {
-   if (!m_Opened && m_OpacityHeaderAndFooter == 0.0f) // fully closed
+   if (!m_Opened && m_OpacityHeaderAndFooterAndDescription == 0.0f) // fully closed
    {
       if (IsOpenPressed())
          OnOpen();
@@ -277,10 +277,10 @@ void Menu::UpdateGUI()
 {
    m_TotalOptions = m_PrintingOption;
    m_PrintingOption = 0;
+   m_Description.clear();
 
    DrawHeader();
    DrawBackground();
-   DrawFooter();
    DrawHighlightBar();
 
    // Display current menu
@@ -294,6 +294,9 @@ void Menu::UpdateGUI()
       m_SubmenuDelay = nullptr;
    }
 
+   DrawFooter();
+   DrawDescription();
+
    // Drawing method for helper class
    if (m_UpdateHelperGui != nullptr)
       m_UpdateHelperGui();
@@ -304,7 +307,7 @@ void Menu::DrawHeader()
    GUI::DrawRect(
       vsh::vec2(position.x, position.y + (m_SizeMenu / 2) - (m_SizeHeader / 2)),
       vsh::vec2(m_SizeMenuWidth, m_SizeHeader),
-      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHeaderAndFooter),
+      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHeaderAndFooterAndDescription),
       GUI::Alignment::Centered);
 
    GUI::DrawText(
@@ -324,12 +327,21 @@ void Menu::DrawBackground()
       GUI::Alignment::Centered);
 }
 
+void Menu::DrawHighlightBar()
+{
+   GUI::DrawRect(
+      vsh::vec2(position.x, m_HighlightBarPosY),
+      vsh::vec2(m_SizeMenuWidth, m_SizeHighlightBar),
+      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHighlightBar),
+      GUI::Alignment::Centered);
+}
+
 void Menu::DrawFooter()
 {
    GUI::DrawRect(
       vsh::vec2(position.x, position.y - (m_SizeMenu / 2) + (m_SizeFooter / 2)),
       vsh::vec2(m_SizeMenuWidth, m_SizeFooter),
-      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHeaderAndFooter),
+      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHeaderAndFooterAndDescription),
       GUI::Alignment::Centered);
 
    GUI::DrawText(
@@ -347,13 +359,23 @@ void Menu::DrawFooter()
       GUI::Alignment::Right);
 }
 
-void Menu::DrawHighlightBar()
+void Menu::DrawDescription()
 {
    GUI::DrawRect(
-      vsh::vec2(position.x, m_HighlightBarPosY),
-      vsh::vec2(m_SizeMenuWidth, m_SizeHighlightBar),
-      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_OpacityHighlightBar),
+      vsh::vec2(position.x, position.y - (m_SizeMenu / 2) + (m_SizeDescription / 2) - 22.0f),
+      vsh::vec2(m_SizeMenuWidth, m_SizeDescription),
+      vsh::vec4(m_MenuRectColor[0], m_MenuRectColor[1], m_MenuRectColor[2], m_Description.empty() ? 0.0f : m_OpacityHeaderAndFooterAndDescription),
       GUI::Alignment::Centered);
+
+   if (m_Description.empty())
+      return;
+
+   GUI::DrawText(
+      m_Description,
+      vsh::vec2(position.x - (m_SizeMenuWidth / 2) + 5, position.y - (m_SizeMenu / 2) + (m_SizeDescription / 2) - 20.0f),
+      22,
+      vsh::vec4(m_MenuTextColor[0], m_MenuTextColor[1], m_MenuTextColor[2], m_OpacityText),
+      GUI::Alignment::Left);
 }
 
 void Menu::DrawMenuText(const std::wstring& text)
@@ -429,7 +451,7 @@ void Menu::OnUpdate()
    // Update animations
    g_ChangeOvertime.Update();
 
-   if (!m_Opened && m_OpacityHeaderAndFooter == 0.0f)
+   if (!m_Opened && m_OpacityHeaderAndFooterAndDescription == 0.0f)
       WhileClosed();
 
    UpdateButtons();
@@ -543,5 +565,13 @@ Menu& Menu::toggle(bool& var, Function onEnable, Function onDisable)
 Menu& Menu::rightText(const std::wstring& text)
 {
    DrawMenuRightText(text);
+   return *this;
+}
+
+Menu& Menu::description(const std::wstring& text)
+{
+   if (IsHovered())
+      m_Description = text;
+
    return *this;
 }

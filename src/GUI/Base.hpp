@@ -41,6 +41,7 @@ public:
    Menu& toggle(bool& var, Function onEnable, Function onDisable);
    Menu& action(Function fn);
    Menu& rightText(const std::wstring& text);
+   Menu& description(const std::wstring& text);
 
 
    Color UpdateRGBInterpolation();
@@ -72,8 +73,9 @@ private:
 
    void DrawHeader();
    void DrawBackground();
-   void DrawFooter();
    void DrawHighlightBar();
+   void DrawFooter();
+   void DrawDescription();
    void DrawMenuText(const std::wstring& text);
    void DrawMenuToggle(bool var);
    void DrawMenuRightText(const std::wstring& text);
@@ -101,8 +103,9 @@ private:
    size_t m_TotalOptions = 0;
    size_t m_CurrentOption = 0;
    size_t m_OptionsPerPage = 10;
+   std::wstring m_Description;
 
-   float m_OpacityHeaderAndFooter = 0.0f;
+   float m_OpacityHeaderAndFooterAndDescription = 0.0f;
    float m_OpacityBackground = 0.0f;
    float m_OpacityHighlightBar = 0.0f;
    float m_OpacityText = 0.0f;
@@ -113,6 +116,7 @@ private:
    float m_SizeMenuMinimumHeight = 92.0f;
    float m_SizeHeader = 66.0f;
    float m_SizeFooter = 26.0f;
+   float m_SizeDescription = 18.0f;
    float m_SizeMenu = 92.0f;
    float m_SizeHighlightBar = 20.0f;
    float m_SizeBackgroundMaximumHeight = 254.0f;

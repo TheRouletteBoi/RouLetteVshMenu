@@ -18,7 +18,7 @@ void MainSubmenu()
 void GtavSubmenu()
 {
    g_Menu.title(L"GTAV Menus");
-   g_Menu.option(L"Lexicon         \uF888 + \uF88B").action([]
+   g_Menu.option(L"Lexicon").rightText(L"\uF888 + \uF88B").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -30,7 +30,7 @@ void GtavSubmenu()
          vsh::ShowNofityWithSound(L"Lexicon GTAV is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Serendipity    \uF882 + \uF887").action([]
+   g_Menu.option(L"Serendipity").rightText(L"\uF882 + \uF887").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -43,7 +43,7 @@ void GtavSubmenu()
 
    });
 
-   g_Menu.option(L"Terrorizer      \uF88B + \uF886").action([]
+   g_Menu.option(L"Terrorizer").rightText(L"\uF88B + \uF886").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -66,7 +66,7 @@ void GtavSubmenu()
 void CodBo1Submenu()
 {
    g_Menu.title(L"Black Ops 1 Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -78,7 +78,7 @@ void CodBo1Submenu()
          vsh::ShowNofityWithSound(L"Paradox BO1 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Fusion           \uF888 + \uF88D").action([]
+   g_Menu.option(L"Fusion").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -95,7 +95,7 @@ void CodBo1Submenu()
 void CodBo2Submenu()
 {
    g_Menu.title(L"Black Ops 2 Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -107,7 +107,7 @@ void CodBo2Submenu()
          vsh::ShowNofityWithSound(L"Paradox BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"SPRX.IO         \uF88D + \uF884").action([]
+   g_Menu.option(L"SPRX.IO").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -119,7 +119,7 @@ void CodBo2Submenu()
          vsh::ShowNofityWithSound(L"SPRX.IO BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Destiny          \uF888 + \uF88D").action([]
+   g_Menu.option(L"Destiny").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -135,7 +135,7 @@ void CodBo2Submenu()
 void CodBo3Submenu()
 {
    g_Menu.title(L"Black Ops 3 Menus");
-   g_Menu.option(L"Fatality         \uF888 + \uF88D").action([]
+   g_Menu.option(L"Fatality").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -151,7 +151,7 @@ void CodBo3Submenu()
 void CodMw2Submenu()
 {
    g_Menu.title(L"Modern Warfare 2 Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -163,7 +163,7 @@ void CodMw2Submenu()
          vsh::ShowNofityWithSound(L"Paradox MW2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Reborn          \uF888 + \uF88D").action([]
+   g_Menu.option(L"Reborn").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -179,7 +179,7 @@ void CodMw2Submenu()
 void CodMw3Submenu()
 {
    g_Menu.title(L"Modern Warfare 3 Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -191,7 +191,7 @@ void CodMw3Submenu()
          vsh::ShowNofityWithSound(L"Paradox MW3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Phantom        \uF888 + \uF88D").action([]
+   g_Menu.option(L"Phantom").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -203,7 +203,7 @@ void CodMw3Submenu()
          vsh::ShowNofityWithSound(L"Phantom MW3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Project Memories     \uF888 + \uF88D").action([]
+   g_Menu.option(L"Project Memories").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -220,7 +220,7 @@ void CodMw3Submenu()
 void CodGhostSubmenu()
 {
    g_Menu.title(L"Cod Ghost Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -232,7 +232,7 @@ void CodGhostSubmenu()
          vsh::ShowNofityWithSound(L"Paradox Ghost is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Eternity         \uF888 + \uF88D").action([]
+   g_Menu.option(L"Eternity").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
@@ -248,7 +248,7 @@ void CodGhostSubmenu()
 void CodAwSubmenu()
 {
    g_Menu.title(L"Advance Warfare Menus");
-   g_Menu.option(L"Paradox         \uF88D + \uF884").action([]
+   g_Menu.option(L"Paradox").rightText(L"\uF88D + \uF884").description(L"\uF5B5 DEX only menu").action([]
    {
       if (!IsConsoleDex())
       {
@@ -260,7 +260,7 @@ void CodAwSubmenu()
          vsh::ShowNofityWithSound(L"Paradox Advance Warfare is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
    });
 
-   g_Menu.option(L"Fury              \uF888 + \uF88D").action([]
+   g_Menu.option(L"Fury").rightText(L"\uF888 + \uF88D").description(L"\uF5B5 CEX/DEX only menu").action([]
    {
       if (ps3mapi_get_is_hen())
       {
