@@ -454,6 +454,14 @@ void Menu::OnUpdate()
    if (!m_Opened && m_OpacityHeaderAndFooterAndDescription == 0.0f)
       WhileClosed();
 
+   // Close the menu if the xmb isn't loaded
+   if (!vsh::paf::View::Find("xmb_plugin"))
+   {
+      if (m_Opened)
+         OnClose();
+      return;
+   }
+
    UpdateButtons();
    GUI::BeginDrawing();
    UpdateGUI();
