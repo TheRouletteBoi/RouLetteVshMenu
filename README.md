@@ -20,7 +20,7 @@ Preview:
 - CCAPI 2.80rev5 or lower is required to use enstone menus
  
 ## Installation
-1. In your PS3 file system go to /dev_hdd0/plugins/ and create a new folder named RouLetteVshMenu
+1. In your PS3 file system go to /dev_hdd0/plugins/ and transfer folder named RouLetteVshMenu provided in [Resources](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/main/Resources "Resources")
 
 ![plugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/plugins.PNG)
 
