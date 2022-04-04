@@ -52,6 +52,9 @@ namespace GTAV
             break;
          case CFindActiveGame::PatchedMenu::GTAVDebugPayload:
          {
+            // wait because injecting menu too fast can result in a crash
+            Sleep(50000);
+
             const std::string& fileName = GetCurrentDir() + "modmenus/GTAV/GTAVPayload.bin";
             if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"GTAV Debug Payload is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);

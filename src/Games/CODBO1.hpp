@@ -47,6 +47,9 @@ namespace CODBO1
          }
          case CFindActiveGame::PatchedMenu::BO1Fusion:
          {
+            // wait because injecting menu too fast can result in a crash
+            Sleep(50000);
+
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fusion_by_enstone_114.bin";
             if (StartPayload(fileName.c_str(), KB(156), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Fusion is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);

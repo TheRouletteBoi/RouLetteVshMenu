@@ -40,6 +40,9 @@ namespace CODMW2
          }
          case CFindActiveGame::PatchedMenu::MW2Reborn:
          {
+            // wait because injecting menu too fast can result in a crash
+            Sleep(50000);
+
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/reborn_by_enstone_446.bin";
             if (StartPayload(fileName.c_str(), KB(140), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Reborn is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);

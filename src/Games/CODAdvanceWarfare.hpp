@@ -41,6 +41,9 @@ namespace CODAW
          }
          case CFindActiveGame::PatchedMenu::AWFury:
          {
+            // wait because injecting menu too fast can result in a crash
+            Sleep(50000);
+
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fury_by_enstone_220_patched.bin";
             if (StartPayload(fileName.c_str(), KB(496), 0x7D0, 0x4000))
                vsh::ShowNofityWithSound(L"Fury is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
