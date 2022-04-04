@@ -263,4 +263,25 @@ namespace GamePatching
       vsh::printf("Successfully started payload\n");
       return true;
    }
+
+   template <typename... TArgs>
+   __attribute__((noinline)) uint64_t __attribute__((naked)) CCAPISysCall(uint64_t num, TArgs... arg)
+   {
+       __asm__
+       (
+           "sc;" // replace sc (0x44000002) with ccsc (0xEF455314) with any Hex Editor
+           "blr;"
+       );
+   }
+
+   __attribute__((noinline)) int CCAPIEnableSysCall()
+   {
+       if (DoesConsoleHaveCCAPI())
+       {
+           vsh::printf("using enable syscall\n");
+           return CCAPISysCall(0x241);
+       }
+
+       return -1;
+   }
 }

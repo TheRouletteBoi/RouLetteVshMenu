@@ -449,6 +449,23 @@ uint16_t GetPayloadVersion()
    return payloadVersion;
 }
 
+bool DoesConsoleHaveCCAPI()
+{
+    CellFsStat sb;
+    return (cellFsStat("/dev_flash/sys/internal/sys_plugin.sprx", &sb) == CELL_FS_SUCCEEDED);
+}
+
+bool DoesConsoleHaveWebman()
+{
+    CellFsStat sb;
+    if (cellFsStat("/dev_hdd0/plugins/webftp_server.sprx", &sb) == CELL_FS_SUCCEEDED
+        || cellFsStat("/dev_hdd0/plugins/webftp_server_noncobra.sprx", &sb) == CELL_FS_SUCCEEDED
+        || cellFsStat("/dev_hdd0/plugins/webftp_server_cobra_ps3mapi.sprx", &sb) == CELL_FS_SUCCEEDED)
+        return true;
+
+    return false;
+}
+
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value)
 {
    system_call_7(SC_UPDATE_MANAGER_IF, UPDATE_MGR_PACKET_ID_WRITE_EPROM, flag_offset, value, 0, 0, 0, 0);

@@ -357,6 +357,8 @@ bool IsConsoleHen();
 bool IsConsoleMamba();
 bool IsConsoleCobra();
 uint16_t GetPayloadVersion();
+bool DoesConsoleHaveCCAPI();
+bool DoesConsoleHaveWebman();
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value);
 int update_mgr_read_eprom(uint64_t* flag_offset, uint64_t value);
 int set_recovery_mode();
