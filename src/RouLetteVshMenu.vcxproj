@@ -115,7 +115,6 @@
     <ClInclude Include="Core\Input.hpp" />
     <ClInclude Include="Core\Menu\Overlay.hpp" />
     <ClInclude Include="Core\Rendering.hpp" />
-    <ClInclude Include="Core\Version.hpp" />
     <ClInclude Include="Games\CODAdvanceWarfare.hpp" />
     <ClInclude Include="Games\CODBO1.hpp" />
     <ClInclude Include="Games\CODBO2.hpp" />
