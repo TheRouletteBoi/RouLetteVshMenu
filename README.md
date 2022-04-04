@@ -51,5 +51,5 @@ To open the vsh menu press R3 + L1
 
 
 ## Credits
-@Jordy-Nateur for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
-@CaneHaxs for some of the Paradox patches and terrorizer patch
+[@Jordy-Nateur](https://github.com/Jordy-Nateur "Jordy-Nateur") for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
+[@CaneHaxs](https://github.com/CaneHaxs "CaneHaxs") for some of the Paradox patches, terrorizer patch and many others
