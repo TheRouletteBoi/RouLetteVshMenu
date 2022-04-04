@@ -32,7 +32,7 @@ public:
    bool m_StateGameJustLaunched{};
 
 private:
-   unsigned int m_ScreenshotLastTime{};
+   uint64_t m_ScreenshotLastTime{};
 };
 
 extern Helpers g_Helpers;

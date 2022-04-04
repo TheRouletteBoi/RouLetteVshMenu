@@ -39,7 +39,7 @@ void Helpers::MonitorGameState()
 
 void Helpers::TakeScreenshot()
 {
-   unsigned int timeNow = GetTimeNow();
+   uint64_t timeNow = GetTimeNow();
 
    if ((timeNow - m_ScreenshotLastTime) < 500)
       return;

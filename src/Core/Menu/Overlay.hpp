@@ -30,10 +30,10 @@ public:
    uint64_t m_KernelType{};
    uint32_t m_FirmwareVersion{};
    uint16_t m_PayloadVersion{};
+   static const uint64_t refreshDelay = 500;
 
 private:
    vsh::vec2 m_Position{};
-   static const int refreshDelay = 500;
 
    float m_FPS = 100.0f;
    float m_FpsLastTime = 0;
