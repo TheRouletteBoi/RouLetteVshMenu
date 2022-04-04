@@ -93,14 +93,6 @@ private:
    */
    size_t GetHookSize(const void* branchTarget, bool linked, bool preserveRegister);
 
-   /***
-   * Retrieve infomation about address which contains bytes and name of hook owner
-   * @param addr function to check to see if it has been hooked
-   * @param hookInfo structure contained sprx name, path and hook bytes. nullptr can be passed to check return value
-   * @returns true address is already hooked
-   */
-   bool GetHookInfo(uintptr_t addr, HookInformation* hookInfo);
-
 protected:
    const void*  m_HookTarget;                // The funtion we are pointing the hook to.
    void*        m_HookAddress;               // The function we are hooking.

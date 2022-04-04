@@ -1,5 +1,4 @@
 #include "Detour.hpp"
-#include "Utils/FileSystem.hpp"
 
 #define POWERPC_REGISTERINDEX_R0      0
 #define POWERPC_REGISTERINDEX_R1      1
@@ -234,21 +233,11 @@ size_t Detour::RelocateCode(uint32_t* destination, uint32_t* source)
 
 void Detour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
 {
+   m_HookAddress = reinterpret_cast<void*>(fnAddress);
    m_HookTarget = reinterpret_cast<void*>(*reinterpret_cast<uintptr_t*>(fnCallback));
 
    // Get the size of the hook but don't hook anything yet
    size_t HookSize = GetHookSize(m_HookTarget, false, false);
-
-   // Check if address has been hooked and if so hook but 16 bytes ahead so it can be hooked more that once
-   // **NOTE** There is a caveat where it only works with 2 hooks. So a work around would be to loop X amount of instructions or check for a blr.
-   if (GetHookInfo(fnAddress, nullptr))
-   {
-       m_HookAddress = reinterpret_cast<void*>(fnAddress + HookSize);
-   }
-   else
-   {
-       m_HookAddress = reinterpret_cast<void*>(fnAddress);
-   }
 
    // Save the original instructions for unhooking later on.
    WriteProcessMemory(sys_process_getpid(), m_OriginalInstructions, m_HookAddress, HookSize);
@@ -290,40 +279,6 @@ bool Detour::UnHook()
    }
 
    return false;
-}
-
-bool Detour::GetHookInfo(uintptr_t addr, HookInformation* hookInfo)
-{
-    uint32_t firstSecond[2];
-    WriteProcessMemory(sys_process_getpid(), firstSecond, (const void*)addr, sizeof(firstSecond));
-
-    // check if the function is already hooked by us or someone else
-    if (((firstSecond[0] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_LIS)
-        && ((firstSecond[1] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_ORI))
-    {
-        // fast check if function is hooked
-        if (hookInfo == nullptr)
-            return true;
-
-        WriteProcessMemory(sys_process_getpid(), hookInfo->hookBytes, (const void*)addr, sizeof(hookInfo->hookBytes));
-
-        uint16_t lowFirstInstruction = static_cast<uint16_t>(hookInfo->hookBytes[0]); // first instruction
-        uint16_t lowSecondInstruction = static_cast<uint16_t>(hookInfo->hookBytes[1]); // second instruction
-
-        uint32_t hookAddr = (lowFirstInstruction << 16) | lowSecondInstruction;
-
-        sys_prx_id_t prxId = sys_prx_get_module_id_by_address((void*)hookAddr);
-        if (prxId == 0)
-            return false;
-
-        static sys_prx_module_info_t prxInfo = GetModuleInfo(prxId);
-
-        hookInfo->prxInfo = prxInfo;
-
-        return true;
-    }
-
-    return false;
 }
 
 

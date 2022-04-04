@@ -7,8 +7,6 @@
 #include <vsh/vshmain.h>
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
-#include "Utils/FileSystem.hpp"
-#include "Core/Input.hpp"
 
 class Helpers
 {
@@ -16,7 +14,6 @@ public:
    Helpers();
 
    void OnUpdate();
-   void TakeScreenshot();
 
 private:
    void MonitorGameState();
@@ -30,9 +27,6 @@ public:
    bool m_IsHen{};
    bool m_StateGameRunning{};
    bool m_StateGameJustLaunched{};
-
-private:
-   unsigned int m_ScreenshotLastTime{};
 };
 
 extern Helpers g_Helpers;

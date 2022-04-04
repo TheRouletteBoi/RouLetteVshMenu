@@ -1,11 +1,9 @@
 #include "Hooks.hpp"
-#include "Menu/Base.hpp"
 #include "Menu/Overlay.hpp"
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 
 ImportExportDetour* pafFrameworkRenderHk;
-ImportExportDetour* cellPadGetDataExtra0Hk;
 
 void pafFrameworkRenderHook(void* framework, float frameTime)
 {
@@ -14,33 +12,6 @@ void pafFrameworkRenderHook(void* framework, float frameTime)
    g_Helpers.OnUpdate();
    g_Render.OnUpdate();
    g_Overlay.OnUpdate();
-   g_Menu.OnUpdate();
-
-}
-
-int cellPadGetDataExtra0Hook(unsigned int port, unsigned int deviceType, CellPadData* data)
-{
-   if (port != 0)
-      return cellPadGetDataExtra0Hk->GetOriginal<int>(port, deviceType, data);
-
-   int returnValue = cellPadGetDataExtra0Hk->GetOriginal<int>(port, deviceType, g_Input.GetInputData());
-   vsh::memcpy(data, g_Input.GetInputData(), sizeof(CellPadData));
-
-   if (g_Menu.IsOpened())
-   {
-      // Clear button flags
-      data->button[CELL_PAD_BTN_OFFSET_DIGITAL1] &= ~(CELL_PAD_CTRL_LEFT | CELL_PAD_CTRL_DOWN | CELL_PAD_CTRL_RIGHT | CELL_PAD_CTRL_UP);
-      data->button[CELL_PAD_BTN_OFFSET_DIGITAL2] &= ~(CELL_PAD_CTRL_CROSS | CELL_PAD_CTRL_CIRCLE);
-
-      if (g_Menu.IsMoving())
-      {
-         // Clear analog values
-         data->button[CELL_PAD_BTN_OFFSET_ANALOG_RIGHT_X] = 128;
-         data->button[CELL_PAD_BTN_OFFSET_ANALOG_RIGHT_Y] = 128;
-      }
-   }
-
-   return returnValue;
 }
 
 void RemoveCCAPIHooks()
@@ -65,11 +36,9 @@ void InstallHooks()
       RemoveCCAPIHooks();
 
    pafFrameworkRenderHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkRenderHook);
-   cellPadGetDataExtra0Hk = new ImportExportDetour(ImportExportDetour::Export, "sys_io", 0x3733EA3C, (uintptr_t)cellPadGetDataExtra0Hook);
 }
 
 void RemoveHooks()
 {
    delete pafFrameworkRenderHk;
-   delete cellPadGetDataExtra0Hk;
 }

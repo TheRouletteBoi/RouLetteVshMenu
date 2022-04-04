@@ -1,5 +1,4 @@
 #include "Overlay.hpp"
-#include "Games/FindActiveGame.hpp"
 
 Overlay g_Overlay;
 
@@ -66,7 +65,7 @@ void Overlay::DrawOverlay()
    {
        char gameTitleId[16]{};
        char gameTitleName[64]{};
-       g_FindActiveGame.GetGameName(gameTitleId, gameTitleName);
+       GetGameName(gameTitleId, gameTitleName);
 
        vsh::swprintf(buffer, 120, L"App: %s / %s\n", gameTitleName, gameTitleId);
        overlayText += buffer;
@@ -75,11 +74,11 @@ void Overlay::DrawOverlay()
 
    g_Render.Text(
       overlayText,
-      vsh::vec2(m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + g_Menu.safeArea.x + 5, m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5),
-      g_Menu.sizeText,
+      vsh::vec2(m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5, m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5),
+      m_SizeText,
       Render::Align::Left,
       Render::Align::Top,
-      g_Menu.colorText);
+      m_ColorText);
 }
 
 void Overlay::CalculateFps()
@@ -101,6 +100,22 @@ void Overlay::CalculateFps()
       m_FpsTimeLastReport = m_FpsTimeElapsed;
       m_FpsFramesLastReport = m_FpsFrames;
    }
+}
+
+void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
+{
+    vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
+    if (!gamePlugin)
+        return;
+
+    vsh::game_plugin_interface* game_interface = gamePlugin->GetInterface<vsh::game_plugin_interface*>(1);
+    if (!game_interface)
+        return;
+
+    char _gameInfo[0x120]{};
+    game_interface->gameInfo(_gameInfo);
+    vsh::snprintf(outTitleId, 10, "%s", _gameInfo + 0x04);
+    vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
 
 void Overlay::UpdateInfoThread(uint64_t arg)

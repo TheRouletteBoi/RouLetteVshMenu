@@ -6,59 +6,13 @@
 #include "Utils/NewDeleteOverride.hpp"
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
-#include "Core/Input.hpp"
-#include "Core/Menu/Submenus.hpp"
 #include "Core/Menu/Overlay.hpp"
 #include "Core/Hooks.hpp"
-#include "Games/FindActiveGame.hpp"
 
 // Macros defining our module informations as well as our entry/exit point
-SYS_MODULE_INFO(RouLetteVshMenu, 0, 1, 1);
+SYS_MODULE_INFO(RouLetteVshMenuFPS, 0, 1, 1);
 SYS_MODULE_START(module_start);
 SYS_MODULE_STOP(module_stop);
-
-
-/***
-* 
-* PS Vita Vsh Menu, they hook into sceDisplaySetFrameBuf to draw text. This will allow drawing in XMB and In Game if done on PS3
-* https://github.com/joel16/PSV-VSH-Menu/blob/master/source/vsh.c
-* 
-* 
-* TODO:
-* BUG: when exiting a game after StartPayload will result in a crash due to fail to free memory from ps3mapi_process_page_allocate. To fix we need to implement a new syscall ps3mapi_process_page_free, But then there is the caveat when we don't know when the user wan't to exit the game.
-* MISSING PARTS: you can check if module is loaded into process by using the ps3mapi functions. use it to check if sprx is loaded into game for patching
-* Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
-* Enhancement: add LUA scripting support
-* Enhancement: add config to load your favorite menu
-* 
-* 
-* 
-* ----------------------
-* DEBUG
-* ----------------------
-* DrawText(void* unk const std::wstring& text, void*, void*, 0x40, 0, 0, size_t stringLen); // DrawTextSymbol
-* paf_BE04476B(paf::PhFont::GlyphType, paf::SurfaceRCPtr<paf::Surface> &, int, int, wchar_t const*, unsigned int, paf::PhFont const&, paf::PhTextLetterSpace const*);
-*
-* FindLoadedPlugin();
-* FindWidget();
-* LoadRCOTexture();
-* paf_8ABAE2F3();
-* paf_7F0930C6();
-* plugin_GetInterface();
-* paf_2CBA5A33();
-* PlayRCOSound();
-* paf_EAA28B8();
-* paf_85D1D23B();
-* paf_0C74837D();
-* paf_CC51D56();
-* paf_C9826818();
-* paf_4192B349();
-*
-* vshcommon_F1918912(); // notification?
-*
-* vshnet_FC7303C5(); // sceNpGetNpId
-* 
-*/ 
 
 sys_ppu_thread_t gVshMenuPpuThreadId = SYS_PPU_THREAD_ID_INVALID;
 
@@ -67,18 +21,15 @@ int module_start(unsigned int args, void* argp)
 {
    sys_ppu_thread_create(&gVshMenuPpuThreadId, [](uint64_t arg) -> void
    {
-      g_Input = CInput();
       g_Render = Render();
       g_Helpers = Helpers();
-      g_Menu = Menu(MainSubmenu);
       g_Overlay = Overlay();
-      g_FindActiveGame = CFindActiveGame();
 
       InstallHooks();
 
       sys_ppu_thread_exit(0);
 
-   }, 0, 1059, 4096, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuStart");
+   }, 0, 1059, 1500, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuFPSStart");
 
    // Exit thread using directly the syscall and not the user mode library or else we will crash
    _sys_ppu_thread_exit(0);
@@ -94,7 +45,6 @@ int module_stop(unsigned int args, void* argp)
       RemoveHooks();
 
       g_Overlay.OnShutdown();
-      g_FindActiveGame.ShutDown();
       g_Render.DestroyPlanesAndTexts();
 
       // Prevent unload too fast (give time to other threads to finish)
@@ -109,7 +59,7 @@ int module_stop(unsigned int args, void* argp)
 
       sys_ppu_thread_exit(0);
    },
-   0, 2816, 1024, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuStop");
+   0, 2816, 1024, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuFPSStop");
 
    if (ret == SUCCEEDED)
    {

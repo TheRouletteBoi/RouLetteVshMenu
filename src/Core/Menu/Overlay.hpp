@@ -2,10 +2,14 @@
 #include <string>
 #include <sys/ppu_thread.h>
 #include <vsh/netctl_main.h>
+#include <vsh/vshmain.h>
+#include <vsh/vshcommon.h>
+#include <vsh/pafView.h>
+#include <vsh/explore_plugin.h>
+#include <vsh/game_plugin.h>
 #include "Utils/ConsoleInfo.hpp"
 #include "Core/Helpers.hpp"
 #include "Core/Rendering.hpp"
-#include "Core/Menu/Base.hpp"
 
 class Overlay
 {
@@ -18,6 +22,7 @@ public:
 private:
    void DrawOverlay();
    void CalculateFps();
+   void GetGameName(char outTitleId[16], char outTitleName[64]);
    static void UpdateInfoThread(uint64_t arg);
 
 public:
@@ -33,6 +38,9 @@ public:
 
 private:
    vsh::vec2 m_Position{};
+   vsh::vec2 m_SafeArea{ 31, 18 };
+   float m_SizeText = 20;
+   vsh::vec4 m_ColorText{ 1, 1, 1, 1 };
    static const int refreshDelay = 500;
 
    float m_FPS = 100.0f;
