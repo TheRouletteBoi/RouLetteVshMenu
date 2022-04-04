@@ -7,10 +7,10 @@ CDECL_BEGIN
 
 enum class eCooperationMode : uint32_t
 {
-   XmbMode,
-   GameMode,
-   VideoPlayerMode,
-   EmulatorMode
+	XMB,
+	Game,
+	VideoPlayer,
+	Emulator
 };
 
 // vshmain_68FBDB9F  //

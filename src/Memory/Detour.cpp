@@ -1,4 +1,5 @@
-#include "DetourHook.hpp"
+#include "Detour.hpp"
+#include "Utils/FileSystem.hpp"
 
 #define POWERPC_REGISTERINDEX_R0      0
 #define POWERPC_REGISTERINDEX_R1      1
@@ -48,6 +49,7 @@
 #define POWERPC_OPCODE(OP)       (uint32_t)( OP << 26 )
 #define POWERPC_OPCODE_ADDI      POWERPC_OPCODE( 14 )
 #define POWERPC_OPCODE_ADDIS     POWERPC_OPCODE( 15 )
+#define POWERPC_OPCODE_LIS       POWERPC_OPCODE( 15 )
 #define POWERPC_OPCODE_BC        POWERPC_OPCODE( 16 )
 #define POWERPC_OPCODE_B         POWERPC_OPCODE( 18 )
 #define POWERPC_OPCODE_BCCTR     POWERPC_OPCODE( 19 )
@@ -90,17 +92,17 @@
 
 #define POWERPC_BRANCH_OPTIONS_ALWAYS ( 20 )
 
-uint8_t DetourHook::s_TrampolineBuffer[]{};
-size_t DetourHook::s_TrampolineSize = 0;
+uint8_t Detour::s_TrampolineBuffer[]{};
+size_t Detour::s_TrampolineSize = 0;
 
-DetourHook::DetourHook()
+Detour::Detour()
    : m_HookTarget(nullptr), m_HookAddress(nullptr), m_TrampolineAddress(nullptr), m_OriginalLength(0)
 {
    memset(m_TrampolineOpd, 0, sizeof(m_TrampolineOpd));
    memset(m_OriginalInstructions, 0, sizeof(m_OriginalInstructions));
 }
 
-DetourHook::DetourHook(uint32_t fnAddress, uintptr_t fnCallback)
+Detour::Detour(uint32_t fnAddress, uintptr_t fnCallback)
    : m_HookTarget(nullptr), m_HookAddress(nullptr), m_TrampolineAddress(nullptr), m_OriginalLength(0)
 {
    memset(m_TrampolineOpd, 0, sizeof(m_TrampolineOpd));
@@ -109,22 +111,22 @@ DetourHook::DetourHook(uint32_t fnAddress, uintptr_t fnCallback)
    Hook(fnAddress, fnCallback);
 }
 
-DetourHook::~DetourHook()
+Detour::~Detour()
 {
    UnHook();
 }
 
-size_t DetourHook::GetHookSize(const void* branchTarget, bool linked, bool preserveRegister)
+size_t Detour::GetHookSize(const void* branchTarget, bool linked, bool preserveRegister)
 {
    return JumpWithOptions(nullptr, branchTarget, linked, preserveRegister, POWERPC_BRANCH_OPTIONS_ALWAYS, 0, POWERPC_REGISTERINDEX_R0);
 }
 
-size_t DetourHook::Jump(void* destination, const void* branchTarget, bool linked, bool preserveRegister)
+size_t Detour::Jump(void* destination, const void* branchTarget, bool linked, bool preserveRegister)
 {
    return JumpWithOptions(destination, branchTarget, linked, preserveRegister, POWERPC_BRANCH_OPTIONS_ALWAYS, 0, POWERPC_REGISTERINDEX_R0);
 }
 
-size_t DetourHook::JumpWithOptions(void* destination, const void* branchTarget, bool linked, bool preserveRegister, uint32_t branchOptions, uint8_t conditionRegisterBit, uint8_t registerIndex)
+size_t Detour::JumpWithOptions(void* destination, const void* branchTarget, bool linked, bool preserveRegister, uint32_t branchOptions, uint8_t conditionRegisterBit, uint8_t registerIndex)
 {
    uint32_t BranchFarAsm[] = {
        POWERPC_LIS(registerIndex, POWERPC_HI((uint32_t)branchTarget)),                     // lis   %rX, branchTarget@hi
@@ -151,7 +153,7 @@ size_t DetourHook::JumpWithOptions(void* destination, const void* branchTarget, 
    return BranchAsmSize;
 }
 
-size_t DetourHook::RelocateBranch(uint32_t* destination, uint32_t* source)
+size_t Detour::RelocateBranch(uint32_t* destination, uint32_t* source)
 {
    uint32_t Instruction = *source;
    uint32_t InstructionAddress = (uint32_t)source;
@@ -215,7 +217,7 @@ size_t DetourHook::RelocateBranch(uint32_t* destination, uint32_t* source)
    return JumpWithOptions(destination, BranchAddress, Instruction & POWERPC_BRANCH_LINKED, true, BranchOptions, ConditionRegisterBit, POWERPC_REGISTERINDEX_R0);
 }
 
-size_t DetourHook::RelocateCode(uint32_t* destination, uint32_t* source)
+size_t Detour::RelocateCode(uint32_t* destination, uint32_t* source)
 {
    uint32_t Instruction = *source;
 
@@ -230,13 +232,24 @@ size_t DetourHook::RelocateCode(uint32_t* destination, uint32_t* source)
    }
 }
 
-void DetourHook::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
+void Detour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
 {
-   m_HookAddress = reinterpret_cast<void*>(fnAddress);
    m_HookTarget = reinterpret_cast<void*>(*reinterpret_cast<uintptr_t*>(fnCallback));
 
    // Get the size of the hook but don't hook anything yet
    size_t HookSize = GetHookSize(m_HookTarget, false, false);
+
+   // Check if address has been hooked and if so hook but 16 ahead so it can be hooked more that once
+   // **NOTE** There is a caveat where it only works with 2 hooks. So a work around would be to loop X amount of instructions.
+   HookInformation hookInfo{};
+   if (GetHookInfo(fnAddress, hookInfo))
+   {
+       m_HookAddress = reinterpret_cast<void*>(fnAddress + HookSize);
+   }
+   else
+   {
+       m_HookAddress = reinterpret_cast<void*>(fnAddress);
+   }
 
    // Save the original instructions for unhooking later on.
    WriteProcessMemory(sys_process_getpid(), m_OriginalInstructions, m_HookAddress, HookSize);
@@ -256,7 +269,7 @@ void DetourHook::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOv
    // Trampoline branches back to the original function after the branch we used to hook.
    void* AfterBranchAddress = reinterpret_cast<void*>((uint32_t)m_HookAddress + HookSize);
 
-   s_TrampolineSize += Jump(&s_TrampolineBuffer[s_TrampolineSize], AfterBranchAddress, false, true);
+   s_TrampolineSize += Jump(&s_TrampolineBuffer[s_TrampolineSize], AfterBranchAddress, false, false);
 
    // Finally write the branch to the function that we are hooking.
    Jump(m_HookAddress, m_HookTarget, false, false);
@@ -265,7 +278,7 @@ void DetourHook::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOv
    m_TrampolineOpd[1] = tocOverride != 0 ? tocOverride : GetCurrentToc();
 }
 
-bool DetourHook::UnHook()
+bool Detour::UnHook()
 {
    if (m_HookAddress && m_OriginalLength)
    {
@@ -280,35 +293,62 @@ bool DetourHook::UnHook()
    return false;
 }
 
+bool Detour::GetHookInfo(uintptr_t addr, HookInformation& hookInfo)
+{
+    WriteProcessMemory(sys_process_getpid(), hookInfo.hookBytes, (const void*)addr, sizeof(hookInfo.hookBytes));
+
+    // check if the function is already hooked by us or someone else
+    if (((hookInfo.hookBytes[0] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_LIS)
+        && ((hookInfo.hookBytes[1] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_ORI))
+    {
+        uint16_t lowFirstInstruction = static_cast<uint16_t>(hookInfo.hookBytes[0]); // first instruction
+        uint16_t lowSecondInstruction = static_cast<uint16_t>(hookInfo.hookBytes[1]); // second instruction
+
+        uint32_t hookAddr = (lowFirstInstruction << 16) | lowSecondInstruction;
+
+        sys_prx_id_t prxId = sys_prx_get_module_id_by_address((void*)hookAddr);
+        if (prxId == 0)
+            return false;
+
+        static sys_prx_module_info_t prxInfo = GetModuleInfo(prxId);
+
+        hookInfo.prxInfo = prxInfo;
+
+        return true;
+    }
+
+    return false;
+}
 
 
 
 
 
 
-ImportExportHook::ImportExportHook(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback)
-   : DetourHook(), m_LibaryName(libaryName), m_Fnid(fnid)
+
+ImportExportDetour::ImportExportDetour(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback)
+   : Detour(), m_LibaryName(libaryName), m_Fnid(fnid)
 {
    HookByFnid(type, libaryName, fnid, fnCallback);
 }
 
-ImportExportHook::~ImportExportHook()
+ImportExportDetour::~ImportExportDetour()
 {
    UnHook();
 }
 
-void ImportExportHook::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
+void ImportExportDetour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
 {
    // not implemented
 }
 
-bool ImportExportHook::UnHook()
+bool ImportExportDetour::UnHook()
 {
    // not implemented
    return false;
 }
 
-void ImportExportHook::HookByFnid(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback)
+void ImportExportDetour::HookByFnid(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback)
 {
    opd_s* fnOpd = nullptr;
 
@@ -329,10 +369,10 @@ void ImportExportHook::HookByFnid(HookType type, const std::string& libaryName, 
    if (fnOpd == nullptr)
       return;
 
-   DetourHook::Hook(fnOpd->func, fnCallback, fnOpd->toc);
+   Detour::Hook(fnOpd->func, fnCallback, fnOpd->toc);
 }
 
-opd_s* ImportExportHook::FindExportByName(const char* module, uint32_t fnid)
+opd_s* FindExportByName(const char* module, uint32_t fnid)
 {
    uint32_t* segment15 = *reinterpret_cast<uint32_t**>(0x1008C); // 0x1008C or 0x10094
    uint32_t exportAdressTable = segment15[0x984 / sizeof(uint32_t)];
@@ -356,7 +396,7 @@ opd_s* ImportExportHook::FindExportByName(const char* module, uint32_t fnid)
    return nullptr;
 }
 
-opd_s* ImportExportHook::FindImportByName(const char* module, uint32_t fnid)
+opd_s* FindImportByName(const char* module, uint32_t fnid)
 {
    uint32_t* segment15 = *reinterpret_cast<uint32_t**>(0x1008C); // 0x1008C or 0x10094
    uint32_t exportAdressTable = segment15[0x984 / sizeof(uint32_t)];

@@ -2,8 +2,8 @@
 #include <vsh/allocator.h>
 #include "FindActiveGame.hpp"
 #include "Memory/Memory.hpp"
-#include "Util/Timers.hpp"
-#include "Util/FileSystem.hpp"
+#include "Utils/Timers.hpp"
+#include "Utils/FileSystem.hpp"
 
 #define KB(n) (1024*n)
 
@@ -228,7 +228,7 @@ namespace GamePatching
          return false;
       }
 
-      sleep_for(1000);
+      Sleep(1000);
 
       uint32_t temp_bytes = 0;
       ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(uintptr_t)executableMemoryAddress, (void*)&temp_bytes, 4);
@@ -238,7 +238,7 @@ namespace GamePatching
          return false;
       }
 
-      sleep_for(1000);
+      Sleep(1000);
 
       ret = WritePayload((uintptr_t)executableMemoryAddress, fileName);
       if (ret != SUCCEEDED)
@@ -247,7 +247,7 @@ namespace GamePatching
          return false;
       }
 
-      sleep_for(1000);
+      Sleep(1000);
 
       uint32_t threadOpd[2]{};
       threadOpd[0] = executableMemoryAddress;

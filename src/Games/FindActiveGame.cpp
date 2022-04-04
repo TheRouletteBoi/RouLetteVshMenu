@@ -216,7 +216,7 @@ void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char*
 
 bool CFindActiveGame::LoadMenu(PatchedMenu menuId)
 {
-   if (m_MenuToLoad != PatchedMenu::None && vsh::GetCooperationMode() == vsh::eCooperationMode::GameMode)
+   if (m_MenuToLoad != PatchedMenu::None && vsh::GetCooperationMode() == vsh::eCooperationMode::Game)
    {
       vsh::ShowButtonNavigationMessage(L"\uF46B You can not change menu while in game \uF46B");
       return false;

@@ -52,6 +52,7 @@
 #define SYSCALL8_DISABLE_COBRA_CAPABILITY          0x0002
 #define SYSCALL8_DISABLE_COBRA_STATUS              0x0003
 #define SYSCALL8_DISABLE_COBRA_OK                  0x5555
+#define SYSCALL8_OPCODE_GET_MAMBA                  0x7FFFULL
 #define SYSCALL8_OPCODE_GET_VERSION                0x7000
 #define SYSCALL8_OPCODE_GET_VERSION2               0x7001
 #define SYSCALL8_OPCODE_POKE_LV2                   0x7003 //8.1 HABIB
@@ -275,6 +276,11 @@ typedef struct
    uint32_t    unknown07;
 } __attribute__((packed)) device_info_t;
 
+typedef struct 
+{
+    uint32_t firmware_version;
+} platform_info_t;
+
 
 int sys_map_path(char** paths, char** new_paths, int num);
 int cobra_load_vsh_plugin(unsigned int slot, char* path, void* arg, uint32_t arg_size);
@@ -315,6 +321,7 @@ int ps3mapi_set_psid(uint64_t part1, uint64_t part2);
 int ps3mapi_remove_hook(void);
 int ps3mapi_enable_access_syscall8(uint64_t key);
 int ps3mapi_disable_access_syscall8(uint64_t key);
+int sys_get_mamba();
 int sys_get_version(uint32_t* version);
 int sys_get_version2(uint16_t* version);
 uint64_t ps3mapi_lv1_peek(uint64_t addr);
@@ -341,10 +348,15 @@ int sys_storage_read_with_flags(int fd, uint32_t start_sector, uint32_t sectors,
 int sys_storage_write(int fd, uint64_t start_sector, uint64_t sectors, uint8_t* buf, uint32_t* sectors_written, uint64_t flags);
 int sys_storage_get_cache_of_flash_ext_flag(uint8_t* flag);
 bool is_nor();
+int lv2_get_platform_info(platform_info_t* info);
 int get_target_type(uint64_t* type); // 1-CEX, 2-DEX, 3-DECR/RefTool
 bool IsConsoleCex();
 bool IsConsoleDex();
 bool IsConsoleDeh();
+bool IsConsoleHen();
+bool IsConsoleMamba();
+bool IsConsoleCobra();
+uint16_t GetPayloadVersion();
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value);
 int update_mgr_read_eprom(uint64_t* flag_offset, uint64_t value);
 int set_recovery_mode();

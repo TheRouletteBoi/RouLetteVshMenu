@@ -5,16 +5,26 @@
 
 #define MARK_AS_EXECUTABLE __attribute__((section(".text")))
 
-class DetourHook
+opd_s* FindExportByName(const char* module, uint32_t fnid);
+opd_s* FindImportByName(const char* module, uint32_t fnid);
+
+class Detour
 {
 public:
-   DetourHook();
-   DetourHook(uintptr_t fnAddress, uintptr_t fnCallback);
-   DetourHook(DetourHook const&) = delete;
-   DetourHook(DetourHook&&) = delete;
-   DetourHook& operator=(DetourHook const&) = delete;
-   DetourHook& operator=(DetourHook&&) = delete;
-   virtual ~DetourHook();
+   struct HookInformation
+   {
+       sys_prx_module_info_t prxInfo;
+       uint32_t hookBytes[4];
+   };
+
+public:
+   Detour();
+   Detour(uintptr_t fnAddress, uintptr_t fnCallback);
+   Detour(Detour const&) = delete;
+   Detour(Detour&&) = delete;
+   Detour& operator=(Detour const&) = delete;
+   Detour& operator=(Detour&&) = delete;
+   virtual ~Detour();
 
    virtual void Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride = 0);
    virtual bool UnHook();
@@ -83,6 +93,14 @@ private:
    */
    size_t GetHookSize(const void* branchTarget, bool linked, bool preserveRegister);
 
+   /***
+   * TODO
+   * @param addr TODO
+   * @param hookInfo TOFO
+   * @returns TODO
+   */
+   bool GetHookInfo(uintptr_t addr, HookInformation& hookInfo);
+
 protected:
    const void*  m_HookTarget;                // The funtion we are pointing the hook to.
    void*        m_HookAddress;               // The function we are hooking.
@@ -92,24 +110,21 @@ protected:
    size_t       m_OriginalLength;            // The amount of bytes overwritten by the hook.
 
    // Shared
-   MARK_AS_EXECUTABLE static uint8_t   s_TrampolineBuffer[1024];
+   MARK_AS_EXECUTABLE static uint8_t   s_TrampolineBuffer[2048];
    static size_t                       s_TrampolineSize;
 };
 
 // list of fnids https://github.com/aerosoul94/ida_gel/blob/master/src/ps3/ps3.xml
-class ImportExportHook : public DetourHook
+class ImportExportDetour : public Detour
 {
 public:
    enum HookType { Import = 0, Export = 1 };
 public:
-   ImportExportHook(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback);
-   virtual ~ImportExportHook();
+   ImportExportDetour(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback);
+   virtual ~ImportExportDetour();
 
    virtual void Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride = 0) override;
    virtual bool UnHook() override;
-
-   static opd_s* FindExportByName(const char* module, uint32_t fnid);
-   static opd_s* FindImportByName(const char* module, uint32_t fnid);
 
 private:
    void HookByFnid(HookType type, const std::string& libaryName, uint32_t fnid, uintptr_t fnCallback);

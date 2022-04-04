@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <ppu_asm_intrinsics.h> // __ALWAYS_INLINE
 #include <sys/process.h>
-#include "Util/SystemCalls.hpp"
+#include "Utils/SystemCalls.hpp"
 
 struct opd_s
 {
@@ -44,6 +44,20 @@ struct exportStub_s
 uint32_t GetCurrentToc();
 int WriteProcessMemory(uint32_t pid, void* address, const void* data, size_t size);
 int ReadProcessMemory(uint32_t pid, void* address, void* data, size_t size);
+
+template<typename T>
+inline T vsh_read_mem(uint32_t address)
+{
+   T data;
+   ReadProcessMemory(sys_process_getpid(), (void*)address, &data, sizeof(T));
+   return data;
+}
+
+template<typename T>
+inline void vsh_write_mem(uint32_t address, T data)
+{
+   WriteProcessMemory(sys_process_getpid(), (void*)address, &data, sizeof(T));
+}
 
 template <typename R, typename... TArgs>
 __ALWAYS_INLINE R GameCall(std::uint32_t addr, TArgs... args)

@@ -234,6 +234,12 @@ int ps3mapi_disable_access_syscall8(uint64_t key)
    return_to_user_prog(int);
 }
 
+int sys_get_mamba()
+{
+   system_call_1(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_GET_MAMBA);
+   return_to_user_prog(int);
+}
+
 int sys_get_version(uint32_t* version)
 {
    system_call_2(8, SYSCALL8_OPCODE_GET_VERSION, (uint64_t)(uint32_t)version);
@@ -377,6 +383,12 @@ bool is_nor()
    return !(vf_flag & 0x1);
 }
 
+int lv2_get_platform_info(platform_info_t* info)
+{
+    system_call_1(387, (uint32_t)info);
+    return_to_user_prog(int);
+}
+
 int get_target_type(uint64_t* type) // 1-CEX, 2-DEX, 3-DECR/RefTool
 {
    system_call_3(985, (uint64_t)type, 0, 0);
@@ -402,6 +414,39 @@ bool IsConsoleDeh()
    uint64_t type;
    get_target_type(&type);
    return type == 3;
+}
+
+bool IsConsoleHen()
+{
+   return ps3mapi_get_is_hen() == 0x1337;
+}
+
+bool IsConsoleMamba()
+{
+   return sys_get_mamba() == 0x666;
+}
+
+bool IsConsoleCobra()
+{
+   uint32_t version = 0x99999999;
+   if (sys_get_version(&version) < 0)
+      return false;
+
+   if (version != 0x99999999) // If value changed, it is cobra
+      return true;
+
+   return false;
+}
+
+uint16_t GetPayloadVersion()
+{
+   uint16_t payloadVersion = 0;
+   if (IsConsoleHen())
+      payloadVersion = ps3mapi_get_hen_rev();
+   else
+      sys_get_version2(&payloadVersion);
+
+   return payloadVersion;
 }
 
 int update_mgr_write_eprom(uint64_t flag_offset, uint64_t value)

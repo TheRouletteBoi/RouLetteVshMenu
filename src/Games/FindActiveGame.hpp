@@ -61,10 +61,10 @@ public:
    void ShutDown();
    bool LoadMenu(PatchedMenu menuId);
    uint32_t GetRunningGameProcessId();
+   void GetGameName(char outTitleId[16], char outTitleName[64]);
 
 private:
    void SetRunningGameProcessId(uint32_t pid);
-   void GetGameName(char outTitleId[16], char outTitleName[64]);
    bool IsGameGTAV(const std::string& titleId);
    bool IsGameRDR(const std::string& titleId);
    bool IsGameMinecraft(const std::string& titleId);

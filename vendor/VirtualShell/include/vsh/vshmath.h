@@ -9,7 +9,11 @@ _VSH_BEGIN
 class vec2
 {
 public:
-   float x, y;
+   union
+   {
+      float v[2];
+      struct { float x, y; };
+   };
 
    vec2()
    {
@@ -130,7 +134,12 @@ public:
 class vec3
 {
 public:
-   float x, y, z;
+   union
+   {
+      float v[3];
+      struct { float x, y, z; };
+      struct { float pitch, yaw, roll; };
+   };
 
    vec3()
    {
@@ -332,7 +341,12 @@ public:
 class vec4
 {
 public:
-   float x, y, z, w;
+   union
+   {
+      float v[4];
+      struct { float x, y, z, w; };
+      struct { float r, g, b, a; };
+   };
 
    vec4()
    {

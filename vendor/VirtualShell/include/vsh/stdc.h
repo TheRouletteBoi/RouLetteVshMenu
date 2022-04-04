@@ -183,7 +183,7 @@ double stdc_31DB8C89(double y, double x);                                      /
 #define atan2 stdc_31DB8C89
 
 float stdc_FB932A56(float y, float x);                                         // atan2f()
-#define atan2f stdc_FB932A56
+static float atan2f(float y, float x) { return stdc_FB932A56(x, y); }
 
 float stdc_ABDCCC7A(float, float);                                             // f_atan2f()
 #define f_atan2f stdc_ABDCCC7A
@@ -422,6 +422,16 @@ static int snprintf(char* str, size_t size, const char* format, ...)
    r = vsnprintf(str, size, format, args);
    va_end(args);
    return r;
+}
+
+static char vaBuffer[0x400];
+static const char* va(const char* fmt, ...)
+{
+   va_list args;
+   va_start(args, fmt);
+   vsh::vsnprintf(vaBuffer, 0x400, fmt, args);
+   va_end(args);
+   return vaBuffer;
 }
 
 

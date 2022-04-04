@@ -69,7 +69,6 @@
       <AdditionalDependencies>-lsysutil_np_stub;-lnet_stub;-lnetctl_stub;$(SCE_PS3_ROOT)\target\ppu\lib\libc.a;$(SN_PS3_PATH)\ppu\lib\sn\libsn.a;$(SCE_PS3_ROOT)\target\ppu\lib\libm.a;$(SCE_PS3_ROOT)\target\ppu\lib\libio_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\liblv2_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libc_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsysutil_stub.a;$(SCE_PS3_ROOT)\target\ppu\lib\libsyscall.a;$(SCE_PS3_ROOT)\target\ppu\lib\hash\libsha256.a;-lvshtask_export_stub;-lpaf_export_stub;-lvshmain_export_stub;-lvshcommon_export_stub;-lstdc_export_stub;-lallocator_export_stub;-lsys_net_export_stub;-lxsetting_export_stub;-lsysPrxForUser_export_stub;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link>
-      <MapFileName>$(IntDir)$(TargetName).map</MapFileName>
       <GenerateSnMapFile>FullMapFile</GenerateSnMapFile>
       <AdditionalLibraryDirectories>$(SolutionDir)vendor\VirtualShell\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -94,22 +93,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GamePad.cpp" />
+    <ClCompile Include="Core\Input.cpp" />
+    <ClCompile Include="Core\Menu\Overlay.cpp" />
+    <ClCompile Include="Core\Rendering.cpp" />
     <ClCompile Include="Games\FindActiveGame.cpp" />
-    <ClCompile Include="GUI\Base.cpp" />
-    <ClCompile Include="GUI\Menu.cpp" />
-    <ClCompile Include="GUI\GUI.cpp" />
-    <ClCompile Include="Helpers.cpp" />
-    <ClCompile Include="Hooking.cpp" />
+    <ClCompile Include="Core\Menu\Base.cpp" />
+    <ClCompile Include="Core\Menu\Submenus.cpp" />
+    <ClCompile Include="Core\Helpers.cpp" />
+    <ClCompile Include="Core\Hooks.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Memory\DetourHook.cpp" />
+    <ClCompile Include="Memory\Detour.cpp" />
     <ClCompile Include="Memory\Pattern.cpp" />
     <ClCompile Include="Memory\Memory.cpp" />
-    <ClCompile Include="Util\FileSystem.cpp" />
-    <ClCompile Include="Util\SystemCalls.cpp" />
-    <ClCompile Include="Util\Timers.cpp" />
+    <ClCompile Include="Utils\ConsoleInfo.cpp" />
+    <ClCompile Include="Utils\FileSystem.cpp" />
+    <ClCompile Include="Utils\Std.cpp" />
+    <ClCompile Include="Utils\SystemCalls.cpp" />
+    <ClCompile Include="Utils\Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Input.hpp" />
+    <ClInclude Include="Core\Menu\Overlay.hpp" />
+    <ClInclude Include="Core\Rendering.hpp" />
+    <ClInclude Include="Core\Version.hpp" />
     <ClInclude Include="Games\CODAdvanceWarfare.hpp" />
     <ClInclude Include="Games\CODBO1.hpp" />
     <ClInclude Include="Games\CODBO2.hpp" />
@@ -120,19 +126,19 @@
     <ClInclude Include="Games\FindActiveGame.hpp" />
     <ClInclude Include="Games\GamePatching.hpp" />
     <ClInclude Include="Games\GTAV.hpp" />
-    <ClInclude Include="GUI\Base.hpp" />
-    <ClInclude Include="GamePad.hpp" />
-    <ClInclude Include="GUI\Menu.hpp" />
-    <ClInclude Include="GUI\GUI.hpp" />
-    <ClInclude Include="Helpers.hpp" />
-    <ClInclude Include="Hooking.hpp" />
-    <ClInclude Include="Memory\DetourHook.hpp" />
+    <ClInclude Include="Core\Menu\Base.hpp" />
+    <ClInclude Include="Core\Menu\Submenus.hpp" />
+    <ClInclude Include="Core\Helpers.hpp" />
+    <ClInclude Include="Core\Hooks.hpp" />
+    <ClInclude Include="Memory\Detour.hpp" />
     <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Memory\Memory.hpp" />
-    <ClInclude Include="Util\FileSystem.hpp" />
-    <ClInclude Include="Util\NewDeleteOverride.hpp" />
-    <ClInclude Include="Util\SystemCalls.hpp" />
-    <ClInclude Include="Util\Timers.hpp" />
+    <ClInclude Include="Utils\ConsoleInfo.hpp" />
+    <ClInclude Include="Utils\FileSystem.hpp" />
+    <ClInclude Include="Utils\NewDeleteOverride.hpp" />
+    <ClInclude Include="Utils\Std.hpp" />
+    <ClInclude Include="Utils\SystemCalls.hpp" />
+    <ClInclude Include="Utils\Timers.hpp" />
   </ItemGroup>
   <Import Condition="'$(ConfigurationType)' == 'Makefile' and Exists('$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets')" Project="$(VCTargetsPath)\Platforms\$(Platform)\SCE.Makefile.$(Platform).targets" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

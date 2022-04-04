@@ -29,8 +29,8 @@ static uint32_t* View_GetInterface(uint32_t arg, uint32_t id) { return paf_23AFB
 // paf_F5BEB953  // ?
 // paf_2C4E7D1C  // ?
 
-uint32_t paf_0A1DC401(uint32_t unknown, uint32_t identifier, void* ptr_structure);  // sets Interface from plugin 	uint32_t SetInterface(unknown, uint32_t identifier, void *ptr_structure)
-static uint32_t View_SetInterface(uint32_t unknown, uint32_t identifier, void* ptr_structure) { return paf_0A1DC401(unknown, identifier, ptr_structure); }
+uint32_t paf_0A1DC401(void* unknown, uint32_t identifier, void* ptr_structure);  // sets Interface from plugin 	uint32_t SetInterface(unknown, uint32_t identifier, void *ptr_structure)
+static uint32_t View_SetInterface(void* unknown, uint32_t identifier, void* ptr_structure) { return paf_0A1DC401(unknown, identifier, ptr_structure); }
 
 // paf_2361E649  // ?
 // paf_2166E819  // ? PageActivate
@@ -47,8 +47,8 @@ void paf_B93AFE7E(uint32_t plugin, const char* sound, float arg1, int arg2);  //
 static void View_PlaySound(uint32_t plugin, const char* sound, float arg1, int arg2) { paf_B93AFE7E(plugin, sound, arg1, arg2); }
 //Example: PlayRCOSound( FindLoadedPlugin("system_plugin"), "snd_trophy", 1, 0)
 
-uint32_t paf_3A8454FC(uint32_t* texture, uint32_t plugin, const char* texture_name);
-static uint32_t View_GetTexture(uint32_t* texture, uint32_t plugin, const char* texture_name) { return paf_3A8454FC(texture, plugin, texture_name); }
+uint32_t paf_3A8454FC(int* texture, int plugin, const char* texture_name);
+static uint32_t View_GetTexture(int* texture, int plugin, const char* texture_name) { return paf_3A8454FC(texture, plugin, texture_name); }
 
 //void(*vshcommon_A20E43DB)(int32_t, const char* eventName, int32_t, int32_t* texture, int32_t*, const char*, const char*, float, const wchar_t* text, int32_t, int32_t, int32_t);
 //int dummy = 0; vshcommon_A20E43DB(0, const char* eventName, int32_t, int32_t* texture /*paf_3A8454FC*/, &dummy, "", "", 0f, L"notification", 0, 0, 0)
@@ -959,7 +959,7 @@ int32_t paf_55F2C2A6(void);  // eject disk
 // paf_FC23139F	  // _ZN3paf5Sound6Output9ConfigureEjP29xSettingAudioOutConfigurationP22xSettingAudioOutOptionj	paf::Sound::Output::Configure(unsigned int, xSettingAudioOutConfiguration *, xSettingAudioOutOption *, unsigned int)
 
 int paf_3F7CB0BF(void*, int, void*); // paf_3F7CB0BF	  // _ZN3paf6Module12SetInterfaceEiPv	paf::Module::SetInterface(int, void *)
-static int plugin_SetInterface2(void* a1, int a2, void* a3) { return paf_3F7CB0BF(a1, a2, a3); }
+static int Module_SetInterface(void* a1, int a2, void* a3) { return paf_3F7CB0BF(a1, a2, a3); }
 
 // paf_2F5CEE6D	  // _ZN3paf6ModuleD1Ev	paf::Module::~Module()
 // paf_27527B03	  // _ZN3paf6PhFont14GetNumFontListEv	paf::PhFont::GetNumFontList(void)
@@ -1049,7 +1049,10 @@ static void PhPlane_Destructor(void* plane) { paf_0C16A258(plane); }
 // paf_FBAF2957	  // _ZN3paf7PhSText7SetTextERKSbIwSt11char_traitsIwESaIwEE	paf::PhSText::SetText(std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>> const&)
 // paf_638A0B38	  // _ZN3paf7PhSText8SetStyleEiRK4vec4	paf::PhSText::SetStyle(int, vec4 const&)
 // paf_8E3B155F	  // _ZN3paf7PhSText8SetStyleEib	paf::PhSText::SetStyle(int, bool)
-// paf_165AD4A6	  // _ZN3paf7PhSText8SetStyleEif	paf::PhSText::SetStyle(int, float)
+
+extern "C" void paf_165AD4A6(void* phSText, int r4, float r5);	  // _ZN3paf7PhSText8SetStyleEif	paf::PhSText::SetStyle(int, float)
+static void PhSText_SetStyle(void* phSText, int r4, float r5) { paf_165AD4A6(phSText, r4, r5); }
+
 // paf_983EA578	  // _ZN3paf7PhSText8SetStyleEii	paf::PhSText::SetStyle(int, int)
 // paf_66977993	  // _ZN3paf7PhSTextC1ERNS_9PhSRenderEPS1_	paf::PhSText::PhSText(paf::PhSRender &, paf::PhSRender*)
 // paf_41BBFE5E	  // _ZN3paf7PhScene10WidgetTypeEv	paf::PhScene::WidgetType(void)

@@ -10,16 +10,16 @@ _PAF_BEGIN
 class PhPlane : public PhWidget
 {
 public:
-   PhPlane(PhWidget* parent, void* PhAppear)
-   {
-      PhPlane_Constructor(this, parent, PhAppear);
-   }
+    PhPlane(PhWidget* parent, void* PhAppear = nullptr)
+    {
+        PhPlane_Constructor(this, parent, PhAppear);
+    }
 
-   ~PhPlane()
-   {
-      if (this->IsAttached())
-         PhPlane_Destructor(this);
-   }
+    ~PhPlane()
+    {
+        if (IsAttached())
+            PhPlane_Destructor(this);
+    }
 };
 
 _PAF_END

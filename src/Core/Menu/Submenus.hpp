@@ -2,8 +2,8 @@
 
 #include <vsh/vshcommon.h>
 #include "Base.hpp"
+#include "Overlay.hpp"
 #include "Games/FindActiveGame.hpp"
-#include "Helpers.hpp"
 
 void MainSubmenu();
 void GtavSubmenu();

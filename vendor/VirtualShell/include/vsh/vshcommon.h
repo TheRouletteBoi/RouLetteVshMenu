@@ -234,7 +234,7 @@ static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType
 
 
    uint32_t pTexture = 0;
-   if (explorePlugin != nullptr && GetCooperationMode() == eCooperationMode::XmbMode)
+   if (explorePlugin != nullptr && GetCooperationMode() == eCooperationMode::XMB)
    {
       if (notifyType < eNotifyIcon::PS3)
          pTexture = (uint32_t)systemPlugin->GetTexture(notification_texture_names[(int)notifyType]);
@@ -253,7 +253,7 @@ static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType
    ShowNotificationBySurfaceTexture(0, "", 0, &pTexture, &unknownOut, "", "", 0.0, text.c_str(), 0, 0, 0);
 
    if (soundType != eNotifySound::None)
-      systemPlugin->PlaySound(system_plugin__sound_names[(int)soundType], 1.0f, 0);
+      systemPlugin->PlaySound(system_plugin__sound_names[(int)soundType]);
 }
 
 
