@@ -34,8 +34,3 @@ float GetFanSpeed();
 memUsage_s GetMemoryUsage();
 float GetFirmwareVersion();
 std::string GetFirmwareType();
-std::string GetCurrentIdps();
-std::string GetCurrentPsid();
-
-void RandomizeIdps();
-void RandomizePsid();

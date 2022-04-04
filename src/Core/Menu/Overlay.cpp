@@ -51,12 +51,12 @@ void Overlay::DrawOverlay()
 
 
    vsh::swprintf(buffer, 150, 
-       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %d.%d%d %s %s\n",
+       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %1.2f %s %s\n",
        m_FPS, 
        m_CPUTemp, m_GPUTemp, 
        m_MemoryUsage.percent, m_MemoryUsage.used,
        m_FanSpeed, 
-       (m_FirmwareVersion & 0xFF000000) >> 24, (m_FirmwareVersion & 0xFF0000) >> 16, ((m_FirmwareVersion & 0xFF00) >> 8) >> 4,
+       m_FirmwareVersion,
        kernelName.c_str(), payloadType);
    overlayText += buffer;
 
@@ -132,9 +132,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       if (ret != SUCCEEDED)
           g_Overlay.m_KernelType = 0;
 
-      platform_info_t info;
-      lv2_get_platform_info(&info);
-      g_Overlay.m_FirmwareVersion = info.firmware_version;
+      g_Overlay.m_FirmwareVersion = GetFirmwareVersion();
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
