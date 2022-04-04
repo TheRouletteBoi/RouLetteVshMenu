@@ -12,7 +12,9 @@ void MainSubmenu()
     g_Menu.Option(L"Modern Warfare 3 Menus \uF46E").Submenu(CodMw3Submenu);
     g_Menu.Option(L"COD Ghost Menus").Submenu(CodGhostSubmenu);
     g_Menu.Option(L"Advance Warfare Menus").Submenu(CodAwSubmenu);
-    g_Menu.Option(L"Debug Toggles").Submenu(DebugTogglesSubmenu);
+#ifdef DEBUG
+    g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
+#endif // DEBUG
 }
 
 void GtavSubmenu()
@@ -271,30 +273,9 @@ void CodAwSubmenu()
     });
 }
 
-void DebugTogglesSubmenu()
+void SettingsSubmenu()
 {
-    g_Menu.Title(L"Debug Toggles");
-    g_Menu.Option(L"Option 1");
-    g_Menu.Option(L"Option 2");
-    g_Menu.Option(L"Option 3");
-    g_Menu.Option(L"Option 4");
-    g_Menu.Option(L"Option 5");
-    g_Menu.Option(L"Option 6");
-    g_Menu.Option(L"Option 7");
-    g_Menu.Option(L"Option 8").Skip();
-    g_Menu.Option(L"Option 9");
-    g_Menu.Option(L"Option 10");
-    g_Menu.Option(L"Option 11");
-    g_Menu.Option(L"Option 12");
-    g_Menu.Option(L"Option 13");
-    g_Menu.Option(L"Option 14");
-    g_Menu.Option(L"Option 15");
-    g_Menu.Option(L"Option 16");
-    g_Menu.Option(L"Option 17");
-    g_Menu.Option(L"Option 18");
-    g_Menu.Option(L"Option 19");
-    g_Menu.Option(L"Option 20");
-
+    g_Menu.Title(L"Settings");
     g_Menu.Option(L"Edit position").Toggle(g_Menu.stateMoving);
     g_Menu.Option(L"Text size").Slider(g_Menu.sizeText, 10.f, 40.f, 0.25f, 2);
     g_Menu.Option(L"Menu width").Slider(g_Menu.sizeWidth, 200.f, 500.f, 2.f, 2);

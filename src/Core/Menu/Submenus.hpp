@@ -14,4 +14,4 @@ void CodMw2Submenu();
 void CodMw3Submenu();
 void CodGhostSubmenu();
 void CodAwSubmenu();
-void DebugTogglesSubmenu();
+void SettingsSubmenu();
