@@ -10,143 +10,143 @@ CDECL_BEGIN
 
 typedef struct xsetting_0AF1F161_class_t  // 28
 {
-	int32_t (*GetProductCode)(void);
-	int32_t (*GetProductSubCode)(void);         // Model Type, Mobo Id
-	int32_t (*GetUnk1)(void *);                 // uint8_t [0x1C] { hdmi, ieee802.11, msslot, sdslot, cfslot }
-	int32_t (*SetUnk2)(void *);
-	int32_t (*GetEnterButtonAssign)(int32_t *);
-	int32_t (*SetEnterButtonAssign)(int32_t);
-	int32_t (*GetLicenseArea)(int32_t *);
-	int32_t (*SetSystemInitialize)(int32_t);
-	int32_t (*GetSystemInitialize)(int32_t *);
-	int32_t (*SetSystemLanguage)(int32_t);
-	int32_t (*GetSystemLanguage)(int32_t *);
-	int32_t (*SetSystemNickname)(char *);
-	int32_t (*GetSystemNickname)(char *, int32_t *); // nick, length
-	int32_t (*SetSystemCharacterCodeOem)(int32_t);
-	int32_t (*GetSystemCharacterCodeOem)(int32_t *);
-	int32_t (*SetSystemCharacterCodeOemValue)(int32_t);
-	int32_t (*GetSystemCharacterCodeOemValue)(int32_t *);
-	int32_t (*SetsystemCharacterCodeAnsi)(int32_t);
-	int32_t (*GetSystemCharacterCodeAnsi)(int32_t *);
-	int32_t (*ResetNicknameDvdRegionDlnaFlag)(void);
-	int32_t (*SetSystemNotificationEnabled)(int32_t);
-	int32_t (*GetSystemNotificationEnabled)(int32_t *);
-	int32_t (*SetSystemDiscBootFirstEnabled)(int32_t);
-	int32_t (*GetSystemDiscBootFirstEnabled)(int32_t *);
-	int32_t (*SetSystemSoundEffectEnabled)(int32_t);
-	int32_t (*GetSystemSoundEffectEnabled)(int32_t *);
-	int32_t (*unk_new)(void *, void *);
-	int32_t (*unk_delete)(void *, void *);
+	int32_t(*GetProductCode)(void);
+	int32_t(*GetProductSubCode)(void);         // Model Type, Mobo Id
+	int32_t(*GetUnk1)(void*);                 // uint8_t [0x1C] { hdmi, ieee802.11, msslot, sdslot, cfslot }
+	int32_t(*SetUnk2)(void*);
+	int32_t(*GetEnterButtonAssign)(int32_t*);
+	int32_t(*SetEnterButtonAssign)(int32_t);
+	int32_t(*GetLicenseArea)(int32_t*);
+	int32_t(*SetSystemInitialize)(int32_t);
+	int32_t(*GetSystemInitialize)(int32_t*);
+	int32_t(*SetSystemLanguage)(int32_t);
+	int32_t(*GetSystemLanguage)(int32_t*);
+	int32_t(*SetSystemNickname)(char*);
+	int32_t(*GetSystemNickname)(char*, int32_t*); // nick, length
+	int32_t(*SetSystemCharacterCodeOem)(int32_t);
+	int32_t(*GetSystemCharacterCodeOem)(int32_t*);
+	int32_t(*SetSystemCharacterCodeOemValue)(int32_t);
+	int32_t(*GetSystemCharacterCodeOemValue)(int32_t*);
+	int32_t(*SetsystemCharacterCodeAnsi)(int32_t);
+	int32_t(*GetSystemCharacterCodeAnsi)(int32_t*);
+	int32_t(*ResetNicknameDvdRegionDlnaFlag)(void);
+	int32_t(*SetSystemNotificationEnabled)(int32_t);
+	int32_t(*GetSystemNotificationEnabled)(int32_t*);
+	int32_t(*SetSystemDiscBootFirstEnabled)(int32_t);
+	int32_t(*GetSystemDiscBootFirstEnabled)(int32_t*);
+	int32_t(*SetSystemSoundEffectEnabled)(int32_t);
+	int32_t(*GetSystemSoundEffectEnabled)(int32_t*);
+	int32_t(*unk_new)(void*, void*);
+	int32_t(*unk_delete)(void*, void*);
 } xsetting_0AF1F161_class;
 
 typedef struct xsetting_154430FC_class_t  // 48 sound
 {
- //int32_t (*sub_4617B0) ?
- //int32_t (*sub_461774) ?
- //int32_t (*sub_461718) ?
- //int32_t (*sub_4616DC) ?
- //int32_t (*sub_4617DC) ?
- //int32_t (*sub_461674) ?
- //int32_t (*sub_461638) ?
- //int32_t (*sub_4615FC) ?
- //int32_t (*sub_4615B0) ?
- //int32_t (*sub_461564) ?
- //int32_t (*sub_461528) ?
- //int32_t (*sub_4614EC) ?
- //int32_t (*sub_4614B0) ?
- //int32_t (*sub_461474) ?
- //int32_t (*sub_461428) ?
- //int32_t (*sub_4613DC) ?
- //int32_t (*sub_461390) ?
- //int32_t (*sub_461354) ?
- //int32_t (*sub_461308) ?
- //int32_t (*sub_4612BC) ?
- //int32_t (*sub_461270) ?
- //int32_t (*sub_461224) ?
- //int32_t (*sub_4611E8) ?
- //int32_t (*sub_4611AC) ?
- //int32_t (*sub_461160) ?
- //int32_t (*sub_461134) ?
- //int32_t (*sub_4610F8) ?
- //int32_t (*sub_4610BC) ?
- //int32_t (*sub_461080) ?
- //int32_t (*sub_461034) ?
- //int32_t (*sub_460FF8) ?
- //int32_t (*sub_460FBC) ?
- //int32_t (*sub_460F70) ?
- //int32_t (*sub_460F10) ?
- //int32_t (*sub_460ED4) ?
- //int32_t (*sub_460E98) ?
- //int32_t (*sub_460E5C) ?
- //int32_t (*sub_460E20) ?
- //int32_t (*sub_460DF4) ?
- //int32_t (*sub_460DC8) ?
- //int32_t (*sub_460D8C) ?
- //int32_t (*sub_460D50) ?
- //int32_t (*sub_460D14) ?
- //int32_t (*sub_460CD8) ?
- //int32_t (*sub_460CAC) ?
- //int32_t (*sub_460C70) ?
- //int32_t (*sub_460C34) ?
- //int32_t (*sub_460BE8) ?
+	//int32_t (*sub_4617B0) ?
+	//int32_t (*sub_461774) ?
+	//int32_t (*sub_461718) ?
+	//int32_t (*sub_4616DC) ?
+	//int32_t (*sub_4617DC) ?
+	//int32_t (*sub_461674) ?
+	//int32_t (*sub_461638) ?
+	//int32_t (*sub_4615FC) ?
+	//int32_t (*sub_4615B0) ?
+	//int32_t (*sub_461564) ?
+	//int32_t (*sub_461528) ?
+	//int32_t (*sub_4614EC) ?
+	//int32_t (*sub_4614B0) ?
+	//int32_t (*sub_461474) ?
+	//int32_t (*sub_461428) ?
+	//int32_t (*sub_4613DC) ?
+	//int32_t (*sub_461390) ?
+	//int32_t (*sub_461354) ?
+	//int32_t (*sub_461308) ?
+	//int32_t (*sub_4612BC) ?
+	//int32_t (*sub_461270) ?
+	//int32_t (*sub_461224) ?
+	//int32_t (*sub_4611E8) ?
+	//int32_t (*sub_4611AC) ?
+	//int32_t (*sub_461160) ?
+	//int32_t (*sub_461134) ?
+	//int32_t (*sub_4610F8) ?
+	//int32_t (*sub_4610BC) ?
+	//int32_t (*sub_461080) ?
+	//int32_t (*sub_461034) ?
+	//int32_t (*sub_460FF8) ?
+	//int32_t (*sub_460FBC) ?
+	//int32_t (*sub_460F70) ?
+	//int32_t (*sub_460F10) ?
+	//int32_t (*sub_460ED4) ?
+	//int32_t (*sub_460E98) ?
+	//int32_t (*sub_460E5C) ?
+	//int32_t (*sub_460E20) ?
+	//int32_t (*sub_460DF4) ?
+	//int32_t (*sub_460DC8) ?
+	//int32_t (*sub_460D8C) ?
+	//int32_t (*sub_460D50) ?
+	//int32_t (*sub_460D14) ?
+	//int32_t (*sub_460CD8) ?
+	//int32_t (*sub_460CAC) ?
+	//int32_t (*sub_460C70) ?
+	//int32_t (*sub_460C34) ?
+	//int32_t (*sub_460BE8) ?
 } xsetting_154430FC_class;
 
 typedef struct xsetting_16A8A805_class_t  // 53
 {
-	int32_t (*SetBdMenuLanguage)(int32_t);
-	int32_t (*GetBdMenuLanguage)(int32_t *);
-	int32_t (*SetBdSoundLanguage)(int32_t);
-	int32_t (*GetBdSoundLanguage)(int32_t *);
-	int32_t (*SetBdCaptionLanguage)(int32_t);
-	int32_t (*GetBdCaptionLanguage)(int32_t *);
-	int32_t (*Set_unk6)(int32_t);
-	int32_t (*Get_unk7)(int32_t *);
-	int32_t (*SetDvdMenuLanguage)(int32_t);
-	int32_t (*GetDvdMenuLanguage)(int32_t *);
-	int32_t (*SetDvdSoundLanguage)(int32_t);
-	int32_t (*GetDvdSoundLanguage)(int32_t *);
-	int32_t (*SetDvdCaptionLanguage)(int32_t);
-	int32_t (*GetDvdCaptionLanguage)(int32_t *);
-	int32_t (*Set_unk14)(int32_t);
-	int32_t (*Get_unk15)(int32_t *);
-	int32_t (*SetFnr)(int32_t);
-	int32_t (*GetFnr)(int32_t *);
-	int32_t (*SetBnr)(int32_t);
-	int32_t (*GetBnr)(int32_t *);
-	int32_t (*SetMnr)(int32_t);
-	int32_t (*GetMnr)(int32_t *);
-	int32_t (*SetFnrForDvdRom)(int32_t);
-	int32_t (*GetFnrForDvdRom)(int32_t *);
-	int32_t (*SetBnrForDvdRom)(int32_t);
-	int32_t (*GetBnrForDvdRom)(int32_t *);
-	int32_t (*SetMnrForDvdRom)(int32_t);
-	int32_t (*GetMnrForDvdRom)(int32_t *);
-	int32_t (*SetCinemaConversion)(int32_t);
-	int32_t (*GetCinemaConversion)(int32_t *);
-	int32_t (*SetVolume)(int32_t);
-	int32_t (*GetVolume)(int32_t *);
-	int32_t (*SetDvdWideScreen)(int32_t);
-	int32_t (*GetDvdWideScreen)(int32_t *);
-	int32_t (*SetDvdRegionCode)(int32_t);
-	int32_t (*GetDvdRegionCode)(int32_t *);
-	int32_t (*SetBdRegionCode)(int32_t);
-	int32_t (*GetBdRegionCode)(int32_t *);
-	int32_t (*SetDvdTvSystem)(int32_t);
-	int32_t (*GetDvdTvSystem)(int32_t *);
-	int32_t (*SetDvdUpConvert)(int32_t);
-	int32_t (*GetDvdUpConvert)(int32_t *);
-	int32_t (*SetDrc)(int32_t);
-	int32_t (*GetDrc)(int32_t *);
-	int32_t (*GetColorButtonAssign)(int32_t *);
-	int32_t (*SetNetworkConnect)(int32_t);
-	int32_t (*GetNetworkConnect)(int32_t *);
-	int32_t (*GetSoundFormatHdmi)(int32_t *);
-	int32_t (*SetSoundFormatHdmi)(int32_t);
-	int32_t (*GetVideoFormatHdmiColorSpace)(int32_t *);
-	int32_t (*SetVideoFormatHdmiColorSpace)(int32_t);
-	int32_t (*GetVideoFormatHdmi1080_24p)(int32_t *);
-	int32_t (*SetVideoFormatHdmi1080_24p)(int32_t);
+	int32_t(*SetBdMenuLanguage)(int32_t);
+	int32_t(*GetBdMenuLanguage)(int32_t*);
+	int32_t(*SetBdSoundLanguage)(int32_t);
+	int32_t(*GetBdSoundLanguage)(int32_t*);
+	int32_t(*SetBdCaptionLanguage)(int32_t);
+	int32_t(*GetBdCaptionLanguage)(int32_t*);
+	int32_t(*Set_unk6)(int32_t);
+	int32_t(*Get_unk7)(int32_t*);
+	int32_t(*SetDvdMenuLanguage)(int32_t);
+	int32_t(*GetDvdMenuLanguage)(int32_t*);
+	int32_t(*SetDvdSoundLanguage)(int32_t);
+	int32_t(*GetDvdSoundLanguage)(int32_t*);
+	int32_t(*SetDvdCaptionLanguage)(int32_t);
+	int32_t(*GetDvdCaptionLanguage)(int32_t*);
+	int32_t(*Set_unk14)(int32_t);
+	int32_t(*Get_unk15)(int32_t*);
+	int32_t(*SetFnr)(int32_t);
+	int32_t(*GetFnr)(int32_t*);
+	int32_t(*SetBnr)(int32_t);
+	int32_t(*GetBnr)(int32_t*);
+	int32_t(*SetMnr)(int32_t);
+	int32_t(*GetMnr)(int32_t*);
+	int32_t(*SetFnrForDvdRom)(int32_t);
+	int32_t(*GetFnrForDvdRom)(int32_t*);
+	int32_t(*SetBnrForDvdRom)(int32_t);
+	int32_t(*GetBnrForDvdRom)(int32_t*);
+	int32_t(*SetMnrForDvdRom)(int32_t);
+	int32_t(*GetMnrForDvdRom)(int32_t*);
+	int32_t(*SetCinemaConversion)(int32_t);
+	int32_t(*GetCinemaConversion)(int32_t*);
+	int32_t(*SetVolume)(int32_t);
+	int32_t(*GetVolume)(int32_t*);
+	int32_t(*SetDvdWideScreen)(int32_t);
+	int32_t(*GetDvdWideScreen)(int32_t*);
+	int32_t(*SetDvdRegionCode)(int32_t);
+	int32_t(*GetDvdRegionCode)(int32_t*);
+	int32_t(*SetBdRegionCode)(int32_t);
+	int32_t(*GetBdRegionCode)(int32_t*);
+	int32_t(*SetDvdTvSystem)(int32_t);
+	int32_t(*GetDvdTvSystem)(int32_t*);
+	int32_t(*SetDvdUpConvert)(int32_t);
+	int32_t(*GetDvdUpConvert)(int32_t*);
+	int32_t(*SetDrc)(int32_t);
+	int32_t(*GetDrc)(int32_t*);
+	int32_t(*GetColorButtonAssign)(int32_t*);
+	int32_t(*SetNetworkConnect)(int32_t);
+	int32_t(*GetNetworkConnect)(int32_t*);
+	int32_t(*GetSoundFormatHdmi)(int32_t*);
+	int32_t(*SetSoundFormatHdmi)(int32_t);
+	int32_t(*GetVideoFormatHdmiColorSpace)(int32_t*);
+	int32_t(*SetVideoFormatHdmiColorSpace)(int32_t);
+	int32_t(*GetVideoFormatHdmi1080_24p)(int32_t*);
+	int32_t(*SetVideoFormatHdmi1080_24p)(int32_t);
 } xsetting_16A8A805_class;
 
 typedef struct xsetting_1D6D60D4_class_t  // 4, printer
@@ -159,7 +159,7 @@ typedef struct xsetting_1D6D60D4_class_t  // 4, printer
 
 typedef struct xsetting_43F98936_class_t  // 15
 {
-	int32_t (*sub_448B10)(void);   // ret 0x8002B261
+	int32_t(*sub_448B10)(void);   // ret 0x8002B261
 	// int32_t (*sub_448AC8) ?
 	// int32_t (*sub_4489C8) ?
 	// int32_t (*sub_448894) ?
@@ -178,95 +178,95 @@ typedef struct xsetting_43F98936_class_t  // 15
 
 typedef struct xsetting_4712F276_class_t  // 79
 {
- //int32_t (*sub_453EE4) ?
- //int32_t (*sub_453E74) ?
- //int32_t (*sub_453E0C) ?
- //int32_t (*sub_456778) ?
- //int32_t (*sub_4550E4) ?
- //int32_t (*sub_457920) ?
- //int32_t (*sub_4547A4) ?
- //int32_t (*sub_456B00) ?
- //int32_t (*sub_453D94) ?
- //int32_t (*sub_453D38) ?
- //int32_t (*sub_453CDC) ?
- //int32_t (*sub_453C54) ?
- //int32_t (*sub_453BCC) ?
- //int32_t (*sub_453B58) ?
- //int32_t (*sub_45206C) ?
- //int32_t (*sub_453AE4) ?
- //int32_t (*sub_453A5C) ?
- //int32_t (*sub_4539E8) ?
- //int32_t (*sub_453944) ?
- //int32_t (*sub_453860) ?
- //int32_t (*sub_45378C) ?
- //int32_t (*sub_453660) ?
- //int32_t (*sub_453608) ?
- //int32_t (*sub_4566F0) ?
- //int32_t (*sub_456460) ?
- //int32_t (*sub_4535A8) ?
- //int32_t (*sub_453544) ?
- //int32_t (*sub_45441C) ?
- //int32_t (*sub_457270) ?
- //int32_t (*sub_455F70) ?
- //int32_t (*sub_45756C) ?
- //int32_t (*sub_454B54) ?
- //int32_t (*sub_453494) ?
- //int32_t (*sub_45341C) ?
- //int32_t (*sub_4533D0) ?
- //int32_t (*sub_455A8C) ?
- //int32_t (*sub_4555D0) ?
- //int32_t (*sub_453320) ?
- //int32_t (*sub_453F54) ?
- //int32_t (*sub_456F8C) ?
- //int32_t (*sub_454F24) ?
- //int32_t (*sub_457D48) ?
- //int32_t (*sub_454D48) ?
- //int32_t (*sub_457F20) ?
- //int32_t (*sub_456D1C) ?
- //int32_t (*sub_452E5C) ?
- //int32_t (*sub_4528D4) ?
- //int32_t (*sub_452DAC) ?
- //int32_t (*sub_452838) ?
- //int32_t (*sub_452D20) ?
- //int32_t (*sub_452C10) ?
- //int32_t (*sub_452B80) ?
- //int32_t (*sub_4527BC) ?
- //int32_t (*sub_4530C8) ?
- //int32_t (*sub_452A40) ?
- //int32_t (*sub_4526B0) ?
- //int32_t (*sub_4529B0) ?
- //int32_t (*sub_452634) ?
- //int32_t (*sub_452AD0) ?
- //int32_t (*sub_45272C) ?
- //int32_t (*sub_45304C) ?
- //int32_t (*sub_452F60) ?
- //int32_t (*sub_452FD4) ?
- //int32_t (*sub_452F28) ?
- //int32_t (*sub_452EF0) ?
- //int32_t (*sub_452C9C) ?
- //int32_t (*sub_452934) ?
- //int32_t (*sub_4525D0) ?
- //int32_t (*sub_45663C) ?
- //int32_t (*sub_452448) ?
- //int32_t (*sub_4523C8) ?
- //int32_t (*sub_452354) ?
- //int32_t (*sub_4522D4) ?
- //int32_t (*sub_452268) ?
- //int32_t (*sub_4521F0) ?
- //int32_t (*sub_452180) ?
- //int32_t (*sub_452110) ?
- //int32_t (*sub_4520AC) ?
- //int32_t (*sub_452008) ?
+	//int32_t (*sub_453EE4) ?
+	//int32_t (*sub_453E74) ?
+	//int32_t (*sub_453E0C) ?
+	//int32_t (*sub_456778) ?
+	//int32_t (*sub_4550E4) ?
+	//int32_t (*sub_457920) ?
+	//int32_t (*sub_4547A4) ?
+	//int32_t (*sub_456B00) ?
+	//int32_t (*sub_453D94) ?
+	//int32_t (*sub_453D38) ?
+	//int32_t (*sub_453CDC) ?
+	//int32_t (*sub_453C54) ?
+	//int32_t (*sub_453BCC) ?
+	//int32_t (*sub_453B58) ?
+	//int32_t (*sub_45206C) ?
+	//int32_t (*sub_453AE4) ?
+	//int32_t (*sub_453A5C) ?
+	//int32_t (*sub_4539E8) ?
+	//int32_t (*sub_453944) ?
+	//int32_t (*sub_453860) ?
+	//int32_t (*sub_45378C) ?
+	//int32_t (*sub_453660) ?
+	//int32_t (*sub_453608) ?
+	//int32_t (*sub_4566F0) ?
+	//int32_t (*sub_456460) ?
+	//int32_t (*sub_4535A8) ?
+	//int32_t (*sub_453544) ?
+	//int32_t (*sub_45441C) ?
+	//int32_t (*sub_457270) ?
+	//int32_t (*sub_455F70) ?
+	//int32_t (*sub_45756C) ?
+	//int32_t (*sub_454B54) ?
+	//int32_t (*sub_453494) ?
+	//int32_t (*sub_45341C) ?
+	//int32_t (*sub_4533D0) ?
+	//int32_t (*sub_455A8C) ?
+	//int32_t (*sub_4555D0) ?
+	//int32_t (*sub_453320) ?
+	//int32_t (*sub_453F54) ?
+	//int32_t (*sub_456F8C) ?
+	//int32_t (*sub_454F24) ?
+	//int32_t (*sub_457D48) ?
+	//int32_t (*sub_454D48) ?
+	//int32_t (*sub_457F20) ?
+	//int32_t (*sub_456D1C) ?
+	//int32_t (*sub_452E5C) ?
+	//int32_t (*sub_4528D4) ?
+	//int32_t (*sub_452DAC) ?
+	//int32_t (*sub_452838) ?
+	//int32_t (*sub_452D20) ?
+	//int32_t (*sub_452C10) ?
+	//int32_t (*sub_452B80) ?
+	//int32_t (*sub_4527BC) ?
+	//int32_t (*sub_4530C8) ?
+	//int32_t (*sub_452A40) ?
+	//int32_t (*sub_4526B0) ?
+	//int32_t (*sub_4529B0) ?
+	//int32_t (*sub_452634) ?
+	//int32_t (*sub_452AD0) ?
+	//int32_t (*sub_45272C) ?
+	//int32_t (*sub_45304C) ?
+	//int32_t (*sub_452F60) ?
+	//int32_t (*sub_452FD4) ?
+	//int32_t (*sub_452F28) ?
+	//int32_t (*sub_452EF0) ?
+	//int32_t (*sub_452C9C) ?
+	//int32_t (*sub_452934) ?
+	//int32_t (*sub_4525D0) ?
+	//int32_t (*sub_45663C) ?
+	//int32_t (*sub_452448) ?
+	//int32_t (*sub_4523C8) ?
+	//int32_t (*sub_452354) ?
+	//int32_t (*sub_4522D4) ?
+	//int32_t (*sub_452268) ?
+	//int32_t (*sub_4521F0) ?
+	//int32_t (*sub_452180) ?
+	//int32_t (*sub_452110) ?
+	//int32_t (*sub_4520AC) ?
+	//int32_t (*sub_452008) ?
 } xsetting_4712F276_class;
 
 typedef struct xsetting_58560CA4_class_t  // 6
 {
-	int32_t (*GetVideoScreenMode)(int32_t *);
-	int32_t (*SetVideoScreenMode)(int32_t);
-	int32_t (*GetVideoOutputChannel)(int32_t *);
-	int32_t (*SetVideoOutputChannel)(int32_t);
-	int32_t (*GetVideoPlayerVolume)(int32_t *);
-	int32_t (*SetVideoPlayerVolume)(int32_t);
+	int32_t(*GetVideoScreenMode)(int32_t*);
+	int32_t(*SetVideoScreenMode)(int32_t);
+	int32_t(*GetVideoOutputChannel)(int32_t*);
+	int32_t(*SetVideoOutputChannel)(int32_t);
+	int32_t(*GetVideoPlayerVolume)(int32_t*);
+	int32_t(*SetVideoPlayerVolume)(int32_t);
 } xsetting_58560CA4_class;
 
 typedef struct xsetting_5FB90B89_class_t  // 38, bt
@@ -303,14 +303,14 @@ typedef struct xsetting_5FB90B89_class_t  // 38, bt
 
 typedef struct xsetting_660ECC35_class_t  // 8
 {
-	int32_t (*SetPhotoNormalScenario)(int32_t);
-	int32_t (*GetPhotoNormalScenario)(int32_t *);
-	int32_t (*SetPhotoSlideScenario)(int32_t);
-	int32_t (*GetPhotoSlideScenario)(int32_t *);
-	int32_t (*SetPhotoSlideInterval)(int32_t);
-	int32_t (*GetPhotoSlideInterval)(int32_t *);
-	int32_t (*SetPhotoSlideRepeat)(int32_t);
-	int32_t (*GetPhotoSlideRepeat)(int32_t *);
+	int32_t(*SetPhotoNormalScenario)(int32_t);
+	int32_t(*GetPhotoNormalScenario)(int32_t*);
+	int32_t(*SetPhotoSlideScenario)(int32_t);
+	int32_t(*GetPhotoSlideScenario)(int32_t*);
+	int32_t(*SetPhotoSlideInterval)(int32_t);
+	int32_t(*GetPhotoSlideInterval)(int32_t*);
+	int32_t(*SetPhotoSlideRepeat)(int32_t);
+	int32_t(*GetPhotoSlideRepeat)(int32_t*);
 } xsetting_660ECC35_class;
 
 typedef struct xsetting_69C19C7F_class_t  // 23
@@ -342,62 +342,62 @@ typedef struct xsetting_69C19C7F_class_t  // 23
 
 typedef struct xsetting_7125FEB5_class_t  // 34
 {
-	int32_t (*SaveMusicCodec)(int32_t);
-	int32_t (*loadMusicCodec)(int32_t *);
-	int32_t (*SaveBitRateAac)(int32_t);
-	int32_t (*loadBitRateAac)(int32_t *);
-	int32_t (*SaveBitRateMp3)(int32_t);
-	int32_t (*loadBitRateMp3)(int32_t *);
-	int32_t (*SaveBitRateAtrac)(int32_t);
-	int32_t (*loadBitRateAtrac)(int32_t *);
-	int32_t (*SaveCrossFadePlay)(int32_t);
-	int32_t (*loadCrossFadePlay)(int32_t *);
-	int32_t (*SaveRepeatMode)(int32_t);
-	int32_t (*loadRepeatMode)(int32_t *);
-	int32_t (*SaveShuffleMode)(int32_t);
-	int32_t (*loadShuffleMode)(int32_t *);
-	int32_t (*SaveVisualizerSelect)(int32_t);
-	int32_t (*loadVisualizerSelect)(int32_t *);
-	int32_t (*SaveCddaEula)(int32_t);
-	int32_t (*loadCddaEula)(int32_t *);
-	int32_t (*SaveCddaServer)(int32_t);
-	int32_t (*loadCddaServer)(int32_t *);
-	int32_t (*SaveAudioplayerVolume)(int32_t);
-	int32_t (*loadAudioplayerVolume)(int32_t *);
-	int32_t (*SaveSacdPlayerVolume)(int32_t);
-	int32_t (*loadSacdPlayerVolume)(int32_t *);
-	int32_t (*SaveAtracActivation)(int32_t);
-	int32_t (*loadAtracActivation)(int32_t *);
-	int32_t (*SaveWmaActivation)(int32_t);
-	int32_t (*loadWmaActivation)(int32_t *);
-	int32_t (*SaveCdOutputFs)(int32_t);
-	int32_t (*loadCdOutputFs)(int32_t *);
-	int32_t (*SaveDitherSetting)(int32_t);
-	int32_t (*loadDitherSetting)(int32_t *);
-	int32_t (*SaveBitmappingSetting)(int32_t);
-	int32_t (*loadBitmappingSetting)(int32_t *);
+	int32_t(*SaveMusicCodec)(int32_t);
+	int32_t(*loadMusicCodec)(int32_t*);
+	int32_t(*SaveBitRateAac)(int32_t);
+	int32_t(*loadBitRateAac)(int32_t*);
+	int32_t(*SaveBitRateMp3)(int32_t);
+	int32_t(*loadBitRateMp3)(int32_t*);
+	int32_t(*SaveBitRateAtrac)(int32_t);
+	int32_t(*loadBitRateAtrac)(int32_t*);
+	int32_t(*SaveCrossFadePlay)(int32_t);
+	int32_t(*loadCrossFadePlay)(int32_t*);
+	int32_t(*SaveRepeatMode)(int32_t);
+	int32_t(*loadRepeatMode)(int32_t*);
+	int32_t(*SaveShuffleMode)(int32_t);
+	int32_t(*loadShuffleMode)(int32_t*);
+	int32_t(*SaveVisualizerSelect)(int32_t);
+	int32_t(*loadVisualizerSelect)(int32_t*);
+	int32_t(*SaveCddaEula)(int32_t);
+	int32_t(*loadCddaEula)(int32_t*);
+	int32_t(*SaveCddaServer)(int32_t);
+	int32_t(*loadCddaServer)(int32_t*);
+	int32_t(*SaveAudioplayerVolume)(int32_t);
+	int32_t(*loadAudioplayerVolume)(int32_t*);
+	int32_t(*SaveSacdPlayerVolume)(int32_t);
+	int32_t(*loadSacdPlayerVolume)(int32_t*);
+	int32_t(*SaveAtracActivation)(int32_t);
+	int32_t(*loadAtracActivation)(int32_t*);
+	int32_t(*SaveWmaActivation)(int32_t);
+	int32_t(*loadWmaActivation)(int32_t*);
+	int32_t(*SaveCdOutputFs)(int32_t);
+	int32_t(*loadCdOutputFs)(int32_t*);
+	int32_t(*SaveDitherSetting)(int32_t);
+	int32_t(*loadDitherSetting)(int32_t*);
+	int32_t(*SaveBitmappingSetting)(int32_t);
+	int32_t(*loadBitmappingSetting)(int32_t*);
 } xsetting_7125FEB5_class;
 
 typedef struct xsetting_7EDDAD29_class_t  // 8
 {
-	int32_t (*loadParentalInformation)(void *);  // uint8_t [0x20] { parental passwordNumber, bdPc, bdPcAge, dvdRegion, dvdLevel, gameLevel, browserStartControl }
-	int32_t (*SaveDvdRegion)(char *);
-	int32_t (*SaveBdPc)(int32_t);
-	int32_t (*SaveBdPcAge)(int32_t);
-	int32_t (*SaveDvdRegionWithCheck)(int32_t);
-	int32_t (*SaveDvdLevel)(int32_t);
-	int32_t (*SaveGameLevel)(int32_t);
-	int32_t (*SaveBrowserStartControl)(int32_t);
+	int32_t(*loadParentalInformation)(void*);  // uint8_t [0x20] { parental passwordNumber, bdPc, bdPcAge, dvdRegion, dvdLevel, gameLevel, browserStartControl }
+	int32_t(*SaveDvdRegion)(char*);
+	int32_t(*SaveBdPc)(int32_t);
+	int32_t(*SaveBdPcAge)(int32_t);
+	int32_t(*SaveDvdRegionWithCheck)(int32_t);
+	int32_t(*SaveDvdLevel)(int32_t);
+	int32_t(*SaveGameLevel)(int32_t);
+	int32_t(*SaveBrowserStartControl)(int32_t);
 } xsetting_7EDDAD29_class;
 
 typedef struct xsetting_8B69F85A_class_t  // 12
 {
-  int32_t (*loadDateTimeInformation)(void *);  //uint8_t [0x18] {diffTime, dateFormat, timeFormat, timeZone, summerTime }
-  int32_t (*SaveDiffTime)(int32_t);
-  int32_t (*SaveDateFormat)(int32_t);
-	int32_t (*SaveTimeFormat)(int32_t);
-	int32_t (*SaveTimeZone)(int32_t);
-	int32_t (*SaveSummerTime)(int32_t);
+	int32_t(*loadDateTimeInformation)(void*);  //uint8_t [0x18] {diffTime, dateFormat, timeFormat, timeZone, summerTime }
+	int32_t(*SaveDiffTime)(int32_t);
+	int32_t(*SaveDateFormat)(int32_t);
+	int32_t(*SaveTimeFormat)(int32_t);
+	int32_t(*SaveTimeZone)(int32_t);
+	int32_t(*SaveSummerTime)(int32_t);
 	//int32_t (*sub_448B10)(void); // ret 0x8002B261
 	//int32_t(*sub_448C74) ?
 	//int32_t(*sub_448C40) ?
@@ -474,150 +474,150 @@ typedef struct xsetting_C1008335_class_t  // 10 io_mouse ?
 
 typedef struct xsetting_CC56EB2D_class_t  // 42
 {
-	int32_t (*sub_486D98)(void);
-	int32_t (*sub_486D5C)(void);
-	int32_t (*sub_486D30)(void);
-	int32_t (*sub_486D04)(void);
-	int32_t (*sub_486CC8)(void);
-	int32_t (*sub_486C9C)(void);
-	int32_t (*sub_486C50)(void);
-	int32_t (*sub_486BF0)(void);
-	int32_t (*sub_486B84)(void);
-	int32_t (*sub_486B48)(void);
-	int32_t (*sub_486AFC)(void);
-	int32_t (*sub_486AB0)(void);
-	int32_t (*GetCurrentUserNumber)(void);
-	int32_t (*sub_486A58)(void);
-	int32_t (*sub_486A1C)(void);
-	int32_t (*sub_4869E0)(void);
-	int32_t (*GetRegistryValue)(uint32_t userid, uint32_t packetid, uint32_t *value);
-	int32_t (*GetRegistryString)(uint32_t userid, uint32_t packetid, char * value, uint32_t maxlen);
-	int32_t (*SetRegistryValue)(uint32_t userid, uint32_t packetid, uint32_t value);
-	int32_t (*SetRegistryString)(uint32_t userid, uint32_t packetid, char *value, uint32_t maxlen);
-	int32_t (*sub_486814)(void);
-	int32_t (*sub_4867D8)(void);
-	int32_t (*sub_48678C)(void);
-	int32_t (*sub_486740)(void);
-	int32_t (*sub_4866F4)(void);
-	int32_t (*sub_4866A8)(void);
-	int32_t (*sub_48665C)(void);  // ret 0x80031605
-	int32_t (*sub_486610)(void);  // ret 0x80031605
-	int32_t (*sub_4865C4)(void);  // ret 0x80031605
-	int32_t (*sub_486578)(void);  // ret 0x80031605
-	int32_t (*sub_48652C)(void);  // ret 0x80031605
-	int32_t (*sub_4864E0)(void);  // ret 0x80031605
-	int32_t (*GetRegistryHomePath)(uint32_t userid, char *path);
-	int32_t (*sub_486448)(void);
-	int32_t (*sub_48640C)(void);
-	int32_t (*sub_4863B0)(void);
-	int32_t (*sub_486384)(void);
-	int32_t (*sub_486358)(void);
-	int32_t (*sub_4862F8)(void);
-	int32_t (*sub_48628C)(void);
-	int32_t (*sub_48623C)(void);
-	int32_t (*sub_4861D4)(void);
-/*
-	int GetRegistryKeyboardType()	{int v; DoUnk16_GetRegistryValue(0,0x14, &v);return v;}
-	int GetRegistryKeyboardJapaneseInput()	{int v; DoUnk16_GetRegistryValue(0,0x15, &v);return v;}
-	int GetRegistryKeyboardTradChineseInput()	{int v; DoUnk16_GetRegistryValue(0,0x16, &v);return v;}
-	int GetRegistryKeyboardBind()	{int v; DoUnk16_GetRegistryValue(0,0x17, &v);return v;}
-	int GetRegistryKeyboardRepeatStartingTime()	{int v; DoUnk16_GetRegistryValue(0,0x18, &v);return v;}
-	int GetRegistryKeyboardRepeadSpeed()	{int v; DoUnk16_GetRegistryValue(0,0x19, &v);return v;}
-	int GetRegistryMouseType()	{int v; DoUnk16_GetRegistryValue(0,0x1E, &v);return v;}
-	int GetRegistryMouseSpeed()	{int v; DoUnk16_GetRegistryValue(0,0x1F, &v);return v;}
-	int GetRegistryBrowserHomeUri(char * uri)	{return DoUnk17_GetRegistryString(0,0x28,uri,0x80);}
-	int GetRegistryBrowserCookieMode()	{int v; DoUnk16_GetRegistryValue(0,0x29, &v);return v;}
-	int GetRegistryBrowserJavascript()	{int v; DoUnk16_GetRegistryValue(0,0x2A, &v);return v;}
-	int GetRegistryBrowserDisplayMode()	{int v; DoUnk16_GetRegistryValue(0,0x2B, &v);return v;}
-	int GetRegistryBrowserExitConfirmation()	{int v; DoUnk16_GetRegistryValue(0,0x2C, &v);return v;}
-	int GetRegistryBrowserOverscan()	{int v; DoUnk16_GetRegistryValue(0,0x2D, &v);return v;}
-	int GetRegistryBrowserWindowSize()	{int v; DoUnk16_GetRegistryValue(0,0x2E, &v);return v;}
-	int GetRegistryBrowserFontSize()	{int v; DoUnk16_GetRegistryValue(0,0x2F, &v);return v;}
-	int GetRegistryBrowserEncoding()	{int v; DoUnk16_GetRegistryValue(0,0x30, &v);return v;}
-	int GetRegistryBrowserCacheSize()	{int v; DoUnk16_GetRegistryValue(0,0x31, &v);return v;}
-	int GetRegistryBrowserRestoreWindow()	{int v; DoUnk16_GetRegistryValue(0,0x32, &v);return v;}
-	int GetRegistryBrowserPopupBlock()	{int v; DoUnk16_GetRegistryValue(0,0x33, &v);return v;}
-	int GetRegistryBrowserDpi()	{int v; DoUnk16_GetRegistryValue(0,0x34, &v);return v;}
-	int GetRegistryBrowserInterlaceFilter()	{int v; DoUnk16_GetRegistryValue(0,0x35, &v);return v;}
-	int GetRegistryBrowserIfilter()	{int v; DoUnk16_GetRegistryValue(0,0x36, &v);return v;}
-	int GetRegistryBrowserIfilterAddress()	{int v; DoUnk16_GetRegistryValue(0,0x37, &v);return v;}
-	int GetRegistryBrowserIfilterPort()	{int v; DoUnk16_GetRegistryValue(0,0x38, &v);return v;}
-	int GetRegistryBrowserIfilterUsername()	{int v; DoUnk16_GetRegistryValue(0,0x39, &v);return v;}
-	int GetRegistryBrowserIfilterPassword()	{int v; DoUnk16_GetRegistryValue(0,0x3A, &v);return v;}
-	int GetRegistryBrowserIfilterBase64()	{int v; DoUnk16_GetRegistryValue(0,0x3B, &v);return v;}
-	int GetRegistryBrowserTrendEula()	{int v; DoUnk16_GetRegistryValue(0,0x3C, &v);return v;}
-	int GetRegistryBrowserTrendEnable()	{int v; DoUnk16_GetRegistryValue(0,0x3D, &v);return v;}
-	int GetRegistryInputForecastDictionary()	{int v; DoUnk16_GetRegistryValue(0,0x46, &v);return v;}
-	int GetRegistryInputTenKeyInputType()	{int v; DoUnk16_GetRegistryValue(0,0x47, &v);return v;}
-	int GetRegistryInputForecastDictionaryCh()	{int v; DoUnk16_GetRegistryValue(0,0x48, &v);return v;}
-	int GetRegistryInputKeyLayoutType()	{int v; DoUnk16_GetRegistryValue(0,0x49, &v);return v;}
-	int GetRegistryEdyEula()	{int v; DoUnk16_GetRegistryValue(0,0x50, &v);return v;}
-	int GetRegistryThemeWallpaper()	{int v; DoUnk16_GetRegistryValue(0,0x5A, &v);return v;}
-	int GetRegistryThemeFont()	{int v; DoUnk16_GetRegistryValue(0,0x5B, &v);return v;}
-	int GetRegistryThemeFontEu()	{int v; DoUnk16_GetRegistryValue(0,0x5C, &v);return v;}
-	int GetRegistryThemeFontRu()	{int v; DoUnk16_GetRegistryValue(0,0x5D, &v);return v;}
-	int GetRegistryThemeFile(char * f)	{return DoUnk17_GetRegistryString(0,0x5E,f,0x80);}
-	int GetRegistryThemeColor()	{int v; DoUnk16_GetRegistryValue(0,0x5F, &v);return v;}
-	int GetRegistryThemeEndarkbg()	{int v; DoUnk16_GetRegistryValue(0,0x60, &v);return v;}
-	int GetRegistryMicPitchshift()	{int v; DoUnk16_GetRegistryValue(0,0x64, &v);return v;}
-	int GetRegistryUserRestoreSignInPassword(char * p)	{return DoUnk17_GetRegistryString(0,0x6E,p,0x80);}
-	int GetRegistryUserRestoreSignInStatus()	{int v; DoUnk16_GetRegistryValue(0,0x6F, &v);return v;}
-	int GetRegistryYtaccountAccountid(char * a)	{return DoUnk17_GetRegistryString(0,0x78,a,0x80);}
-	int GetRegistryYtaccountPassword(char * p)	{return DoUnk17_GetRegistryString(0,0x79,p,0x80);}
-	int GetRegistryNpGuestCountry(char * c)	{return DoUnk17_GetRegistryString(0,0x82,c,0x80);}
-	int GetRegistryNpGuestLang(char * l)	{return DoUnk17_GetRegistryString(0,0x83,l,0x80);}
-	int GetRegistryNpGuestBirth()	{int v; DoUnk16_GetRegistryValue(0,0x84, &v);return v;}
-	int GetRegistryWBoardEnable()	{int v; DoUnk16_GetRegistryValue(0,0x8C, &v);return v;}
-	int GetRegistryWBoardFocusMask(){int v; DoUnk16_GetRegistryValue(0,0x8D, &v);return v;}
-	int GetRegistryNetOnlineFlag()	{int v; DoUnk16_GetRegistryValue(0,0x96, &v);return v;}
-	int GetRegistryFacebookAccount(char * a)	{return DoUnk17_GetRegistryString(0,0xC8,a,0x80);}
-	int GetRegistryFacebookSessionKey()	{int v; DoUnk16_GetRegistryValue(0,0xC9, &v);return v;}
-	int GetRegistryFacebookSessionSecret()	{int v; DoUnk16_GetRegistryValue(0,0xCA, &v);return v;}
-	int GetRegistryFacebookUid()	{int v; DoUnk16_GetRegistryValue(0,0xCB, &v);return v;}
-	int GetRegistryFacebookTrophy()	{int v; DoUnk16_GetRegistryValue(0,0xCC, &v);return v;}
-	int GetRegistryFacebookPurchase()	{int v; DoUnk16_GetRegistryValue(0,0xCD, &v);return v;}
-	int GetRegistryFacebookGameEvent()	{int v; DoUnk16_GetRegistryValue(0,0xCE, &v);return v;}
-	int GetRegistryFacebookHknwEnable()	{int v; DoUnk16_GetRegistryValue(0,0xCF, &v);return v;}
-	int GetRegistryFacebookAccessToken()	{int v; DoUnk16_GetRegistryValue(0,0xD0, &v);return v;}
-	int GetRegistryFacebookGameIntegrations()	{int v; DoUnk16_GetRegistryValue(0,0xD1, &v);return v;}
-	int GetRegistryPicasaMail(char * m)	{return DoUnk17_GetRegistryString(0,0xD2,m,0x80);}
-	int GetRegistryPicasaPassword(char * p)	{return DoUnk17_GetRegistryString(0,0xD3,p,0x80);}
-	int GetRegistryPicasaHknwEnable()	{int v; DoUnk16_GetRegistryValue(0,0xD4, &v);return v;}
-	int GetRegistryFlickrMail(char * m)	{return DoUnk17_GetRegistryString(0,0xDC,m,0x80);}
-	int GetRegistryFlickrPassword(char * p)	{return DoUnk17_GetRegistryString(0,0xDD,p,0x80);}
-	int GetRegistryFacebookRating()	{int v; DoUnk16_GetRegistryValue(0,0xE6, &v);return v;}
+	int32_t(*sub_486D98)(void);
+	int32_t(*sub_486D5C)(void);
+	int32_t(*sub_486D30)(void);
+	int32_t(*sub_486D04)(void);
+	int32_t(*sub_486CC8)(void);
+	int32_t(*sub_486C9C)(void);
+	int32_t(*sub_486C50)(void);
+	int32_t(*sub_486BF0)(void);
+	int32_t(*sub_486B84)(void);
+	int32_t(*sub_486B48)(void);
+	int32_t(*sub_486AFC)(void);
+	int32_t(*sub_486AB0)(void);
+	int32_t(*GetCurrentUserNumber)(void);
+	int32_t(*sub_486A58)(void);
+	int32_t(*sub_486A1C)(void);
+	int32_t(*sub_4869E0)(void);
+	int32_t(*GetRegistryValue)(uint32_t userid, uint32_t packetid, int* value);
+	int32_t(*GetRegistryString)(uint32_t userid, uint32_t packetid, char* value, uint32_t maxlen);
+	int32_t(*SetRegistryValue)(uint32_t userid, uint32_t packetid, int value);
+	int32_t(*SetRegistryString)(uint32_t userid, uint32_t packetid, char* value, uint32_t maxlen);
+	int32_t(*sub_486814)(void);
+	int32_t(*sub_4867D8)(void);
+	int32_t(*sub_48678C)(void);
+	int32_t(*sub_486740)(void);
+	int32_t(*sub_4866F4)(void);
+	int32_t(*sub_4866A8)(void);
+	int32_t(*sub_48665C)(void);  // ret 0x80031605
+	int32_t(*sub_486610)(void);  // ret 0x80031605
+	int32_t(*sub_4865C4)(void);  // ret 0x80031605
+	int32_t(*sub_486578)(void);  // ret 0x80031605
+	int32_t(*sub_48652C)(void);  // ret 0x80031605
+	int32_t(*sub_4864E0)(void);  // ret 0x80031605
+	int32_t(*GetRegistryHomePath)(uint32_t userid, char* path);
+	int32_t(*sub_486448)(void);
+	int32_t(*sub_48640C)(void);
+	int32_t(*sub_4863B0)(void);
+	int32_t(*sub_486384)(void);
+	int32_t(*sub_486358)(void);
+	int32_t(*sub_4862F8)(void);
+	int32_t(*sub_48628C)(void);
+	int32_t(*sub_48623C)(void);
+	int32_t(*sub_4861D4)(void);
+	/*
+	int GetRegistryKeyboardType()	{int v; GetRegistryValue(0,0x14, &v);return v;}
+	int GetRegistryKeyboardJapaneseInput()	{int v; GetRegistryValue(0,0x15, &v);return v;}
+	int GetRegistryKeyboardTradChineseInput()	{int v; GetRegistryValue(0,0x16, &v);return v;}
+	int GetRegistryKeyboardBind()	{int v; GetRegistryValue(0,0x17, &v);return v;}
+	int GetRegistryKeyboardRepeatStartingTime()	{int v; GetRegistryValue(0,0x18, &v);return v;}
+	int GetRegistryKeyboardRepeadSpeed()	{int v; GetRegistryValue(0,0x19, &v);return v;}
+	int GetRegistryMouseType()	{int v; GetRegistryValue(0,0x1E, &v);return v;}
+	int GetRegistryMouseSpeed()	{int v; GetRegistryValue(0,0x1F, &v);return v;}
+	int GetRegistryBrowserHomeUri(char * uri)	{return GetRegistryString(0,0x28,uri,0x80);}
+	int GetRegistryBrowserCookieMode()	{int v; GetRegistryValue(0,0x29, &v);return v;}
+	int GetRegistryBrowserJavascript()	{int v; GetRegistryValue(0,0x2A, &v);return v;}
+	int GetRegistryBrowserDisplayMode()	{int v; GetRegistryValue(0,0x2B, &v);return v;}
+	int GetRegistryBrowserExitConfirmation()	{int v; GetRegistryValue(0,0x2C, &v);return v;}
+	int GetRegistryBrowserOverscan()	{int v; GetRegistryValue(0,0x2D, &v);return v;}
+	int GetRegistryBrowserWindowSize()	{int v; GetRegistryValue(0,0x2E, &v);return v;}
+	int GetRegistryBrowserFontSize()	{int v; GetRegistryValue(0,0x2F, &v);return v;}
+	int GetRegistryBrowserEncoding()	{int v; GetRegistryValue(0,0x30, &v);return v;}
+	int GetRegistryBrowserCacheSize()	{int v; GetRegistryValue(0,0x31, &v);return v;}
+	int GetRegistryBrowserRestoreWindow()	{int v; GetRegistryValue(0,0x32, &v);return v;}
+	int GetRegistryBrowserPopupBlock()	{int v; GetRegistryValue(0,0x33, &v);return v;}
+	int GetRegistryBrowserDpi()	{int v; GetRegistryValue(0,0x34, &v);return v;}
+	int GetRegistryBrowserInterlaceFilter()	{int v; GetRegistryValue(0,0x35, &v);return v;}
+	int GetRegistryBrowserIfilter()	{int v; GetRegistryValue(0,0x36, &v);return v;}
+	int GetRegistryBrowserIfilterAddress()	{int v; GetRegistryValue(0,0x37, &v);return v;}
+	int GetRegistryBrowserIfilterPort()	{int v; GetRegistryValue(0,0x38, &v);return v;}
+	int GetRegistryBrowserIfilterUsername()	{int v; GetRegistryValue(0,0x39, &v);return v;}
+	int GetRegistryBrowserIfilterPassword()	{int v; GetRegistryValue(0,0x3A, &v);return v;}
+	int GetRegistryBrowserIfilterBase64()	{int v; GetRegistryValue(0,0x3B, &v);return v;}
+	int GetRegistryBrowserTrendEula()	{int v; GetRegistryValue(0,0x3C, &v);return v;}
+	int GetRegistryBrowserTrendEnable()	{int v; GetRegistryValue(0,0x3D, &v);return v;}
+	int GetRegistryInputForecastDictionary()	{int v; GetRegistryValue(0,0x46, &v);return v;}
+	int GetRegistryInputTenKeyInputType()	{int v; GetRegistryValue(0,0x47, &v);return v;}
+	int GetRegistryInputForecastDictionaryCh()	{int v; GetRegistryValue(0,0x48, &v);return v;}
+	int GetRegistryInputKeyLayoutType()	{int v; GetRegistryValue(0,0x49, &v);return v;}
+	int GetRegistryEdyEula()	{int v; GetRegistryValue(0,0x50, &v);return v;}
+	int GetRegistryThemeWallpaper()	{int v; GetRegistryValue(0,0x5A, &v);return v;}
+	int GetRegistryThemeFont()	{int v; GetRegistryValue(0,0x5B, &v);return v;}
+	int GetRegistryThemeFontEu()	{int v; GetRegistryValue(0,0x5C, &v);return v;}
+	int GetRegistryThemeFontRu()	{int v; GetRegistryValue(0,0x5D, &v);return v;}
+	int GetRegistryThemeFile(char * f)	{return GetRegistryString(0,0x5E,f,0x80);}
+	int GetRegistryThemeColor()	{int v; GetRegistryValue(0,0x5F, &v);return v;}
+	int GetRegistryThemeEndarkbg()	{int v; GetRegistryValue(0,0x60, &v);return v;}
+	int GetRegistryMicPitchshift()	{int v; GetRegistryValue(0,0x64, &v);return v;}
+	int GetRegistryUserRestoreSignInPassword(char * p)	{return GetRegistryString(0,0x6E,p,0x80);}
+	int GetRegistryUserRestoreSignInStatus()	{int v; GetRegistryValue(0,0x6F, &v);return v;}
+	int GetRegistryYtaccountAccountid(char * a)	{return GetRegistryString(0,0x78,a,0x80);}
+	int GetRegistryYtaccountPassword(char * p)	{return GetRegistryString(0,0x79,p,0x80);}
+	int GetRegistryNpGuestCountry(char * c)	{return GetRegistryString(0,0x82,c,0x80);}
+	int GetRegistryNpGuestLang(char * l)	{return GetRegistryString(0,0x83,l,0x80);}
+	int GetRegistryNpGuestBirth()	{int v; GetRegistryValue(0,0x84, &v);return v;}
+	int GetRegistryWBoardEnable()	{int v; GetRegistryValue(0,0x8C, &v);return v;}
+	int GetRegistryWBoardFocusMask(){int v; GetRegistryValue(0,0x8D, &v);return v;}
+	int GetRegistryNetOnlineFlag()	{int v; GetRegistryValue(0,0x96, &v);return v;}
+	int GetRegistryFacebookAccount(char * a)	{return GetRegistryString(0,0xC8,a,0x80);}
+	int GetRegistryFacebookSessionKey()	{int v; GetRegistryValue(0,0xC9, &v);return v;}
+	int GetRegistryFacebookSessionSecret()	{int v; GetRegistryValue(0,0xCA, &v);return v;}
+	int GetRegistryFacebookUid()	{int v; GetRegistryValue(0,0xCB, &v);return v;}
+	int GetRegistryFacebookTrophy()	{int v; GetRegistryValue(0,0xCC, &v);return v;}
+	int GetRegistryFacebookPurchase()	{int v; GetRegistryValue(0,0xCD, &v);return v;}
+	int GetRegistryFacebookGameEvent()	{int v; GetRegistryValue(0,0xCE, &v);return v;}
+	int GetRegistryFacebookHknwEnable()	{int v; GetRegistryValue(0,0xCF, &v);return v;}
+	int GetRegistryFacebookAccessToken()	{int v; GetRegistryValue(0,0xD0, &v);return v;}
+	int GetRegistryFacebookGameIntegrations()	{int v; GetRegistryValue(0,0xD1, &v);return v;}
+	int GetRegistryPicasaMail(char * m)	{return GetRegistryString(0,0xD2,m,0x80);}
+	int GetRegistryPicasaPassword(char * p)	{return GetRegistryString(0,0xD3,p,0x80);}
+	int GetRegistryPicasaHknwEnable()	{int v; GetRegistryValue(0,0xD4, &v);return v;}
+	int GetRegistryFlickrMail(char * m)	{return GetRegistryString(0,0xDC,m,0x80);}
+	int GetRegistryFlickrPassword(char * p)	{return GetRegistryString(0,0xDD,p,0x80);}
+	int GetRegistryFacebookRating()	{int v; GetRegistryValue(0,0xE6, &v);return v;}
 	int SetRegistryWBoardFocusMask(int v){ return DoUnk18_SetRegistryValue(0,0x8D, v);}
-*/
+	*/
 } xsetting_CC56EB2D_class;
 
 typedef struct xsetting_CE27E884_class_t  // 10
 {
-	uint32_t (*savePremoPSPInformation)(void *); // uint8_t [0x4B8]
-	uint32_t (*loadPremoPSPInformation)(void *); // uint8_t [0x4B8]
-	uint32_t (*saveRemoteBoot)(uint32_t);
-	uint32_t (*loadRemoteBoot)(uint32_t *);
-	uint32_t (*saveBootCount)(uint32_t);
-	uint32_t (*loadBootCount)(uint32_t *);
-	uint32_t (*savePowerOffTime)(void *);
-	uint32_t (*loadPowerOffTime)(void *);
-	uint32_t (*saveAudioConfig)(uint32_t);
-	uint32_t (*loadAudioConfig)(uint32_t *);
+	uint32_t(*savePremoPSPInformation)(void*); // uint8_t [0x4B8]
+	uint32_t(*loadPremoPSPInformation)(void*); // uint8_t [0x4B8]
+	uint32_t(*saveRemoteBoot)(uint32_t);
+	uint32_t(*loadRemoteBoot)(uint32_t*);
+	uint32_t(*saveBootCount)(uint32_t);
+	uint32_t(*loadBootCount)(uint32_t*);
+	uint32_t(*savePowerOffTime)(void*);
+	uint32_t(*loadPowerOffTime)(void*);
+	uint32_t(*saveAudioConfig)(uint32_t);
+	uint32_t(*loadAudioConfig)(uint32_t*);
 } xsetting_CE27E884_class;
 
 typedef struct xsetting_D0261D72_class_t  // 11
 {
-	uint32_t (*saveAvcInitialCameraMode)(int32_t);
-	uint32_t (*loadAvcInitialCameraMode)(int32_t *);
-	uint32_t (*saveNpEnvironment)(char *, int32_t *);              // env, len
-	uint32_t (*loadNpEnvironment)(char *, int32_t *);              // env, len
-	uint32_t (*saveRegistryIntValue)(int32_t, int32_t);            // id, value
-	uint32_t (*loadRegistryIntValue)(int32_t, int32_t*);           // id, value
-	uint32_t (*saveRegistryStringValue)(int32_t, char *, int32_t); // id, string, len
-	uint32_t (*loadRegistryStringValue)(int32_t, char *, int32_t); // id, string, len
-	uint32_t (*Setunk1)(int32_t);
-	uint32_t (*Getunk2)(int32_t, int32_t *);
-	uint32_t (*Setunk3)(int32_t, int32_t);
-/*
+	uint32_t(*saveAvcInitialCameraMode)(int32_t);
+	uint32_t(*loadAvcInitialCameraMode)(int32_t*);
+	uint32_t(*saveNpEnvironment)(char*, int32_t*);              // env, len
+	uint32_t(*loadNpEnvironment)(char*, int32_t*);              // env, len
+	uint32_t(*saveRegistryIntValue)(int32_t, int32_t);            // id, value
+	uint32_t(*loadRegistryIntValue)(int32_t, int32_t*);           // id, value
+	uint32_t(*saveRegistryStringValue)(int32_t, char*, int32_t); // id, string, len
+	uint32_t(*loadRegistryStringValue)(int32_t, char*, int32_t); // id, string, len
+	uint32_t(*Setunk1)(int32_t);
+	uint32_t(*Getunk2)(int32_t, int32_t*);
+	uint32_t(*Setunk3)(int32_t, int32_t);
+	/*
 	int loadRegistryAvcVgaLastBitrate()	{int v; loadRegistryIntValue(0x00, &v);return v;}                                         //0x00 || "/setting/avc/vga/lastBitrate"
 	int loadRegistryGameLevel0Control()	{int v; loadRegistryIntValue(0x01, &v);return v;}                                         //0x01 || "/setting/parental/gameLevel0Control"
 	int loadRegistryNetworkServiceControl()	{int v; loadRegistryIntValue(0x02, &v);return v;}                                     //0x02 || "/setting/parental/networkServiceControl"
@@ -748,7 +748,7 @@ typedef struct xsetting_D0261D72_class_t  // 11
 	int loadRegistryDisplayForceEnable3D()	{int v; loadRegistryIntValue(0x7F, &v);return v;}                                     //0x7F || "/setting/display/forceEnable3D"
 	int loadRegistryDisplayScreenSize()	{int v; loadRegistryIntValue(0x80, &v);return v;}                                         //0x80 || "/setting/display/screenSize"
 	int loadRegistryDisplayDeepColor()	{int v; loadRegistryIntValue(0x81, &v);return v;}                                         //0x81 || "/setting/display/deepColor"
-*/
+	*/
 } xsetting_D0261D72_class;
 
 typedef struct xsetting_ED5B559F_class_t  // 16
@@ -788,90 +788,91 @@ typedef struct _wireless_info {
 } wireless_info;
 
 typedef struct _net_info {
-  int32_t device;                      //0x000:
-  int32_t etherMode;                   //0x004:
-  int32_t authProto;                   //0x008:
-  char wirelessPassPhrase[0x41];       //0x00C: wepKey[0x1A] wpaKey[0x40]
-  char ssid[0x20];                     //0x04D: ssid[0x20]
-  uint8_t pad0[3];
-  int32_t auth8021xType;               //0x070: int32_t auth8021xType
-  char auth8021xAuthName[0x80];        //0x074: auth8021xAuthName[0x80]
-  char auth8021xAuthKey[0x80];         //0x0F4: auth8021xAuthKey[0x80]
-  int32_t howToSetupIp;                //0x174:
-  char dhcpHostName[0xFF];             //0x178: dhcpHostName[0xFF]
-  char authName[0x80];                 //0x277: authName[0x80]
-  char authKey[0x80];                  //0x2F7: authKey[0x80]
-  char ipAddress[0x10];                //0x377: ipAddress[0x10]
-  char netmask[0x10];                  //0x387: netmask[0x10]
-  char defaultRoute[0x10];             //0x397: defaultRoute[0x10]
-  uint8_t pad1;
-  int32_t dnsFlag;                     //0x3A8:
-  char primaryDns[0x10];               //0x3AC:
-  char secondaryDns[0x10];             //0x3BC:
-  int32_t httpProxyFlag;               //0x3CC:
-  char httpProxyServer[0x100];         //0x3D0:
-  int16_t httpProxyPort;               //0x4D0:
-  int16_t pad2;
-  int32_t mtu;                         //0x4D4:
-  int32_t upnpFlag;                    //0x4D8:
-  int32_t aossFlag;                    //0x4DC:
-  char aossWep64Ssid[0x20];            //0x4E0:
-  char aossWep64Key[0x41];             //0x500:
-  char aossWep128Ssid[0x20];           //0x541:
-  char aossWep128Key[0x41];            //0x561:
-  char aossWpaPskTkipSsid[0x20];       //0x5A2:
-  char aossWpaPskTkipKey[0x41];        //0x5C2:
-  char aossWpaPskAesSsid[0x20];        //0x603:
-  char aossWpaPskAesKey[0x41];         //0x623:
+	int32_t device;                      //0x000:
+	int32_t etherMode;                   //0x004:
+	int32_t authProto;                   //0x008:
+	char wirelessPassPhrase[0x41];       //0x00C: wepKey[0x1A] wpaKey[0x40]
+	char ssid[0x20];                     //0x04D: ssid[0x20]
+	uint8_t pad0[3];
+	int32_t auth8021xType;               //0x070: int32_t auth8021xType
+	char auth8021xAuthName[0x80];        //0x074: auth8021xAuthName[0x80]
+	char auth8021xAuthKey[0x80];         //0x0F4: auth8021xAuthKey[0x80]
+	int32_t howToSetupIp;                //0x174:
+	char dhcpHostName[0xFF];             //0x178: dhcpHostName[0xFF]
+	char authName[0x80];                 //0x277: authName[0x80]
+	char authKey[0x80];                  //0x2F7: authKey[0x80]
+	char ipAddress[0x10];                //0x377: ipAddress[0x10]
+	char netmask[0x10];                  //0x387: netmask[0x10]
+	char defaultRoute[0x10];             //0x397: defaultRoute[0x10]
+	uint8_t pad1;
+	int32_t dnsFlag;                     //0x3A8:
+	char primaryDns[0x10];               //0x3AC:
+	char secondaryDns[0x10];             //0x3BC:
+	int32_t httpProxyFlag;               //0x3CC:
+	char httpProxyServer[0x100];         //0x3D0:
+	int16_t httpProxyPort;               //0x4D0:
+	int16_t pad2;
+	int32_t mtu;                         //0x4D4:
+	int32_t upnpFlag;                    //0x4D8:
+	int32_t aossFlag;                    //0x4DC:
+	char aossWep64Ssid[0x20];            //0x4E0:
+	char aossWep64Key[0x41];             //0x500:
+	char aossWep128Ssid[0x20];           //0x541:
+	char aossWep128Key[0x41];            //0x561:
+	char aossWpaPskTkipSsid[0x20];       //0x5A2:
+	char aossWpaPskTkipKey[0x41];        //0x5C2:
+	char aossWpaPskAesSsid[0x20];        //0x603:
+	char aossWpaPskAesKey[0x41];         //0x623:
 } net_info;
 
 
 
 typedef struct xsetting_F48C0548_class_t  // 38 net
 {
-	int32_t (*SetSettingNet_enable)(int32_t);
-	int32_t (*GetSettingNet_enable)(int32_t *);
-	int32_t (*SetSettingNet_device)(int32_t);
-	int32_t (*GetSettingNet_device)(int32_t *);
-	int32_t (*SetSettingNet_apAutoConfig)(int32_t);
-	int32_t (*GetSettingNet_apAutoConfig)(int32_t *);
-	int32_t (*SetSettingNet_eapMd5)(int32_t);
-	int32_t (*GetSettingNet_eapMd5)(int32_t *);
-	int32_t (*SetSettingNet_howToSetupIp)(int32_t);
-	int32_t (*GetSettingNet_howToSetupIp)(int32_t *);
-	int32_t (*SetSettingNet_ipAddress)(address *);
-	int32_t (*GetSettingNet_ipAddress)(address *);
-	int32_t (*SetSettingNet_netmask)(address *);
-	int32_t (*GetSettingNet_netmask)(address *);
-	int32_t (*SetSettingNet_defaultRoute)(address *);
-	int32_t (*GetSettingNet_defaultRoute)(address *);
-	int32_t (*SetSettingNet_dnsFlag)(int32_t);
-	int32_t (*GetSettingNet_dnsFlag)(int32_t *);
-	int32_t (*SetSettingNet_primaryDns)(address *);
-	int32_t (*GetSettingNet_primaryDns)(address *);
-	int32_t (*SetSettingNet_secondaryDns)(address *);
-	int32_t (*GetSettingNet_secondaryDns)(address *);
-	int32_t (*SetSettingNet_httpProxyFlag)(int32_t);
-	int32_t (*GetSettingNet_httpProxyFlag)(int32_t *);
+	int32_t(*SetSettingNet_enable)(int32_t);
+	int32_t(*GetSettingNet_enable)(int32_t*);
+	int32_t(*SetSettingNet_device)(int32_t);
+	int32_t(*GetSettingNet_device)(int32_t*);
+	int32_t(*SetSettingNet_apAutoConfig)(int32_t);
+	int32_t(*GetSettingNet_apAutoConfig)(int32_t*);
+	int32_t(*SetSettingNet_eapMd5)(int32_t);
+	int32_t(*GetSettingNet_eapMd5)(int32_t*);
+	int32_t(*SetSettingNet_howToSetupIp)(int32_t);
+	int32_t(*GetSettingNet_howToSetupIp)(int32_t*);
+	int32_t(*SetSettingNet_ipAddress)(address*);
+	int32_t(*GetSettingNet_ipAddress)(address*);
+	int32_t(*SetSettingNet_netmask)(address*);
+	int32_t(*GetSettingNet_netmask)(address*);
+	int32_t(*SetSettingNet_defaultRoute)(address*);
+	int32_t(*GetSettingNet_defaultRoute)(address*);
+	int32_t(*SetSettingNet_dnsFlag)(int32_t);
+	int32_t(*GetSettingNet_dnsFlag)(int32_t*);
+	int32_t(*SetSettingNet_primaryDns)(address*);
+	int32_t(*GetSettingNet_primaryDns)(address*);
+	int32_t(*SetSettingNet_secondaryDns)(address*);
+	int32_t(*GetSettingNet_secondaryDns)(address*);
+	int32_t(*SetSettingNet_httpProxyFlag)(int32_t);
+	int32_t(*GetSettingNet_httpProxyFlag)(int32_t*);
 
-	int32_t (*sub_44A104)(void *);     // set "/setting/net/httpProxyServer"    [0x100]
-	int32_t (*sub_449F0C)(void *);     // get "/setting/net/httpProxyServer"    [0x100]
+	int32_t(*sub_44A104)(void*);     // set "/setting/net/httpProxyServer"    [0x100]
+	int32_t(*sub_449F0C)(void*);     // get "/setting/net/httpProxyServer"    [0x100]
 
-	int32_t (*SetSettingNet_httpProxyPort)(int16_t);
-	int32_t (*GetSettingNet_httpProxyPort)(int16_t *);
-	int32_t (*SetSettingNet_upnpFlag)(int32_t);
-	int32_t (*GetSettingNet_upnpFlag)(int32_t *);
+	int32_t(*SetSettingNet_httpProxyPort)(int16_t);
+	int32_t(*GetSettingNet_httpProxyPort)(int16_t*);
+	int32_t(*SetSettingNet_upnpFlag)(int32_t);
+	int32_t(*GetSettingNet_upnpFlag)(int32_t*);
 
-	int32_t (*sub_44AE60)(net_info *);            // set network config, [0x664]
-	int32_t (*sub_44A47C)(net_info *);            // get network config, [0x664]
-	int32_t (*sub_44B2EC)(int32_t, net_info *);   // set network config, [0x664], arg1(device) 0 or 2
-	int32_t (*sub_44AA24)(int32_t, net_info *);   // get network config, [0x664], arg1(device) 0 or 2
+	int32_t(*sub_44AE60)(net_info*);            // set network config, [0x664]
+	int32_t(*sub_44A47C)(net_info*);            // get network config, [0x664]
+	int32_t(*sub_44B2EC)(int32_t, net_info*);   // set network config, [0x664], arg1(device) 0 or 2
+	int32_t(*sub_44AA24)(int32_t, net_info*);   // get network config, [0x664], arg1(device) 0 or 2
 
-	int32_t (*SetLeaseIPAndTime)(int32_t, lease_info *);       // arg1(device) 0 or 2
-	int32_t (*GetLeaseIPAndTime)(int32_t, lease_info *);       // arg1(device) 0 or 2
-	int32_t (*SetWirelessSsidAndPassPhrase)(wireless_info *);  // set wirelessSsid[0x20] and wirelessPassPhrase[0x41]
-	int32_t (*GetWirelessSsidAndPassPhrase)(wireless_info *);  // get wirelessSsid[0x20] and wirelessPassPhrase[0x41]
+	int32_t(*SetLeaseIPAndTime)(int32_t, lease_info*);       // arg1(device) 0 or 2
+	int32_t(*GetLeaseIPAndTime)(int32_t, lease_info*);       // arg1(device) 0 or 2
+	int32_t(*SetWirelessSsidAndPassPhrase)(wireless_info*);  // set wirelessSsid[0x20] and wirelessPassPhrase[0x41]
+	int32_t(*GetWirelessSsidAndPassPhrase)(wireless_info*);  // get wirelessSsid[0x20] and wirelessPassPhrase[0x41]
 } xsetting_F48C0548_class;
+
 
 typedef struct xsetting_FFAF9B19_class_t  // 12
 {
@@ -888,7 +889,6 @@ typedef struct xsetting_FFAF9B19_class_t  // 12
 	//int32_t (*sub_45DF58) ?
 	//int32_t (*sub_45DF04) ?
 } xsetting_FFAF9B19_class;
-
 
 // class pointers (vsh/lib/libxsetting_export_stub.a)
 xsetting_0AF1F161_class* xsetting_0AF1F161(void);

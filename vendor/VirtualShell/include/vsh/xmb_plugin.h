@@ -94,7 +94,7 @@ typedef struct
 	int (*DoUnk20)(int *, int *) ;               // out: int *, out: int *
 	int (*DoUnk21)(int, int) ;                   // int value (Plugin Enum ID), int value (0 = _vshnet_965A7E9D( ) ,else= _vshnet_52122E7D(("PS3 %s"), ))
 	int (*DoUnk22)(int) ;                        // executes given Plugin ID MOD0-Inferface Function 4)
-	int (*DoUnk23)(const char *,int) ;           // Executes Action
+	int (*ExecuteAction)(const char *,int) ;     // Executes Action
 	int (*DoUnk24)(const char *,int) ;           // Gets Plugin ID Enum based by Action string
 	int (*DoUnk25)(void) ;
 } xmb_plugin_xmm0;
@@ -140,6 +140,9 @@ typedef struct
 {
 	int (*DoUnk0)(void);
 	int (*DoUnk1)(void);
+	int (*DoUnk2)();
+	int (*DoUnk3)();
+	int (*DoUnk4)();
 } xmb_plugin_mod0;
 
 _VSH_END
