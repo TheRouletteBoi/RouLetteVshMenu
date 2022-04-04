@@ -25,16 +25,11 @@ SYS_MODULE_STOP(module_stop);
 * 
 * 
 * TODO:
-* Enhancement: Smoother closing animation
-* BUG: When there are 20 options and you scroll to the bottom then close the menu and open it again the highlight bar is out of bounds
-* BUG: We need a way to clear textures just like text because they are still visible after leaving the submenu with toggle's
-* BUG: Closing the menu destroy's FPS counter and or Any Helper Drawing
-* BUG: Menu stretches when in game XMB
-* MISSING PARTS: to load a enstone menu you need to load the RouLetteVshMenu in game using webman. the reason is because the ccapi vsh enables ccapi syscall 0x123 (Enable CCAPI). To solve this we need to enable it ourselfs 
+* BUG: when exiting a game after StartPayload will result in a crash due to fail to free memory from ps3mapi_process_page_allocate. To fix we need to implement a new syscall ps3mapi_process_page_free, But then there is the caveat when we don't know when the user wan't to exit the game.
+* MISSING PARTS: you can check if module is loaded into process by using the ps3mapi functions. use it to check if sprx is loaded into game for patching
 * Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
 * Enhancement: add LUA scripting support
 * Enhancement: add config to load your favorite menu
-* you can check if module is loaded into process by using the ps3mapi functions. use it to check if sprx is loaded into game for patching
 * 
 * 
 * 
