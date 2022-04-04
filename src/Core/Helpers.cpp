@@ -4,11 +4,8 @@ Helpers g_Helpers;
 
 Helpers::Helpers()
 {
-   m_IsHen = ps3mapi_get_is_hen();
+   m_IsHen = IsConsoleHen();
 }
-
-bool enableBinds{};
-int binds{};
 
 void Helpers::OnUpdate()
 {
@@ -22,8 +19,10 @@ void Helpers::OnUpdate()
 
    MonitorGameState();
 
-   if (enableBinds && ScreenshotsBinds())
-      TakeScreenshot();
+#ifdef DEBUG
+   if (g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_UP))
+       TakeScreenshot();
+#endif // DEBUG
 }
 
 void Helpers::MonitorGameState()
@@ -76,16 +75,4 @@ void Helpers::TakeScreenshot()
    }
    else
       vsh::ShowButtonNavigationMessage(L"Not supported in game");
-}
-
-bool Helpers::ScreenshotsBinds()
-{
-   switch (binds)
-   {
-   case 0: return g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_UP);
-   case 1: return g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_DOWN);
-   case 2: return g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_LEFT);
-   case 3: return g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_RIGHT);
-   default: return false;
-   }
 }

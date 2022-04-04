@@ -16,9 +16,7 @@ public:
    Helpers();
 
    void OnUpdate();
-
    void TakeScreenshot();
-   bool ScreenshotsBinds();
 
 private:
    void MonitorGameState();
@@ -30,7 +28,6 @@ public:
    vsh::paf::PhWidget* page_autooff_guide{};
 
    bool m_IsHen{};
-
    bool m_StateGameRunning{};
    bool m_StateGameJustLaunched{};
 
