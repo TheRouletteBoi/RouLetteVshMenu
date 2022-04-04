@@ -652,15 +652,17 @@ void Menu::DrawMenuSlider(const std::wstring& text, float progress)
          Render::Centered,
          vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
 
+#ifdef DEBUG
       // Value
       g_Render.Text(
-         text,
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth - 5,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         sizeText,
-         Render::Right,
-         Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+          text,
+          vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth - 5,
+              position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+          sizeText,
+          Render::Right,
+          Render::Centered,
+          vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+#endif // DEBUG
    }
 }
 
