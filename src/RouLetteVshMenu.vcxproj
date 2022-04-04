@@ -51,11 +51,13 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <TargetName>VshFpsCounter</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|PS3'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <TargetName>VshFpsCounter</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|PS3'">
     <ClCompile>

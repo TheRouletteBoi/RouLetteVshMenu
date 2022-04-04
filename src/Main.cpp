@@ -10,7 +10,7 @@
 #include "Core/Hooks.hpp"
 
 // Macros defining our module informations as well as our entry/exit point
-SYS_MODULE_INFO(RouLetteVshMenuFPS, 0, 1, 1);
+SYS_MODULE_INFO(VshFpsCounter, 0, 1, 1);
 SYS_MODULE_START(module_start);
 SYS_MODULE_STOP(module_stop);
 
@@ -29,7 +29,7 @@ int module_start(unsigned int args, void* argp)
 
       sys_ppu_thread_exit(0);
 
-   }, 0, 1059, 1500, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuFPSStart");
+   }, 0, 1059, 1500, SYS_PPU_THREAD_CREATE_JOINABLE, "VshFpsCounterStart");
 
    // Exit thread using directly the syscall and not the user mode library or else we will crash
    _sys_ppu_thread_exit(0);
@@ -59,7 +59,7 @@ int module_stop(unsigned int args, void* argp)
 
       sys_ppu_thread_exit(0);
    },
-   0, 2816, 1024, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteVshMenuFPSStop");
+   0, 2816, 1024, SYS_PPU_THREAD_CREATE_JOINABLE, "VshFpsCounterStop");
 
    if (ret == SUCCEEDED)
    {
