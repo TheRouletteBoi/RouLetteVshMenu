@@ -239,10 +239,9 @@ void Detour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverri
    // Get the size of the hook but don't hook anything yet
    size_t HookSize = GetHookSize(m_HookTarget, false, false);
 
-   // Check if address has been hooked and if so hook but 16 ahead so it can be hooked more that once
-   // **NOTE** There is a caveat where it only works with 2 hooks. So a work around would be to loop X amount of instructions.
-   HookInformation hookInfo{};
-   if (GetHookInfo(fnAddress, hookInfo))
+   // Check if address has been hooked and if so hook but 16 bytes ahead so it can be hooked more that once
+   // **NOTE** There is a caveat where it only works with 2 hooks. So a work around would be to loop X amount of instructions or check for a blr.
+   if (GetHookInfo(fnAddress, nullptr))
    {
        m_HookAddress = reinterpret_cast<void*>(fnAddress + HookSize);
    }
@@ -293,16 +292,23 @@ bool Detour::UnHook()
    return false;
 }
 
-bool Detour::GetHookInfo(uintptr_t addr, HookInformation& hookInfo)
+bool Detour::GetHookInfo(uintptr_t addr, HookInformation* hookInfo)
 {
-    WriteProcessMemory(sys_process_getpid(), hookInfo.hookBytes, (const void*)addr, sizeof(hookInfo.hookBytes));
+    uint32_t firstSecond[2];
+    WriteProcessMemory(sys_process_getpid(), firstSecond, (const void*)addr, sizeof(firstSecond));
 
     // check if the function is already hooked by us or someone else
-    if (((hookInfo.hookBytes[0] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_LIS)
-        && ((hookInfo.hookBytes[1] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_ORI))
+    if (((firstSecond[0] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_LIS)
+        && ((firstSecond[1] & POWERPC_OPCODE_MASK) == POWERPC_OPCODE_ORI))
     {
-        uint16_t lowFirstInstruction = static_cast<uint16_t>(hookInfo.hookBytes[0]); // first instruction
-        uint16_t lowSecondInstruction = static_cast<uint16_t>(hookInfo.hookBytes[1]); // second instruction
+        // fast check if function is hooked
+        if (hookInfo == nullptr)
+            return true;
+
+        WriteProcessMemory(sys_process_getpid(), hookInfo->hookBytes, (const void*)addr, sizeof(hookInfo->hookBytes));
+
+        uint16_t lowFirstInstruction = static_cast<uint16_t>(hookInfo->hookBytes[0]); // first instruction
+        uint16_t lowSecondInstruction = static_cast<uint16_t>(hookInfo->hookBytes[1]); // second instruction
 
         uint32_t hookAddr = (lowFirstInstruction << 16) | lowSecondInstruction;
 
@@ -312,7 +318,7 @@ bool Detour::GetHookInfo(uintptr_t addr, HookInformation& hookInfo)
 
         static sys_prx_module_info_t prxInfo = GetModuleInfo(prxId);
 
-        hookInfo.prxInfo = prxInfo;
+        hookInfo->prxInfo = prxInfo;
 
         return true;
     }
