@@ -269,7 +269,7 @@ void Detour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverri
    // Trampoline branches back to the original function after the branch we used to hook.
    void* AfterBranchAddress = reinterpret_cast<void*>((uint32_t)m_HookAddress + HookSize);
 
-   s_TrampolineSize += Jump(&s_TrampolineBuffer[s_TrampolineSize], AfterBranchAddress, false, false);
+   s_TrampolineSize += Jump(&s_TrampolineBuffer[s_TrampolineSize], AfterBranchAddress, false, true);
 
    // Finally write the branch to the function that we are hooking.
    Jump(m_HookAddress, m_HookTarget, false, false);
