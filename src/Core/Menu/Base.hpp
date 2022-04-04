@@ -22,7 +22,6 @@ public:
    bool IsOpened();
    bool IsMoving();
    void SetMovingState(bool state);
-
    void OnUpdate();
 
    void Title(const std::wstring& text);
@@ -81,8 +80,8 @@ private:
    void DrawHighlightBar();
    void DrawFooter();
    void DrawDescription();
-   void DrawControlsHelp();
-   void DrawMovingHelp(); // my english sucks
+   void DrawInstructions();
+   void DrawMovingHelp();
 
    void DrawMenuTitle(const std::wstring& text);
    void DrawMenuOption(const std::wstring& text);
@@ -99,24 +98,24 @@ private:
          if (IsLeftPressed())
          {
             if (var <= min)
-               var = max;
+               var = min;
             else
                var -= step;
          }
 
          if (var < min)
-            var = max;
+            var = min;
 
          if (IsRightPressed())
          {
             if (var >= max)
-               var = min;
+               var = max;
             else
                var += step;
          }
 
          if (var > max)
-            var = min;
+            var = max;
       }
    }
 

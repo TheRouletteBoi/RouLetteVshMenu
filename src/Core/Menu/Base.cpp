@@ -380,7 +380,7 @@ void Menu::WhileClosed()
 
 void Menu::UpdateUI()
 {
-   DrawControlsHelp();
+   DrawInstructions();
 
    if (m_OpacityGlobal > 0.0)
    {
@@ -514,7 +514,7 @@ void Menu::DrawDescription()
       vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
 }
 
-void Menu::DrawControlsHelp()
+void Menu::DrawInstructions()
 {
    if (m_StateOpened)
        return;
