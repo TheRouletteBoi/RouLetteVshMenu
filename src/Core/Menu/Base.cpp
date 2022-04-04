@@ -854,7 +854,11 @@ Menu& Menu::Strings(const std::vector<std::wstring>& items, int& index)
 
    if (IsHovered())
    {
-      DrawMenuStringOption(L"< " + items[index] + L" >");
+      std::wstring selectedItem = items[index];
+      std::wstring item = ((index > 0) ? L"\uF886" : L"");
+      item += L" " + selectedItem + L" " + ((index < max) ? L"\uF887" : L"");
+
+      DrawMenuStringOption(item); // L"< " + items[index] + L" >"
 
       m_SliderDelay = 200;
    }
