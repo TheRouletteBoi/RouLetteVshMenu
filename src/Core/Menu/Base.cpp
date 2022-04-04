@@ -656,7 +656,7 @@ void Menu::DrawMenuSlider(const std::wstring& text, float progress)
          vsh::vec4(colorFillerCursor.r, colorFillerCursor.g, colorFillerCursor.b, m_OpacityText),
          "tex_busy");
 
-#ifdef DEBUG
+#ifdef LAUNCHER_DEBUG
       // Value
       g_Render.Text(
           text,
@@ -666,7 +666,7 @@ void Menu::DrawMenuSlider(const std::wstring& text, float progress)
           Render::Right,
           Render::Centered,
           vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
-#endif // DEBUG
+#endif // LAUNCHER_DEBUG
    }
 }
 

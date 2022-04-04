@@ -19,10 +19,10 @@ void Helpers::OnUpdate()
 
    MonitorGameState();
 
-#ifdef DEBUG
+#ifdef LAUNCHER_DEBUG
    if (g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_UP))
        TakeScreenshot();
-#endif // DEBUG
+#endif // LAUNCHER_DEBUG
 }
 
 void Helpers::MonitorGameState()

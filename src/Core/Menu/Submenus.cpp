@@ -12,9 +12,9 @@ void MainSubmenu()
     g_Menu.Option(L"Modern Warfare 3 Menus \uF46E").Submenu(CodMw3Submenu);
     g_Menu.Option(L"COD Ghost Menus").Submenu(CodGhostSubmenu);
     g_Menu.Option(L"Advance Warfare Menus").Submenu(CodAwSubmenu);
-#ifdef DEBUG
+#ifdef LAUNCHER_DEBUG
     g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
-#endif // DEBUG
+#endif // LAUNCHER_DEBUG
 }
 
 void GtavSubmenu()
