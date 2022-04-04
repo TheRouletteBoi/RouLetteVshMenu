@@ -51,11 +51,11 @@ void RemoveCCAPIHooks()
     if (ccapiDetourPaf_85D1D23B && ccapiDetourSysio_3733EA3C)
     {
         // Checks if the exports haven't been detoured by CCAPI to avoid crashing
-        if (vsh_read_mem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14) != 0xF80100D0)
-            vsh_write_mem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14, 0xF80100D0);
+        if (VshGetMem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14) != 0xF80100D0)
+            VshSetMem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14, 0xF80100D0);
 
-        if (vsh_read_mem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C) != 0xF8010080) // || 0x4E800420 
-            vsh_write_mem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C, 0xF8010080);
+        if (VshGetMem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C) != 0xF8010080) // || 0x4E800420 
+            VshSetMem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C, 0xF8010080);
     }
 }
 

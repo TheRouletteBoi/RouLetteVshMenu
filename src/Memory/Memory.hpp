@@ -46,7 +46,7 @@ int WriteProcessMemory(uint32_t pid, void* address, const void* data, size_t siz
 int ReadProcessMemory(uint32_t pid, void* address, void* data, size_t size);
 
 template<typename T>
-inline T vsh_read_mem(uint32_t address)
+inline T VshGetMem(uint32_t address)
 {
    T data;
    ReadProcessMemory(sys_process_getpid(), (void*)address, &data, sizeof(T));
@@ -54,7 +54,7 @@ inline T vsh_read_mem(uint32_t address)
 }
 
 template<typename T>
-inline void vsh_write_mem(uint32_t address, T data)
+inline void VshSetMem(uint32_t address, T data)
 {
    WriteProcessMemory(sys_process_getpid(), (void*)address, &data, sizeof(T));
 }
