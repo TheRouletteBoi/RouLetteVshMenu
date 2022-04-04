@@ -614,8 +614,9 @@ void Menu::DrawMenuToggle(bool var)
          vsh::vec2(sizeText * 0.7, sizeText * 0.7),
          Render::Right,
          Render::Centered,
-         var ? vsh::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityText)
-         : vsh::vec4(0.15, 0.15, 0.15, m_OpacityText));
+         var ? vsh::vec4(colorToggleOn.r, colorToggleOn.g, colorToggleOn.b, m_OpacityText)
+         : vsh::vec4(colorToggleOff.r, colorToggleOff.g, colorToggleOff.b, m_OpacityText), 
+          "tex_busy");
    }
 }
 
@@ -629,28 +630,31 @@ void Menu::DrawMenuSlider(const std::wstring& text, float progress)
       g_Render.Rectangle(
          vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
             position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2(sliderWidth, 2),
+         vsh::vec2(sliderWidth, 6),
          Render::Left,
          Render::Centered,
-         vsh::vec4(0.15, 0.15, 0.15, m_OpacityText));
+         vsh::vec4(0.15, 0.15, 0.15, m_OpacityText), 
+         "tex_operation_guide_base");
 
       // Filled bar
       g_Render.Rectangle(
          vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
             position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2((sliderWidth * progress), 2),
+         vsh::vec2((sliderWidth * progress), 6),
          Render::Left,
          Render::Centered,
-         vsh::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityText));
+         vsh::vec4(colorFillerBar.r, colorFillerBar.g, colorFillerBar.b, m_OpacityText),
+         "tex_operation_guide_base");
 
       // Cursor
       g_Render.Rectangle(
          vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth + (sliderWidth * progress),
             position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2(2, 8),
+         vsh::vec2(sizeText * 0.7, sizeText * 0.7),
          Render::Centered,
          Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+         vsh::vec4(colorFillerCursor.r, colorFillerCursor.g, colorFillerCursor.b, m_OpacityText),
+         "tex_busy");
 
 #ifdef DEBUG
       // Value

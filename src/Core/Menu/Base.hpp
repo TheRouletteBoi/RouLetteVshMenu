@@ -128,9 +128,13 @@ public:
    float sizeText = 20;
    float sizeTextHeader = 30;
    float sizeTextDescription = 18;
-   vsh::vec4 colorMenu{ 0.95, 0.00, 0.25, 0.80 };
+   vsh::vec4 colorMenu{ 1.0, 0.0, 0.0, 0.80 };
    vsh::vec4 colorBackground{ 0, 0, 0, 0.65 };
    vsh::vec4 colorText{ 1, 1, 1, 1 };
+   vsh::vec4 colorFillerBar{ 0.0, 1.0, 1.0, 0.9 };
+   vsh::vec4 colorFillerCursor{ 0.423, 0.443, 0.415, 0.9 };
+   vsh::vec4 colorToggleOn{ 0.0, 1.0, 0.0, 1.0 };
+   vsh::vec4 colorToggleOff{ 1.0, 0.0, 0.0, 1.0 };
 
 private:
    bool m_StateInitialized{};
