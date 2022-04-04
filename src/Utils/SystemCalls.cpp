@@ -385,7 +385,7 @@ bool is_nor()
 
 int lv2_get_platform_info(platform_info_t* info)
 {
-    system_call_1(387, (uint32_t)info);
+    system_call_1(387, (uint64_t)info);
     return_to_user_prog(int);
 }
 
