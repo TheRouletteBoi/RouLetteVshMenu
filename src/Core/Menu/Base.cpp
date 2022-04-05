@@ -774,13 +774,13 @@ Menu& Menu::Action(Function fn)
    return *this;
 }
 
-Menu& Menu::ActionHeavyweight(boost::function<void()> fn)
+/*Menu& Menu::ActionHeavyweight(boost::function<void()> fn)
 {
    if (IsHovered() && IsPressed())
       fn();
 
    return *this;
-}
+}*/
 
 Menu& Menu::RightText(const std::wstring& text)
 {
