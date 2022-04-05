@@ -10,6 +10,8 @@
 #include "Core/Input.hpp"
 #include "Core/Rendering.hpp"
 #include "Core/Helpers.hpp"
+#include <boost/unordered_map.hpp>
+#include <boost/function.hpp>
 
 using Function = void(*)();
 
@@ -31,7 +33,7 @@ public:
    Menu& Toggle(bool& var);
    Menu& Toggle(bool& var, Function onEnable, Function onDisable);
    Menu& Action(Function fn);
-   //Menu& ActionHeavyweight(boost::function<void()> fn);
+   Menu& ActionHeavyweight(boost::function<void()> fn);
    Menu& RightText(const std::wstring& text);
    Menu& Description(const std::wstring& text);
    Menu& WhileHovered(Function fn);
