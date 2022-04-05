@@ -1,0 +1,440 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Class template vector</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_interprocess_reference.html#header.boost.interprocess.containers.vector.hpp" title="Header &lt;boost/interprocess/containers/vector.hpp&gt;">
+<link rel="prev" href="basic_string.html" title="Class template basic_string">
+<link rel="next" href="create_only_t.html" title="Struct create_only_t">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="basic_string.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.containers.vector.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="create_only_t.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.interprocess.vector"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template vector</span></h2>
+<p>boost::interprocess::vector</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> T, <span class="bold"><strong>typename</strong></span> A&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="vector.html" title="Class template vector">vector</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// <a class="link" href="vector.html#boost.interprocess.vectortypes">types</a></em></span>
+  <span class="bold"><strong>typedef</strong></span> T <a class="link" href="vector.html#boost.interprocess.vector.value_type">value_type</a>;
+  <span class="bold"><strong>typedef</strong></span> A::pointer                              <a name="boost.interprocess.vector.pointer"></a>pointer;                 <span class="emphasis"><em>// Pointer to T. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A::const_pointer                        <a name="boost.interprocess.vector.const_pointer"></a>const_pointer;           <span class="emphasis"><em>// Const pointer to T. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A::reference                            <a name="boost.interprocess.vector.reference"></a>reference;               <span class="emphasis"><em>// Reference to T. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A::const_reference                      <a name="boost.interprocess.vector.const_reference"></a>const_reference;         <span class="emphasis"><em>// Const reference to T. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A::size_type                            <a name="boost.interprocess.vector.size_type"></a>size_type;               <span class="emphasis"><em>// An unsigned integral type. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A::difference_type                      <a name="boost.interprocess.vector.difference_type"></a>difference_type;         <span class="emphasis"><em>// A signed integral type. </em></span>
+  <span class="bold"><strong>typedef</strong></span> A                                       <a name="boost.interprocess.vector.allocator_type"></a>allocator_type;          <span class="emphasis"><em>// The allocator type. </em></span>
+  <span class="bold"><strong>typedef</strong></span> <span class="emphasis"><em>unspecified</em></span>                             <a name="boost.interprocess.vector.iterator"></a>iterator;                <span class="emphasis"><em>// The random access iterator. </em></span>
+  <span class="bold"><strong>typedef</strong></span> <span class="emphasis"><em>unspecified</em></span>                             <a name="boost.interprocess.vector.const_iterator"></a>const_iterator;          <span class="emphasis"><em>// The random access const_iterator. </em></span>
+  <span class="bold"><strong>typedef</strong></span> std::reverse_iterator&lt; iterator &gt;       <a name="boost.interprocess.vector.reverse_iterator"></a>reverse_iterator;        <span class="emphasis"><em>// Iterator used to iterate backwards through a vector. </em></span>
+  <span class="bold"><strong>typedef</strong></span> std::reverse_iterator&lt; const_iterator &gt; <a name="boost.interprocess.vector.const_reverse_iterator"></a>const_reverse_iterator;  <span class="emphasis"><em>// Const iterator used to iterate backwards through a vector. </em></span>
+  <span class="bold"><strong>typedef</strong></span> allocator_type                          <a name="boost.interprocess.vector.stored_allocator_type"></a>stored_allocator_type;   <span class="emphasis"><em>// The stored allocator type. </em></span>
+
+  <span class="emphasis"><em>// <a class="link" href="vector.html#boost.interprocess.vectorconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="vector.html#id2895474-bb">vector</a>(<span class="bold"><strong>const</strong></span> A &amp; = A());
+  <a class="link" href="vector.html#id2895508-bb">vector</a>(size_type, <span class="bold"><strong>const</strong></span> T &amp; = T(), 
+         <span class="bold"><strong>const</strong></span> allocator_type &amp; = allocator_type());
+  <a class="link" href="vector.html#id2895556-bb">vector</a>(<span class="bold"><strong>const</strong></span> <a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp;);
+  <a class="link" href="vector.html#id2895590-bb">vector</a>(<span class="emphasis"><em>unspecified</em></span>);
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; 
+    <a class="link" href="vector.html#id2895622-bb">vector</a>(InIt, InIt, <span class="bold"><strong>const</strong></span> allocator_type &amp; = allocator_type());
+  vector&amp; <a class="link" href="vector.html#id2895702-bb"><span class="bold"><strong>operator</strong></span>=</a>(<span class="bold"><strong>const</strong></span> <a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp;);
+  vector&amp; <a class="link" href="vector.html#id2895745-bb"><span class="bold"><strong>operator</strong></span>=</a>(<span class="emphasis"><em>unspecified</em></span>);
+  <a class="link" href="vector.html#id2895677-bb">~vector</a>();
+
+  <span class="emphasis"><em>// <a class="link" href="vector.html#id2893969-bb">public member functions</a></em></span>
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2893972-bb">begin</a>() ;
+  <span class="type">const_iterator</span> <a class="link" href="vector.html#id2894004-bb">begin</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2894035-bb">end</a>() ;
+  <span class="type">const_iterator</span> <a class="link" href="vector.html#id2894066-bb">end</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">reverse_iterator</span> <a class="link" href="vector.html#id2894098-bb">rbegin</a>() ;
+  <span class="type">const_reverse_iterator</span> <a class="link" href="vector.html#id2894129-bb">rbegin</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">reverse_iterator</span> <a class="link" href="vector.html#id2894161-bb">rend</a>() ;
+  <span class="type">const_reverse_iterator</span> <a class="link" href="vector.html#id2894193-bb">rend</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">reference</span> <a class="link" href="vector.html#id2894225-bb">front</a>() ;
+  <span class="type">const_reference</span> <a class="link" href="vector.html#id2894264-bb">front</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">reference</span> <a class="link" href="vector.html#id2894302-bb">back</a>() ;
+  <span class="type">const_reference</span> <a class="link" href="vector.html#id2894341-bb">back</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">size_type</span> <a class="link" href="vector.html#id2894380-bb">size</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">size_type</span> <a class="link" href="vector.html#id2894411-bb">max_size</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">size_type</span> <a class="link" href="vector.html#id2894442-bb">capacity</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>bool</strong></span></span> <a class="link" href="vector.html#id2894475-bb">empty</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">reference</span> <a class="link" href="vector.html#id2894506-bb"><span class="bold"><strong>operator</strong></span>[]</a>(size_type) ;
+  <span class="type">const_reference</span> <a class="link" href="vector.html#id2894550-bb"><span class="bold"><strong>operator</strong></span>[]</a>(size_type) <span class="bold"><strong>const</strong></span>;
+  <span class="type">reference</span> <a class="link" href="vector.html#id2894595-bb">at</a>(size_type) ;
+  <span class="type">const_reference</span> <a class="link" href="vector.html#id2894640-bb">at</a>(size_type) <span class="bold"><strong>const</strong></span>;
+  <span class="type">allocator_type</span> <a class="link" href="vector.html#id2894685-bb">get_allocator</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>const</strong></span> stored_allocator_type &amp;</span> <a class="link" href="vector.html#id2894717-bb">get_stored_allocator</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">stored_allocator_type &amp;</span> <a class="link" href="vector.html#id2894725-bb">get_stored_allocator</a>() ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894734-bb">reserve</a>(size_type) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894768-bb">assign</a>(size_type, <span class="bold"><strong>const</strong></span> value_type &amp;) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894812-bb">assign</a>(InIt, InIt) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894863-bb">push_back</a>(<span class="bold"><strong>const</strong></span> T &amp;) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894900-bb">push_back</a>(<span class="emphasis"><em>unspecified</em></span>) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894940-bb">swap</a>(<a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp;) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2894980-bb">swap</a>(<span class="emphasis"><em>unspecified</em></span>) ;
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2895019-bb">insert</a>(iterator, <span class="bold"><strong>const</strong></span> T &amp;) ;
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2895071-bb">insert</a>(iterator, <span class="emphasis"><em>unspecified</em></span>) ;
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895124-bb">insert</a>(iterator, InIt, InIt) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895189-bb">insert</a>(iterator, size_type, <span class="bold"><strong>const</strong></span> T &amp;) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895246-bb">pop_back</a>() ;
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2895277-bb">erase</a>(const_iterator) ;
+  <span class="type">iterator</span> <a class="link" href="vector.html#id2895315-bb">erase</a>(const_iterator, const_iterator) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895358-bb">resize</a>(size_type, <span class="bold"><strong>const</strong></span> T &amp;) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895404-bb">resize</a>(size_type) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="vector.html#id2895443-bb">clear</a>() ;
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id3110450"></a><h2>Description</h2>
+<p>A vector is a sequence that supports random access to elements, constant time insertion and removal of elements at the end, and linear time insertion and removal of elements at the beginning or in the middle. The number of elements in a vector may vary dynamically; memory management is automatic. boost::interprocess::vector is similar to std::vector but it's compatible with shared memory and memory mapped files. </p>
+<div class="refsect2" lang="en">
+<a name="id3110463"></a><h3>
+<a name="boost.interprocess.vectortypes"></a><code class="computeroutput">vector</code> 
+        public
+       types</h3>
+<div class="orderedlist"><ol type="1"><li>
+<p>
+<span class="bold"><strong>typedef</strong></span> T <a name="boost.interprocess.vector.value_type"></a>value_type;</p>
+<p>The type of object, T, stored in the vector </p>
+</li></ol></div>
+</div>
+<div class="refsect2" lang="en">
+<a name="id3110502"></a><h3>
+<a name="boost.interprocess.vectorconstruct-copy-destruct"></a><code class="computeroutput">vector</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol type="1">
+<li>
+<pre class="literallayout"><a name="id2895474-bb"></a>vector(<span class="bold"><strong>const</strong></span> A &amp; a = A());</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Constructs a vector taking the allocator as parameter.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator_type's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2895508-bb"></a>vector(size_type n, <span class="bold"><strong>const</strong></span> T &amp; value = T(), 
+       <span class="bold"><strong>const</strong></span> allocator_type &amp; a = allocator_type());</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Constructs a vector that will use a copy of allocator a and inserts n copies of value.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator_type's default constructor or copy constructor throws or T's default or copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to n. </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2895556-bb"></a>vector(<span class="bold"><strong>const</strong></span> <a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp; x);</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Copy constructs a vector.</p>
+<p><span class="bold"><strong>Postcondition</strong></span>: x == *this.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the elements x contains. </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2895590-bb"></a>vector(<span class="emphasis"><em>unspecified</em></span> mx);</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Move constructor. Moves mx's resources to *this.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator_type's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; 
+  <a name="id2895622-bb"></a>vector(InIt first, InIt last, <span class="bold"><strong>const</strong></span> allocator_type &amp; a = allocator_type());</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Constructs a vector that will use a copy of allocator a and inserts a copy of the range [first, last) in the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator_type's default constructor or copy constructor throws or T's constructor taking an dereferenced InIt throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the range [first, last). </p>
+</li>
+<li>
+<pre class="literallayout">vector&amp; <a name="id2895702-bb"></a><span class="bold"><strong>operator</strong></span>=(<span class="bold"><strong>const</strong></span> <a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp; x);</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Makes *this contain the same elements as x.</p>
+<p><span class="bold"><strong>Postcondition</strong></span>: this-&gt;size() == x.size(). *this contains a copy of each of x's elements.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements in x. </p>
+</li>
+<li>
+<pre class="literallayout">vector&amp; <a name="id2895745-bb"></a><span class="bold"><strong>operator</strong></span>=(<span class="emphasis"><em>unspecified</em></span> mx);</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Move assignment. All mx's values are transferred to *this.</p>
+<p><span class="bold"><strong>Postcondition</strong></span>: x.empty(). *this contains a the elements x had before the function.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator_type's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2895677-bb"></a>~vector();</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Destroys the vector. All stored values are destroyed and used memory is deallocated.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements. </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" lang="en">
+<a name="id3110927"></a><h3>
+<a name="id2893969-bb"></a><code class="computeroutput">vector</code> public member functions</h3>
+<div class="orderedlist"><ol type="1">
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2893972-bb"></a>begin() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element contained in the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_iterator</span> <a name="id2894004-bb"></a>begin() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator to the first element contained in the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2894035-bb"></a>end() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the end of the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_iterator</span> <a name="id2894066-bb"></a>end() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator to the end of the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reverse_iterator</span> <a name="id2894098-bb"></a>rbegin() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reverse_iterator pointing to the beginning of the reversed vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reverse_iterator</span> <a name="id2894129-bb"></a>rbegin() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the beginning of the reversed vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reverse_iterator</span> <a name="id2894161-bb"></a>rend() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reverse_iterator pointing to the end of the reversed vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reverse_iterator</span> <a name="id2894193-bb"></a>rend() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the end of the reversed vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reference</span> <a name="id2894225-bb"></a>front() ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: !empty()</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the first element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reference</span> <a name="id2894264-bb"></a>front() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: !empty()</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the first element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reference</span> <a name="id2894302-bb"></a>back() ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: !empty()</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the first element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reference</span> <a name="id2894341-bb"></a>back() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: !empty()</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the first element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">size_type</span> <a name="id2894380-bb"></a>size() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns the number of the elements contained in the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">size_type</span> <a name="id2894411-bb"></a>max_size() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns the largest possible size of the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">size_type</span> <a name="id2894442-bb"></a>capacity() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Number of elements for which memory has been allocated. capacity() is always greater than or equal to size().</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>bool</strong></span></span> <a name="id2894475-bb"></a>empty() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns true if the vector contains no elements.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reference</span> <a name="id2894506-bb"></a><span class="bold"><strong>operator</strong></span>[](size_type n) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: size() &lt; n.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the nth element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reference</span> <a name="id2894550-bb"></a><span class="bold"><strong>operator</strong></span>[](size_type n) <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: size() &lt; n.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the nth element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">reference</span> <a name="id2894595-bb"></a>at(size_type n) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: size() &lt; n.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the nth element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: std::range_error if n &gt;= size()</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">const_reference</span> <a name="id2894640-bb"></a>at(size_type n) <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: size() &lt; n.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the nth element from the beginning of the container.</p>
+<p><span class="bold"><strong>Throws</strong></span>: std::range_error if n &gt;= size()</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">allocator_type</span> <a name="id2894685-bb"></a>get_allocator() <span class="bold"><strong>const</strong></span>;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Returns a copy of the internal allocator.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If allocator's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>const</strong></span> stored_allocator_type &amp;</span> <a name="id2894717-bb"></a>get_stored_allocator() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">stored_allocator_type &amp;</span> <a name="id2894725-bb"></a>get_stored_allocator() ;</pre></li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894734-bb"></a>reserve(size_type new_cap) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: If n is less than or equal to capacity(), this call has no effect. Otherwise, it is a request for allocation of additional memory. If the request is successful, then capacity() is greater than or equal to n; otherwise, capacity() is unchanged. In either case, size() is unchanged.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation allocation throws or T's copy constructor throws. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894768-bb"></a>assign(size_type n, <span class="bold"><strong>const</strong></span> value_type &amp; val) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Assigns the n copies of val to *this.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to n. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894812-bb"></a>assign(InIt first, InIt last) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Assigns the the range [first, last) to *this.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or T's constructor from dereferencing InpIt throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to n. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894863-bb"></a>push_back(<span class="bold"><strong>const</strong></span> T &amp; x) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Inserts a copy of x at the end of the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Amortized constant time. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894900-bb"></a>push_back(<span class="emphasis"><em>unspecified</em></span> mx) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Constructs a new element in the end of the vector and moves the resources of mx to this new element.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Amortized constant time. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894940-bb"></a>swap(<a class="link" href="vector.html" title="Class template vector">vector</a>&lt; T, A &gt; &amp; x) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Swaps the contents of *this and x. If this-&gt;allocator_type() != x.allocator_type() allocators are also swapped.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2894980-bb"></a>swap(<span class="emphasis"><em>unspecified</em></span> mx) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Swaps the contents of *this and x. If this-&gt;allocator_type() != x.allocator_type() allocators are also swapped.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2895019-bb"></a>insert(iterator position, <span class="bold"><strong>const</strong></span> T &amp; x) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: position must be a valid iterator of *this.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Insert a copy of x before position.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or x's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: If position is begin() or end(), amortized constant time Linear time otherwise. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2895071-bb"></a>insert(iterator position, <span class="emphasis"><em>unspecified</em></span> mx) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: position must be a valid iterator of *this.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Insert a new element before position with mx's resources.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: If position is begin() or end(), amortized constant time Linear time otherwise. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> InIt&gt; <span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895124-bb"></a>insert(iterator pos, InIt first, InIt last) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: pos must be a valid iterator of *this.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Insert a copy of the [first, last) range before pos.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws, T's constructor from a dereferenced InpIt throws or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to std::distance [first, last). </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895189-bb"></a>insert(iterator p, size_type n, <span class="bold"><strong>const</strong></span> T &amp; x) ;</pre>
+<p><span class="bold"><strong>Requires</strong></span>: pos must be a valid iterator of *this.</p>
+<p><span class="bold"><strong>Effects</strong></span>: Insert n copies of x before pos.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to n. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895246-bb"></a>pop_back() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Removes the last element from the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Constant time. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2895277-bb"></a>erase(const_iterator position) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Erases the element at position pos.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the elements between pos and the last element. Constant if pos is the first or the last element. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">iterator</span> <a name="id2895315-bb"></a>erase(const_iterator first, const_iterator last) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Erases the elements pointed by [first, last).</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the distance between first and last. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895358-bb"></a>resize(size_type new_size, <span class="bold"><strong>const</strong></span> T &amp; x) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Inserts or erases elements at the end such that the size becomes n. New elements are copy constructed from x.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws, or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the difference between size() and new_size. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895404-bb"></a>resize(size_type new_size) ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Inserts or erases elements at the end such that the size becomes n. New elements are default constructed.</p>
+<p><span class="bold"><strong>Throws</strong></span>: If memory allocation throws, or T's copy constructor throws.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the difference between size() and new_size. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2895443-bb"></a>clear() ;</pre>
+<p><span class="bold"><strong>Effects</strong></span>: Erases all the elements of the vector.</p>
+<p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
+<p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements in the vector. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2005 - 2007 Ion Gaztañaga<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="basic_string.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.containers.vector.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="create_only_t.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Struct insert</title>
+<link rel="stylesheet" href="../../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../../xpressive/reference.html#header.boost.xpressive.regex_actions.hpp" title="Header &lt;boost/xpressive/regex_actions.hpp&gt;">
+<link rel="prev" href="str/result_This_Sub__id3297336.html" title="Struct template result&lt;This(Sub)&gt;">
+<link rel="next" href="insert/result.html" title="Struct template result">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../../boost.png"></td>
+<td align="center"><a href="../../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="str/result_This_Sub__id3297336.html"><img src="../../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../xpressive/reference.html#header.boost.xpressive.regex_actions.hpp"><img src="../../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="insert/result.html"><img src="../../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.xpressive.op.insert"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Struct insert</span></h2>
+<p>boost::xpressive::op::insert</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis">
+<span class="bold"><strong>struct</strong></span> <a class="link" href="insert.html" title="Struct insert">insert</a> {
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> Sig, <span class="bold"><strong>typename</strong></span> EnableIf = <span class="bold"><strong>void</strong></span>&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result.html" title="Struct template result">result</a> {
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> It&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__It__It__void__id3297400.html" title="Struct template result&lt;This(Cont, It, It), void&gt;">result</a>&lt;This(Cont, It, It), <span class="bold"><strong>void</strong></span>&gt; {
+    <span class="emphasis"><em>// types</em></span>
+    <span class="bold"><strong>typedef</strong></span> <span class="bold"><strong>void</strong></span> <a class="link" href="insert/result_This_Cont__It__It__void__id3297400.html#boost.xpressive.op.insert.result&lt;This(Cont,_It,_It),_void&gt;.type_id3297430">type</a>;
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> It, <span class="bold"><strong>typename</strong></span> Size, 
+           <span class="bold"><strong>typename</strong></span> Value&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__It__Size__Value__typename_disable_if__is_integral__UNCVREF_It___type__id3297436.html" title="Struct template result&lt;This(Cont, It, Size, Value), typename disable_if&lt; is_integral&lt; UNCVREF(It)&gt; &gt;::type&gt;">result</a>&lt;This(Cont, It, Size, Value), <span class="bold"><strong>typename</strong></span> disable_if&lt; is_integral&lt; UNCVREF(It)&gt; &gt;::type&gt; {
+    <span class="emphasis"><em>// types</em></span>
+    <span class="bold"><strong>typedef</strong></span> <span class="bold"><strong>void</strong></span> <a class="link" href="insert/result_This_Cont__It__Size__Value__typename_disable_if__is_integral__UNCVREF_It___type__id3297436.html#boost.xpressive.op.insert.result&lt;This(Cont,_It,_Size,_Value),_typename_disable_if&lt;_is_integral&lt;_UNCVREF(It)&gt;_&gt;::type&gt;.type_id3297479">type</a>;
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> It, <span class="bold"><strong>typename</strong></span> Value&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__It__Value__typename_disable_if__mpl_or___is_integral__UNCVREF_It__is_same__UNCVREF_It__UNCVREF_Value_____type__id3297485.html" title="Struct template result&lt;This(Cont, It, Value), typename disable_if&lt; mpl::or_&lt; is_integral&lt; UNCVREF(It)&gt;, is_same&lt; UNCVREF(It), UNCVREF(Value)&gt; &gt; &gt;::type&gt;">result</a>&lt;This(Cont, It, Value), <span class="bold"><strong>typename</strong></span> disable_if&lt; mpl::or_&lt; is_integral&lt; UNCVREF(It)&gt;, is_same&lt; UNCVREF(It), UNCVREF(Value)&gt; &gt; &gt;::type&gt; {
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> Size, <span class="bold"><strong>typename</strong></span> A0, 
+           <span class="bold"><strong>typename</strong></span> A1&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__Size__A0__A1__typename_enable_if__is_integral__UNCVREF_Size___type__id3297526.html" title="Struct template result&lt;This(Cont, Size, A0, A1), typename enable_if&lt; is_integral&lt; UNCVREF(Size)&gt; &gt;::type&gt;">result</a>&lt;This(Cont, Size, A0, A1), <span class="bold"><strong>typename</strong></span> enable_if&lt; is_integral&lt; UNCVREF(Size)&gt; &gt;::type&gt; {
+
+    <span class="emphasis"><em>// <a class="link" href="insert/result_This_Cont__Size__A0__A1__typename_enable_if__is_integral__UNCVREF_Size___type__id3297526.html#id3297569-bb">public member functions</a></em></span>
+    <span class="type"><span class="bold"><strong>typedef</strong></span></span> <a class="link" href="insert/result_This_Cont__Size__A0__A1__typename_enable_if__is_integral__UNCVREF_Size___type__id3297526.html#id3297572-bb">UNREF</a>(Cont) ;
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> Size, <span class="bold"><strong>typename</strong></span> T&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__Size__T__typename_enable_if__is_integral__UNCVREF_Size___type__id3297586.html" title="Struct template result&lt;This(Cont, Size, T), typename enable_if&lt; is_integral&lt; UNCVREF(Size)&gt; &gt;::type&gt;">result</a>&lt;This(Cont, Size, T), <span class="bold"><strong>typename</strong></span> enable_if&lt; is_integral&lt; UNCVREF(Size)&gt; &gt;::type&gt; {
+
+    <span class="emphasis"><em>// <a class="link" href="insert/result_This_Cont__Size__T__typename_enable_if__is_integral__UNCVREF_Size___type__id3297586.html#id3297622-bb">public member functions</a></em></span>
+    <span class="type"><span class="bold"><strong>typedef</strong></span></span> <a class="link" href="insert/result_This_Cont__Size__T__typename_enable_if__is_integral__UNCVREF_Size___type__id3297586.html#id3297626-bb">UNREF</a>(Cont) ;
+  };
+  <span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> This, <span class="bold"><strong>typename</strong></span> Cont, <span class="bold"><strong>typename</strong></span> Value&gt; 
+  <span class="bold"><strong>struct</strong></span> <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html" title="Struct template result&lt;This(Cont, Value), void&gt;">result</a>&lt;This(Cont, Value), <span class="bold"><strong>void</strong></span>&gt; {
+    <span class="emphasis"><em>// types</em></span>
+    <span class="bold"><strong>typedef</strong></span> <span class="bold"><strong>char</strong></span>                                                                                                          <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#boost.xpressive.op.insert.result&lt;This(Cont,_Value),_void&gt;.yes_type_id3297684">yes_type</a>;
+    <span class="bold"><strong>typedef</strong></span> <span class="bold"><strong>char</strong></span>(&amp;                                                                                                        <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#boost.xpressive.op.insert.result&lt;This(Cont,_Value),_void&gt;.no_type_id3297689">no_type</a>; 
+    <span class="bold"><strong>typedef</strong></span> mpl::if_c&lt; is_iterator, <span class="bold"><strong>typename</strong></span> cont_type::iterator, std::pair&lt; <span class="bold"><strong>typename</strong></span> cont_type::iterator, <span class="bold"><strong>bool</strong></span> &gt; &gt;::type <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#boost.xpressive.op.insert.result&lt;This(Cont,_Value),_void&gt;.type_id3297695">type</a>;    
+
+    <span class="emphasis"><em>// <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297706-bb">public member functions</a></em></span>
+    <span class="type"><span class="bold"><strong>typedef</strong></span></span> <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297710-bb">UNREF</a>(Cont) ;
+    <span class="type"><span class="bold"><strong>typedef</strong></span></span> <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297723-bb">UNREF</a>(Value) ;
+    <span class="type"></span> <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297737-bb">BOOST_STATIC_CONSTANT</a>(<span class="bold"><strong>bool</strong></span>, 
+                           is_iterator = (sizeof(yes_type)==sizeof(check_insert_return(scont_.insert(svalue_))))) ;
+
+    <span class="emphasis"><em>// <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297759-bb">public static functions</a></em></span>
+    <span class="type"><span class="bold"><strong>static</strong></span> yes_type</span> <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297762-bb">check_insert_return</a>(<span class="bold"><strong>typename</strong></span> cont_type::iterator) ;
+    <span class="type"><span class="bold"><strong>static</strong></span> no_type</span> 
+    <a class="link" href="insert/result_This_Cont__Value__void__id3297639.html#id3297777-bb">check_insert_return</a>(std::pair&lt; <span class="bold"><strong>typename</strong></span> cont_type::iterator, <span class="bold"><strong>bool</strong></span> &gt;) ;
+    <span class="bold"><strong>static</strong></span> <span class="type">cont_type &amp;</span> scont_;
+    <span class="bold"><strong>static</strong></span> <span class="type">value_type &amp;</span> svalue_;
+  };
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id3839239"></a><h2>Description</h2>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2007 Eric Niebler<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="str/result_This_Sub__id3297336.html"><img src="../../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../xpressive/reference.html#header.boost.xpressive.regex_actions.hpp"><img src="../../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="insert/result.html"><img src="../../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

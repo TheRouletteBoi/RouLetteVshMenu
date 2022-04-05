@@ -1,0 +1,297 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>TR By Subject: Unsupported Features</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../boost_tr1.html" title="Chapter 19. Boost.TR1">
+<link rel="prev" href="subject_list.html" title="TR1 By Subject">
+<link rel="next" href="header_list.html" title="TR1 By Header">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../boost.png"></td>
+<td align="center"><a href="../../../index.html">Home</a></td>
+<td align="center"><a href="../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="subject_list.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_tr1.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="header_list.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="boost_tr1.unsupported"></a><a class="link" href="unsupported.html" title="TR By Subject: Unsupported Features"> TR By Subject: Unsupported Features</a>
+</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="unsupported.html#boost_tr1.unsupported.special"> Mathematical Special
+      Functions.</a></span></dt>
+<dt><span class="section"><a href="unsupported.html#boost_tr1.unsupported.unordered_set"> Unordered Associative
+      Set (Hash Table).</a></span></dt>
+<dt><span class="section"><a href="unsupported.html#boost_tr1.unsupported.unordered_map"> Unordered Associative
+      Map (Hash Table).</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_tr1.unsupported.special"></a><a class="link" href="unsupported.html#boost_tr1.unsupported.special" title="Mathematical Special Functions."> Mathematical Special
+      Functions.</a>
+</h3></div></div></div>
+<p>
+        The TR adds 23 special functions (plus float and long double overloads) to
+        header &lt;cmath&gt;. However, at present there is no Boost License compatible
+        implementation of these functions, so these are <span class="bold"><strong>unsupported
+        by this implementation</strong></span> unless your standard library supports them
+        itself.
+      </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tr1</span> <span class="special">{</span>
+
+<span class="comment">// [5.2.1.1] associated Laguerre polynomials:
+</span><span class="keyword">double</span> <span class="identifier">assoc_laguerre</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">assoc_laguerref</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">assoc_laguerrel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.2] associated Legendre functions:
+</span><span class="keyword">double</span> <span class="identifier">assoc_legendre</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">assoc_legendref</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">assoc_legendrel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.3] beta function:
+</span><span class="keyword">double</span> <span class="identifier">beta</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">y</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">betaf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">y</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">betal</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">y</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.4] (complete) elliptic integral of the first kind:
+</span><span class="keyword">double</span> <span class="identifier">comp_ellint_1</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">comp_ellint_1f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">comp_ellint_1l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.5] (complete) elliptic integral of the second kind:
+</span><span class="keyword">double</span> <span class="identifier">comp_ellint_2</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">comp_ellint_2f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">comp_ellint_2l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.6] (complete) elliptic integral of the third kind:
+</span><span class="keyword">double</span> <span class="identifier">comp_ellint_3</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">comp_ellint_3f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">nu</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">comp_ellint_3l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.7] confluent hypergeometric functions:
+</span><span class="keyword">double</span> <span class="identifier">conf_hyperg</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">conf_hypergf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">conf_hypergl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.8] regular modified cylindrical Bessel functions:
+</span><span class="keyword">double</span> <span class="identifier">cyl_bessel_i</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">cyl_bessel_if</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">cyl_bessel_il</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.9] cylindrical Bessel functions (of the first kind):
+</span><span class="keyword">double</span> <span class="identifier">cyl_bessel_j</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">cyl_bessel_jf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">cyl_bessel_jl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.10] irregular modified cylindrical Bessel functions:
+</span><span class="keyword">double</span> <span class="identifier">cyl_bessel_k</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">cyl_bessel_kf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">cyl_bessel_kl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.11] cylindrical Neumann functions;
+</span><span class="comment">// cylindrical Bessel functions (of the second kind):
+</span><span class="keyword">double</span> <span class="identifier">cyl_neumann</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">cyl_neumannf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">cyl_neumannl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.12] (incomplete) elliptic integral of the first kind:
+</span><span class="keyword">double</span> <span class="identifier">ellint_1</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">ellint_1f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">ellint_1l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.13] (incomplete) elliptic integral of the second kind:
+</span><span class="keyword">double</span> <span class="identifier">ellint_2</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">ellint_2f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">ellint_2l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.14] (incomplete) elliptic integral of the third kind:
+</span><span class="keyword">double</span> <span class="identifier">ellint_3</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">ellint_3f</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">phi</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">ellint_3l</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">k</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">nu</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">phi</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.15] exponential integral:
+</span><span class="keyword">double</span> <span class="identifier">expint</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">expintf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">expintl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.16] Hermite polynomials:
+</span><span class="keyword">double</span> <span class="identifier">hermite</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">hermitef</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">hermitel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.17] hypergeometric functions:
+</span><span class="keyword">double</span> <span class="identifier">hyperg</span><span class="special">(</span><span class="keyword">double</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">hypergf</span><span class="special">(</span><span class="keyword">float</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">hypergl</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">b</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">c</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.18] Laguerre polynomials:
+</span><span class="keyword">double</span> <span class="identifier">laguerre</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">laguerref</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">laguerrel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.19] Legendre polynomials:
+</span><span class="keyword">double</span> <span class="identifier">legendre</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">legendref</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">legendrel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.20] Riemann zeta function:
+</span><span class="keyword">double</span> <span class="identifier">riemann_zeta</span><span class="special">(</span><span class="keyword">double</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">riemann_zetaf</span><span class="special">(</span><span class="keyword">float</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">riemann_zetal</span><span class="special">(</span><span class="keyword">long</span> <span class="keyword">double</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.21] spherical Bessel functions (of the first kind):
+</span><span class="keyword">double</span> <span class="identifier">sph_bessel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">sph_besself</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">sph_bessell</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.22] spherical associated Legendre functions:
+</span><span class="keyword">double</span> <span class="identifier">sph_legendre</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">theta</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">sph_legendref</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">theta</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">sph_legendrel</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">l</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">theta</span><span class="special">);</span>
+
+<span class="comment">// [5.2.1.23] spherical Neumann functions;
+</span><span class="comment">// spherical Bessel functions (of the second kind):
+</span><span class="keyword">double</span> <span class="identifier">sph_neumann</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">float</span> <span class="identifier">sph_neumannf</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">float</span> <span class="identifier">x</span><span class="special">);</span>
+<span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">sph_neumannl</span><span class="special">(</span><span class="keyword">unsigned</span> <span class="identifier">n</span><span class="special">,</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="identifier">x</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace tr1
+</span><span class="special">}</span> <span class="comment">// namespace std
+</span></pre>
+<p>
+        <span class="bold"><strong>Standard Conformity:</strong></span> <span class="emphasis"><em><span class="bold"><strong>Not Supported.</strong></span></em></span>
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_tr1.unsupported.unordered_set"></a><a class="link" href="unsupported.html#boost_tr1.unsupported.unordered_set" title="Unordered Associative Set (Hash Table)."> Unordered Associative
+      Set (Hash Table).</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tr1</span><span class="special">/</span><span class="identifier">unordered_set</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        or
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">unordered_set</span><span class="special">&gt;</span>
+</pre>
+<p>
+        This is not currently supported by Boost, although that situation is hoped
+        to change soon.
+      </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tr1</span> <span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Value</span><span class="special">,</span> 
+         <span class="keyword">class</span> <span class="identifier">Hash</span> <span class="special">=</span> <span class="identifier">hash</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;,</span> 
+         <span class="keyword">class</span> <span class="identifier">Pred</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">equal_to</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">unordered_set</span><span class="special">;</span>
+
+<span class="comment">// [6.3.4.5] Class template unordered_multiset
+</span><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Value</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Hash</span> <span class="special">=</span> <span class="identifier">hash</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Pred</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">equal_to</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">&gt;</span> <span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">unordered_multiset</span><span class="special">;</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Value</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">unordered_set</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+         <span class="identifier">unordered_set</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+          
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Value</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">unordered_multiset</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+         <span class="identifier">unordered_multiset</span><span class="special">&lt;</span><span class="identifier">Value</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace tr1
+</span><span class="special">}</span> <span class="comment">// namespace std
+</span></pre>
+<p>
+        <span class="bold"><strong>Configuration:</strong></span> <a href="../../../libs/config/index.html" target="_top">Boost.Config</a>
+        should (automatically) define the macro BOOST_HAS_TR1_UNORDERED_SET if your
+        standard library implements this part of TR1.
+      </p>
+<p>
+        <span class="bold"><strong>Standard Conformity:</strong></span> Not supported.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_tr1.unsupported.unordered_map"></a><a class="link" href="unsupported.html#boost_tr1.unsupported.unordered_map" title="Unordered Associative Map (Hash Table)."> Unordered Associative
+      Map (Hash Table).</a>
+</h3></div></div></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">tr1</span><span class="special">/</span><span class="identifier">unordered_map</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<p>
+        or
+      </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">unordered_map</span><span class="special">&gt;</span>
+</pre>
+<p>
+        This is not currently supported by Boost, although that situation is hoped
+        to change soon.
+      </p>
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">std</span> <span class="special">{</span>
+<span class="keyword">namespace</span> <span class="identifier">tr1</span> <span class="special">{</span>
+
+<span class="comment">// [6.3.4.4] Class template unordered_map
+</span><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Key</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Hash</span> <span class="special">=</span> <span class="identifier">hash</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Pred</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">equal_to</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">unordered_map</span><span class="special">;</span>
+
+<span class="comment">// [6.3.4.6] Class template unordered_multimap
+</span><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Key</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span>
+         <span class="keyword">class</span> <span class="identifier">Hash</span> <span class="special">=</span> <span class="identifier">hash</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Pred</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">equal_to</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">&gt;,</span>
+         <span class="keyword">class</span> <span class="identifier">Alloc</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">unordered_multimap</span><span class="special">;</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Key</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">unordered_map</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+         <span class="identifier">unordered_map</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+          
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Key</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">unordered_multimap</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">x</span><span class="special">,</span>
+         <span class="identifier">unordered_multimap</span><span class="special">&lt;</span><span class="identifier">Key</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Hash</span><span class="special">,</span> <span class="identifier">Pred</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">y</span><span class="special">);</span>
+
+<span class="special">}</span> <span class="comment">// namespace tr1
+</span><span class="special">}</span> <span class="comment">// namespace std
+</span></pre>
+<p>
+        <span class="bold"><strong>Configuration:</strong></span> <a href="../../../libs/config/index.html" target="_top">Boost.Config</a>
+        should (automatically) define the macro BOOST_HAS_TR1_UNORDERED_MAP if your
+        standard library implements this part of TR1.
+      </p>
+<p>
+        <span class="bold"><strong>Standard Conformity:</strong></span> Not supported.
+      </p>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2005 John Maddock<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="subject_list.html"><img src="../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_tr1.html"><img src="../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="header_list.html"><img src="../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
