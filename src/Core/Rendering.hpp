@@ -25,6 +25,7 @@ public:
    void OnUpdate();
    void DestroyPlanesAndTexts();
    void Text(const std::wstring& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
+   void Text(const std::string& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
 
 private:
    vsh::paf::PhText* CreateText(const std::string& widgetName);
