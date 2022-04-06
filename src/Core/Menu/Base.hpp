@@ -58,7 +58,7 @@ private:
 
    void OnOpen();
    void OnClose();
-   void OnCancel();
+   void OnBack();
    void OnScrollUp();
    void OnScrollDown();
 

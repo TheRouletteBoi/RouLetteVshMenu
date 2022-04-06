@@ -164,7 +164,7 @@ void Menu::OnClose()
    g_ChangeOvertime.Add(&m_OpacityText, 0, 200);
 }
 
-void Menu::OnCancel()
+void Menu::OnBack()
 {
    m_SubmenuLevel--;
    m_CurrentMenu = m_LastSubmenu[m_SubmenuLevel];
