@@ -11,6 +11,7 @@ void Overlay::OnUpdate()
 {
    CalculateFps();
    DrawOverlay();
+   NotificationUpdate();
 }
 
 void Overlay::OnShutdown()
@@ -126,6 +127,66 @@ void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
     vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
 
+void Overlay::Notify(const std::string& text)
+{
+    m_NotificationQueue.push(text);
+
+    // Clear string in LV2 because it is now stored in the queue
+    const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
+    for (uint64_t i = 0; i < size; i++)
+        ps3mapi_lv2_poke(0x8000000000000000 + (i * sizeof(uint64_t)), 0x0000000000000000);
+}
+
+void Overlay::NotificationUpdate()
+{
+    if (m_NotificationQueue.empty())
+        return;
+
+    /*int lineCount = GetLineCount();
+    float textHeight = GetTextHeight();
+    float rectangleHeight = (static_cast<float>(lineCount) * textHeight);
+    g_Render.Rectangle(
+        vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100), 
+        notificationWidth,
+        rectangleHeight);*/
+
+    g_Render.Text(
+        m_NotificationQueue.front(),
+        vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
+        m_SizeText,
+        Render::Align::Right,
+        Render::Align::Top,
+        m_ColorText);
+
+    // Clear notification after 5 seconds
+    uint64_t timeNow = GetTimeNow();
+    if (timeNow - m_NotificationTime > 5000)
+    {
+        m_NotificationQueue.pop();
+        m_NotificationTime = timeNow;
+    }
+}
+
+void Overlay::WaitForTextInLV2Update()
+{
+    const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
+    char text[size][sizeof(uint64_t)]{};
+    for (uint64_t i = 0; i < size; i++)
+    {
+        uint64_t bytes = ps3mapi_lv2_peek(0x8000000000000000 + (i * sizeof(uint64_t)));
+
+        if (bytes != 0)
+            vsh::memcpy(text[i], &bytes, sizeof(uint64_t));
+    }
+
+    // force null terminator
+    text[size - 1][8 - 1] = 0;
+
+    // check if string is not empty
+    if (text[0] != 0 && text[0][0] != '\0')
+        Notify(reinterpret_cast<char*>(text));
+}
+
 void Overlay::UpdateInfoThread(uint64_t arg)
 {
    g_Overlay.m_StateRunning = true;
@@ -171,6 +232,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
+      g_Overlay.WaitForTextInLV2Update();
    }
 
    sys_ppu_thread_exit(0);

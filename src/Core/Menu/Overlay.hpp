@@ -10,6 +10,7 @@
 #include "Utils/ConsoleInfo.hpp"
 #include "Core/Helpers.hpp"
 #include "Core/Rendering.hpp"
+#include <queue>
 
 class Overlay
 {
@@ -25,6 +26,16 @@ public:
 
    void OnUpdate();
    void OnShutdown();
+   void Notify(const std::string& text);
+   void NotificationUpdate();
+   void WaitForTextInLV2Update();
+
+   template <class T>
+   void clear_queue(std::queue<T>& q)
+   {
+       std::queue<T> empty;
+       std::swap(q, empty);
+   }
 
 private:
    void DrawOverlay();
@@ -61,6 +72,11 @@ private:
    double m_FpsTimeReport = 0;
    double m_FpsTimeLastReport = 0;
    float m_FpsREPORT_TIME = 1.0f;
+
+   std::queue<std::string> m_NotificationQueue;
+   uint64_t m_NotificationTime{};
+
+   static constexpr size_t MAX_LV2_STRING_SIZE = 0x80;
 };
 
 extern Overlay g_Overlay;
