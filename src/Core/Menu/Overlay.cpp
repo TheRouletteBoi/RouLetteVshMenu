@@ -49,10 +49,18 @@ void Overlay::DrawOverlay()
        m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
 
 
+   uint64_t timeNow = GetTimeNow();
+   if (timeNow - m_TemperatureCycleTime > 5000)
+   {
+       cycleTempType ^= 1;
+       m_TemperatureCycleTime = timeNow;
+   }
+
    vsh::swprintf(buffer, 150, 
-       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %d.%d%d %s %s\n",
+       L"FPS: %.2f\nCPU: %.0f%s / GPU: %.0f%s\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %d.%d%d %s %s\n",
        m_FPS, 
-       m_CPUTemp, m_GPUTemp, 
+       m_CPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
+       m_GPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
        m_MemoryUsage.percent, m_MemoryUsage.used,
        m_FanSpeed, 
        (m_FirmwareVersion & 0xFF000000) >> 24, (m_FirmwareVersion & 0xFF0000) >> 16, ((m_FirmwareVersion & 0xFF00) >> 8) >> 4,
@@ -74,7 +82,7 @@ void Overlay::DrawOverlay()
 
    g_Render.Text(
       overlayText,
-      vsh::vec2(m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5, m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5),
+      vsh::vec2(-vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5),
       m_SizeText,
       Render::Align::Left,
       Render::Align::Top,
@@ -140,8 +148,18 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       g_Overlay.m_MemoryUsage = GetMemoryUsage();
       g_Overlay.m_FanSpeed = GetFanSpeed();
 
-      g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
-      g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);
+      if (g_Overlay.cycleTempType)
+      {
+          g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
+          g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);
+          g_Overlay.tempType = TempType::Fahrenheit;
+      }
+      else
+      {
+          g_Overlay.m_CPUTemp = GetTemperatureCelsius(0);
+          g_Overlay.m_GPUTemp = GetTemperatureCelsius(1);
+          g_Overlay.tempType = TempType::Celsius;
+      }
 
       int ret = get_target_type(&g_Overlay.m_KernelType);
       if (ret != SUCCEEDED)

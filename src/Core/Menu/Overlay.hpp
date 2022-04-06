@@ -35,6 +35,9 @@ public:
    uint64_t m_KernelType{};
    uint32_t m_FirmwareVersion{};
    uint16_t m_PayloadVersion{};
+   uint64_t m_TemperatureCycleTime{};
+   bool cycleTempType{};
+   TempType tempType{};
 
 private:
    vsh::vec2 m_Position{};
