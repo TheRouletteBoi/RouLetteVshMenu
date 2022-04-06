@@ -137,7 +137,7 @@ void Overlay::Notify(const std::string& text)
     // Clear string in LV2 because it is now stored in the queue
     const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
     for (uint64_t i = 0; i < size; i++)
-        ps3mapi_lv2_poke(0x8000000000000000 + (i * sizeof(uint64_t)), 0x0000000000000000);
+        ps3mapi_lv2_poke(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)), 0x0000000000000000);
 }
 
 void Overlay::NotificationUpdate()
@@ -163,7 +163,7 @@ void Overlay::NotificationUpdate()
         Render::Align::Top,
         m_ColorText);
 
-    // Clear notification after 5 seconds
+    // Clear notification
     if (GetTimeNow() > m_NotificationQueue.front().timeToClear)
         m_NotificationQueue.pop();
 }
@@ -171,10 +171,10 @@ void Overlay::NotificationUpdate()
 void Overlay::WaitAndQueueTextInLV2()
 {
     const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
-    char text[size][sizeof(uint64_t)]{};
+    char text[size][8]{};
     for (uint64_t i = 0; i < size; i++)
     {
-        uint64_t bytes = ps3mapi_lv2_peek(0x8000000000000000 + (i * sizeof(uint64_t)));
+        uint64_t bytes = ps3mapi_lv2_peek(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)));
 
         if (bytes != 0)
             vsh::memcpy(text[i], &bytes, sizeof(uint64_t));

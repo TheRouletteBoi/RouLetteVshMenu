@@ -81,6 +81,7 @@ private:
 
    static constexpr size_t MAX_LV2_STRING_SIZE = 0x80;
    std::queue<Lv2Notification> m_NotificationQueue;
+   uint64_t m_NotificationOffsetInLv2 = 0x8000000000700000;
 };
 
 extern Overlay g_Overlay;
