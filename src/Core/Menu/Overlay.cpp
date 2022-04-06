@@ -168,7 +168,7 @@ void Overlay::NotificationUpdate()
         m_NotificationQueue.pop();
 }
 
-void Overlay::WaitForTextInLV2Update()
+void Overlay::WaitAndQueueTextInLV2()
 {
     const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
     char text[size][sizeof(uint64_t)]{};
@@ -233,7 +233,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
-      g_Overlay.WaitForTextInLV2Update();
+      g_Overlay.WaitAndQueueTextInLV2();
    }
 
    sys_ppu_thread_exit(0);

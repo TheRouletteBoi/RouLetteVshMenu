@@ -34,7 +34,7 @@ public:
    void OnShutdown();
    void Notify(const std::string& text);
    void NotificationUpdate();
-   void WaitForTextInLV2Update();
+   void WaitAndQueueTextInLV2();
 
    template <class T>
    void clear_queue(std::queue<T>& q)
