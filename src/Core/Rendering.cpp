@@ -109,6 +109,12 @@ void Render::Text(const std::wstring& text, vsh::vec2 position, float height, Al
    m_CurrentText++;
 }
 
+void Render::Text(const std::string& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle)
+{
+    std::wstring ws(text.begin(), text.end());
+    Text(ws, position, height, horizontalAlign, verticalAlign, color, angle);
+}
+
 vsh::paf::PhPlane* Render::CreatePlane(const std::string& widgetName)
 {
    vsh::paf::PhPlane* phPlane = new vsh::paf::PhPlane(g_Helpers.page_autooff_guide);

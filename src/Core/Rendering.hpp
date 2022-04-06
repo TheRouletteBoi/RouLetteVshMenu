@@ -28,6 +28,7 @@ public:
    void RectangleGradient(vsh::vec2 position, vsh::vec2 size, Align horizontalAlign, Align verticalAlign, vsh::vec4 colorLeft, vsh::vec4 colorRight, float angle = 0);
    void Line(vsh::vec2 from, vsh::vec2 to, float thickness, vsh::vec4 color);
    void Text(const std::wstring& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
+   void Text(const std::string& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
 
 private:
    vsh::paf::PhPlane* CreatePlane(const std::string& widgetName);
