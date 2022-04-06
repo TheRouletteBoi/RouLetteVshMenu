@@ -75,7 +75,7 @@ void Overlay::DrawOverlay()
 
    g_Render.Text(
       overlayText,
-      vsh::vec2(m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + g_Menu.safeArea.x + 5, m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5),
+      vsh::vec2(-vsh::paf::PhWidget::GetViewportWidth() / 2 + g_Menu.safeArea.x + 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5),
       g_Menu.sizeText,
       Render::Align::Left,
       Render::Align::Top,
