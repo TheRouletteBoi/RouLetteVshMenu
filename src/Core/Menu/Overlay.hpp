@@ -14,6 +14,13 @@
 class Overlay
 {
 public:
+    enum class TempType : uint8_t
+    {
+        Fahrenheit,
+        Celsius,
+    };
+
+public:
    Overlay();
 
    void OnUpdate();
