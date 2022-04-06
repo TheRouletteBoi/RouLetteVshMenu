@@ -21,6 +21,12 @@ public:
         Celsius,
     };
 
+    struct Lv2Notification
+    {
+        std::string text;
+        uint64_t timeToClear;
+    };
+
 public:
    Overlay();
 
@@ -73,10 +79,8 @@ private:
    double m_FpsTimeLastReport = 0;
    float m_FpsREPORT_TIME = 1.0f;
 
-   std::queue<std::string> m_NotificationQueue;
-   uint64_t m_NotificationTime{};
-
    static constexpr size_t MAX_LV2_STRING_SIZE = 0x80;
+   std::queue<Lv2Notification> m_NotificationQueue;
 };
 
 extern Overlay g_Overlay;

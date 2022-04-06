@@ -129,7 +129,10 @@ void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
 
 void Overlay::Notify(const std::string& text)
 {
-    m_NotificationQueue.push(text);
+    Lv2Notification notification;
+    notification.text = text;
+    notification.timeToClear = GetTimeNow() + 5500;
+    m_NotificationQueue.push(notification);
 
     // Clear string in LV2 because it is now stored in the queue
     const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
@@ -142,16 +145,18 @@ void Overlay::NotificationUpdate()
     if (m_NotificationQueue.empty())
         return;
 
-    /*int lineCount = GetLineCount();
+    /* 
+    float textWrap = paf_6941C365();
+    int lineCount = GetLineCount();
     float textHeight = GetTextHeight();
     float rectangleHeight = (static_cast<float>(lineCount) * textHeight);
     g_Render.Rectangle(
-        vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100), 
+        vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
         notificationWidth,
         rectangleHeight);*/
 
     g_Render.Text(
-        m_NotificationQueue.front(),
+        m_NotificationQueue.front().text,
         vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
         m_SizeText,
         Render::Align::Right,
@@ -159,12 +164,8 @@ void Overlay::NotificationUpdate()
         m_ColorText);
 
     // Clear notification after 5 seconds
-    uint64_t timeNow = GetTimeNow();
-    if (timeNow - m_NotificationTime > 5000)
-    {
+    if (GetTimeNow() > m_NotificationQueue.front().timeToClear)
         m_NotificationQueue.pop();
-        m_NotificationTime = timeNow;
-    }
 }
 
 void Overlay::WaitForTextInLV2Update()
