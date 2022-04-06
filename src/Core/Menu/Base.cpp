@@ -269,7 +269,7 @@ void Menu::UpdateButtons()
             if (m_CurrentMenu == m_MainMenu)
                OnClose();
             else
-               OnCancel();
+               OnBack();
          }
          else if (IsUpPressed())
             OnScrollUp();
@@ -441,7 +441,7 @@ void Menu::DrawHeader()
 {
    // Background
    g_Render.Rectangle(
-      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + sizeText / 2 + sizeHeader / 2),
+      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + m_SizeBackgroundSpace + sizeText / 2 + sizeHeader / 2),
       vsh::vec2(sizeWidth, sizeHeader),
       Render::Centered,
       Render::Centered,

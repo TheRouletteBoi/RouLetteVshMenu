@@ -123,7 +123,7 @@ public:
    bool stateMoving{};
    vsh::vec2 position{ 297, 14 };
    vsh::vec2 safeArea{ 31, 18 };
-   float sizeHeader = 66;
+   float sizeHeader = 60;
    float sizeWidth = 300;
    float sizeText = 20;
    float sizeTextHeader = 30;
