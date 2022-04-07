@@ -11,7 +11,7 @@ void Overlay::OnUpdate()
 {
    CalculateFps();
    DrawOverlay();
-   NotificationUpdate();
+   Lv2LabelUpdate();
 }
 
 void Overlay::OnShutdown()
@@ -127,22 +127,9 @@ void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
     vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
 
-void Overlay::Notify(const std::string& text)
+void Overlay::Lv2LabelUpdate()
 {
-    Lv2Notification notification;
-    notification.text = text;
-    notification.timeToClear = GetTimeNow() + 5500;
-    m_NotificationQueue.push(notification);
-
-    // Clear string in LV2 because it is now stored in the queue
-    const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
-    for (uint64_t i = 0; i < size; i++)
-        ps3mapi_lv2_poke(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)), 0x0000000000000000);
-}
-
-void Overlay::NotificationUpdate()
-{
-    if (m_NotificationQueue.empty())
+    if (m_Lv2Label.empty())
         return;
 
     /* 
@@ -156,16 +143,12 @@ void Overlay::NotificationUpdate()
         rectangleHeight);*/
 
     g_Render.Text(
-        m_NotificationQueue.front().text,
+        m_Lv2Label,
         vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
         m_SizeText,
         Render::Align::Right,
         Render::Align::Top,
         m_ColorText);
-
-    // Clear notification
-    if (GetTimeNow() > m_NotificationQueue.front().timeToClear)
-        m_NotificationQueue.pop();
 }
 
 void Overlay::WaitAndQueueTextInLV2()
@@ -174,7 +157,7 @@ void Overlay::WaitAndQueueTextInLV2()
     char text[size][8]{};
     for (uint64_t i = 0; i < size; i++)
     {
-        uint64_t bytes = ps3mapi_lv2_peek(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)));
+        uint64_t bytes = PeekLv2(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)));
 
         if (bytes != 0)
             vsh::memcpy(text[i], &bytes, sizeof(uint64_t));
@@ -185,7 +168,9 @@ void Overlay::WaitAndQueueTextInLV2()
 
     // check if string is not empty
     if (text[0] != 0 && text[0][0] != '\0')
-        Notify(reinterpret_cast<char*>(text));
+        m_Lv2Label = reinterpret_cast<char*>(text);
+    else
+        m_Lv2Label.clear();
 }
 
 void Overlay::UpdateInfoThread(uint64_t arg)

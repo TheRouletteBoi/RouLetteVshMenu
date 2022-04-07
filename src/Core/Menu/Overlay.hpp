@@ -10,7 +10,6 @@
 #include "Utils/ConsoleInfo.hpp"
 #include "Core/Helpers.hpp"
 #include "Core/Rendering.hpp"
-#include <queue>
 
 class Overlay
 {
@@ -21,27 +20,13 @@ public:
         Celsius,
     };
 
-    struct Lv2Notification
-    {
-        std::string text;
-        uint64_t timeToClear;
-    };
-
 public:
    Overlay();
 
    void OnUpdate();
    void OnShutdown();
-   void Notify(const std::string& text);
-   void NotificationUpdate();
+   void Lv2LabelUpdate();
    void WaitAndQueueTextInLV2();
-
-   template <class T>
-   void clear_queue(std::queue<T>& q)
-   {
-       std::queue<T> empty;
-       std::swap(q, empty);
-   }
 
 private:
    void DrawOverlay();
@@ -80,7 +65,7 @@ private:
    float m_FpsREPORT_TIME = 1.0f;
 
    static constexpr size_t MAX_LV2_STRING_SIZE = 0x80;
-   std::queue<Lv2Notification> m_NotificationQueue;
+   std::string m_Lv2Label;
    uint64_t m_NotificationOffsetInLv2 = 0x8000000000700000;
 };
 
