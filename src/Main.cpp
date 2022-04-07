@@ -11,6 +11,7 @@
 #include "Core/Menu/Overlay.hpp"
 #include "Core/Hooks.hpp"
 #include "Games/FindActiveGame.hpp"
+#include <simpleini/SimpleIni.h>
 
 // Macros defining our module informations as well as our entry/exit point
 SYS_MODULE_INFO(RouLetteVshMenu, 0, 1, 1);
@@ -62,6 +63,34 @@ SYS_MODULE_STOP(module_stop);
 
 sys_ppu_thread_t gVshMenuPpuThreadId = SYS_PPU_THREAD_ID_INVALID;
 
+void TestSimpleIni()
+{
+    const std::string& configPath = GetCurrentDir() + "VshFpsCounter.ini";
+
+    CSimpleIniA ini;
+    ini.SetUnicode();
+    ini.LoadFile(configPath.c_str());
+
+    const char* overylayMode = ini.GetValue("overlay", "mode", "vsh_and_game");
+    bool showFps = ini.GetBoolValue("overlay", "show_fps", "YES");
+    bool showCpuGpu = ini.GetBoolValue("overlay", "show_cpu_gpu", "YES");
+    bool showRam = ini.GetBoolValue("overlay", "show_ram", "YES");
+    bool showFanSpeed = ini.GetBoolValue("overlay", "show_fan_speed", "YES");
+    bool showFirmware = ini.GetBoolValue("overlay", "show_firmware", "YES");
+    bool showAppName = ini.GetBoolValue("overlay", "show_app_name", "YES");
+    vsh::printf("overylayMode  %s\n", overylayMode);
+    vsh::printf("showFps  %d\n", showFps);
+    vsh::printf("showCpuGpu  %d\n", showCpuGpu);
+
+    // update overylay mode value
+    ini.SetValue("overlay", "mode", "game");
+
+    overylayMode = ini.GetValue("overlay", "mode", "game");
+    vsh::printf("Updated overylayMode  %s\n", overylayMode);
+
+    ini.SaveFile(configPath.c_str());
+}
+
 CDECL_BEGIN
 int module_start(unsigned int args, void* argp)
 {
@@ -75,6 +104,8 @@ int module_start(unsigned int args, void* argp)
       g_FindActiveGame = CFindActiveGame();
 
       InstallHooks();
+
+      TestSimpleIni();
 
       sys_ppu_thread_exit(0);
 
