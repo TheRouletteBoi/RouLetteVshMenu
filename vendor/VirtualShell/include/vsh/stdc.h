@@ -200,8 +200,8 @@ void stdc_8B439438(FILE *stream);                                              /
 void stdc_692B497F(const char *str);                                           // perror()
 #define perror stdc_692B497F
 
-int stdc_33D6AE54(FILE *stream);                                               // ferror()
-#define ferror stdc_33D6AE54
+int stdc_33D6AE54(FILE* stream);                                               // ferror()
+static int ferror(FILE* stream) { return stdc_33D6AE54(stream); }
 
 char *stdc_44796E5C(int errnum);                                               // strerror()
 static char* strerror(int errnum) { return stdc_44796E5C(errnum); }
@@ -411,6 +411,16 @@ int stdc_FAEC8C60(FILE *stream, const char *fmt, ...);                         /
 int stdc_FB2081FD(FILE *stream, const char *fmt, va_list arg);                 // vfprintf()
 static int vfprintf(FILE* stream, const char* fmt, va_list arg) { return stdc_FB2081FD(stream, fmt, arg); }
 
+static int fprintf(FILE* stream, const char* fmt, ...)
+{
+    int r;
+    va_list args;
+    va_start(args, fmt);
+    r = vsh::vfprintf(stream, fmt, args);
+    va_end(args);
+    return r;
+}
+
 int stdc_99A72146(char *s, size_t n, const char *fmt, va_list arg);            // vsnprintf()
 static int vsnprintf(char* s, size_t n, const char* fmt, va_list arg) { return stdc_99A72146(s, n, fmt, arg); }
 
@@ -422,16 +432,6 @@ static int snprintf(char* str, size_t size, const char* format, ...)
    r = vsnprintf(str, size, format, args);
    va_end(args);
    return r;
-}
-
-static char vaBuffer[0x400];
-static const char* va(const char* fmt, ...)
-{
-   va_list args;
-   va_start(args, fmt);
-   vsh::vsnprintf(vaBuffer, 0x400, fmt, args);
-   va_end(args);
-   return vaBuffer;
 }
 
 
@@ -643,16 +643,38 @@ short stdc_9232BAEA(float *);                                                  /
 // stdc_9CB73EE0  // _ZSt6_ThrowRKSt9exception
 
 void stdc_AF89FDBD(const char *, const char *);                                // _Assert()
-#define _Assert stdc_AF89FDBD
-#define assert(test)	((test) ? (void)0 \
-	: _Assert(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
-
 
 void stdc_DDC71A75(const char *, const char *);                                // _SCE_Assert()
-#define _SCE_Assert stdc_DDC71A75
+
+#undef assert	/* remove existing definition */
+#ifdef NDEBUG
+#define assert(test)	((void)0)
+#else /* NDEBUG */
+#define _STRIZE(x)	_VAL(x)
+#define _VAL(x)	#x
+#if 199901L <= __STDC_VERSION__
+#ifdef __cplusplus
+#define _FUNNAME	0
+
+#else /* __cplusplus */
+#define _FUNNAME	__func__
+#endif /* __cplusplus */
+
+#else /* 199901L <= __STDC_VERSION__ */
+#define _FUNNAME	0
+#endif /* 199901L <= __STDC_VERSION__ */
+
+#ifdef __CELL_ASSERT__
+#define vsh_assert(test)	((test) ? (void)0 \
+    : vsh::stdc_DDC71A75(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
+#else /* __CELL_ASSERT__ */
+#define vsh_assert(test)	((test) ? (void)0 \
+    : vsh::stdc_AF89FDBD(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
+#endif /* __CELL_ASSERT__ */
+#endif /* NDEBUG */
+
 
 short stdc_B94B9D13(double *);                                                 // _Dtest()
-#define _Dtest stdc_B94B9D13
 
 // stdc_C7931798  // _ZNKSt12_String_base5_XranEv
 
