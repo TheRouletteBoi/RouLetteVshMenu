@@ -52,7 +52,7 @@ To open the vsh menu press R3 + L1
 
 ## Discontinued Features
 - [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like boost::function, boost::unordered_map and much more.
-- [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/commit/bd7f9dc7cd4b64833795e4f148eb294852db446a) For editing .ini files
+- [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/95e2669180838368f2691a0b3a1cbd8a80c3107e) For editing .ini files
 
 
 
