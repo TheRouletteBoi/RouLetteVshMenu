@@ -42,25 +42,18 @@ double stdc_58EB9E57(double x);                                                /
 static double fabs(double x) { return stdc_58EB9E57(x); }
 
 int stdc_EE303936(double);                                                     // _Dsign()
-#define _Dsign stdc_EE303936
 
 double stdc_0F428F0F(double x);                                                // rint()
-#define rint stdc_0F428F0F
 
 int stdc_3AD203FA(double x);                                                   // lrint()
-#define lrint stdc_3AD203FA
 
 long int stdc_9558ED08(float x);                                               // lrintf()
-#define lrintf stdc_9558ED08
 
 double stdc_21E6D304(double x);                                                // ceil()
-#define ceil stdc_21E6D304
 
 float stdc_BAF11866(float x);                                                  // ceilf()
-#define ceilf stdc_BAF11866
 
 double stdc_475D855B(double x);                                                // trunc()
-#define trunc stdc_475D855B
 
 double stdc_519EBB77(double x);                                                // floor()
 static double floor(double x) { return stdc_519EBB77(x); }
@@ -69,31 +62,22 @@ float stdc_23B985F7(float x);                                                  /
 static float floorf(float x) { return stdc_23B985F7(x); }
 
 double stdc_F3EC0258(double x);                                                // round()
-#define round stdc_F3EC0258
 
 float stdc_C984BF53(float x);                                                   // roundf()
-#define roundf stdc_C984BF53
 
 long int stdc_772F1E4D(double x);                                              // lround()
-#define lround stdc_772F1E4D
 
 long int stdc_FBB4047A(float x);                                               // lroundf()
-#define lroundf stdc_FBB4047A
 
 float stdc_7C2EAEB5(float x, float y);                                         // fminf()
-#define fminf stdc_7C2EAEB5
 
 float stdc_895CDB49(float x, float y);                                         // fmaxf()
-#define fmaxf stdc_895CDB49
 
 double stdc_A713F8CF(double x, double* intpart);                               // modf()
-#define modf stdc_A713F8CF
 
 double stdc_E769E5CF(double numer, double denom);                              // fmod()
-#define fmod stdc_E769E5CF
 
 float stdc_9A81E583(float numer, float denom);                                 // fmodf()
-#define fmodf stdc_9A81E583
 
 /*
 typedef struct {
@@ -114,19 +98,14 @@ double stdc_18668CE3(double x);                                                /
 static double exp(double x) { return stdc_18668CE3(x); }
 
 float stdc_FCF08193(float x);                                                  // expf()
-#define expf stdc_FCF08193
 
 double stdc_7F381837(double x, int *_exp);                                      // frexp()
-#define frexp stdc_7F381837
 
 double stdc_38E69F09(double x, double y);                                      // pow()
-#define pow stdc_38E69F09
 
 float stdc_4DDB926B(float x, float y);                                         // powf()
-#define powf stdc_4DDB926B
 
 float stdc_00FDE072(float x, float y);                                         // f_powf()
-#define f_powf stdc_00FDE072
 
 double stdc_659E011E(double x);                                                // sqrt()
 static double sqrt(double x) { return stdc_659E011E(x); }
@@ -135,73 +114,55 @@ double stdc_8451EDF0(double x);                                                /
 static double sqrtf(double x) { return stdc_8451EDF0(x); }
 
 double stdc_CA463458(double, int);                                              // _Log()
-#define _Log stdc_CA463458
 
 float stdc_71293B71(float, int);										         // _FLog()
-#define _FLog stdc_71293B71
 
 double stdc_742F12B4(double, unsigned int);                                    // _Sin()
-#define _Sin stdc_742F12B4
 
 float stdc_B54CC9A1(float x);                                                  // f_sinf()
 static float f_sinf(float x) { return stdc_B54CC9A1(x); }
 
 float stdc_B5E28191(float, unsigned int);                                      // _FSin()
-#define _FSin stdc_B5E28191
 
 double stdc_05EFC660(double x);                                                // asin()
-#define asin stdc_05EFC660
 
 float stdc_411434BB(float x);                                                  // asinf()
-#define asinf stdc_411434BB
 
 float stdc_7AB679DA(float x);                                                  // f_cosf()
 static float f_cosf(float x) { return stdc_7AB679DA(x); }
 
 double stdc_1313A420(double x);                                                // acos()
-#define acos stdc_1313A420
 
 float stdc_DECE76A6(float x);                                                  // acosf()
-#define acosf stdc_DECE76A6
 
 float stdc_705D9E24(float);                                                    // f_acosf()
-#define f_acosf stdc_705D9E24
 
 double stdc_D50277AD(double x);                                                // tan()
-#define tan stdc_D50277AD
 
 float stdc_9379E36E(float x);                                                  // tanf()
-#define tanf stdc_9379E36E
 
 double stdc_7F579E03(double x);                                                // atan()
-#define atan stdc_7F579E03
 
 float stdc_3C057FBD(float x);                                                  // atanf()
-#define atanf stdc_3C057FBD
 
 double stdc_31DB8C89(double y, double x);                                      // atan2()
-#define atan2 stdc_31DB8C89
 
 float stdc_FB932A56(float y, float x);                                         // atan2f()
 static float atan2f(float y, float x) { return stdc_FB932A56(x, y); }
 
 float stdc_ABDCCC7A(float, float);                                             // f_atan2f()
-#define f_atan2f stdc_ABDCCC7A
 
 float stdc_B7696143(float x, float y);                                                // nextafterf()
-#define nextafterf stdc_B7696143
 
 int* stdc_44115DD0();														// _Geterrno()
 //static int errno() { return (*stdc_44115DD0()); }
 
 void stdc_8B439438(FILE *stream);                                              // clearerr()
-#define clearerr stdc_8B439438
 
 void stdc_692B497F(const char *str);                                           // perror()
-#define perror stdc_692B497F
 
 int stdc_33D6AE54(FILE *stream);                                               // ferror()
-#define ferror stdc_33D6AE54
+static int ferror(FILE* stream) { return stdc_33D6AE54(stream); }
 
 char *stdc_44796E5C(int errnum);                                               // strerror()
 static char* strerror(int errnum) { return stdc_44796E5C(errnum); }
@@ -318,28 +279,22 @@ long int stdc_D14ECE90(const char *str, char **endptr, int base);              /
 static long int strtol(const char* str, char** endptr, int base) { return stdc_D14ECE90(str, endptr, base); }
 
 double stdc_D1D69CB8(const char *a, char **b, long x);                         // _Stod()
-#define _Stod stdc_D1D69CB8
-#define strtod(str, endptr)	_Stod(str, endptr, 0)
-#define atof(str)	_Stod(str, 0, 0)
+static double strtod(const char* str, char** endptr) { return stdc_D1D69CB8(str, endptr, 0); }
+static float atof(const char* str) { return stdc_D1D69CB8(str, 0, 0); }
 
 uint64_t stdc_36C067C1(const char *a, char **b, int x);                        // _Stoll
-#define _Stoll stdc_36C067C1
-#define strtoll(str, endptr, base)	_Stoll(str, endptr, base)
+static uint64_t strtoll(const char* str, char** endptr, int base) { return stdc_36C067C1(str, endptr, base); }
 
 unsigned long stdc_867275D7(const char *a, char **b, int x);                   // _Stoul()
-#define _Stoul stdc_867275D7
-#define strtoul(str, endptr, base)	_Stoul(str, endptr, base)
-#define atoi(str)	(int)_Stoul(str, 0, 10)
-#define atol(str)	(long)_Stoul(str, 0, 10)
+static unsigned long strtoul(const char* str, char** endptr, int base) { return stdc_867275D7(str, endptr, base); }
+static int atoi(const char* str) { return (int)stdc_867275D7(str, 0, 10); }
+static long atol(const char* str) { return (long)stdc_867275D7(str, 0, 10); }
 
 uint64_t stdc_D417EEB5(const char *a, char **b, int x);                        // _Stoull()
-#define _Stoull stdc_D417EEB5
 
 long stdc_116CDA13(const wchar_t *restrict_nptr, wchar_t **restrict_endptr, int base);  // wcstol
-#define wcstol stdc_116CDA13
 
 long long int stdc_A30D4797(const wchar_t* str, wchar_t** endptr, int base);   // wcstoll()
-#define wcstoll stdc_A30D4797
 
 size_t stdc_B2702E15(char *pmb, wchar_t wc, std::mbstate_t *ps);                    // wcrtomb()
 static size_t wcrtomb(char* pmb, wchar_t wc, std::mbstate_t* ps) { return stdc_B2702E15(pmb, wc, ps); }
@@ -411,6 +366,16 @@ int stdc_FAEC8C60(FILE *stream, const char *fmt, ...);                         /
 int stdc_FB2081FD(FILE *stream, const char *fmt, va_list arg);                 // vfprintf()
 static int vfprintf(FILE* stream, const char* fmt, va_list arg) { return stdc_FB2081FD(stream, fmt, arg); }
 
+static int fprintf(FILE* stream, const char* fmt, ...)
+{
+    int r;
+    va_list args;
+    va_start(args, fmt);
+    r = vsh::vfprintf(stream, fmt, args);
+    va_end(args);
+    return r;
+}
+
 int stdc_99A72146(char *s, size_t n, const char *fmt, va_list arg);            // vsnprintf()
 static int vsnprintf(char* s, size_t n, const char* fmt, va_list arg) { return stdc_99A72146(s, n, fmt, arg); }
 
@@ -422,16 +387,6 @@ static int snprintf(char* str, size_t size, const char* format, ...)
    r = vsnprintf(str, size, format, args);
    va_end(args);
    return r;
-}
-
-static char vaBuffer[0x400];
-static const char* va(const char* fmt, ...)
-{
-   va_list args;
-   va_start(args, fmt);
-   vsh::vsnprintf(vaBuffer, 0x400, fmt, args);
-   va_end(args);
-   return vaBuffer;
 }
 
 
@@ -455,7 +410,6 @@ static int swprintf(wchar_t* s, size_t n, const wchar_t* fmt, ...)
 }
 
 int stdc_B1F4779D(sys_spu_thread_t id, uint32_t arg_addr);                     // spu_thread_printf()
-#define spu_thread_printf stdc_B1F4779D
 
 int stdc_F0E022C6(FILE *stream);                                               // getc()
 static int getc(FILE* stream) { return stdc_F0E022C6(stream); }
@@ -478,10 +432,8 @@ static wchar_t* fgetws(wchar_t* ws, int n, FILE* stream) { return stdc_55D4866E(
 // stdc_82A4561A  // _put_fd()
 
 int stdc_2677568C(int c);                                                      // putchar()
-#define putchar stdc_2677568C
 
 int stdc_79819DBF(int c, FILE *stream);                                        // fputc()
-#define fputc stdc_79819DBF
 
 int stdc_E3CC73F3(const char *str);                                            // puts()
 static int puts(const char* str) { return stdc_E3CC73F3(str); }
@@ -490,19 +442,14 @@ int stdc_4D348427(const char *str, FILE *stream);                              /
 static int fputs(const char* str, FILE* stream) { return stdc_4D348427(str, stream); }
 
 int stdc_FE88E97E(FILE *stream, const char *fmt, ...);                         // fscanf()
-#define fscanf stdc_FE88E97E
 
 int stdc_E9B560A5(const char *s, const char *fmt, ...);                        // sscanf()
-#define sscanf stdc_E9B560A5
 
 int stdc_3A210C93(const wchar_t* ws, const wchar_t* fmt, ...);                 // swscanf
-#define swscanf stdc_3A210C93
 
 int stdc_3BD9CE0A(int fd);                                                     // fsync()
-#define fsync stdc_3BD9CE0A
 
 int stdc_F356418C(const char *, int, ...);                                     // open()
-#define stdc_open stdc_F356418C
 
 FILE *stdc_69C27C12(const char *filename, const char *mode);                   // fopen()
 static FILE* fopen(const char* filename, const char* mode) { return stdc_69C27C12(filename, mode); }
@@ -517,7 +464,6 @@ int stdc_26F023D5(FILE *stream);                                               /
 static int ftell(FILE* stream) { return stdc_26F023D5(stream); }
 
 int stdc_D360DCB4(FILE *stream);                                               // fileno()
-#define fileno stdc_D360DCB4
 
 void stdc_54F57626(FILE *stream);                                              // rewind()
 static void rewind(FILE* stream) { stdc_54F57626(stream); }
@@ -526,7 +472,6 @@ int stdc_69FF1B9B(FILE *stream, long int offset, int whence);                  /
 static int fseek(FILE* stream, long int offset, int whence) { return stdc_69FF1B9B(stream, offset, whence); }
 
 off_t stdc_AEC7C970(int fd, off_t offset, int whence);                         // lseek()
-#define lseek stdc_AEC7C970
 
 size_t stdc_FA00D211(int fd, void *buf, size_t nbytes);                        // read()
 static size_t read(int fd, void* buf, size_t nbytes) { return stdc_FA00D211(fd, buf, nbytes); }
@@ -599,10 +544,8 @@ size_t stdc_CB9C535B(char *ptr, size_t maxsize, const char *fmt, const struct tm
 static size_t strftime(char* ptr, size_t maxsize, const char* fmt, const struct tm* timeptr) { return stdc_CB9C535B(ptr, maxsize, fmt, timeptr); }
 
 void stdc_A9F68EFF(void *base, size_t num, size_t size, int(*compar)(const void*, const void*));  // qsort()
-#define qsort stdc_A9F68EFF
 
 void *stdc_5E7888F0(const void *key, const void *base, size_t nitems, size_t size, int(*compar)(const void *, const void *));  // bsearch()
-#define bsearch stdc_5E7888F0
 
 DIR *stdc_3DBC3BEE(const char *name);                                          // opendir()
 static DIR* opendir(const char* name) { return stdc_3DBC3BEE(name); }
@@ -630,29 +573,47 @@ static double nan(const char* tagp) { return stdc_45034943(tagp); }
 // stdc_683CA70A  // _ZNKSt12_String_base5_XlenEv
 
 int stdc_703EC767(FILE *restrict_stream, char *restrict_buf, int type, size_t size);  // setvbuf()
-#define setvbuf stdc_703EC767
 
 // stdc_7670FF88  // ?
 
 double stdc_8ECAE294(double x, double y);                                      // nextafter()
-#define nextafter stdc_8ECAE294
 
 short stdc_9232BAEA(float *);                                                  // _FDtes()
-#define _FDtest stdc_9232BAEA
 
 // stdc_9CB73EE0  // _ZSt6_ThrowRKSt9exception
 
 void stdc_AF89FDBD(const char *, const char *);                                // _Assert()
-#define _Assert stdc_AF89FDBD
-#define assert(test)	((test) ? (void)0 \
-	: _Assert(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
-
 
 void stdc_DDC71A75(const char *, const char *);                                // _SCE_Assert()
-#define _SCE_Assert stdc_DDC71A75
+
+#undef assert	/* remove existing definition */
+#ifdef NDEBUG
+#define assert(test)	((void)0)
+#else /* NDEBUG */
+#define _STRIZE(x)	_VAL(x)
+#define _VAL(x)	#x
+#if 199901L <= __STDC_VERSION__
+#ifdef __cplusplus
+#define _FUNNAME	0
+
+#else /* __cplusplus */
+#define _FUNNAME	__func__
+#endif /* __cplusplus */
+
+#else /* 199901L <= __STDC_VERSION__ */
+#define _FUNNAME	0
+#endif /* 199901L <= __STDC_VERSION__ */
+
+#ifdef __CELL_ASSERT__
+#define vsh_assert(test)	((test) ? (void)0 \
+    : vsh::stdc_DDC71A75(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
+#else /* __CELL_ASSERT__ */
+#define vsh_assert(test)	((test) ? (void)0 \
+    : vsh::stdc_AF89FDBD(__FILE__ ":" _STRIZE(__LINE__) " " #test, _FUNNAME))
+#endif /* __CELL_ASSERT__ */
+#endif /* NDEBUG */
 
 short stdc_B94B9D13(double *);                                                 // _Dtest()
-#define _Dtest stdc_B94B9D13
 
 // stdc_C7931798  // _ZNKSt12_String_base5_XranEv
 
