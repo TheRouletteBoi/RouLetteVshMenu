@@ -18,30 +18,29 @@ To open the vsh menu press R3 + L1
 ## Notes
 - Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
 - Cobra 8.2 or above is required to use the launcher. If you are on 4.84 Rebug DEX and want to use Cobra 8.3 download [4.84 DEX stage2.bin](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/NORMAL/DEX/BIN/stage2.bin "4.84 DEX stage2.bin") transfer the file to /dev_rebug/rebug/cobra/ to your PS3 and then change the .bin to .dex
-- CCAPI 2.80rev5 or lower is required to use enstone menus
+- CCAPI 2.80rev5 or lower is required to use enstone menus![image](https://user-images.githubusercontent.com/9206290/162529546-c2229cd6-41ed-4911-8a21-9d8e9525a9bd.png)
+
+ 
+ 
+ ## Download 
+ [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
+ 
  
 ## Installation
-1. In your PS3 file system go to /dev_hdd0/plugins/ and transfer folder named RouLetteVshMenu provided in [Resources](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/main/Resources "Resources")
+1. In your PS3 file system go to /dev_hdd0/plugins/ and transfer folder named RouLetteVshMenu provided in [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases) and the inside of RouLetteVshMenu folder should look like this
 
 ![plugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/plugins.PNG)
-
-2. Transfer RouLetteVshMenu.sprx into /dev_hdd0/plugins/RouLetteVshMenu/
-
 ![sprx](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/sprx.PNG)
 
-3. Navigate back to /dev_hdd0 and you will find a file named boot_plugins.txt (If file is not found just create one named boot_plugins.txt)
+2. Navigate back to /dev_hdd0 and you will find a file named boot_plugins.txt (If file is not found just create one named boot_plugins.txt)
 
 ![hdd0](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/hdd0.PNG)
 
-5. Open boot_plugins.txt and make a new line and type /dev_hdd0/plugins/RouLetteVshMenu/RouLetteVshMenu.sprx
+3. Open boot_plugins.txt and make a new line and type /dev_hdd0/plugins/RouLetteVshMenu/RouLetteVshMenu.sprx
 
 ![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/bootplugins.PNG)
 
-5. Restart your console
-
-
-## Download 
- [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
+4. Restart your console
 
 
 ## Building Requirements
