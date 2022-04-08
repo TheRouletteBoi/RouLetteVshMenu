@@ -18,12 +18,11 @@ To open the vsh menu press R3 + L1
 ## Notes
 - Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
 - Cobra 8.2 or above is required to use the launcher. If you are on 4.84 Rebug DEX and want to use Cobra 8.3 download [4.84 DEX stage2.bin](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/NORMAL/DEX/BIN/stage2.bin "4.84 DEX stage2.bin") transfer the file to /dev_rebug/rebug/cobra/ to your PS3 and then change the .bin to .dex
-- CCAPI 2.80rev5 or lower is required to use enstone menus![image](https://user-images.githubusercontent.com/9206290/162529546-c2229cd6-41ed-4911-8a21-9d8e9525a9bd.png)
+- CCAPI 2.80rev5 or lower is required to use enstone menus
 
- 
- 
- ## Download 
- [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
+
+## Download 
+[Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
  
  
 ## Installation
