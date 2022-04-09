@@ -82,65 +82,85 @@ bool CFindActiveGame::IsGameRDR(const std::string& titleId)
 
 bool CFindActiveGame::IsGameMinecraft(const std::string& titleId)
 {
-   if (titleId == "BLES01976" || titleId == "NPUB31419" || titleId == "NPEB01899")
-      return true;
+    if (titleId == "BLES01976" || titleId == "BLUS31426" || titleId == "NPUB31419" || titleId == "NPEB01899"
+        || titleId == "NPJB00549")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameBO1(const std::string& titleId)
 {
-   if (titleId == "BLUS30591" || titleId == "BLES01031" || titleId == "BLES01032" || titleId == "BLES01033"
-      || titleId == "NPUB30584")
-      return true;
+    if (titleId == "BLUS30591" || titleId == "BLUS30625" || titleId == "BLUS30638" || titleId == "BLES01031"
+        || titleId == "BLES01032" || titleId == "BLES01033" || titleId == "NPUB30584" || titleId == "NPEB00758"
+        || titleId == "NPEB00760" || titleId == "NPEB00756" || titleId == "NPEB00757" || titleId == "NPEB00759"
+        || titleId == "BLJM60286" || titleId == "BLJM60287")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameBO2(const std::string& titleId)
 {
-   if (titleId == "BLUS31011" || titleId == "BLES01717" || titleId == "BLES01718" || titleId == "BLES01719"
-      || titleId == "BLES01720" || titleId == "NPUB31054" || titleId == "NPEP00183" || titleId == "NPEB02266")
-      return true;
+    if (titleId == "BLUS31011" || titleId == "BLUS41005" || titleId == "BLUS31141" || titleId == "BLUS31140"
+        || titleId == "BLES01717" || titleId == "BLES01718" || titleId == "BLES01719" || titleId == "BLES01720"
+        || titleId == "NPUB31054" || titleId == "NPEB01206" || titleId == "NPEB01205" || titleId == "NPEB01204"
+        || titleId == "BLJM60548")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameBO3(const std::string& titleId)
 {
-   if (titleId == "NPEB02266" || titleId == "BLES02166")
-      return true;
+    if (titleId == "BCJS35003" || titleId == "BLES02166" || titleId == "BLES02168" || titleId == "BLUS31527"
+        || titleId == "NPEB02266" || titleId == "NPEB02268" || titleId == "NPJA00135" || titleId == "NPUB31665")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameMW2(const std::string& titleId)
 {
-   if (titleId == "BLES00683" || titleId == "BLUS30377" || titleId == "NPEB00731")
-      return true;
+    if (titleId == "BLUS30450" || titleId == "BLUS30377" || titleId == "BLUS30337" || titleId == "BLUS30429"
+        || titleId == "BLES00683" || titleId == "BLES00691" || titleId == "BLES00690" || titleId == "BLES00686"
+        || titleId == "BLES00685" || titleId == "BLES00684" || titleId == "BLES00687" || titleId == "NPEB00731"
+        || titleId == "BLJM61006" || titleId == "BLJM60191")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameMW3(const std::string& titleId)
 {
-   if (titleId == "BLES01428" || titleId == "BLUS30838" || titleId == "NPUB30787")
-      return true;
+    if (titleId == "BLUS30838" || titleId == "BLUS30887" || titleId == "BLES01428" || titleId == "BLES01433"
+        || titleId == "BLES01429" || titleId == "BLES01431" || titleId == "BLES01432" || titleId == "BLES01430"
+        || titleId == "BLES01434" || titleId == "NPUB30787" || titleId == "NPUB30788" || titleId == "NPEB00964"
+        || titleId == "NPEB00965" || titleId == "NPEB00966" || titleId == "NPEB00967" || titleId == "NPEB00968"
+        || titleId == "NPEB00977" || titleId == "NPEB00978" || titleId == "BLJM60404" || titleId == "BLJM60422")
+        return true;
 
-   return false;
+    return false;
 }
 
 bool CFindActiveGame::IsGameCodGhost(const std::string& titleId)
 {
-   return false;
+    if (titleId == "BLUS31270" || titleId == "BLES01948" || titleId == "BLES01945" || titleId == "NPEB01832"
+        || titleId == "NPEB01835" || titleId == "NPUB31301" || titleId == "NPJB00527" || titleId == "NPJB00528"
+        || titleId == "BLJM61126" || titleId == "BLJM61125")
+        return true;
+
+    return false;
 }
 
 bool CFindActiveGame::IsGameAW(const std::string& titleId)
 {
-   if (titleId == "BLUS31466" || titleId == "BLES02077" || titleId == "BLES02078" || titleId == "NPEP00266")
-      return true;
+    if (titleId == "BLUS31466" || titleId == "BLES02077" || titleId == "BLES02078" || titleId == "BLES02079"
+        || titleId == "NPEB02087" || titleId == "NPEB02092" || titleId == "NPEB02088" || titleId == "NPUB31553"
+        || titleId == "BLJM61227" || titleId == "BLJM61228")
+        return true;
 
-   return false;
+    return false;
 }
 
 void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char* titleName)
