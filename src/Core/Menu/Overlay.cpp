@@ -155,9 +155,14 @@ void Overlay::WaitAndQueueTextInLV2()
 {
     const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
     char text[size][8]{};
+    vsh::memset(text, 0, sizeof(text));
+
     for (uint64_t i = 0; i < size; i++)
     {
         uint64_t bytes = PeekLv2(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)));
+
+        if (bytes == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
+            goto clear_text;
 
         if (bytes != 0)
             vsh::memcpy(text[i], &bytes, sizeof(uint64_t));
@@ -170,7 +175,11 @@ void Overlay::WaitAndQueueTextInLV2()
     if (text[0] != 0 && text[0][0] != '\0')
         m_Lv2Label = reinterpret_cast<char*>(text);
     else
-        m_Lv2Label.clear();
+    {
+    clear_text:
+        if (!m_Lv2Label.empty())
+            m_Lv2Label.clear();
+    }
 }
 
 void Overlay::UpdateInfoThread(uint64_t arg)
