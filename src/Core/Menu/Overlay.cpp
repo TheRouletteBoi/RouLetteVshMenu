@@ -179,9 +179,6 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
    while (g_Overlay.m_StateRunning)
    {
-      while (!vsh::paf::View::Find("explore_plugin")) // wait until the xmb is loaded and running
-         Sleep(100);
-
       Sleep(refreshDelay);
 
       // Using syscalls in a loop on hen will cause a black screen when launching a game
