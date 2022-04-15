@@ -30,47 +30,68 @@ void Overlay::OnShutdown()
 
 void Overlay::DrawOverlay()
 {
+   std::wstring overlayText = L"";
    wchar_t buffer[300]{};
 
-   std::wstring overlayText = L"";
-
-   std::string kernelName;
-   switch (m_KernelType)
+   if (showFPS)
    {
-      case 1: kernelName = "CEX"; break;
-      case 2: kernelName = "DEX"; break;
-      case 3: kernelName = "DEH"; break;
-      default: kernelName = "N/A";  break;
+       vsh::swprintf(buffer, 20, L"FPS: %.2f\n", m_FPS);
+       overlayText += buffer;
    }
 
-   char payloadType[64];
-   vsh::snprintf(payloadType, sizeof(payloadType),
-       "%s %X.%X%X",
-       IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
-       m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
-
-
-   uint64_t timeNow = GetTimeNow();
-   if (timeNow - m_TemperatureCycleTime > 5000)
+   if (showCpuGpuTemps)
    {
-       cycleTempType ^= 1;
-       m_TemperatureCycleTime = timeNow;
+       uint64_t timeNow = GetTimeNow();
+       if (timeNow - m_TemperatureCycleTime > 5000)
+       {
+           cycleTempType ^= 1;
+           m_TemperatureCycleTime = timeNow;
+       }
+
+       vsh::swprintf(buffer, 50, L"CPU: %.0f%s / GPU: %.0f%s\n",
+           m_CPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
+           m_GPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103");
+       overlayText += buffer;
    }
 
-   vsh::swprintf(buffer, 150, 
-       L"FPS: %.2f\nCPU: %.0f%s / GPU: %.0f%s\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %d.%d%d %s %s\n",
-       m_FPS, 
-       m_CPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
-       m_GPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
-       m_MemoryUsage.percent, m_MemoryUsage.used,
-       m_FanSpeed, 
-       (m_FirmwareVersion & 0xFF000000) >> 24, (m_FirmwareVersion & 0xFF0000) >> 16, ((m_FirmwareVersion & 0xFF00) >> 8) >> 4,
-       kernelName.c_str(), payloadType);
-   overlayText += buffer;
+   if (showRAM)
+   {
+       vsh::swprintf(buffer, 50, L"RAM: %.0f%% / %i KB Used\n", m_MemoryUsage.percent, m_MemoryUsage.used);
+       overlayText += buffer;
+   }
 
+   if (showFanSpeed)
+   {
+       vsh::swprintf(buffer, 50, L"Fan speed: %.0f%%\n", m_FanSpeed);
+       overlayText += buffer;
+   }
+
+   if (showFirmware)
+   {
+       std::string kernelName;
+       switch (m_KernelType)
+       {
+           case 1: kernelName = "CEX"; break;
+           case 2: kernelName = "DEX"; break;
+           case 3: kernelName = "DEH"; break;
+           default: kernelName = "N/A";  break;
+       }
+
+       char payloadType[64];
+       vsh::snprintf(payloadType, sizeof(payloadType),
+           "%s %X.%X%X",
+           IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
+           m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
+
+       vsh::swprintf(buffer, 50, L"Firmware: %d.%d%d %s %s\n",
+           (m_FirmwareVersion & 0xFF000000) >> 24, (m_FirmwareVersion & 0xFF0000) >> 16, ((m_FirmwareVersion & 0xFF00) >> 8) >> 4,
+           kernelName.c_str(), 
+           m_PayloadVersion == 0 ? "" : payloadType);
+       overlayText += buffer;
+   }
 
    vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
-   if (gamePlugin)
+   if (showAppName && gamePlugin)
    {
        char gameTitleId[16]{};
        char gameTitleName[64]{};

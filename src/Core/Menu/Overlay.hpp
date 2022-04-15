@@ -48,6 +48,15 @@ public:
    bool cycleTempType{};
    TempType tempType{};
 
+   uint8_t displayMode{}; // XMB + IN-GAME or XMB or IN-GAME
+   bool showFPS = true;
+   bool showCpuGpuTemps = true;
+   bool showCpuGpuClock = true;
+   bool showRAM = true;
+   bool showFanSpeed = true;
+   bool showFirmware = true;
+   bool showAppName = true;
+
 private:
    vsh::vec2 m_Position{};
    vsh::vec2 m_SafeArea{ 31, 18 };
