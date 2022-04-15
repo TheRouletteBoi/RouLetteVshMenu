@@ -252,71 +252,73 @@ int sys_get_version2(uint16_t* version)
    return_to_user_prog(int);
 }
 
-uint64_t ps3mapi_lv1_peek(uint64_t addr)
+__attribute__((noinline)) uint64_t ps3mapi_lv1_peek(uint64_t addr)
 {
    system_call_3(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_LV1_PEEK, (uint64_t)addr);
    return_to_user_prog(uint64_t);
 }
 
-uint64_t ps3mapi_lv1_poke(uint64_t addr, uint64_t value)
+__attribute__((noinline)) uint64_t ps3mapi_lv1_poke(uint64_t addr, uint64_t value)
 {
    system_call_4(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_LV1_POKE, (uint64_t)addr, (uint64_t)value);
    return_to_user_prog(uint64_t);
 }
 
-uint64_t ps3mapi_lv2_peek(uint64_t addr)
+__attribute__((noinline)) uint64_t ps3mapi_lv2_peek(uint64_t addr)
 {
    system_call_3(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_LV2_PEEK, (uint64_t)addr);
    return_to_user_prog(uint64_t);
 }
 
-uint64_t ps3mapi_lv2_poke(uint64_t addr, uint64_t value)
+__attribute__((noinline)) uint64_t ps3mapi_lv2_poke(uint64_t addr, uint64_t value)
 {
    system_call_4(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_LV2_POKE, (uint64_t)addr, (uint64_t)value);
    return_to_user_prog(uint64_t);
 }
 
-int PS3MAPIGetMemory(sys_pid_t pid, void* destination, void* source, size_t size)
+__attribute__((noinline)) int PS3MAPIGetMemory(sys_pid_t pid, void* destination, void* source, size_t size)
 {
    system_call_6(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_GET_PROC_MEM, (uint64_t)pid, (uint64_t)destination, (uint64_t)source, size);
    return_to_user_prog(int);
 }
 
-int PS3MAPISetMemory(sys_pid_t pid, void* destination, const void* source, size_t size)
+__attribute__((noinline)) int PS3MAPISetMemory(sys_pid_t pid, void* destination, const void* source, size_t size)
 {
    system_call_6(SC_COBRA_SYSCALL8, SYSCALL8_OPCODE_PS3MAPI, PS3MAPI_OPCODE_SET_PROC_MEM, (uint64_t)pid, (uint64_t)destination, (uint64_t)source, (uint64_t)size);
    return_to_user_prog(int);
 }
 
-uint64_t PeekLv1(uint64_t addr)
+__attribute__((noinline)) uint64_t PeekLv1(uint64_t addr)
 {
    system_call_1(8, (uint64_t)addr);
    return_to_user_prog(uint64_t);
 }
 
-void PokeLv1(uint64_t addr, uint64_t value)
+__attribute__((noinline)) void PokeLv1(uint64_t addr, uint64_t value)
 {
    system_call_2(9, (uint64_t)addr, (uint64_t)value);
+   return_to_user_prog(void);
 }
 
-uint64_t PeekLv2(uint64_t address)
+__attribute__((noinline)) uint64_t PeekLv2(uint64_t address)
 {
    system_call_1(6, (uint64_t)address);
    return_to_user_prog(uint64_t);
 }
 
-void PokeLv2(uint64_t addr, uint64_t val)
+__attribute__((noinline)) void PokeLv2(uint64_t addr, uint64_t val)
 {
    system_call_2(7, (uint64_t)addr, (uint64_t)val);
+   return_to_user_prog(void);
 }
 
-uint64_t CallLv1Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
+__attribute__((noinline)) uint64_t CallLv1Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
 {
    system_call_8(10, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)addr);
    return_to_user_prog(uint64_t);
 }
 
-uint64_t CallLv2Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
+__attribute__((noinline)) uint64_t CallLv2Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
 {
    system_call_8(15, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)addr);
    return_to_user_prog(uint64_t);
