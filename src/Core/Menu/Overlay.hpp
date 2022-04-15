@@ -43,7 +43,7 @@ public:
    float m_FanSpeed{};
    memUsage_s m_MemoryUsage{};
    uint64_t m_KernelType{};
-   uint32_t m_FirmwareVersion{};
+   float m_FirmwareVersion{};
    uint16_t m_PayloadVersion{};
    uint64_t m_TemperatureCycleTime{};
    bool cycleTempType{};
@@ -60,15 +60,10 @@ public:
 
    int32_t m_CpuClock{};
    int32_t m_GpuClock{};
-   // rsx_dev_clock_1 + 0x1C
-   uint64_t m_GpuNvcSpeedOffsetInLv1 = 0x53E42C; // 4.84 DEX
-   
-   // rsx_dev_clock_5 + 0x1C
-   uint64_t m_GpuDisplayClockSpeedOffsetInLv1 = 0x53E46C; // 4.84 DEX
-
-   // TODO(Roulette) search in lv1 "be.0.ref_clk"
-   uint64_t m_CpuNvcClockSpeedOffsetInLv1 = 0; // 4.84 DEX
-   uint64_t m_CpuDisplayClockSpeedOffsetInLv1 = 0; // 4.84 DEX
+   uint64_t m_GpuClockSpeedOffsetInLv1{};
+   uint64_t m_GpuGddr3RamClocSpeedkOffsetInLv1{};
+   uint64_t m_CpuNvcClockSpeedOffsetInLv1{};
+   uint64_t m_CpuDisplayClockSpeedOffsetInLv1{};
 
 private:
    vsh::vec2 m_Position{};

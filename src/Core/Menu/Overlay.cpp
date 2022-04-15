@@ -5,6 +5,25 @@ Overlay g_Overlay;
 Overlay::Overlay()
 {
    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
+
+   // TODO(Roulette) search in lv1 "be.0.ref_clk" for CPU clock speed
+
+   if (IsConsoleDex() && GetFirmwareVersion() == 4.84f)
+   {
+       // rsx_dev_clock_1 + 0x1C
+       m_GpuClockSpeedOffsetInLv1 = 0x53E42C;
+
+       // rsx_dev_clock_5 + 0x1C
+       m_GpuGddr3RamClocSpeedkOffsetInLv1 = 0x53E46C;
+   }
+   else if (IsConsoleCex() && GetFirmwareVersion() == 4.88f)
+   {
+       // rsx_dev_clock_1 + 0x1C
+       m_GpuClockSpeedOffsetInLv1 = 0x5383EC;
+
+       // rsx_dev_clock_5 + 0x1C
+       m_GpuGddr3RamClocSpeedkOffsetInLv1 = 0x53842C;
+   }
 }
 
 void Overlay::OnUpdate()
@@ -89,8 +108,8 @@ void Overlay::DrawOverlay()
            IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
            m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
 
-       vsh::swprintf(buffer, 50, L"Firmware: %d.%d%d %s %s\n",
-           (m_FirmwareVersion & 0xFF000000) >> 24, (m_FirmwareVersion & 0xFF0000) >> 16, ((m_FirmwareVersion & 0xFF00) >> 8) >> 4,
+       vsh::swprintf(buffer, 50, L"Firmware: %1.2f %s %s\n",
+           m_FirmwareVersion,
            kernelName.c_str(), 
            m_PayloadVersion == 0 ? "" : payloadType);
        overlayText += buffer;
@@ -156,17 +175,17 @@ void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
 
 uint32_t Overlay::GetGpuClockSpeed()
 {
-    if (!IsConsoleDex())
+    if (IsConsoleHen())
         return 0;
 
-    uint64_t frequency = PeekLv1(m_GpuDisplayClockSpeedOffsetInLv1);
+    uint64_t frequency = PeekLv1(m_GpuClockSpeedOffsetInLv1);
 
     if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
         return 0;
 
     return (static_cast<uint32_t>(frequency >> 32) / 0xF4240) & 0x1FFF;
 
-    // Get the secondary clock speed
+    // Get display clock speed
     /*uint64_t v7 = frequency;
     uint64_t v4 = frequency;
     uint32_t v11 = v7 / 0xF4240;
@@ -269,9 +288,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       if (ret != SUCCEEDED)
           g_Overlay.m_KernelType = 0;
 
-      platform_info_t info;
-      lv2_get_platform_info(&info);
-      g_Overlay.m_FirmwareVersion = info.firmware_version;
+      g_Overlay.m_FirmwareVersion = GetFirmwareVersion();
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
