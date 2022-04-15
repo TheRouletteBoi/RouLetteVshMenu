@@ -32,6 +32,7 @@ private:
    void DrawOverlay();
    void CalculateFps();
    void GetGameName(char outTitleId[16], char outTitleName[64]);
+   uint32_t GetGpuClockSpeed();
    static void UpdateInfoThread(uint64_t arg);
 
 public:
@@ -56,6 +57,18 @@ public:
    bool showFanSpeed = true;
    bool showFirmware = true;
    bool showAppName = true;
+
+   int32_t m_CpuClock{};
+   int32_t m_GpuClock{};
+   // rsx_dev_clock_1 + 0x1C
+   uint64_t m_GpuNvcSpeedOffsetInLv1 = 0x53E42C; // 4.84 DEX
+   
+   // rsx_dev_clock_5 + 0x1C
+   uint64_t m_GpuDisplayClockSpeedOffsetInLv1 = 0x53E46C; // 4.84 DEX
+
+   // TODO(Roulette) search in lv1 "be.0.ref_clk"
+   uint64_t m_CpuNvcClockSpeedOffsetInLv1 = 0; // 4.84 DEX
+   uint64_t m_CpuDisplayClockSpeedOffsetInLv1 = 0; // 4.84 DEX
 
 private:
    vsh::vec2 m_Position{};

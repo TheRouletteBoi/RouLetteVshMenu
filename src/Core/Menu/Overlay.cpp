@@ -54,6 +54,12 @@ void Overlay::DrawOverlay()
        overlayText += buffer;
    }
 
+   if (showCpuGpuClock && m_GpuClock != 0)
+   {
+       vsh::swprintf(buffer, 50, L"CPU Clock: %d MHz / GPU Clock: %d MHz\n", m_CpuClock, m_GpuClock);
+       overlayText += buffer;
+   }
+
    if (showRAM)
    {
        vsh::swprintf(buffer, 50, L"RAM: %.0f%% / %i KB Used\n", m_MemoryUsage.percent, m_MemoryUsage.used);
@@ -146,6 +152,19 @@ void Overlay::GetGameName(char outTitleId[16], char outTitleName[64])
     game_interface->gameInfo(_gameInfo);
     vsh::snprintf(outTitleId, 10, "%s", _gameInfo + 0x04);
     vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
+}
+
+uint32_t Overlay::GetGpuClockSpeed()
+{
+    if (!IsConsoleDex())
+        return 0;
+
+    uint64_t frequency = PeekLv1(m_GpuDisplayClockSpeedOffsetInLv1);
+
+    if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
+        return 0;
+
+    return (static_cast<uint32_t>(frequency >> 32) / 0xF4240) & 0x1FFF;
 }
 
 void Overlay::Lv2LabelUpdate()
@@ -246,6 +265,9 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
       g_Overlay.WaitAndQueueTextInLV2();
+
+      g_Overlay.m_CpuClock = 0;
+      g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
    }
 
    sys_ppu_thread_exit(0);
