@@ -108,7 +108,7 @@ void Overlay::DrawOverlay()
            IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
            m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
 
-       vsh::swprintf(buffer, 50, L"Firmware: %1.2f %s %s\n",
+       vsh::swprintf(buffer, 50, L"%1.2f %s %s\n",
            m_FirmwareVersion,
            kernelName.c_str(), 
            m_PayloadVersion == 0 ? "" : payloadType);
@@ -122,7 +122,7 @@ void Overlay::DrawOverlay()
        char gameTitleName[64]{};
        GetGameName(gameTitleId, gameTitleName);
 
-       vsh::swprintf(buffer, 120, L"App: %s / %s\n", gameTitleName, gameTitleId);
+       vsh::swprintf(buffer, 120, L"%s / %s\n", gameTitleName, gameTitleId);
        overlayText += buffer;
    }
 
