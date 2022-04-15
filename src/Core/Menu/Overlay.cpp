@@ -165,6 +165,17 @@ uint32_t Overlay::GetGpuClockSpeed()
         return 0;
 
     return (static_cast<uint32_t>(frequency >> 32) / 0xF4240) & 0x1FFF;
+
+    // Get the secondary clock speed
+    /*uint64_t v7 = frequency;
+    uint64_t v4 = frequency;
+    uint32_t v11 = v7 / 0xF4240;
+    uint32_t v10 = (0x431BDE83 * v7) >> 32;
+    if ((v4 - 100) <= 7 && v11 > 0x31F)
+        v11 = v10 >> 19;
+
+    uint32_t gpuClock2 = v11 & 0x1FFF;
+    return gpuClock2;*/
 }
 
 void Overlay::Lv2LabelUpdate()
