@@ -51,80 +51,36 @@ memUsage_s GetMemoryUsage()
 
 float GetFirmwareVersion()
 {
-   /*float firmware = 0.0f;
-   platform_info_s platform_info;
+    platform_info_t platform_info;
+    memset(&platform_info, 0, sizeof(platform_info));
+    lv2_get_platform_info(&platform_info);
 
-   vsh::memset(&platform_info, 0, sizeof(platform_info_s));
-   sys_sm_get_system_info(&platform_info);
+    // for exemple:
+    // 4.84 : 04 08 40 00
+    float firmware = 0.0f;
+    firmware = (float)(platform_info.firmware_version[0] & 0xF);
+    firmware += (float)(platform_info.firmware_version[1] & 0xF) * 0.1f;
+    firmware += (float)((platform_info.firmware_version[2] & 0xF0) >> 4) * 0.01f;
 
-   // for exemple:
-   // 4.84 : 04 08 40 00
-   firmware = (float)(platform_info.firmware_version[0] & 0xF);
-   firmware += (float)(platform_info.firmware_version[1] & 0xF) * 0.1f;
-   firmware += (float)((platform_info.firmware_version[2] & 0xF0) >> 4) * 0.01f;
-
-   return firmware;*/
-
-   return 0.0f;
+    return firmware;
 }
 
 std::string GetFirmwareType()
 {
-   /*switch (sys_dbg_get_console_type())
-   {
-   case ConsoleType::CEX:
-      return "CEX";
-   case ConsoleType::DEX:
-      return "DEX";
-   case ConsoleType::DEH:
-      return "DEH";
-   default:
-      return "[Unknown]";
-   }*/
+    uint64_t kernelType = 0;
+    int ret = get_target_type(&kernelType);
+    if (ret != SUCCEEDED)
+        kernelType = 0;
 
-   return "[Unknown]";
-}
+    switch (kernelType)
+    {
+    case (uint64_t)ConsoleType::CEX:
+        return "CEX";
+    case (uint64_t)ConsoleType::DEX:
+        return "DEX";
+    case (uint64_t)ConsoleType::DEH:
+        return "DEH";
+    }
 
-std::string GetCurrentIdps()
-{
-   /*uint64_t idps[2];
-   sys_mapi_get_idps(idps);
-
-   return std::string(stdc::va("%016llX%016llX", idps[0], idps[1]));*/
-
-   return "";
-}
-
-std::string GetCurrentPsid()
-{
-   /*uint64_t psid[2];
-   sys_mapi_get_psid(psid);
-
-   return std::string(stdc::va("%016llX%016llX", psid[0], psid[1]));*/
-
-   return "";
-}
-
-void RandomizeIdps()
-{
-   /*idps_s idps;
-
-   sys_mapi_get_idps((uint64_t*)&idps);
-
-   for (int i = 0; i < 6; i++)
-      idps.identifier[i] = (uint8_t)Math::irand(0x00, 0xFF);
-
-   sys_mapi_set_idps((uint64_t*)&idps);*/
-}
-
-void RandomizePsid()
-{
-   /*uint8_t psid[16];
-
-   sys_mapi_get_psid((uint64_t*)psid);
-
-   for (int i = 0; i < 16; i++)
-      psid[i] = (uint8_t)Math::irand(0x00, 0xFF);
-
-   sys_mapi_set_psid((uint64_t*)psid);*/
+    return "[Unknown]";
 }

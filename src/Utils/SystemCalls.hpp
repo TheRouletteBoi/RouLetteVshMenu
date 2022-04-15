@@ -167,6 +167,54 @@
 
 #define PS3MAPI_FIND_FREE_SLOT                     NULL
 
+enum class ShutdownFlag : uint16_t
+{
+    lpar_id_1 = (1 << 0),
+    lpar_id_2 = (1 << 1),
+    lpar_id_3 = (1 << 2),
+    sys_shutdown = (1 << 8),
+    sys_reboot = (1 << 9),
+    sys_hard_shutdown = (1 << 12),
+    sys_load_lpar = (1 << 15)
+};
+
+enum class LedColor : uint8_t
+{
+    led_green = 1,
+    led_red = 2
+};
+
+enum class LedAction : uint8_t
+{
+    led_action_off,
+    led_action_on,
+    led_action_blink_fast,
+    led_action_blink_slow
+};
+
+enum class RingBuzzerAction : uint16_t
+{
+    ring_buzzer_single = 0x0006,
+    ring_buzzer_double = 0x0036,
+    ring_buzzer_triple = 0x01B6,
+    ring_buzzer_continuous = 0x0FFF
+};
+
+enum class ConsoleType
+{
+    CEX = 1,
+    DEX,
+    DEH
+};
+
+typedef struct
+{
+    char firmware_version[7];
+    char platform_id[9];
+    uint32_t build_number;
+    uint32_t unknown;
+} platform_info_t; // size: 0x18
+
 typedef struct
 {
    void* unk_00; // 0
@@ -275,11 +323,6 @@ typedef struct
    uint8_t     unknown06[3];
    uint32_t    unknown07;
 } __attribute__((packed)) device_info_t;
-
-typedef struct 
-{
-    uint32_t firmware_version;
-} platform_info_t;
 
 
 int sys_map_path(char** paths, char** new_paths, int num);
