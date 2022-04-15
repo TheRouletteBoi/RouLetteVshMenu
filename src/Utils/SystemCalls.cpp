@@ -310,13 +310,13 @@ void PokeLv2(uint64_t addr, uint64_t val)
    system_call_2(7, (uint64_t)addr, (uint64_t)val);
 }
 
-uint64_t CallLv1Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
+uint64_t lv2_lv1_call(uint64_t syscallnum, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
 {
-   system_call_8(10, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)addr);
+   system_call_8(10, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)syscallnum);
    return_to_user_prog(uint64_t);
 }
 
-uint64_t CallLv2Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
+uint64_t lv2_func_call(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
 {
    system_call_8(15, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)addr);
    return_to_user_prog(uint64_t);

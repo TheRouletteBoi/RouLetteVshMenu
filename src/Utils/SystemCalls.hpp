@@ -378,9 +378,9 @@ void PokeLv1(uint64_t addr, uint64_t value);
 uint64_t PeekLv2(uint64_t address);
 void PokeLv2(uint64_t addr, uint64_t val);
 // lv2_lv1_call - rebug // r10 is the lv1 syscall number. The registers r3 - r9 are arguments.
-uint64_t CallLv1Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7);
+uint64_t lv2_lv1_call(uint64_t syscallnum, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7);
 // lv2_func_call - habib //  Allow execution of any LV2 internal function // r10 is the address to the lv2 function. The registers r3 - r9 are arguments
-uint64_t CallLv2Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7);
+uint64_t lv2_func_call(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7);
 int sys_dbg_read_process_memory(sys_pid_t pid, void* destination, void* source, size_t size);
 int sys_dbg_write_process_memory(sys_pid_t pid, void* destination, const void* source, size_t size);
 int sys_storage_get_device_info(uint64_t device, device_info_t* device_info);
