@@ -6,23 +6,25 @@ Overlay::Overlay()
 {
    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 
-   // TODO(Roulette) search in lv1 "be.0.ref_clk" for CPU clock speed
-
-   if (IsConsoleDex() && GetFirmwareVersion() == 4.84f)
-   {
-       // rsx_dev_clock_1 + 0x1C
-       m_GpuClockSpeedOffsetInLv1 = 0x53E42C;
-
-       // rsx_dev_clock_5 + 0x1C
-       m_GpuGddr3RamClocSpeedkOffsetInLv1 = 0x53E46C;
-   }
-   else if (IsConsoleCex() && GetFirmwareVersion() == 4.88f)
+   if (IsConsoleCex() && GetFirmwareVersion() == 4.88f)
    {
        // rsx_dev_clock_1 + 0x1C
        m_GpuClockSpeedOffsetInLv1 = 0x5383EC;
 
        // rsx_dev_clock_5 + 0x1C
-       m_GpuGddr3RamClocSpeedkOffsetInLv1 = 0x53842C;
+       m_GpuGddr3RamClockSpeedOffsetInLv1 = 0x53842C;
+
+       m_CpuClockSpeedOffsetInLv1 = 0x32AC;
+   }
+   else if (IsConsoleDex() && GetFirmwareVersion() == 4.84f)
+   {
+       // rsx_dev_clock_1 + 0x1C
+       m_GpuClockSpeedOffsetInLv1 = 0x53E42C;
+
+       // rsx_dev_clock_5 + 0x1C
+       m_GpuGddr3RamClockSpeedOffsetInLv1 = 0x53E46C;
+
+       m_CpuClockSpeedOffsetInLv1 = 0x32AC;
    }
 }
 
@@ -75,7 +77,7 @@ void Overlay::DrawOverlay()
 
    if (showCpuGpuClock && m_GpuClock != 0)
    {
-       vsh::swprintf(buffer, 50, L"CPU Clock: %d MHz / GPU Clock: %d MHz\n", m_CpuClock, m_GpuClock);
+       vsh::swprintf(buffer, 50, L"CPU Clock: %1.1f GHz / GPU Clock: %d MHz\n", m_CpuClock / 1000.0f, m_GpuClock);
        overlayText += buffer;
    }
 
@@ -178,7 +180,20 @@ uint32_t Overlay::GetGpuClockSpeed()
     if (IsConsoleHen())
         return 0;
 
-    uint64_t frequency = PeekLv1(m_GpuClockSpeedOffsetInLv1);
+    volatile uint64_t frequency = PeekLv1(m_GpuClockSpeedOffsetInLv1);
+
+    if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
+        return 0;
+
+    return (static_cast<uint32_t>(frequency >> 32) / 0xF4240) & 0x1FFF;
+}
+
+uint32_t Overlay::GetGpuGddr3RamClockSpeed()
+{
+    if (IsConsoleHen())
+        return 0;
+
+    volatile uint64_t frequency = PeekLv1(m_GpuGddr3RamClockSpeedOffsetInLv1);
 
     if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
         return 0;
@@ -193,8 +208,21 @@ uint32_t Overlay::GetGpuClockSpeed()
     if ((v4 - 100) <= 7 && v11 > 0x31F)
         v11 = v10 >> 19;
 
-    uint32_t gpuClock2 = v11 & 0x1FFF;
-    return gpuClock2;*/
+    uint32_t gddr3RamClock = v11 & 0x1FFF;
+    return gddr3RamClock;*/
+}
+
+uint32_t Overlay::GetCpuClockSpeed()
+{
+    if (IsConsoleHen())
+        return 0;
+
+    uint64_t frequency = PeekLv1(m_CpuClockSpeedOffsetInLv1);
+
+    if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
+        return 0;
+
+    return ((static_cast<uint32_t>(frequency >> 32) / 0xF4240) & 0x1FFF) * 8;
 }
 
 void Overlay::Lv2LabelUpdate()
@@ -294,7 +322,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.WaitAndQueueTextInLV2();
 
-      g_Overlay.m_CpuClock = 0;
+      g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
       g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
    }
 

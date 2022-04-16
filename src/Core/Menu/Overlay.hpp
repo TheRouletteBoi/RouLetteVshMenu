@@ -33,6 +33,8 @@ private:
    void CalculateFps();
    void GetGameName(char outTitleId[16], char outTitleName[64]);
    uint32_t GetGpuClockSpeed();
+   uint32_t GetGpuGddr3RamClockSpeed();
+   uint32_t GetCpuClockSpeed();
    static void UpdateInfoThread(uint64_t arg);
 
 public:
@@ -58,12 +60,11 @@ public:
    bool showFirmware = true;
    bool showAppName = true;
 
-   int32_t m_CpuClock{};
-   int32_t m_GpuClock{};
+   uint32_t m_CpuClock{};
+   uint32_t m_GpuClock{};
    uint64_t m_GpuClockSpeedOffsetInLv1{};
-   uint64_t m_GpuGddr3RamClocSpeedkOffsetInLv1{};
-   uint64_t m_CpuNvcClockSpeedOffsetInLv1{};
-   uint64_t m_CpuDisplayClockSpeedOffsetInLv1{};
+   uint64_t m_GpuGddr3RamClockSpeedOffsetInLv1{};
+   uint64_t m_CpuClockSpeedOffsetInLv1{};
 
 private:
    vsh::vec2 m_Position{};
