@@ -4,18 +4,17 @@
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 
-ImportExportDetour* pafFrameworkRenderHk;
+ImportExportDetour* pafFrameworkUpdateHk;
 ImportExportDetour* cellPadGetDataExtra0Hk;
 
-void pafFrameworkRenderHook(void* framework, float frameTime)
+void pafFrameworkUpdateHook(void* framework, float frameTime)
 {
-   pafFrameworkRenderHk->GetOriginal<void>(framework, frameTime);
+   pafFrameworkUpdateHk->GetOriginal<void>(framework, frameTime);
 
    g_Helpers.OnUpdate();
    g_Render.OnUpdate();
    g_Overlay.OnUpdate();
    g_Menu.OnUpdate();
-
 }
 
 int cellPadGetDataExtra0Hook(unsigned int port, unsigned int deviceType, CellPadData* data)
@@ -64,12 +63,12 @@ void InstallHooks()
    if (!IsConsoleHen())
       RemoveCCAPIHooks();
 
-   pafFrameworkRenderHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkRenderHook);
+   pafFrameworkUpdateHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkUpdateHook);
    cellPadGetDataExtra0Hk = new ImportExportDetour(ImportExportDetour::Export, "sys_io", 0x3733EA3C, (uintptr_t)cellPadGetDataExtra0Hook);
 }
 
 void RemoveHooks()
 {
-   delete pafFrameworkRenderHk;
+   delete pafFrameworkUpdateHk;
    delete cellPadGetDataExtra0Hk;
 }

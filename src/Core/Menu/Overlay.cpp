@@ -21,7 +21,7 @@ void Overlay::OnShutdown()
       m_StateRunning = false;
 
       sys_ppu_thread_yield();
-      Sleep(refreshDelay + 500);
+      Sleep(refreshDelay * 1000 + 500);
 
       uint64_t exitCode;
       sys_ppu_thread_join(UpdateInfoThreadId, &exitCode);
@@ -51,10 +51,10 @@ void Overlay::DrawOverlay()
 
 
    vsh::swprintf(buffer, 150, 
-       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.0f%% / %i KB Used\nFan speed: %.0f%%\nFirmware: %1.2f %s %s\n",
+       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.1f%% %.1f / %.1f MB\nFan speed: %.0f%%\nFirmware: %1.2f %s %s\n",
        m_FPS, 
        m_CPUTemp, m_GPUTemp, 
-       m_MemoryUsage.percent, m_MemoryUsage.used,
+       m_MemoryUsage.percent, m_MemoryUsage.used, m_MemoryUsage.total,
        m_FanSpeed, 
        m_FirmwareVersion,
        kernelName.c_str(), payloadType);
@@ -109,10 +109,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
    while (g_Overlay.m_StateRunning)
    {
-      while (!vsh::paf::View::Find("explore_plugin")) // wait until the xmb is loaded and running
-         Sleep(100);
-
-      Sleep(refreshDelay);
+      Sleep(refreshDelay * 1000);
 
       // Using syscalls in a loop on hen will cause a black screen when launching a game
       // so in order to fix this we need to sleep 10/15 seconds when a game is launched
@@ -123,6 +120,11 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       }
 
       g_Overlay.m_MemoryUsage = GetMemoryUsage();
+      // Convert to MB
+      g_Overlay.m_MemoryUsage.total /= 1024;
+      g_Overlay.m_MemoryUsage.free /= 1024;
+      g_Overlay.m_MemoryUsage.used /= 1024;
+
       g_Overlay.m_FanSpeed = GetFanSpeed();
 
       g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);

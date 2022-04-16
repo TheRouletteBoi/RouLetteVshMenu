@@ -25,6 +25,7 @@ public:
    vsh::paf::View* system_plugin{};
    vsh::paf::View* game_plugin{};
    vsh::paf::View* game_ext_plugin{};
+   vsh::paf::View* xmb_plugin{};
    vsh::paf::PhWidget* page_autooff_guide{};
 
    bool m_IsHen{};

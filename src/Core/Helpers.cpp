@@ -13,6 +13,7 @@ void Helpers::OnUpdate()
    system_plugin = vsh::paf::View::Find("system_plugin");
    game_plugin = vsh::paf::View::Find("game_plugin");
    game_ext_plugin = vsh::paf::View::Find("game_ext_plugin");
+   xmb_plugin = vsh::paf::View::Find("xmb_plugin");
 
    page_autooff_guide = system_plugin ? system_plugin->FindWidget("page_autooff_guide") : nullptr;
 
@@ -20,7 +21,7 @@ void Helpers::OnUpdate()
    MonitorGameState();
 
 #ifdef LAUNCHER_DEBUG
-   if (g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_PAD_UP))
+   if (g_Input.IsButtonBinds(Input::BUTTON_L1, Input::BUTTON_PAD_UP))
        TakeScreenshot();
 #endif // LAUNCHER_DEBUG
 }
@@ -63,16 +64,16 @@ void Helpers::TakeScreenshot()
       tm* timeinfo = vsh::localtime(&rawtime);
 
       char datestr[100];
-      vsh::strftime(datestr, 100, "%Y-%m-%d_%H-%M-%S", timeinfo);
+      vsh::strftime(datestr, sizeof(datestr), "%Y-%m-%d_%H-%M-%S", timeinfo);
 
       std::string screenshotName = screenshotPath + "/" + datestr + ".bmp";
 
       system_interface->saveBMP(screenshotName.c_str());
 
       wchar_t buffer[130];
-      vsh::swprintf(buffer, 0xA0, L"Screenshot saved as: %s", screenshotName.c_str());
+      vsh::swprintf(buffer, sizeof(buffer), L"Screenshot saved as: %s", screenshotName.c_str());
       vsh::ShowButtonNavigationMessage(buffer);
    }
    else
-      vsh::ShowButtonNavigationMessage(L"Not supported in game");
+      vsh::ShowButtonNavigationMessage(L"Screenshots aren't supported in game");
 }

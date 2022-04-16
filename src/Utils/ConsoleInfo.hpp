@@ -12,9 +12,10 @@ struct memInfo_s
 
 struct memUsage_s
 { // in kilobytes
-   uint32_t total;
-   uint32_t used;
-   float percent;
+	float total;
+	float free;
+	float used;
+	float percent;
 };
 
 struct idps_s

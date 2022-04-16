@@ -23,7 +23,7 @@ public:
 
 public:
    void OnUpdate();
-   void DestroyPlanesAndTexts();
+   void DestroyWidgets();
    void Rectangle(vsh::vec2 position, vsh::vec2 size, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, const char* texture = "", float angle = 0);
    void RectangleGradient(vsh::vec2 position, vsh::vec2 size, Align horizontalAlign, Align verticalAlign, vsh::vec4 colorLeft, vsh::vec4 colorRight, float angle = 0);
    void Line(vsh::vec2 from, vsh::vec2 to, float thickness, vsh::vec4 color);
@@ -36,7 +36,7 @@ private:
    vsh::paf::PhPlane* GetPlane(int index);
    vsh::paf::PhText* GetText(int index);
 
-   void CreatePlanesAndTexts();
+   void CreateWidgets();
    void ClearPlanes();
    void ClearTexts();
 

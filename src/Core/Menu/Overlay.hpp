@@ -30,7 +30,7 @@ public:
    uint64_t m_KernelType{};
    float m_FirmwareVersion{};
    uint16_t m_PayloadVersion{};
-   static const uint64_t refreshDelay = 500;
+   static const uint64_t refreshDelay = 1;
 
 private:
    vsh::vec2 m_Position{};

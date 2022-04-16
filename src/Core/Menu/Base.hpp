@@ -121,13 +121,13 @@ private:
 
 public:
    bool stateMoving{};
-   vsh::vec2 position{ 297, 14 };
-   vsh::vec2 safeArea{ 31, 18 };
-   float sizeHeader = 60;
-   float sizeWidth = 300;
-   float sizeText = 20;
-   float sizeTextHeader = 30;
-   float sizeTextDescription = 18;
+   vsh::vec2 position{ 297.0, 14.0 };
+   vsh::vec2 safeArea{ 31.0, 18.0 };
+   float sizeHeader = 60.0;
+   float sizeWidth = 300.0;
+   float sizeText = 20.0;
+   float sizeTextHeader = 30.0;
+   float sizeTextDescription = 18.0;
    vsh::vec4 colorMenu{ 1.0, 0.0, 0.0, 0.80 };
    vsh::vec4 colorBackground{ 0, 0, 0, 0.65 };
    vsh::vec4 colorText{ 1, 1, 1, 1 };

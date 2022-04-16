@@ -7,7 +7,7 @@ Menu::Menu(Function mainSubmenu)
 
 bool Menu::IsOpened()
 {
-   return m_OpacityBackground > 0.0 || m_StateOpened;
+   return m_OpacityGlobal > 0.0 || m_StateOpened;
 }
 
 bool Menu::IsMoving()
@@ -32,7 +32,7 @@ void Menu::Initialize()
 
 bool Menu::IsOpenPressed()
 {
-   if (g_Input.IsButtonBinds(CInput::BUTTON_L1, CInput::BUTTON_R3))
+   if (g_Input.IsButtonBinds(Input::BUTTON_L1, Input::BUTTON_R3))
    {
       PlaySound("snd_system_ok");
       return true;
@@ -43,7 +43,7 @@ bool Menu::IsOpenPressed()
 
 bool Menu::IsEnterPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_CROSS, 400))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_CROSS, 400))
    {
       PlaySound("snd_system_ok");
       return true;
@@ -54,7 +54,7 @@ bool Menu::IsEnterPressed()
 
 bool Menu::IsBackPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_CIRCLE, 400))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_CIRCLE, 400))
    {
       PlaySound("snd_cancel");
       return true;
@@ -65,7 +65,7 @@ bool Menu::IsBackPressed()
 
 bool Menu::IsUpPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_UP, 250))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_UP, 250))
    {
       PlaySound("snd_cursor");
       return true;
@@ -76,7 +76,7 @@ bool Menu::IsUpPressed()
 
 bool Menu::IsDownPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_DOWN, 250))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_DOWN, 250))
    {
       PlaySound("snd_cursor");
       return true;
@@ -87,7 +87,7 @@ bool Menu::IsDownPressed()
 
 bool Menu::IsLeftPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_LEFT, m_SliderDelay))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_LEFT, m_SliderDelay))
    {
       PlaySound("snd_cursor");
       return true;
@@ -98,7 +98,7 @@ bool Menu::IsLeftPressed()
 
 bool Menu::IsRightPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_RIGHT, m_SliderDelay))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_RIGHT, m_SliderDelay))
    {
       PlaySound("snd_cursor");
       return true;
@@ -109,7 +109,7 @@ bool Menu::IsRightPressed()
 
 bool Menu::IsLeftOrRightPressed()
 {
-   if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_LEFT, m_SliderDelay) || g_Input.IsButtonDownFor(CInput::BUTTON_PAD_RIGHT, m_SliderDelay))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_LEFT, m_SliderDelay) || g_Input.IsButtonDownFor(Input::BUTTON_PAD_RIGHT, m_SliderDelay))
    {
       PlaySound("snd_cursor");
       return true;
@@ -725,11 +725,11 @@ Menu& Menu::Skip()
 {
    if (IsHovered())
    {
-      if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_UP))
+      if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_UP))
       {
          OnScrollUp();
       }
-      else if (g_Input.IsButtonDownFor(CInput::BUTTON_PAD_DOWN))
+      else if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_DOWN))
       {
          OnScrollDown();
       }
@@ -861,10 +861,9 @@ Menu& Menu::Strings(const std::vector<std::wstring>& items, int& index)
    if (IsHovered())
    {
       std::wstring selectedItem = items[index];
-      std::wstring item = ((index > 0) ? L"\uF886" : L"");
-      item += L" " + selectedItem + L" " + ((index < max) ? L"\uF887" : L"");
+      std::wstring item = ((index > 0) ? L"\uF886 " : L" ") + selectedItem + ((index < max) ? L" \uF887" : L" ");
 
-      DrawMenuStringOption(item); // L"< " + items[index] + L" >"
+      DrawMenuStringOption(item);
 
       m_SliderDelay = 200;
    }

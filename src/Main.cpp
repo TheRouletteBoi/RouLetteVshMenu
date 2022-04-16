@@ -67,7 +67,12 @@ int module_start(unsigned int args, void* argp)
 {
    sys_ppu_thread_create(&gVshMenuPpuThreadId, [](uint64_t arg) -> void
    {
-      g_Input = CInput();
+      // wait for XMB to load
+      do 
+          Sleep(1000); 
+      while (!vsh::paf::View::Find("explore_plugin"));
+
+      g_Input = Input();
       g_Render = Render();
       g_Helpers = Helpers();
       g_Menu = Menu(MainSubmenu);
@@ -95,7 +100,7 @@ int module_stop(unsigned int args, void* argp)
 
       g_Overlay.OnShutdown();
       g_FindActiveGame.ShutDown();
-      g_Render.DestroyPlanesAndTexts();
+      g_Render.DestroyWidgets();
 
       // Prevent unload too fast (give time to other threads to finish)
       sys_ppu_thread_yield();

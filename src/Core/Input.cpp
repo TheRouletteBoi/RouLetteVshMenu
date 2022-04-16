@@ -1,18 +1,18 @@
 #include "Input.hpp"
 
-CInput g_Input;
+Input g_Input;
 
-CellPadData* CInput::GetInputData()
+CellPadData* Input::GetInputData()
 {
    return &m_InputData;
 }
 
-void CInput::SetInputData(CellPadData* data)
+void Input::SetInputData(CellPadData* data)
 {
    vsh::memcpy(&m_InputData, data, sizeof(CellPadData));
 }
 
-void CInput::ClearInputData()
+void Input::ClearInputData()
 {
    vsh::memset(&m_InputData, 0, sizeof(CellPadData));
    m_InputData.button[CELL_PAD_BTN_OFFSET_ANALOG_RIGHT_X] =
@@ -21,7 +21,7 @@ void CInput::ClearInputData()
       m_InputData.button[CELL_PAD_BTN_OFFSET_ANALOG_LEFT_Y] = 128;
 }
 
-bool CInput::IsButtonDownFor(Buttons button, uint64_t delay)
+bool Input::IsButtonDownFor(Buttons button, uint64_t delay)
 {
    uint64_t timeNow = GetTimeNow();
    if (timeNow - m_InputButtonLastTime[button] > delay)
@@ -36,12 +36,12 @@ bool CInput::IsButtonDownFor(Buttons button, uint64_t delay)
    return false;
 }
 
-bool CInput::IsButtonBinds(Buttons button1, Buttons button2)
+bool Input::IsButtonBinds(Buttons button1, Buttons button2)
 {
    return IsButtonDownFor(button1) && IsButtonDownFor(button2);
 }
 
-double CInput::GetAnalogInput(Analogs analog)
+double Input::GetAnalogInput(Analogs analog)
 {
    int16_t input = m_InputData.button[4 + analog] - 128;
    if ((input > -m_InputAnalogDeadzone) && (input < m_InputAnalogDeadzone))
@@ -50,27 +50,27 @@ double CInput::GetAnalogInput(Analogs analog)
    return static_cast<double>(input) / 128.0;
 }
 
-double CInput::GetRightAnalogX()
+double Input::GetRightAnalogX()
 {
    return GetAnalogInput(ANALOG_RIGHT_X);
 }
 
-double CInput::GetRightAnalogY()
+double Input::GetRightAnalogY()
 {
    return GetAnalogInput(ANALOG_RIGHT_Y);
 }
 
-double CInput::GetLeftAnalogX()
+double Input::GetLeftAnalogX()
 {
    return GetAnalogInput(ANALOG_LEFT_X);
 }
 
-double CInput::GetLeftAnalogY()
+double Input::GetLeftAnalogY()
 {
    return GetAnalogInput(ANALOG_LEFT_Y);
 }
 
-void CInput::SetAnalogDeadzone(short deadzone)
+void Input::SetAnalogDeadzone(short deadzone)
 {
    m_InputAnalogDeadzone = deadzone;
 }

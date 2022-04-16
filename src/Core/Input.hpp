@@ -2,7 +2,7 @@
 #include <cell/pad/pad_codes.h>
 #include "Utils/Timers.hpp"
 
-class CInput
+class Input
 {
 public:
    enum Buttons
@@ -35,8 +35,8 @@ public:
    };
 
 public:
-   explicit CInput() = default;
-   ~CInput() noexcept = default;
+   explicit Input() = default;
+   ~Input() noexcept = default;
 
    CellPadData* GetInputData();
    void SetInputData(CellPadData* data);
@@ -59,4 +59,4 @@ private:
    short m_InputAnalogDeadzone = 20;
 };
 
-extern CInput g_Input;
+extern Input g_Input;

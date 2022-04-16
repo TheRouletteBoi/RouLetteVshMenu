@@ -9,7 +9,7 @@ void Render::OnUpdate()
 
    if (!g_Helpers.page_autooff_guide)
    {
-      DestroyPlanesAndTexts();
+      DestroyWidgets();
       return;
    }
 
@@ -18,13 +18,13 @@ void Render::OnUpdate()
    {
       if (!phPlane->IsAttached())
       {
-         DestroyPlanesAndTexts();
+         DestroyWidgets();
          return;
       }
    }
    else
    {
-      CreatePlanesAndTexts();
+      CreateWidgets();
       return;
    }
 
@@ -157,7 +157,7 @@ vsh::paf::PhText* Render::GetText(int index)
    return m_TextList[index];
 }
 
-void Render::CreatePlanesAndTexts()
+void Render::CreateWidgets()
 {
    if (!g_Helpers.page_autooff_guide)
       return;
@@ -193,7 +193,7 @@ void Render::CreatePlanesAndTexts()
    }
 }
 
-void Render::DestroyPlanesAndTexts()
+void Render::DestroyWidgets()
 {
    if (!g_Helpers.page_autooff_guide)
       return;
