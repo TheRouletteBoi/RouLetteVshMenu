@@ -234,21 +234,11 @@ size_t Detour::RelocateCode(uint32_t* destination, uint32_t* source)
 
 void Detour::Hook(uintptr_t fnAddress, uintptr_t fnCallback, uintptr_t tocOverride)
 {
+   m_HookAddress = reinterpret_cast<void*>(fnAddress);
    m_HookTarget = reinterpret_cast<void*>(*reinterpret_cast<uintptr_t*>(fnCallback));
 
    // Get the size of the hook but don't hook anything yet
    size_t HookSize = GetHookSize(m_HookTarget, false, false);
-
-   // Check if address has been hooked and if so hook but 16 bytes ahead so it can be hooked more that once
-   // **NOTE** There is a caveat where it only works with 2 hooks. So a work around would be to loop X amount of instructions or check for a blr.
-   if (GetHookInfo(fnAddress, nullptr))
-   {
-       m_HookAddress = reinterpret_cast<void*>(fnAddress + HookSize);
-   }
-   else
-   {
-       m_HookAddress = reinterpret_cast<void*>(fnAddress);
-   }
 
    // Save the original instructions for unhooking later on.
    WriteProcessMemory(sys_process_getpid(), m_OriginalInstructions, m_HookAddress, HookSize);
