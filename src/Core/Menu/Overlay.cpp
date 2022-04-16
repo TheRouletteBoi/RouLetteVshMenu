@@ -52,7 +52,7 @@ void Overlay::OnShutdown()
 void Overlay::DrawOverlay()
 {
    std::wstring overlayText = L"";
-   wchar_t buffer[300]{};
+   wchar_t buffer[500]{};
 
    if (showFPS)
    {
@@ -77,7 +77,7 @@ void Overlay::DrawOverlay()
 
    if (showCpuGpuClock && m_GpuClock != 0)
    {
-       vsh::swprintf(buffer, 50, L"CPU Clock: %1.1f GHz / GPU Clock: %d MHz\n", m_CpuClock / 1000.0f, m_GpuClock);
+       vsh::swprintf(buffer, 100, L"CPU Clock: %1.1f GHz / GPU Clock: %d MHz / GDDR3 RAM Clock: %d MHz\n", m_CpuClock / 1000.0f, m_GpuClock, m_GpuGddr3RamClock);
        overlayText += buffer;
    }
 
@@ -329,6 +329,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
       g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
+      g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
    }
 
    sys_ppu_thread_exit(0);
