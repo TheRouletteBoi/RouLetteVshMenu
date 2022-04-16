@@ -1,11 +1,12 @@
 #include "Hooks.hpp"
 #include "Menu/Base.hpp"
 #include "Menu/Overlay.hpp"
+#include "Memory/Pattern.hpp"
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 
 ImportExportDetour* pafFrameworkUpdateHk;
-ImportExportDetour* cellPadGetDataExtra0Hk;
+Detour* cellPadGetDataExtraInternalHk;
 
 void pafFrameworkUpdateHook(void* framework, float frameTime)
 {
@@ -17,12 +18,12 @@ void pafFrameworkUpdateHook(void* framework, float frameTime)
    g_Menu.OnUpdate();
 }
 
-int cellPadGetDataExtra0Hook(unsigned int port, unsigned int deviceType, CellPadData* data)
+int cellPadGetDataExtraInternalHook(void* r3, unsigned int port, int* deviceType, CellPadData* data, bool r7)
 {
    if (port != 0)
-      return cellPadGetDataExtra0Hk->GetOriginal<int>(port, deviceType, data);
+      return cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, port, deviceType, data, r7);
 
-   int returnValue = cellPadGetDataExtra0Hk->GetOriginal<int>(port, deviceType, g_Input.GetInputData());
+   int returnValue = cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, port, deviceType, g_Input.GetInputData(), r7);
    vsh::memcpy(data, g_Input.GetInputData(), sizeof(CellPadData));
 
    if (g_Menu.IsOpened())
@@ -42,33 +43,14 @@ int cellPadGetDataExtra0Hook(unsigned int port, unsigned int deviceType, CellPad
    return returnValue;
 }
 
-void RemoveCCAPIHooks()
-{
-    opd_s* ccapiDetourPaf_85D1D23B = FindExportByName("paf", 0x85D1D23B);
-    opd_s* ccapiDetourSysio_3733EA3C = FindExportByName("sys_io", 0x3733EA3C);
-
-    if (ccapiDetourPaf_85D1D23B && ccapiDetourSysio_3733EA3C)
-    {
-        // Checks if the exports haven't been detoured by CCAPI to avoid crashing
-        if (VshGetMem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14) != 0xF80100D0)
-            VshSetMem<uint32_t>(ccapiDetourPaf_85D1D23B->func + 0x14, 0xF80100D0);
-
-        if (VshGetMem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C) != 0xF8010080) // || 0x4E800420 
-            VshSetMem<uint32_t>(ccapiDetourSysio_3733EA3C->func + 0x0C, 0xF8010080);
-    }
-}
-
 void InstallHooks()
 {
-   if (!IsConsoleHen())
-      RemoveCCAPIHooks();
-
    pafFrameworkUpdateHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkUpdateHook);
-   cellPadGetDataExtra0Hk = new ImportExportDetour(ImportExportDetour::Export, "sys_io", 0x3733EA3C, (uintptr_t)cellPadGetDataExtra0Hook);
+   cellPadGetDataExtraInternalHk = new Detour(ResolveBranch(FindExportByName("sys_io", 0x3733EA3C)->func + 0x6C), (uintptr_t)cellPadGetDataExtraInternalHook);
 }
 
 void RemoveHooks()
 {
    delete pafFrameworkUpdateHk;
-   delete cellPadGetDataExtra0Hk;
+   delete cellPadGetDataExtraInternalHk;
 }
