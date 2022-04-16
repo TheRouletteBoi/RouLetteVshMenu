@@ -42,25 +42,18 @@ double stdc_58EB9E57(double x);                                                /
 static double fabs(double x) { return stdc_58EB9E57(x); }
 
 int stdc_EE303936(double);                                                     // _Dsign()
-#define _Dsign stdc_EE303936
 
 double stdc_0F428F0F(double x);                                                // rint()
-#define rint stdc_0F428F0F
 
 int stdc_3AD203FA(double x);                                                   // lrint()
-#define lrint stdc_3AD203FA
 
 long int stdc_9558ED08(float x);                                               // lrintf()
-#define lrintf stdc_9558ED08
 
 double stdc_21E6D304(double x);                                                // ceil()
-#define ceil stdc_21E6D304
 
 float stdc_BAF11866(float x);                                                  // ceilf()
-#define ceilf stdc_BAF11866
 
 double stdc_475D855B(double x);                                                // trunc()
-#define trunc stdc_475D855B
 
 double stdc_519EBB77(double x);                                                // floor()
 static double floor(double x) { return stdc_519EBB77(x); }
@@ -69,31 +62,22 @@ float stdc_23B985F7(float x);                                                  /
 static float floorf(float x) { return stdc_23B985F7(x); }
 
 double stdc_F3EC0258(double x);                                                // round()
-#define round stdc_F3EC0258
 
 float stdc_C984BF53(float x);                                                   // roundf()
-#define roundf stdc_C984BF53
 
 long int stdc_772F1E4D(double x);                                              // lround()
-#define lround stdc_772F1E4D
 
 long int stdc_FBB4047A(float x);                                               // lroundf()
-#define lroundf stdc_FBB4047A
 
 float stdc_7C2EAEB5(float x, float y);                                         // fminf()
-#define fminf stdc_7C2EAEB5
 
 float stdc_895CDB49(float x, float y);                                         // fmaxf()
-#define fmaxf stdc_895CDB49
 
 double stdc_A713F8CF(double x, double* intpart);                               // modf()
-#define modf stdc_A713F8CF
 
 double stdc_E769E5CF(double numer, double denom);                              // fmod()
-#define fmod stdc_E769E5CF
 
 float stdc_9A81E583(float numer, float denom);                                 // fmodf()
-#define fmodf stdc_9A81E583
 
 /*
 typedef struct {
