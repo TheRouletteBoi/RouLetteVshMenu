@@ -21,6 +21,10 @@ int module_start(unsigned int args, void* argp)
 {
    sys_ppu_thread_create(&gVshMenuPpuThreadId, [](uint64_t arg) -> void
    {
+      do
+          Sleep(1000);
+      while (!vsh::paf::View::Find("explore_plugin"));
+
       g_Render = Render();
       g_Helpers = Helpers();
       g_Overlay = Overlay();
@@ -45,7 +49,7 @@ int module_stop(unsigned int args, void* argp)
       RemoveHooks();
 
       g_Overlay.OnShutdown();
-      g_Render.DestroyPlanesAndTexts();
+      g_Render.DestroyWidgets();
 
       // Prevent unload too fast (give time to other threads to finish)
       sys_ppu_thread_yield();
