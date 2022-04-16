@@ -18,12 +18,12 @@ void pafFrameworkUpdateHook(void* framework, float frameTime)
    g_Menu.OnUpdate();
 }
 
-int cellPadGetDataExtraInternalHook(void* r3, unsigned int port, int* deviceType, CellPadData* data, bool r7)
+int cellPadGetDataExtraInternalHook(void* r3, uint32_t portNum, uint32_t* deviceType, CellPadData* data, bool canReturnWithoutClearing)
 {
-   if (port != 0)
-      return cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, port, deviceType, data, r7);
+   if (portNum != 0)
+      return cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, portNum, deviceType, data, canReturnWithoutClearing);
 
-   int returnValue = cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, port, deviceType, g_Input.GetInputData(), r7);
+   int returnValue = cellPadGetDataExtraInternalHk->GetOriginal<int>(r3, portNum, deviceType, g_Input.GetInputData(), canReturnWithoutClearing);
    vsh::memcpy(data, g_Input.GetInputData(), sizeof(CellPadData));
 
    if (g_Menu.IsOpened())
