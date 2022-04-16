@@ -5,17 +5,22 @@ Overlay g_Overlay;
 
 Overlay::Overlay()
 {
+#ifdef LAUNCHER_DEBUG
    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
+#endif // LAUNCHER_DEBUG
 }
 
 void Overlay::OnUpdate()
 {
+#ifdef LAUNCHER_DEBUG
    CalculateFps();
    DrawOverlay();
+#endif // LAUNCHER_DEBUG
 }
 
 void Overlay::OnShutdown()
 {
+#ifdef LAUNCHER_DEBUG
    if (UpdateInfoThreadId != SYS_PPU_THREAD_ID_INVALID)
    {
       m_StateRunning = false;
@@ -26,10 +31,12 @@ void Overlay::OnShutdown()
       uint64_t exitCode;
       sys_ppu_thread_join(UpdateInfoThreadId, &exitCode);
    }
+#endif // LAUNCHER_DEBUG
 }
 
 void Overlay::DrawOverlay()
 {
+#ifdef LAUNCHER_DEBUG
    wchar_t buffer[300]{};
 
    std::wstring overlayText = L"";
@@ -80,10 +87,12 @@ void Overlay::DrawOverlay()
       Render::Align::Left,
       Render::Align::Top,
       g_Menu.colorText);
+#endif // LAUNCHER_DEBUG
 }
 
 void Overlay::CalculateFps()
 {
+#ifdef LAUNCHER_DEBUG
    // FPS REPORTING
    // get current timing info
    float timeNow = (float)sys_time_get_system_time() * .000001f;
@@ -101,10 +110,12 @@ void Overlay::CalculateFps()
       m_FpsTimeLastReport = m_FpsTimeElapsed;
       m_FpsFramesLastReport = m_FpsFrames;
    }
+#endif // LAUNCHER_DEBUG
 }
 
 void Overlay::UpdateInfoThread(uint64_t arg)
 {
+#ifdef LAUNCHER_DEBUG
    g_Overlay.m_StateRunning = true;
 
    while (g_Overlay.m_StateRunning)
@@ -141,4 +152,5 @@ void Overlay::UpdateInfoThread(uint64_t arg)
    }
 
    sys_ppu_thread_exit(0);
+#endif // LAUNCHER_DEBUG
 }
