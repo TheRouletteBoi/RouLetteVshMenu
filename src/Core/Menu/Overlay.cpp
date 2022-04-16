@@ -42,7 +42,7 @@ void Overlay::OnShutdown()
       m_StateRunning = false;
 
       sys_ppu_thread_yield();
-      Sleep(refreshDelay + 500);
+      Sleep(refreshDelay * 1000 + 500);
 
       uint64_t exitCode;
       sys_ppu_thread_join(UpdateInfoThreadId, &exitCode);
@@ -65,7 +65,7 @@ void Overlay::DrawOverlay()
        uint64_t timeNow = GetTimeNow();
        if (timeNow - m_TemperatureCycleTime > 5000)
        {
-           cycleTempType ^= 1;
+           m_CycleTemperatureType ^= 1;
            m_TemperatureCycleTime = timeNow;
        }
 
@@ -83,7 +83,7 @@ void Overlay::DrawOverlay()
 
    if (showRAM)
    {
-       vsh::swprintf(buffer, 50, L"RAM: %.0f%% / %i KB Used\n", m_MemoryUsage.percent, m_MemoryUsage.used);
+       vsh::swprintf(buffer, 50, L"RAM: %.1f%% %.1f / %.1f MB\n", m_MemoryUsage.percent, m_MemoryUsage.used, m_MemoryUsage.total);
        overlayText += buffer;
    }
 
@@ -286,20 +286,25 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
    while (g_Overlay.m_StateRunning)
    {
-      Sleep(refreshDelay);
+      Sleep(refreshDelay * 1000);
 
       // Using syscalls in a loop on hen will cause a black screen when launching a game
       // so in order to fix this we need to sleep 10/15 seconds when a game is launched
       if (g_Helpers.m_StateGameJustLaunched)
       {
-         Sleep(15 * 1000);
-         g_Helpers.m_StateGameJustLaunched = false;
+          Sleep(15 * 1000);
+          g_Helpers.m_StateGameJustLaunched = false;
       }
 
       g_Overlay.m_MemoryUsage = GetMemoryUsage();
+      // Convert to MB
+      g_Overlay.m_MemoryUsage.total /= 1024;
+      g_Overlay.m_MemoryUsage.free /= 1024;
+      g_Overlay.m_MemoryUsage.used /= 1024;
+
       g_Overlay.m_FanSpeed = GetFanSpeed();
 
-      if (g_Overlay.cycleTempType)
+      if (g_Overlay.m_CycleTemperatureType)
       {
           g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
           g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);

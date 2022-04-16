@@ -23,7 +23,7 @@ public:
 
 public:
    void OnUpdate();
-   void DestroyPlanesAndTexts();
+   void DestroyWidgets();
    void Text(const std::wstring& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
    void Text(const std::string& text, vsh::vec2 position, float height, Align horizontalAlign, Align verticalAlign, vsh::vec4 color, float angle = 0);
 
@@ -31,7 +31,7 @@ private:
    vsh::paf::PhText* CreateText(const std::string& widgetName);
    vsh::paf::PhText* GetText(int index);
 
-   void CreatePlanesAndTexts();
+   void CreateWidgets();
    void ClearTexts();
 
 private:

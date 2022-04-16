@@ -41,10 +41,10 @@ memUsage_s GetMemoryUsage()
    { system_call_1(352, (uint64_t)&mem_info); } // sys_memory_get_user_memory_size
 
    memUsage_s mem_usage;
-   mem_usage.total = (mem_info.total >> 10);
-   mem_usage.used = ((mem_info.total - mem_info.available) >> 10);
-   //mem_usage.percent = ((static_cast<float>(mem_usage.used) / static_cast<float>(mem_usage.total)) * 100.0f);
-   mem_usage.percent = (static_cast<float>(mem_usage.used) * 100) / static_cast<float>(mem_usage.total);
+   mem_usage.total = static_cast<float>(mem_info.total) / 1024.0;
+   mem_usage.free = static_cast<float>(mem_info.available) / 1024.0;
+   mem_usage.used = mem_usage.total - mem_usage.free;
+   mem_usage.percent = (mem_usage.used * 100.0) / mem_usage.total;
 
    return mem_usage;
 }

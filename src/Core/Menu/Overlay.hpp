@@ -48,7 +48,7 @@ public:
    float m_FirmwareVersion{};
    uint16_t m_PayloadVersion{};
    uint64_t m_TemperatureCycleTime{};
-   bool cycleTempType{};
+   bool m_CycleTemperatureType{};
    TempType tempType{};
 
    uint8_t displayMode{}; // XMB + IN-GAME or XMB or IN-GAME
@@ -71,7 +71,7 @@ private:
    vsh::vec2 m_SafeArea{ 31, 18 };
    float m_SizeText = 20;
    vsh::vec4 m_ColorText{ 1, 1, 1, 1 };
-   static const int refreshDelay = 500;
+   static const int refreshDelay = 1;
 
    float m_FPS = 100.0f;
    float m_FpsLastTime = 0;
