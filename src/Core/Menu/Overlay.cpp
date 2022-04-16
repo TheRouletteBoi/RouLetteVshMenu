@@ -4,8 +4,6 @@ Overlay g_Overlay;
 
 Overlay::Overlay()
 {
-   sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
-
    if (IsConsoleCex() && GetFirmwareVersion() == 4.88f)
    {
        // rsx_dev_clock_1 + 0x1C
@@ -26,6 +24,12 @@ Overlay::Overlay()
 
        m_CpuClockSpeedOffsetInLv1 = 0x32AC;
    }
+
+   m_CpuClock = GetCpuClockSpeed();
+   m_GpuClock = GetGpuClockSpeed();
+   m_GpuGddr3RamClock = GetGpuGddr3RamClockSpeed();
+
+   sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 }
 
 void Overlay::OnUpdate()
@@ -51,70 +55,70 @@ void Overlay::OnShutdown()
 
 void Overlay::DrawOverlay()
 {
-   std::wstring overlayText = L"";
-   wchar_t buffer[500]{};
+   std::wstring overlayText;
 
    if (showFPS)
    {
-       vsh::swprintf(buffer, 20, L"FPS: %.2f\n", m_FPS);
-       overlayText += buffer;
+       overlayText += L"FPS: " + to_wstring(m_FPS, 2) + L"\n";
    }
 
    if (showCpuGpuTemps)
    {
-       uint64_t timeNow = GetTimeNow();
-       if (timeNow - m_TemperatureCycleTime > 5000)
-       {
-           m_CycleTemperatureType ^= 1;
-           m_TemperatureCycleTime = timeNow;
-       }
-
-       vsh::swprintf(buffer, 50, L"CPU: %.0f%s / GPU: %.0f%s\n",
-           m_CPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103",
-           m_GPUTemp, tempType == TempType::Fahrenheit ? "\u2109" : "\u2103");
-       overlayText += buffer;
+       std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
+       overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr 
+           + L" / GPU: " + to_wstring(m_GPUTemp) + tempTypeStr 
+           + L"\n";
    }
 
    if (showCpuGpuClock && m_GpuClock != 0)
    {
-       vsh::swprintf(buffer, 100, L"CPU Clock: %1.1f GHz / GPU Clock: %d MHz / GDDR3 RAM Clock: %d MHz\n", m_CpuClock / 1000.0f, m_GpuClock, m_GpuGddr3RamClock);
-       overlayText += buffer;
+       overlayText += L"CPU Clock: " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz\n";
+       overlayText += L"GPU Clock: " + to_wstring(m_GpuClock) + L" MHz\n";
+       overlayText += L"GDDR3 RAM Clock: " + to_wstring(m_GpuGddr3RamClock) + L" MHz\n";
    }
 
-   if (showRAM)
+   /*if (showRAM)
    {
-       vsh::swprintf(buffer, 50, L"RAM: %.1f%% %.1f / %.1f MB\n", m_MemoryUsage.percent, m_MemoryUsage.used, m_MemoryUsage.total);
-       overlayText += buffer;
-   }
+       overlayText += L"RAM: " + to_wstring(m_MemoryUsage.percent, 1) 
+           + L"% " + to_wstring(m_MemoryUsage.used, 1) 
+           + L" / " + to_wstring(m_MemoryUsage.total, 1) 
+           + L" MB" 
+           + L"\n";
+   }*/
 
    if (showFanSpeed)
    {
-       vsh::swprintf(buffer, 50, L"Fan speed: %.0f%%\n", m_FanSpeed);
-       overlayText += buffer;
+       overlayText += L"Fan speed: " 
+           + to_wstring(m_FanSpeed) 
+           + L"%\n";
    }
 
    if (showFirmware)
    {
-       std::string kernelName;
+       std::wstring kernelName;
        switch (m_KernelType)
        {
-           case 1: kernelName = "CEX"; break;
-           case 2: kernelName = "DEX"; break;
-           case 3: kernelName = "DEH"; break;
-           default: kernelName = "N/A";  break;
+           case 1: kernelName = L"CEX"; break;
+           case 2: kernelName = L"DEX"; break;
+           case 3: kernelName = L"DEH"; break;
+           default: kernelName = L"N/A";  break;
        }
 
-       char payloadType[64];
-       vsh::snprintf(payloadType, sizeof(payloadType),
-           "%s %X.%X%X",
-           IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
-           m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
+       std::wstring payloadName = IsConsoleHen() ? L"PS3HEN" : IsConsoleMamba() ? L"Mamba" : L"Cobra";
+       std::wstring payloadStr = m_PayloadVersion == 0 ? L"" : payloadName;
+       std::wstring payloadVerStr = m_PayloadVersion == 0 ? 
+           L"" : 
+           to_wstring(m_PayloadVersion >> 8) 
+           + L"."
+           + to_wstring((m_PayloadVersion & 0xF0) >> 4)
+           + to_wstring(m_PayloadVersion & 0xF);
 
-       vsh::swprintf(buffer, 50, L"%1.2f %s %s\n",
-           m_FirmwareVersion,
-           kernelName.c_str(), 
-           m_PayloadVersion == 0 ? "" : payloadType);
-       overlayText += buffer;
+       overlayText += to_wstring(m_FirmwareVersion, 2) 
+           + L" " + kernelName 
+           + L" " + payloadStr 
+           + L" "
+           + payloadVerStr
+           + L"\n";
    }
 
    vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
@@ -124,8 +128,9 @@ void Overlay::DrawOverlay()
        char gameTitleName[64]{};
        GetGameName(gameTitleId, gameTitleName);
 
-       vsh::swprintf(buffer, 120, L"%s / %s\n", gameTitleName, gameTitleId);
-       overlayText += buffer;
+       wchar_t appName[100]{};
+       vsh::swprintf(appName, sizeof(appName), L"%s / %s\n", gameTitleName, gameTitleId);
+       overlayText += appName;
    }
 
 
@@ -317,6 +322,13 @@ void Overlay::UpdateInfoThread(uint64_t arg)
           g_Overlay.tempType = TempType::Celsius;
       }
 
+      uint64_t timeNow = GetTimeNow();
+      if (timeNow - g_Overlay.m_TemperatureCycleTime > 5000)
+      {
+          g_Overlay.m_CycleTemperatureType ^= 1;
+          g_Overlay.m_TemperatureCycleTime = timeNow;
+      }
+
       int ret = get_target_type(&g_Overlay.m_KernelType);
       if (ret != SUCCEEDED)
           g_Overlay.m_KernelType = 0;
@@ -326,10 +338,6 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
       g_Overlay.WaitAndQueueTextInLV2();
-
-      g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
-      g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
-      g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
    }
 
    sys_ppu_thread_exit(0);
