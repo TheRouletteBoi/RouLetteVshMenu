@@ -33,6 +33,7 @@ public:
    bool m_StateGameJustLaunched{};
 
 private:
+   uint64_t m_GameLaunchTime{};
    uint64_t m_ScreenshotLastTime{};
 };
 
