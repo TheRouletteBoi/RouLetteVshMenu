@@ -32,7 +32,7 @@ void Menu::Initialize()
 
 bool Menu::IsOpenPressed()
 {
-   if (g_Input.IsButtonBinds(Input::BUTTON_L1, Input::BUTTON_R3))
+   if (g_Input.IsButtonBinds(Input::BUTTON_PAD_LEFT, Input::BUTTON_R3))
    {
       PlaySound("snd_system_ok");
       return true;
@@ -522,7 +522,7 @@ void Menu::DrawInstructions()
    vsh::vec2 pos = vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - g_Menu.safeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5);
 
    g_Render.Text(
-      L"Press \uF888 & \uF88D to open RouLette's Launcher",
+      L"Press \uF886 & \uF88D to open RouLette's Launcher",
       pos,
       sizeText,
       Render::Right,
