@@ -563,13 +563,13 @@ void Menu::DrawMenuTitle(const std::wstring& text)
       vsh::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground));
 
    // Version Number
-   /*g_Render.Text(
-       L"1.2",
+   g_Render.Text(
+       L"v1.2",
        vsh::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
        sizeText,
        Render::Left,
        Render::Centered,
-       vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));*/
+       vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
 
    g_Render.Text(
       text,
