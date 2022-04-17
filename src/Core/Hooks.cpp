@@ -3,11 +3,11 @@
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 
-ImportExportDetour* pafFrameworkRenderHk;
+ImportExportDetour* pafFrameworkBeginHk;
 
-void pafFrameworkRenderHook(void* framework, float frameTime)
+void pafFrameworkBeginHook(void* framework, float frameTime)
 {
-   pafFrameworkRenderHk->GetOriginal<void>(framework, frameTime);
+   pafFrameworkBeginHk->GetOriginal<void>(framework, frameTime);
 
    g_Helpers.OnUpdate();
    g_Render.OnUpdate();
@@ -16,10 +16,10 @@ void pafFrameworkRenderHook(void* framework, float frameTime)
 
 void InstallHooks()
 {
-   pafFrameworkRenderHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x85D1D23B, (uintptr_t)pafFrameworkRenderHook);
+    pafFrameworkBeginHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x59BDA198, (uintptr_t)pafFrameworkBeginHook);
 }
 
 void RemoveHooks()
 {
-   delete pafFrameworkRenderHk;
+   delete pafFrameworkBeginHk;
 }
