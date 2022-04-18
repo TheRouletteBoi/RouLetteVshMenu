@@ -102,6 +102,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory\Detour.cpp" />
     <ClCompile Include="Memory\Memory.cpp" />
+    <ClCompile Include="Memory\Pattern.cpp" />
     <ClCompile Include="Utils\ConsoleInfo.cpp" />
     <ClCompile Include="Utils\Std.cpp" />
     <ClCompile Include="Utils\SystemCalls.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="Core\Hooks.hpp" />
     <ClInclude Include="Memory\Detour.hpp" />
     <ClInclude Include="Memory\Memory.hpp" />
+    <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Utils\ConsoleInfo.hpp" />
     <ClInclude Include="Utils\NewDeleteOverride.hpp" />
     <ClInclude Include="Utils\Std.hpp" />
