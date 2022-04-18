@@ -1,29 +1,27 @@
 #include "Overlay.hpp"
+#include "Memory/Pattern.hpp"
 
 Overlay g_Overlay;
 
 Overlay::Overlay()
 {
-   if (IsConsoleCex() && GetFirmwareVersion() == 4.88f)
-   {
-       // rsx_dev_clock_1 + 0x1C
-       m_GpuClockSpeedOffsetInLv1 = 0x5383EC;
+    uint32_t addr = FindPatternHypervisor(
+        "be.0.ref_clk",
+        vsh::strlen("be.0.ref_clk"),
+        "be.0.ref_clk");
+   m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
 
-       // rsx_dev_clock_5 + 0x1C
-       m_GpuGddr3RamClockSpeedOffsetInLv1 = 0x53842C;
+   addr = FindPatternHypervisor(
+       "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
+       20,
+       "???x???x???x??xx??xx");
+   m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
 
-       m_CpuClockSpeedOffsetInLv1 = 0x32AC;
-   }
-   else if (IsConsoleDex() && GetFirmwareVersion() == 4.84f)
-   {
-       // rsx_dev_clock_1 + 0x1C
-       m_GpuClockSpeedOffsetInLv1 = 0x53E42C;
-
-       // rsx_dev_clock_5 + 0x1C
-       m_GpuGddr3RamClockSpeedOffsetInLv1 = 0x53E46C;
-
-       m_CpuClockSpeedOffsetInLv1 = 0x32AC;
-   }
+   addr = FindPatternHypervisor(
+       "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
+       20,
+       "???x???x???x??xx??xx");
+   m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
 
    m_CpuClock = GetCpuClockSpeed();
    m_GpuClock = GetGpuClockSpeed();
