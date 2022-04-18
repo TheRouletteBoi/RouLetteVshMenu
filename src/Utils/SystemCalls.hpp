@@ -377,6 +377,8 @@ uint64_t PeekLv1(uint64_t addr);
 void PokeLv1(uint64_t addr, uint64_t value);
 uint64_t PeekLv2(uint64_t address);
 void PokeLv2(uint64_t addr, uint64_t val);
+bool PeekChunkLV1(uint64_t start, uint64_t* buffer, uint64_t size);
+bool PeekChunkLV2(uint64_t start, uint64_t* buffer, uint64_t size);
 // lv2_lv1_call - rebug // r10 is the lv1 syscall number. The registers r3 - r9 are arguments.
 uint64_t CallLv1Function(uint64_t addr, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7);
 // lv2_func_call - habib //  Allow execution of any LV2 internal function // r10 is the address to the lv2 function. The registers r3 - r9 are arguments
