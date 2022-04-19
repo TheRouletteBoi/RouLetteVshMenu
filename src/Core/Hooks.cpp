@@ -5,12 +5,12 @@
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 
-ImportExportDetour* pafFrameworkBeginHookHk;
+ImportExportDetour* pafFrameworkBeginHk;
 Detour* cellPadGetDataExtraInternalHk;
 
 void pafFrameworkBeginHook(void* framework, float frameTime)
 {
-    pafFrameworkBeginHookHk->GetOriginal<void>(framework, frameTime);
+    pafFrameworkBeginHk->GetOriginal<void>(framework, frameTime);
 
    g_Helpers.OnUpdate();
    g_Render.OnUpdate();
@@ -43,12 +43,12 @@ int cellPadGetDataExtraInternalHook(void* r3, uint32_t portNum, uint32_t* device
 
 void InstallHooks()
 {
-   pafFrameworkBeginHookHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x59BDA198, (uintptr_t)pafFrameworkBeginHook);
+   pafFrameworkBeginHk = new ImportExportDetour(ImportExportDetour::Export, "paf", 0x59BDA198, (uintptr_t)pafFrameworkBeginHook);
    cellPadGetDataExtraInternalHk = new Detour(ResolveBranch(FindExportByName("sys_io", 0x3733EA3C)->func + 0x6C), (uintptr_t)cellPadGetDataExtraInternalHook);
 }
 
 void RemoveHooks()
 {
-   delete pafFrameworkBeginHookHk;
+   delete pafFrameworkBeginHk;
    delete cellPadGetDataExtraInternalHk;
 }
