@@ -54,7 +54,7 @@ public:
    uint8_t displayMode{}; // XMB + IN-GAME or XMB or IN-GAME
    bool showFPS = true;
    bool showCpuGpuTemps = true;
-   bool showCpuGpuClock = true;
+   bool showClockSpeeds = true;
    bool showRAM = true;
    bool showFanSpeed = true;
    bool showFirmware = true;

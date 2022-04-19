@@ -68,7 +68,7 @@ void Overlay::DrawOverlay()
            + L"\n";
    }
 
-   if (showCpuGpuClock && m_GpuClock != 0)
+   if (showClockSpeeds && m_GpuClock != 0)
    {
        overlayText += L"CPU Clock: " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz\n";
        overlayText += L"GPU Clock: " + to_wstring(m_GpuClock) + L" MHz\n";
@@ -114,8 +114,7 @@ void Overlay::DrawOverlay()
        overlayText += to_wstring(m_FirmwareVersion, 2) 
            + L" " + kernelName 
            + L" " + payloadStr 
-           + L" "
-           + payloadVerStr
+           + L" " + payloadVerStr
            + L"\n";
    }
 
@@ -183,7 +182,10 @@ uint32_t Overlay::GetGpuClockSpeed()
     if (IsConsoleHen())
         return 0;
 
-    volatile uint64_t frequency = PeekLv1(m_GpuClockSpeedOffsetInLv1);
+    if (!m_GpuClockSpeedOffsetInLv1)
+        return 0;
+
+    uint64_t frequency = PeekLv1(m_GpuClockSpeedOffsetInLv1);
 
     if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
         return 0;
@@ -196,7 +198,10 @@ uint32_t Overlay::GetGpuGddr3RamClockSpeed()
     if (IsConsoleHen())
         return 0;
 
-    volatile uint64_t frequency = PeekLv1(m_GpuGddr3RamClockSpeedOffsetInLv1);
+    if (!m_GpuGddr3RamClockSpeedOffsetInLv1)
+        return 0;
+
+    uint64_t frequency = PeekLv1(m_GpuGddr3RamClockSpeedOffsetInLv1);
 
     if (frequency == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
         return 0;
@@ -218,6 +223,9 @@ uint32_t Overlay::GetGpuGddr3RamClockSpeed()
 uint32_t Overlay::GetCpuClockSpeed()
 {
     if (IsConsoleHen())
+        return 0;
+
+    if (!m_CpuClockSpeedOffsetInLv1)
         return 0;
 
     uint64_t frequency = PeekLv1(m_CpuClockSpeedOffsetInLv1);
@@ -254,19 +262,19 @@ void Overlay::Lv2LabelUpdate()
 
 void Overlay::WaitAndQueueTextInLV2()
 {
-    const int size = MAX_LV2_STRING_SIZE / sizeof(uint64_t);
+    const int size = MAX_LV2_STRING_SIZE / 8;
     char text[size][8]{};
     vsh::memset(text, 0, sizeof(text));
 
     for (uint64_t i = 0; i < size; i++)
     {
-        uint64_t bytes = PeekLv2(m_NotificationOffsetInLv2 + (i * sizeof(uint64_t)));
+        uint64_t bytes = PeekLv2(m_NotificationOffsetInLv2 + (i * 8));
 
         if (bytes == 0xFFFFFFFF80010003) // if cfw syscalls are disabled 
             goto clear_text;
 
         if (bytes != 0)
-            vsh::memcpy(text[i], &bytes, sizeof(uint64_t));
+            vsh::memcpy(text[i], &bytes, 8);
     }
 
     // force null terminator
