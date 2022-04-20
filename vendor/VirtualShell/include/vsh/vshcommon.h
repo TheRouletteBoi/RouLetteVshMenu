@@ -256,15 +256,13 @@ static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType
       systemPlugin->PlaySound(system_plugin__sound_names[(int)soundType]);
 }
 
+void vshcommon_7504447B(void); // null subroutine 
 
-// vshcommon_7504447B  // ?
+void vshcommon_F1918912(void* navigationMessage, float duration); // adjust duration navigationMessage
 
-// vshcommon_F1918912  // ?
+void vshcommon_21806775(void* navigationMessage); // clear navigationMessage
 
-// vshcommon_21806775  // ?
-
-
-int vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t);
+void* vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t); // returns CNavigationMessage
 static void ShowButtonNavigationMessage(const wchar_t* message)
 {
    paf::View* system_plugin = paf::View::Find("system_plugin");
@@ -275,7 +273,9 @@ static void ShowButtonNavigationMessage(const wchar_t* message)
    if (!page_autooff_guide)
       return;
 
-   vshcommon_F55812AE((int32_t)page_autooff_guide, (wchar_t*)message, 4, 0);
+   void* navigationMessage = vshcommon_F55812AE((int32_t)page_autooff_guide, (wchar_t*)message, 4, 0);
+   if (navigationMessage)
+       vshcommon_F1918912(navigationMessage, 3000.0f);
 }
 
 
@@ -343,7 +343,7 @@ static void ShowButtonNavigationMessage(const wchar_t* message)
 // vshcommon_D17A0968  // ?
 
 // vshcommon_AA6178EE  // ?
-// vshcommon_F4E3246A  // ?
+// vshcommon_F4E3246A  // ScreenSaver_CheckTimer
 
 // vshcommon_83E28B3C  // ?
 
