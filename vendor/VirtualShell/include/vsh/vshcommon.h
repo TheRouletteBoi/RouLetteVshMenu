@@ -259,8 +259,10 @@ static void ShowNofityWithSound(const std::wstring& text, eNotifyIcon notifyType
 void vshcommon_7504447B(void); // null subroutine 
 
 void vshcommon_F1918912(void* navigationMessage, float duration); // adjust duration navigationMessage
+static void NavigationMessageSetDuration(void* navigationMessage, float duration) { vshcommon_F1918912(navigationMessage, duration); }
 
 void vshcommon_21806775(void* navigationMessage); // clear navigationMessage
+static void NavigationMessageClear(void* navigationMessage) { vshcommon_21806775(navigationMessage); }
 
 void* vshcommon_F55812AE(int32_t, wchar_t* text, int32_t, int32_t); // returns CNavigationMessage
 static void ShowButtonNavigationMessage(const wchar_t* message)
@@ -273,9 +275,7 @@ static void ShowButtonNavigationMessage(const wchar_t* message)
    if (!page_autooff_guide)
       return;
 
-   void* navigationMessage = vshcommon_F55812AE((int32_t)page_autooff_guide, (wchar_t*)message, 4, 0);
-   if (navigationMessage)
-       vshcommon_F1918912(navigationMessage, 3000.0f);
+   vshcommon_F55812AE((int32_t)page_autooff_guide, (wchar_t*)message, 4, 0);
 }
 
 
