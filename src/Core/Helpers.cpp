@@ -22,16 +22,16 @@ void Helpers::OnUpdate()
 
 void Helpers::MonitorGameState()
 {
-   //uint64_t timeNow = GetTimeNow();
+   uint64_t timeNow = GetTimeNow();
    if (vsh::GetCooperationMode() != vsh::eCooperationMode::XMB && !m_StateGameRunning)
    {
       m_StateGameRunning = true;
       m_StateGameJustLaunched = true;
-      //m_GameLaunchTime = timeNow;
+      m_GameLaunchTime = timeNow;
    }
    else if (vsh::GetCooperationMode() == vsh::eCooperationMode::XMB)
       m_StateGameRunning = false;
 
-   //if (timeNow - m_GameLaunchTime > 15 * 1000)
-   //    m_StateGameJustLaunched = false;
+   if (timeNow - m_GameLaunchTime > 15 * 1000)
+       m_StateGameJustLaunched = false;
 }
