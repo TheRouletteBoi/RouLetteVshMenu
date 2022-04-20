@@ -310,6 +310,28 @@ void PokeLv2(uint64_t addr, uint64_t val)
    system_call_2(7, (uint64_t)addr, (uint64_t)val);
 }
 
+bool PeekChunkLV1(uint64_t start, uint64_t* buffer, uint64_t size)
+{
+    if (PeekLv1(start) == 0xFFFFFFFF80010003)
+        return false;
+
+    for (uint64_t offset = 0; offset < size; offset += 8)
+        *(buffer++) = PeekLv1(start + offset);
+
+    return true;
+}
+
+bool PeekChunkLV2(uint64_t start, uint64_t* buffer, uint64_t size)
+{
+    if (PeekLv2(start) == 0xFFFFFFFF80010003)
+        return false;
+
+    for (uint64_t offset = 0; offset < size; offset += 8)
+        *(buffer++) = PeekLv2(start + offset);
+
+    return true;
+}
+
 uint64_t lv2_lv1_call(uint64_t syscallnum, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4, uint64_t arg5, uint64_t arg6, uint64_t arg7)
 {
    system_call_8(10, (uint64_t)arg1, (uint64_t)arg2, (uint64_t)arg3, (uint64_t)arg4, (uint64_t)arg5, (uint64_t)arg6, (uint64_t)arg7, (uint64_t)syscallnum);
