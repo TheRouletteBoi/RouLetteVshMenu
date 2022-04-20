@@ -250,7 +250,8 @@ const char* paf_10DEDCC7(void);  // returns "PhPlane"
 const char* paf_E36C18F5(void);  // returns "PhPlaneDiv"
 
 // paf_0C16A258  // ?
-// paf_8ABAE2F3  // ?
+
+void paf_8ABAE2F3(void* r3, void* allocMem, int r5);
 
 const char* paf_24A5BD6B(void);  // returns "PhButton"
 
@@ -672,11 +673,10 @@ static void getDisplayScissorBox(int32_t* x, int32_t* y, int32_t* w, int32_t* h)
 
 // paf_D1748BF8  // ?
 // paf_F8140602  // ?
-int32_t paf_0C74837D(int32_t* surfacePool, int32_t p1, int32_t p2, int32_t imageMode, int32_t imageOrder, bool p5, int32_t p6, int32_t p7);
 // paf_8EF81BFE  // ?
 
-// paf_4192B349  // ?
-// paf_C9826818  // ?
+void* paf_4192B349(void*);
+void* paf_C9826818();
 
 // paf_698E01BE  // ?
 
@@ -1092,11 +1092,13 @@ static void PhSText_SetStyle(void* phSText, int r4, float r5) { paf_165AD4A6(phS
 // paf_BC91AEB3	  // _ZN3paf7Surface12RenderTargetEv	paf::Surface::RenderTarget(void)
 // paf_CC51D56	  // _ZN3paf7Surface4CopyEiPKv10ImageOrderii	paf::Surface::Copy(int, void const*, ImageOrder, int, int)
 // paf_4EABD9DE	  // _ZN3paf7Surface4LockEi	paf::Surface::Lock(int)
-// paf_D51B3CCE	  // _ZN3paf7Surface6UnlockEv	paf::Surface::Unlock(void)
-// paf_C74837D	  // _ZN3paf7SurfaceC1EPNS_11SurfacePoolEii9ImageMode10ImageOrderbii	paf::Surface::Surface(paf::SurfacePool *, int, int, ImageMode, ImageOrder, bool, int, int)
+// paf_D51B3CCE	  // _ZN3paf7Surface6UnlockEv	paf::Surface::Unlock(void) 
+
+int32_t paf_0C74837D(int32_t* surfacePool, int32_t p1, int32_t p2, int32_t imageMode, int32_t imageOrder, bool p5, int32_t p6, int32_t p7);  // _ZN3paf7SurfaceC1EPNS_11SurfacePoolEii9ImageMode10ImageOrderbii	paf::Surface::Surface(paf::SurfacePool *, int, int, ImageMode, ImageOrder, bool, int, int)
+
 // paf_849CCA15	  // _ZN3paf7SurfaceC1Eii9ImageMode10ImageOrderbiPvii	paf::Surface::Surface(int, int, ImageMode, ImageOrder, bool, int, void *, int, int)
 // paf_278774DE	  // _ZN3paf7SurfacenwEj	paf::Surface::operator new(unsigned int)
-
+// 
 // paf_9D191F72	  // _ZN3paf8DateTime13SetDateFormatEPKw	paf::DateTime::SetDateFormat(wchar_t const*)
 // paf_2D388628	  // _ZN3paf8DateTime13SetTimeFormatEPKw	paf::DateTime::SetTimeFormat(wchar_t const*)
 // paf_D251AE84	  // _ZN3paf8DateTime17SetDateTimeFormatEPKw	paf::DateTime::SetDateTimeFormat(wchar_t const*)
