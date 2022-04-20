@@ -36,26 +36,22 @@ SYS_MODULE_STOP(module_stop);
 * ----------------------
 * DEBUG
 * ----------------------
-* DrawText(void* unk const std::wstring& text, void*, void*, 0x40, 0, 0, size_t stringLen); // DrawTextSymbol
 * paf_BE04476B(paf::PhFont::GlyphType, paf::SurfaceRCPtr<paf::Surface> &, int, int, wchar_t const*, unsigned int, paf::PhFont const&, paf::PhTextLetterSpace const*);
-*
-* FindLoadedPlugin();
-* FindWidget();
-* LoadRCOTexture();
-* paf_8ABAE2F3();
-* paf_7F0930C6();
-* plugin_GetInterface();
-* paf_2CBA5A33();
-* PlayRCOSound();
-* paf_EAA28B8();
-* paf_85D1D23B();
+* paf_F21655F3(); View_Find
+* paf_794CEACB(); View_FindWidget
+* paf_3A8454FC(); View_GetTexture
+* paf_8ABAE2F3(void*, void*, int _0);
+* paf_7F0930C6(); PhText_Constructor
+* paf_23AFB290(); View_GetInterface
+* paf_2CBA5A33(); PhHandler_KillTimerCB
+* paf_B93AFE7E(); View_PlaySound
+* paf_EAA28B8(); Framework_End
+* paf_85D1D23B(); Framework_Run
 * paf_0C74837D();
-* paf_CC51D56();
+* paf_CC51D56(); paf::Surface::Copy
 * paf_C9826818();
 * paf_4192B349();
-*
-* vshcommon_F1918912(); // notification?
-*
+* vshcommon_F1918912(); // NavigationMessageSetDuration
 * vshnet_FC7303C5(); // sceNpGetNpId
 * 
 */ 
