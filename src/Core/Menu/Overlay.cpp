@@ -9,25 +9,25 @@ Overlay::Overlay()
         "be.0.ref_clk",
         vsh::strlen("be.0.ref_clk"),
         "be.0.ref_clk");
-   m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
+    m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
 
-   addr = FindPatternHypervisor(
-       "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
-       20,
-       "???x???x???x??xx??xx");
-   m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
+        20,
+        "???x???x???x??xx??xx");
+    m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
 
-   addr = FindPatternHypervisor(
-       "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
-       20,
-       "???x???x???x??xx??xx");
-   m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
+        20,
+        "???x???x???x??xx??xx");
+    m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
 
-   m_CpuClock = GetCpuClockSpeed();
-   m_GpuClock = GetGpuClockSpeed();
-   m_GpuGddr3RamClock = GetGpuGddr3RamClockSpeed();
+    m_CpuClock = GetCpuClockSpeed();
+    m_GpuClock = GetGpuClockSpeed();
+    m_GpuGddr3RamClock = GetGpuGddr3RamClockSpeed();
 
-   sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
+    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 5000, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 }
 
 void Overlay::OnUpdate()
