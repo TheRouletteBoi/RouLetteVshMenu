@@ -2,49 +2,6 @@
 #ifndef __VSHLIB_H__
 #define __VSHLIB_H__
 
-
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <math.h>
-#include <dirent.h>
-#include <wchar.h>
-#include <cell/codec/pngdec.h>
-#include <cell/gcm.h>
-#include <cell/font.h>
-#include <cell/l10n.h>
-#include <cell/pad.h>
-#include <sys/poll.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <netex/net.h>
-#include <netex/sockinfo.h>
-#include <netex/udpp2p.h>
-#include <netinet/in.h>
-#include <netex/ns.h>
-#include <netex/ifctl.h>
-#include <sys/time.h>
-#include <sys/select.h>
-#include <time.h>
-#include <sys/sys_time.h>
-#include <sys/mempool.h>
-#include <sys/ppu_thread.h>
-#include <sys/spu_utility.h>
-#include <sys/spu_image.h>
-#include <sys/synchronization.h>
-#include <sys/memory.h>
-#include <sys/interrupt.h>
-#include <sys/process.h>
-#include <sys/spinlock.h>
-#include <sys/random_number.h>
-*/
-
-
-
-
-
 #include "vsh/allocator.h"
 #include "vsh/download_plugin.h"
 #include "vsh/esecron.h"
@@ -80,4 +37,5 @@
 #include "vsh/xmb_plugin.h"
 #include "vsh/xregistry.h"
 #include "vsh/xsetting.h"
+
 #endif // __VSHLIB_H__
