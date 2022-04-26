@@ -1,7 +1,9 @@
 #ifndef __SYS_PRX_FOR_USER_H__
 #define __SYS_PRX_FOR_USER_H__
 #include "vshtypes.h"
-
+#include <sys/synchronization.h> // for sys_lwmutex_t
+#include <sys/mempool.h> // for sys_mempool_t
+#include <sys/spu_utility.h> // for sys_spu_image_t
 
 _VSH_BEGIN
 CDECL_BEGIN
@@ -44,7 +46,6 @@ static int sys_lwmutex_lock(sys_lwmutex_t* lwmutex, usecond_t timeout) { return 
 
 char *sysPrxForUser_191F0C4A(const char *s,                        // _sys_strrchr()
                                     int c);
-#define sys_strrchr sysPrxForUser_191F0C4A
 
 // sysPrxForUser_1AE10B92  // _sys_spu_printf_attach_thread
 // int spu_printf_attach_thread(sys_spu_thread_t thread);
@@ -68,7 +69,7 @@ int sysPrxForUser_24A1EA07(sys_ppu_thread_t *thread_id,            // sys_ppu_th
                                   size_t stacksize,
                                   uint64_t flags,
                                   const char *threadname);
-static int sys_ppu_thread_create(sys_ppu_thread_t* thread_id, void (*entry)(uint64_t), uint64_t arg, int prio, size_t stacksize, uint64_t flags, const char* threadname) { return sysPrxForUser_24A1EA07(thread_id, entry,prio, stacksize, flags, threadname); }
+static int sys_ppu_thread_create(sys_ppu_thread_t* thread_id, void (*entry)(uint64_t), uint64_t arg, int prio, size_t stacksize, uint64_t flags, const char* threadname) { return sysPrxForUser_24A1EA07(thread_id, entry, arg, prio, stacksize, flags, threadname); }
 
 // sysPrxForUser_25062C8E  // ?
 
@@ -78,7 +79,7 @@ uint64_t sysPrxForUser_25596F51(sys_mempool_t mempool);            // sys_mempoo
 sys_prx_id_t sysPrxForUser_26090058(const char* path,              // sys_prx_load_module()
                                            sys_prx_flags_t flags,
                                            sys_prx_load_module_option_t *pOpt);
-static sys_prx_id_t sys_prx_load_module(const char* path, sys_prx_flags_t flags, sys_prx_load_module_option_t* pOpt) { return sysPrxForUser_26090058(); }
+static sys_prx_id_t sys_prx_load_module(const char* path, sys_prx_flags_t flags, sys_prx_load_module_option_t* pOpt) { return sysPrxForUser_26090058(path, flags, pOpt); }
 
 void *sysPrxForUser_27427742(void *str1,                           // _sys_memmove()
                                     const void *str2,
@@ -439,7 +440,7 @@ int sysPrxForUser_EF87A695(sys_lwcond_t *lwcond);                  // sys_lwcond
 int sysPrxForUser_F0AECE0D(sys_prx_id_t id,                        // sys_prx_unload_module()
                                   sys_prx_flags_t flags,
                                   sys_prx_unload_module_option_t *pOpt);
-static int sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, sys_prx_unload_module_option_t* pOpt) { return sysPrxForUser_F0AECE0D(fd, flags, pOpt); }
+static int sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, sys_prx_unload_module_option_t* pOpt) { return sysPrxForUser_F0AECE0D(id, flags, pOpt); }
 
 // sysPrxForUser_F57E1D6F  // console_write
 
