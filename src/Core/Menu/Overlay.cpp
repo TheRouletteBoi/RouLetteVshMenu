@@ -27,7 +27,7 @@ Overlay::Overlay()
     m_GpuClock = GetGpuClockSpeed();
     m_GpuGddr3RamClock = GetGpuGddr3RamClockSpeed();
 
-    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 5000, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
+    sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 }
 
 void Overlay::OnUpdate()
