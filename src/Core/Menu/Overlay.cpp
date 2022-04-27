@@ -19,6 +19,12 @@ void Overlay::OnUpdate()
 
 void Overlay::OnShutdown()
 {
+   if (LoadExternalOffsetsThreadId != SYS_PPU_THREAD_ID_INVALID)
+   {
+       uint64_t exitCode;
+       sys_ppu_thread_join(LoadExternalOffsetsThreadId, &exitCode);
+   }
+
    if (UpdateInfoThreadId != SYS_PPU_THREAD_ID_INVALID)
    {
       m_StateRunning = false;
