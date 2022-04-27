@@ -175,7 +175,7 @@ void Render::CreateWidgets()
    for (int i = 0; i < MAX_PLANES; i++)
    {
       // Using a randomized name add compatibility with other menus if they use the same name template
-      vsh::paf::PhPlane* phPlane = CreatePlane("CRenderPlane_" + to_string(vsh::rand()));
+      vsh::paf::PhPlane* phPlane = CreatePlane("RenderPlane_" + to_string(vsh::rand()));
       if (!phPlane)
          break;
 
@@ -185,7 +185,7 @@ void Render::CreateWidgets()
    vsh::srand(mix_time_seed(clock(), time(NULL), sys_process_getpid()));
    for (int i = 0; i < MAX_TEXTS; i++)
    {
-      vsh::paf::PhText* phText = CreateText("CRenderText_" + to_string(vsh::rand()));
+      vsh::paf::PhText* phText = CreateText("RenderText_" + to_string(vsh::rand()));
       if (!phText)
          break;
 
