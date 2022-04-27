@@ -1,7 +1,9 @@
 #ifndef __SYS_PRX_FOR_USER_H__
 #define __SYS_PRX_FOR_USER_H__
 #include "vshtypes.h"
-
+#include <sys/synchronization.h> // for sys_lwmutex_t
+#include <sys/mempool.h> // for sys_mempool_t
+#include <sys/spu_utility.h> // for sys_spu_image_t
 
 _VSH_BEGIN
 CDECL_BEGIN
@@ -27,12 +29,10 @@ int sysPrxForUser_0618936B(char *s,                                // _sys_vsnpr
                                   size_t n,
                                   const char *fmt,
                                   va_list arg);
-#define sys_vsnprintf sysPrxForUser_0618936B
 
 int sysPrxForUser_06574237(char *str,                              // _sys_snprintf()
                                   size_t size,
                                   const char *fmt, ...);
-#define sys_snprintf sysPrxForUser_06574237
 
 // sysPrxForUser_094FF0D1  // ? sys_rsxaudio_... (3 params)
 // sysPrxForUser_0FB028AF  // ? sys_memory/mmapper... (6 params)
@@ -44,7 +44,6 @@ static int sys_lwmutex_lock(sys_lwmutex_t* lwmutex, usecond_t timeout) { return 
 
 char *sysPrxForUser_191F0C4A(const char *s,                        // _sys_strrchr()
                                     int c);
-#define sys_strrchr sysPrxForUser_191F0C4A
 
 // sysPrxForUser_1AE10B92  // _sys_spu_printf_attach_thread
 // int spu_printf_attach_thread(sys_spu_thread_t thread);
@@ -68,17 +67,16 @@ int sysPrxForUser_24A1EA07(sys_ppu_thread_t *thread_id,            // sys_ppu_th
                                   size_t stacksize,
                                   uint64_t flags,
                                   const char *threadname);
-static int sys_ppu_thread_create(sys_ppu_thread_t* thread_id, void (*entry)(uint64_t), uint64_t arg, int prio, size_t stacksize, uint64_t flags, const char* threadname) { return sysPrxForUser_24A1EA07(thread_id, entry,prio, stacksize, flags, threadname); }
+static int sys_ppu_thread_create(sys_ppu_thread_t* thread_id, void (*entry)(uint64_t), uint64_t arg, int prio, size_t stacksize, uint64_t flags, const char* threadname) { return sysPrxForUser_24A1EA07(thread_id, entry, arg, prio, stacksize, flags, threadname); }
 
 // sysPrxForUser_25062C8E  // ?
 
 uint64_t sysPrxForUser_25596F51(sys_mempool_t mempool);            // sys_mempool_get_count()
-#define sys_mempool_get_count sysPrxForUser_25596F51
 
 sys_prx_id_t sysPrxForUser_26090058(const char* path,              // sys_prx_load_module()
                                            sys_prx_flags_t flags,
                                            sys_prx_load_module_option_t *pOpt);
-static sys_prx_id_t sys_prx_load_module(const char* path, sys_prx_flags_t flags, sys_prx_load_module_option_t* pOpt) { return sysPrxForUser_26090058(); }
+static sys_prx_id_t sys_prx_load_module(const char* path, sys_prx_flags_t flags, sys_prx_load_module_option_t* pOpt) { return sysPrxForUser_26090058(path, flags, pOpt); }
 
 void *sysPrxForUser_27427742(void *str1,                           // _sys_memmove()
                                     const void *str2,
@@ -87,7 +85,6 @@ static void* _sys_memmove(void* str1, const void* str2, size_t n) { return sysPr
 
 int sysPrxForUser_2A6D9D51(sys_lwcond_t *lwcond,                   // sys_lwcond_wait()
                                   usecond_t timeout);
-#define sys_lwcond_wait sysPrxForUser_2A6D9D51
 
 // sysPrxForUser_2C847572  // _sys_process_atexitspawn
 
@@ -115,7 +112,6 @@ static int sys_ppu_thread_get_id(sys_ppu_thread_t* thread_id) { return sysPrxFor
 void *sysPrxForUser_3BD53C7B(void *ptr,                            // sys_memchr()
                                     int value,
                                     size_t num);
-#define sys_memchr sysPrxForUser_3BD53C7B
 
 // sysPrxForUser_3DD4A957  // sys_ppu_thread_register_atexit
 // sysPrxForUser_3EF17F8C  // ?
@@ -139,10 +135,8 @@ static int _sys_strcmp(const char* str1, const char* str2) { return sysPrxForUse
 
 int sysPrxForUser_4643BA6E(sys_addr_t start_addr,                  // sys_mmapper_unmap_memory()
                                   sys_memory_t *mem_id);
-#define sys_mmapper_unmap_memory sysPrxForUser_4643BA6E
 
 int sysPrxForUser_4A071D98(sys_interrupt_thread_handle_t ih);      // sys_interrupt_thread_disestablish()
-#define sys_interrupt_thread_disestablish sysPrxForUser_4A071D98
 
 int sysPrxForUser_4B2F301A(int c);                                 // sys_tolower()
 static int _sys_tolower(int c) { return sysPrxForUser_4B2F301A(c); }
@@ -150,21 +144,17 @@ static int _sys_tolower(int c) { return sysPrxForUser_4B2F301A(c); }
 // sysPrxForUser_4BBF59D0  // sys_net_eurus_post_command(u16 cmd, u8 *cmdbuf, u64 cmdbuf_size)
 
 int sysPrxForUser_4F7172C9(const void *p);                         // sys_process_is_stack()
-#define sys_process_is_stack sysPrxForUser_4F7172C9
 
 void sysPrxForUser_5267CB35(int *lock);                            // sys_spinlock_unlock()
-#define sys_spinlock_unlock sysPrxForUser_5267CB35
 
 int sysPrxForUser_52AADADF(sys_lwcond_t *lwcond,                   // sys_lwcond_signal_to()
                                   sys_ppu_thread_t ppu_thread_id);
-#define sys_lwcond_signal_to sysPrxForUser_52AADADF
 
 // sysPrxForUser_5FDFB2FE  // _sys_spu_printf_detach_group
 // int spu_printf_detach_group(sys_spu_thread_group_t group);
 
 int sysPrxForUser_608212FC(sys_mempool_t mempool,                  // sys_mempool_free_block()
                                   void *block);
-#define sys_mempool_free_block sysPrxForUser_608212FC
 
 // sysPrxForUser_620E35A7  // sys_game_get_system_sw_version
 // sysPrxForUser_637BDAAE  // ?
@@ -186,14 +176,12 @@ int sysPrxForUser_70258515(size_t size,                            // sys_mmappe
                                   sys_memory_container_t container,
                                   uint64_t flags,
                                   sys_memory_t *mem_id);
-#define sys_mmapper_allocate_memory_from_container sysPrxForUser_70258515
 
 int sysPrxForUser_71A8472A(void* addr,                             // sys_get_random_number()
                                   uint64_t size);
 static int sys_get_random_number(void* addr, uint64_t size) { return sysPrxForUser_71A8472A(addr, size); }
 
 int sysPrxForUser_722A0254(int *lock);                             // sys_spinlock_trylock()
-#define sys_spinlock_trylock sysPrxForUser_722A0254
 
 // sysPrxForUser_728FD7C3  // ?
 
@@ -309,7 +297,6 @@ static sys_prx_id_t sys_prx_load_module_on_memcontainer(const char* path, sys_me
 // sysPrxForUser_ACAD8FB6  // sys_game_watchdog_clear
 
 int sysPrxForUser_AEB78725(sys_lwmutex_t *lwmutex);                // sys_lwmutex_trylock()
-#define sys_lwmutex_trylock sysPrxForUser_AEB78725
 
 // sysPrxForUser_AEDE4B03  // _sys_heap_delete_heap
 
@@ -334,7 +321,6 @@ static int sys_mmapper_allocate_memory(uint64_t size, uint64_t flags, sys_memory
 
 int sysPrxForUser_B995662E(sys_raw_spu_t id,                       // sys_raw_spu_image_load()
                                   sys_spu_image_t *img);
-#define sys_raw_spu_image_load sysPrxForUser_B995662E
 
 // sysPrxForUser_B9BF1078  // _sys_heap_alloc_heap_memory
 // sysPrxForUser_BAB62B99  // ret 0x80010003
@@ -351,7 +337,6 @@ void sysPrxForUser_C4FD6121(void *base,                            // sys_qsort(
                                    size_t num,
                                    size_t size,
                                    int (*compar)(const void*, const void*));
-#define sys_qsort sysPrxForUser_C4FD6121
 
 // sysPrxForUser_C839BB4C  // sys_rsxaudio_initialize(out:u8[4])
 
@@ -360,10 +345,8 @@ int sysPrxForUser_CA9A60BF(sys_mempool_t *mempool,                 // sys_mempoo
                                   const uint64_t chunk_size,
                                   const uint64_t block_size,
                                   const uint64_t ralignment);
-#define sys_mempool_create sysPrxForUser_CA9A60BF
 
 int sysPrxForUser_D0EA47A7(void* library);                         // sys_prx_unregister_library()
-#define sys_prx_unregister_library sysPrxForUser_D0EA47A7
 
 // sysPrxForUser_D19688BC  // ?
 // sysPrxForUser_D1AD4570  // _sys_heap_get_mallinfo
@@ -378,7 +361,6 @@ char *sysPrxForUser_D3039D4D(char *dest,                           // sys_strncp
 int sysPrxForUser_DA0EB71A(sys_lwcond_t *lwcond,                   // sys_lwcond_create()
                                   sys_lwmutex_t *lwmutex,
                                   sys_lwcond_attribute_t *attr);
-#define sys_lwcond_create sysPrxForUser_DA0EB71A
 
 // sysPrxForUser_DB6B3250  // sys_spu_elf_get_segments
 
@@ -402,7 +384,6 @@ sys_prx_id_t sysPrxForUser_E0998DBF(const char* name,              // sys_prx_ge
 static sys_prx_id_t sys_prx_get_module_id_by_name(const char* name, sys_prx_flags_t flags, sys_prx_get_module_id_by_name_option_t* pOpt) { return sysPrxForUser_E0998DBF(name, flags, pOpt); }
 
 int sysPrxForUser_E0DA8EFD(sys_spu_image_t *img);                  // sys_spu_image_close()
-#define sys_spu_image_close sysPrxForUser_E0DA8EFD
 
 // sysPrxForUser_E66BAC36  // console_putc
 
@@ -416,12 +397,10 @@ int32_t sysPrxForUser_E75C40F2(void *x);  // ?
 // sysPrxForUser_E95FFA0A  // ret 0x80010003
 
 int sysPrxForUser_E9A1BD84(sys_lwcond_t *lwcond);                  // sys_lwcond_signal_all()
-#define sys_lwcond_signal_all sysPrxForUser_E9A1BD84
 
 int sysPrxForUser_EBE5F72F(sys_spu_image_t *img,                   // sys_spu_image_import()
                                   const void *src,
                                   uint32_t type);
-#define sys_spu_image_import sysPrxForUser_EBE5F72F
 
 // sysPrxForUser_EDEA5F4A  // ?
 
@@ -434,12 +413,11 @@ sys_prx_id_t sysPrxForUser_EF68C17C(int fd,                        // sys_prx_lo
 static sys_prx_id_t sys_prx_load_module_by_fd(int fd, off64_t offset, sys_prx_flags_t flags, sys_prx_load_module_option_t* pOpt) { return sysPrxForUser_EF68C17C(fd, offset, flags, pOpt); }
 
 int sysPrxForUser_EF87A695(sys_lwcond_t *lwcond);                  // sys_lwcond_signal()
-#define sys_lwcond_signal sysPrxForUser_EF87A695
 
 int sysPrxForUser_F0AECE0D(sys_prx_id_t id,                        // sys_prx_unload_module()
                                   sys_prx_flags_t flags,
                                   sys_prx_unload_module_option_t *pOpt);
-static int sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, sys_prx_unload_module_option_t* pOpt) { return sysPrxForUser_F0AECE0D(fd, flags, pOpt); }
+static int sys_prx_unload_module(sys_prx_id_t id, sys_prx_flags_t flags, sys_prx_unload_module_option_t* pOpt) { return sysPrxForUser_F0AECE0D(id, flags, pOpt); }
 
 // sysPrxForUser_F57E1D6F  // console_write
 
