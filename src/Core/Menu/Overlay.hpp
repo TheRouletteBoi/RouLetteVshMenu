@@ -36,9 +36,11 @@ private:
    uint32_t GetGpuGddr3RamClockSpeed();
    uint32_t GetCpuClockSpeed();
    static void UpdateInfoThread(uint64_t arg);
+   static void LoadExternalOffsets(uint64_t arg);
 
 public:
    sys_ppu_thread_t UpdateInfoThreadId = SYS_PPU_THREAD_ID_INVALID;
+   sys_ppu_thread_t LoadExternalOffsetsThreadId = SYS_PPU_THREAD_ID_INVALID;
    bool m_StateRunning{};
    float m_CPUTemp{};
    float m_GPUTemp{};

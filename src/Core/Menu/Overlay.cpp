@@ -5,27 +5,7 @@ Overlay g_Overlay;
 
 Overlay::Overlay()
 {
-    uint32_t addr = FindPatternHypervisor(
-        "be.0.ref_clk",
-        vsh::strlen("be.0.ref_clk"),
-        "be.0.ref_clk");
-    m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
-
-    addr = FindPatternHypervisor(
-        "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
-        20,
-        "???x???x???x??xx??xx");
-    m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
-
-    addr = FindPatternHypervisor(
-        "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
-        20,
-        "???x???x???x??xx??xx");
-    m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
-
-    m_CpuClock = GetCpuClockSpeed();
-    m_GpuClock = GetGpuClockSpeed();
-    m_GpuGddr3RamClock = GetGpuGddr3RamClockSpeed();
+    sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
 
     sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 }
@@ -68,7 +48,7 @@ void Overlay::DrawOverlay()
            + L"\n";
    }
 
-   if (showClockSpeeds && m_GpuClock != 0)
+   if (showClockSpeeds && m_GpuGddr3RamClock != 0)
    {
        overlayText += L"CPU Clock: " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz\n";
        overlayText += L"GPU Clock: " + to_wstring(m_GpuClock) + L" MHz\n";
@@ -343,8 +323,35 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
+      g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
+      g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
+      g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
+
       g_Overlay.WaitAndQueueTextInLV2();
    }
 
    sys_ppu_thread_exit(0);
+}
+
+void Overlay::LoadExternalOffsets(uint64_t arg)
+{
+    uint32_t addr = FindPatternHypervisor(
+        "be.0.ref_clk",
+        vsh::strlen("be.0.ref_clk"),
+        "be.0.ref_clk");
+    g_Overlay.m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
+
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
+        20,
+        "???x???x???x??xx??xx");
+    g_Overlay.m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
+
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
+        20,
+        "???x???x???x??xx??xx");
+    g_Overlay.m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
+
+    sys_ppu_thread_exit(0);
 }
