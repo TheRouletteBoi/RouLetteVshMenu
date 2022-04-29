@@ -112,7 +112,7 @@ void Overlay::DrawOverlay()
        GetGameName(gameTitleId, gameTitleName);
 
        wchar_t appName[100]{};
-       vsh::swprintf(appName, sizeof(appName), L"%s / %s\n", gameTitleName, gameTitleId);
+       vsh::swprintf(appName, sizeof(appName), L"%s %s\n", gameTitleName, gameTitleId);
        overlayText += appName;
    }
 
