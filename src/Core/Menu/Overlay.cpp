@@ -344,7 +344,7 @@ void Overlay::LoadExternalOffsets(uint64_t arg)
     uint32_t addr = FindPatternHypervisor(
         "be.0.ref_clk",
         vsh::strlen("be.0.ref_clk"),
-        "be.0.ref_clk");
+        "xxxxxxxxxxxx");
     g_Overlay.m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
 
     addr = FindPatternHypervisor(
