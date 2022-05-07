@@ -46,19 +46,27 @@ void Overlay::DrawOverlay()
        overlayText += L"FPS: " + to_wstring(m_FPS, 2) + L"\n";
    }
 
-   if (showCpuGpuTemps)
+   if (showCpuInfo)
    {
        std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
-       overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr 
-           + L" / GPU: " + to_wstring(m_GPUTemp) + tempTypeStr 
-           + L"\n";
+       overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr;
+
+       if (m_CpuClock != 0)
+           overlayText += L" / " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz";
+
+       overlayText += L"\n";
    }
 
-   if (showClockSpeeds && m_GpuGddr3RamClock != 0)
+   if (showGpuInfo)
    {
-       overlayText += L"CPU Clock: " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz\n";
-       overlayText += L"GPU Clock: " + to_wstring(m_GpuClock) + L" MHz\n";
-       overlayText += L"GDDR3 RAM Clock: " + to_wstring(m_GpuGddr3RamClock) + L" MHz\n";
+       std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
+       overlayText += L"GPU: " + to_wstring(m_GPUTemp) + tempTypeStr;
+       if (m_GpuGddr3RamClock != 0)
+       {
+           overlayText += L" / " + to_wstring(m_GpuClock) + L" MHz";
+           overlayText += L" / " + to_wstring(m_GpuGddr3RamClock) + L" MHz";
+       }
+       overlayText += L"\n";
    }
 
    /*if (showRAM)
@@ -112,7 +120,7 @@ void Overlay::DrawOverlay()
        GetGameName(gameTitleId, gameTitleName);
 
        wchar_t appName[100]{};
-       vsh::swprintf(appName, sizeof(appName), L"%s %s\n", gameTitleName, gameTitleId);
+       vsh::swprintf(appName, sizeof(appName), L"%s / %s\n", gameTitleName, gameTitleId);
        overlayText += appName;
    }
 
