@@ -8,6 +8,7 @@
 #include "Utils/Timers.hpp"
 #include "Core/Menu/Overlay.hpp"
 #include "Core/Hooks.hpp"
+#include "Core/Configuration.hpp"
 
 // Macros defining our module informations as well as our entry/exit point
 SYS_MODULE_INFO(VshFpsCounter, 0, 1, 1);
@@ -27,6 +28,7 @@ int module_start(unsigned int args, void* argp)
 
       g_Render = Render();
       g_Helpers = Helpers();
+      g_Config = Config();
       g_Overlay = Overlay();
 
       InstallHooks();

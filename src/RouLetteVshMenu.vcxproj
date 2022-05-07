@@ -64,7 +64,7 @@
       <PreprocessorDefinitions>LAUNCHER_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SolutionDir)vendor\VirtualShell\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SolutionDir)vendor\VirtualShell\include;$(SolutionDir)vendor\super_simple_yaml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStd>Cpp11</CppLanguageStd>
     </ClCompile>
     <Link>
@@ -80,7 +80,7 @@
       <PreprocessorDefinitions>LAUNCHER_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <OptimizationLevel>Level2</OptimizationLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SolutionDir)vendor\VirtualShell\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SN_PS3_PATH)\ppu\include\sn;$(SCE_PS3_ROOT)\target\ppu\include;$(SCE_PS3_ROOT)\target\common\include;$(SolutionDir)vendor\VirtualShell\include;$(SolutionDir)vendor\super_simple_yaml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStd>Cpp11</CppLanguageStd>
       <Branchless>Branchless2</Branchless>
     </ClCompile>
@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Configuration.cpp" />
     <ClCompile Include="Core\Menu\Overlay.cpp" />
     <ClCompile Include="Core\Rendering.cpp" />
     <ClCompile Include="Core\Helpers.cpp" />
@@ -104,11 +105,13 @@
     <ClCompile Include="Memory\Memory.cpp" />
     <ClCompile Include="Memory\Pattern.cpp" />
     <ClCompile Include="Utils\ConsoleInfo.cpp" />
+    <ClCompile Include="Utils\FileSystem.cpp" />
     <ClCompile Include="Utils\Std.cpp" />
     <ClCompile Include="Utils\SystemCalls.cpp" />
     <ClCompile Include="Utils\Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Configuration.hpp" />
     <ClInclude Include="Core\Menu\Overlay.hpp" />
     <ClInclude Include="Core\Rendering.hpp" />
     <ClInclude Include="Core\Helpers.hpp" />
@@ -117,6 +120,7 @@
     <ClInclude Include="Memory\Memory.hpp" />
     <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Utils\ConsoleInfo.hpp" />
+    <ClInclude Include="Utils\FileSystem.hpp" />
     <ClInclude Include="Utils\NewDeleteOverride.hpp" />
     <ClInclude Include="Utils\Std.hpp" />
     <ClInclude Include="Utils\SystemCalls.hpp" />
