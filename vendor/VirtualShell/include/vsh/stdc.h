@@ -302,9 +302,9 @@ long int stdc_D14ECE90(const char *str, char **endptr, int base);              /
 static long int strtol(const char* str, char** endptr, int base) { return stdc_D14ECE90(str, endptr, base); }
 
 double stdc_D1D69CB8(const char *a, char **b, long x);                         // _Stod()
-#define _Stod stdc_D1D69CB8
-#define strtod(str, endptr)	_Stod(str, endptr, 0)
-#define atof(str)	_Stod(str, 0, 0)
+static double _Stod(const char* a, char** b, long x) { return stdc_D1D69CB8(a, b, x); }
+static double strtod(const char* str, char** endptr) { return _Stod(str, endptr, 0); }
+static double atof(const char* str) { return _Stod(str, 0, 0); }
 
 uint64_t stdc_36C067C1(const char *a, char **b, int x);                        // _Stoll
 #define _Stoll stdc_36C067C1
