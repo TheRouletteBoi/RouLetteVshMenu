@@ -87,6 +87,32 @@ struct Accessor
 
     virtual std::string str() { return getOp(node->type).str(this); } // FAIL("str not implemented for this node"); }
     virtual double dbl() { return getOp(node->type).dbl(this); } // FAIL("flt not implemented for this node"); }
+    virtual bool boolean()
+    {
+        const std::string& value = getOp(node->type).str(this);
+
+        switch (value.c_str()[0])
+        {
+        case 't': case 'T': // true
+        case 'y': case 'Y': // yes
+        case '1':           // 1 (one)
+            return true;
+
+        case 'f': case 'F': // false
+        case 'n': case 'N': // no
+        case '0':           // 0 (zero)
+            return false;
+
+        case 'o': case 'O':
+            if (value.c_str()[1] == 'n' || value.c_str()[1] == 'N') 
+                return true;  // on
+            if (value.c_str()[1] == 'f' || value.c_str()[1] == 'F') 
+                return false; // off
+            break;
+        }
+
+        return false;
+    }
     virtual int len() { return getOp(node->type).len(this); } //FAIL("len not implemented for this node"); }
 
     bool isNull() const { return node == nullptr; }
