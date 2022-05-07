@@ -5,6 +5,7 @@ Overlay g_Overlay;
 
 Overlay::Overlay()
 {
+    m_ReloadConfigTime = GetTimeNow() + 10000;
     sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
 
     sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
@@ -12,6 +13,13 @@ Overlay::Overlay()
 
 void Overlay::OnUpdate()
 {
+   if (GetTimeNow() > m_ReloadConfigTime)
+   {
+       g_Config.Load();
+       m_ReloadConfigTime = GetTimeNow() + 10000;
+   }
+
+   UpdatePosition();
    CalculateFps();
    DrawOverlay();
    Lv2LabelUpdate();
@@ -39,14 +47,21 @@ void Overlay::OnShutdown()
 
 void Overlay::DrawOverlay()
 {
+   if (g_Config.overlay.displayMode == Config::DisplayMode::XMB && vsh::GetCooperationMode() != vsh::eCooperationMode::XMB)
+       return;
+
+   if (g_Config.overlay.displayMode == Config::DisplayMode::GAME && vsh::GetCooperationMode() == vsh::eCooperationMode::XMB)
+       return;
+
+
    std::wstring overlayText;
 
-   if (showFPS)
+   if (g_Config.overlay.showFPS)
    {
        overlayText += L"FPS: " + to_wstring(m_FPS, 2) + L"\n";
    }
 
-   if (showCpuInfo)
+   if (g_Config.overlay.showCpuInfo)
    {
        std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
        overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr;
@@ -57,7 +72,7 @@ void Overlay::DrawOverlay()
        overlayText += L"\n";
    }
 
-   if (showGpuInfo)
+   if (g_Config.overlay.showGpuInfo)
    {
        std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
        overlayText += L"GPU: " + to_wstring(m_GPUTemp) + tempTypeStr;
@@ -69,23 +84,23 @@ void Overlay::DrawOverlay()
        overlayText += L"\n";
    }
 
-   /*if (showRAM)
+   if (g_Config.overlay.showRamInfo)
    {
        overlayText += L"RAM: " + to_wstring(m_MemoryUsage.percent, 1) 
            + L"% " + to_wstring(m_MemoryUsage.used, 1) 
            + L" / " + to_wstring(m_MemoryUsage.total, 1) 
            + L" MB" 
            + L"\n";
-   }*/
+   }
 
-   if (showFanSpeed)
+   if (g_Config.overlay.showFanSpeed)
    {
        overlayText += L"Fan speed: " 
            + to_wstring(m_FanSpeed) 
            + L"%\n";
    }
 
-   if (showFirmware)
+   if (g_Config.overlay.showFirmware)
    {
        std::wstring kernelName;
        switch (m_KernelType)
@@ -113,7 +128,7 @@ void Overlay::DrawOverlay()
    }
 
    vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
-   if (showAppName && gamePlugin)
+   if (g_Config.overlay.showAppName && gamePlugin)
    {
        char gameTitleId[16]{};
        char gameTitleName[64]{};
@@ -135,11 +150,54 @@ void Overlay::DrawOverlay()
 
    g_Render.Text(
       overlayText,
-      vsh::vec2(-vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5),
+      m_Position,
       m_SizeText,
-      Render::Align::Left,
-      Render::Align::Top,
+      m_HorizontalAlignment,
+      m_VerticalAlignment,
       m_ColorText);
+}
+
+void Overlay::UpdatePosition()
+{
+    switch (g_Config.overlay.positionStyle)
+    {
+        case Config::PostionStyle::TOP_LEFT:
+        {
+            m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5;
+            m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5;
+
+            m_VerticalAlignment = Render::Align::Top;
+            m_HorizontalAlignment = Render::Align::Left;
+            break;
+        }
+        case Config::PostionStyle::TOP_RIGHT:
+        {
+            m_Position.x = vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5;
+            m_Position.y = vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 5;
+
+            m_VerticalAlignment = Render::Align::Top;
+            m_HorizontalAlignment = Render::Align::Right;
+            break;
+        }
+        case Config::PostionStyle::BOTTOM_LEFT:
+        {
+            m_Position.x = -vsh::paf::PhWidget::GetViewportWidth() / 2 + m_SafeArea.x + 5;
+            m_Position.y = -vsh::paf::PhWidget::GetViewportHeight() / 2 + m_SafeArea.y + 5;
+
+            m_VerticalAlignment = Render::Align::Bottom;
+            m_HorizontalAlignment = Render::Align::Left;
+            break;
+        }
+        case Config::PostionStyle::BOTTOM_RIGHT:
+        {
+            m_Position.x = vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5;
+            m_Position.y = -vsh::paf::PhWidget::GetViewportHeight() / 2 + m_SafeArea.y + 5;
+
+            m_VerticalAlignment = Render::Align::Bottom;
+            m_HorizontalAlignment = Render::Align::Right;
+            break;
+        }
+    }
 }
 
 void Overlay::CalculateFps()

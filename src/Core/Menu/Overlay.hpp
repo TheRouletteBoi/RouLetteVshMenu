@@ -10,6 +10,7 @@
 #include "Utils/ConsoleInfo.hpp"
 #include "Core/Helpers.hpp"
 #include "Core/Rendering.hpp"
+#include "Core/Configuration.hpp"
 
 class Overlay
 {
@@ -30,6 +31,7 @@ public:
 
 private:
    void DrawOverlay();
+   void UpdatePosition();
    void CalculateFps();
    void GetGameName(char outTitleId[16], char outTitleName[64]);
    uint32_t GetGpuClockSpeed();
@@ -53,15 +55,6 @@ public:
    bool m_CycleTemperatureType{};
    TempType tempType{};
 
-   uint8_t displayMode{}; // XMB + IN-GAME or XMB or IN-GAME
-   bool showFPS = true;
-   bool showCpuInfo = true;
-   bool showGpuInfo = true;
-   bool showRAM = true;
-   bool showFanSpeed = true;
-   bool showFirmware = true;
-   bool showAppName = true;
-
    uint32_t m_CpuClock{};
    uint32_t m_GpuClock{};
    uint32_t m_GpuGddr3RamClock{};
@@ -70,12 +63,16 @@ public:
    uint64_t m_CpuClockSpeedOffsetInLv1{};
 
 private:
+    // Positioning
    vsh::vec2 m_Position{};
+   Render::Align m_HorizontalAlignment{};
+   Render::Align m_VerticalAlignment{};
    vsh::vec2 m_SafeArea{ 31, 18 };
    float m_SizeText = 20;
    vsh::vec4 m_ColorText{ 1, 1, 1, 1 };
    static const int refreshDelay = 1;
 
+   // FPS
    float m_FPS = 100.0f;
    float m_FpsLastTime = 0;
    int m_FpsFrames = 0;
@@ -85,9 +82,13 @@ private:
    double m_FpsTimeLastReport = 0;
    float m_FpsREPORT_TIME = 1.0f;
 
+   // LV2 Label Text
    static constexpr size_t MAX_LV2_STRING_SIZE = 0x80;
    std::string m_Lv2Label;
    uint64_t m_NotificationOffsetInLv2 = 0x8000000000700000;
+
+   // Config 
+   uint64_t m_ReloadConfigTime{};
 };
 
 extern Overlay g_Overlay;
