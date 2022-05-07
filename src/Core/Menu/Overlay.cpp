@@ -13,11 +13,11 @@ Overlay::Overlay()
 
 void Overlay::OnUpdate()
 {
-   if (GetTimeNow() > m_ReloadConfigTime)
+   /*if (GetTimeNow() > m_ReloadConfigTime)
    {
        g_Config.Load();
        m_ReloadConfigTime = GetTimeNow() + 10000;
-   }
+   }*/
 
    UpdatePosition();
    CalculateFps();
