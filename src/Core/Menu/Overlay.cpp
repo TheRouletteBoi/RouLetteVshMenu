@@ -134,17 +134,11 @@ void Overlay::DrawOverlay()
        char gameTitleName[64]{};
        GetGameName(gameTitleId, gameTitleName);
 
-       wchar_t appName[100]{};
-       vsh::swprintf(appName, sizeof(appName), L"%s %s\n", gameTitleName, gameTitleId);
-       overlayText += appName;
+       bool isTitleIdEmpty = (gameTitleId[0] == NULL) || (gameTitleId[0] == ' ');
 
-       /*
-       * Doesn't display title id and if the game has a symbol it will display underscores instead
-       std::wstring gameTitleNameStr(&gameTitleName[0], &gameTitleName[sizeof(gameTitleName) - 1]);
-       std::wstring gameTitleIdStr(&gameTitleId[0], &gameTitleId[sizeof(gameTitleId) - 1]);
-       overlayText += gameTitleNameStr;
-       if (!gameTitleIdStr.empty())
-           overlayText += L" / " + gameTitleIdStr;*/
+       wchar_t appName[100]{};
+       vsh::swprintf(appName, sizeof(appName), L"%s %c %s\n", gameTitleName, isTitleIdEmpty ? ' ' : '/', gameTitleId);
+       overlayText += appName;
    }
 
 
