@@ -1,5 +1,5 @@
 #include "Hooks.hpp"
-#include "Menu/Overlay.hpp"
+#include "Overlay.hpp"
 #include <vsh/stdc.h>
 #include <cell/pad/pad_codes.h>
 

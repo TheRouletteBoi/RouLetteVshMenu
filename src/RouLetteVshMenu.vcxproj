@@ -96,7 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Configuration.cpp" />
-    <ClCompile Include="Core\Menu\Overlay.cpp" />
+    <ClCompile Include="Core\Overlay.cpp" />
     <ClCompile Include="Core\Rendering.cpp" />
     <ClCompile Include="Core\Helpers.cpp" />
     <ClCompile Include="Core\Hooks.cpp" />
@@ -112,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Configuration.hpp" />
-    <ClInclude Include="Core\Menu\Overlay.hpp" />
+    <ClInclude Include="Core\Overlay.hpp" />
     <ClInclude Include="Core\Rendering.hpp" />
     <ClInclude Include="Core\Helpers.hpp" />
     <ClInclude Include="Core\Hooks.hpp" />

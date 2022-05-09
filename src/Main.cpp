@@ -6,7 +6,7 @@
 #include "Utils/NewDeleteOverride.hpp"
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
-#include "Core/Menu/Overlay.hpp"
+#include "Core/Overlay.hpp"
 #include "Core/Hooks.hpp"
 #include "Core/Configuration.hpp"
 
