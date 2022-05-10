@@ -263,6 +263,8 @@ private:
     const char* m_buf;
     int m_pos;
     int m_size;
+    FILE* m_fp;
+    char* m_fpData;
 
     Node* m_root = nullptr;
     int m_lastNewline;
@@ -277,10 +279,55 @@ public:
     {
         return Accessor(m_root, this);
     }
-    void parse(const char* inbuf)
+    void parse(const char* fileName)
+    {
+        m_fp = vsh::fopen(fileName, "rb");
+        if (!m_fp)
+            return;
+
+        // load the raw file data
+        int retval = vsh::fseek(m_fp, 0, SEEK_END);
+        if (retval != 0)
+        {
+            vsh::fclose(m_fp);
+            return;
+        }
+
+        int fileSize = vsh::ftell(m_fp);
+        if (fileSize <= 0)
+        {
+            vsh::fclose(m_fp);
+            return;
+        }
+
+        // allocate and ensure NULL terminated
+        m_fpData = new char[fileSize + static_cast<size_t>(1)];
+        vsh::printf("m_fpData 0x%X\n", m_fpData);
+        if (!m_fpData)
+        {
+            vsh::fclose(m_fp);
+            return;
+        }
+
+        m_fpData[fileSize] = 0;
+
+        // load data into buffer
+        vsh::fseek(m_fp, 0, SEEK_SET);
+        size_t uRead = vsh::fread(m_fpData, sizeof(char), fileSize, m_fp);
+        if (uRead != (size_t)fileSize)
+        {
+            if (m_fpData)
+                delete[] m_fpData;
+            vsh::fclose(m_fp);
+            return;
+        }
+
+        parse(m_fpData, strlen(m_fpData));
+    }
+    void parse(const char* inbuf, int size)
     {
         m_buf = inbuf;
-        m_size = (int)strlen(inbuf);
+        m_size = size;
         m_pos = 0;
         m_lastNewline = -1; // first newline is before the start
         m_lineCount = 1;
@@ -288,6 +335,13 @@ public:
 
         m_root = parseNode();
         CHECK(m_pos == m_size); // check we consumed everything
+    }
+
+    void parseEnd()
+    {
+        if (m_fpData)
+            delete[] m_fpData;
+        vsh::fclose(m_fp);
     }
 
 

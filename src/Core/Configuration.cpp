@@ -1,11 +1,6 @@
 #include "Configuration.hpp"
 #include "Utils/FileSystem.hpp"
 
-constexpr unsigned int hash_str(const char* s, int off = 0)
-{
-    return !s[off] ? 5381 : (hash_str(s, off + 1) * 33) ^ s[off];
-}
-
 Config g_Config;
 
 Config::Config()
@@ -21,50 +16,16 @@ void Config::Load()
         LoadFile(fileName);
 }
 
+constexpr unsigned int hash_str(const char* s, int off = 0)
+{
+    return !s[off] ? 5381 : (hash_str(s, off + 1) * 33) ^ s[off];
+}
+
 void Config::LoadFile(const std::string& fileName)
 {
-    FILE* fp = vsh::fopen(fileName.c_str(), "rb");
-    if (!fp)
-        return;
-
-    // load the raw file data
-    int retval = vsh::fseek(fp, 0, SEEK_END);
-    if (retval != 0)
-    {
-        vsh::fclose(fp);
-        return;
-    }
-
-    int fileSize = vsh::ftell(fp);
-    if (fileSize <= 0)
-    {
-        vsh::fclose(fp);
-        return;
-    }
-
-    // allocate and ensure NULL terminated
-    char* pData = new char[fileSize + static_cast<size_t>(1)];
-    if (!pData)
-    {
-        vsh::fclose(fp);
-        return;
-    }
-
-    pData[fileSize] = 0;
-
-    // load data into buffer
-    vsh::fseek(fp, 0, SEEK_SET);
-    size_t uRead = vsh::fread(pData, sizeof(char), fileSize, fp);
-    if (uRead != (size_t)fileSize)
-    {
-        delete[] pData;
-        vsh::fclose(fp);
-        return;
-    }
-
-
     ss_yaml::Yaml doc;
-    doc.parse(pData);
+    doc.parse(fileName.c_str());
+
     auto _version = doc.root()["version"].str();
     auto _displayMode = doc.root()["overlay"]["displayMode"].str();
     auto _position = doc.root()["overlay"]["position"].str();
@@ -121,9 +82,5 @@ void Config::LoadFile(const std::string& fileName)
     overlay.showAppName = _showAppName;
 
 
-
-
-    if (pData)
-        delete[] pData;
-    vsh::fclose(fp);
+    doc.parseEnd();
 }
