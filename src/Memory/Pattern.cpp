@@ -48,93 +48,84 @@ uint32_t ResolveBranch(uint32_t branchAddress)
    return branchAddress + offset;
 }
 
-bool bcompare(const char* address, const char* bytes, uint8_t len, const char* mask)
-{
-	while (len && ((*address == *bytes) || (*mask == '*') || (*mask == '?')))
-	{
-		address++, bytes++, mask++, len--;
-	}
-	return len;
-}
-
 uint32_t FindPatternHypervisor(uint32_t startAddress, uint32_t stopAddress, uint8_t step, const char* sfind, uint8_t len, const char* mask)
 {
-	const uint32_t chunk_size = 65536; // 64KB
-	uint32_t found_offset = 0;
+    const uint32_t chunk_size = 65536; // 64KB
+    uint32_t found_offset = 0;
 
-	sys_addr_t sysmem = NULL;
-	if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
-		return found_offset;
+    sys_addr_t sysmem = NULL;
+    if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
+        return found_offset;
 
-	char* mem = (char*)sysmem;
-	const uint32_t m = chunk_size - len, gap = (len + 0x10) - (len % 0x10);
-	for (; startAddress < stopAddress; startAddress += chunk_size - gap)
-	{
-		bool retval = PeekChunkLV1((startAddress | 0x8000000000000000ULL), (uint64_t*)mem, chunk_size);
-		if (!retval)
-			break;
+    char* mem = (char*)sysmem;
+    const uint32_t m = chunk_size - len, gap = (len + 0x10) - (len % 0x10);
+    for (; startAddress < stopAddress; startAddress += chunk_size - gap)
+    {
+        bool retval = PeekChunkLV1((startAddress | 0x8000000000000000ULL), (uint64_t*)mem, chunk_size);
+        if (!retval)
+            break;
 
-		for (uint32_t offset = 0; offset < m; offset += step)
-		{
-			if (!bcompare(mem + offset, sfind, len, mask))
-			{
-				found_offset = (startAddress + offset);
-				startAddress = stopAddress;
-				break;
-			}
-		}
-	}
+        for (uint32_t offset = 0; offset < m; offset += step)
+        {
+            if (DataCompare((uint8_t*)(mem + offset), (uint8_t*)sfind, mask))
+            {
+                found_offset = (startAddress + offset);
+                startAddress = stopAddress;
+                break;
+            }
+        }
+    }
 
-	sys_memory_free(sysmem);
-	return found_offset;
+    sys_memory_free(sysmem);
+    return found_offset;
 }
 
 uint32_t FindPatternHypervisor(const char* bytes, uint8_t len, const char* mask)
 {
-	uint32_t address = FindPatternHypervisor(0x00000000, 0x0FFFFFC, 4, bytes, len, mask);
-	if (address == 0)
-		return 0;
+    uint32_t address = FindPatternHypervisor(0x00000000, 0x0FFFFFC, 4, bytes, len, mask);
+    if (address == 0)
+        return 0;
 
-	return address;
+    return address;
 }
 
 uint64_t FindPatternKernel(uint64_t startAddress, uint64_t stopAddress, uint8_t step, const char* sfind, uint8_t len, const char* mask)
 {
-	const uint32_t chunk_size = 65536; // 64KB
-	uint64_t found_offset = 0;
+    const uint32_t chunk_size = 65536; // 64KB
+    uint64_t found_offset = 0;
 
-	sys_addr_t sysmem = NULL;
-	if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
-		return found_offset;
+    sys_addr_t sysmem = NULL;
+    if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
+        return found_offset;
 
-	char* mem = (char*)sysmem;
-	const uint32_t m = chunk_size - len, gap = (len + 0x10) - (len % 0x10);
-	for (; startAddress < stopAddress; startAddress += chunk_size - gap)
-	{
-		bool retval = PeekChunkLV2(startAddress, (uint64_t*)mem, chunk_size);
-		if (!retval)
-			break;
+    char* mem = (char*)sysmem;
+    const uint32_t m = chunk_size - len, gap = (len + 0x10) - (len % 0x10);
+    for (; startAddress < stopAddress; startAddress += chunk_size - gap)
+    {
+        bool retval = PeekChunkLV2(startAddress, (uint64_t*)mem, chunk_size);
+        if (!retval)
+            break;
 
-		for (uint32_t offset = 0; offset < m; offset += step)
-		{
-			if (!bcompare(mem + offset, sfind, len, mask))
-			{
-				found_offset = (startAddress + offset);
-				startAddress = stopAddress;
-				break;
-			}
-		}
-	}
+        for (uint32_t offset = 0; offset < m; offset += step)
+        {
+            if (DataCompare((uint8_t*)(mem + offset), (uint8_t*)sfind, mask))
+            {
+                found_offset = (startAddress + offset);
+                startAddress = stopAddress;
+                break;
+            }
+        }
+    }
 
-	sys_memory_free(sysmem);
-	return found_offset;
+    sys_memory_free(sysmem);
+    return found_offset;
 }
 
 uint64_t FindPatternKernel(const char* bytes, uint8_t len, const char* mask)
 {
-	uint64_t address = FindPatternKernel(0x8000000000000000, 0x8000000000800000, 4, bytes, len, mask);
-	if (address == 0)
-		return 0;
+    uint64_t address = FindPatternKernel(0x8000000000000000, 0x8000000000800000, 4, bytes, len, mask);
+    if (address == 0)
+        return 0;
 
-	return address;
+    return address;
 }
