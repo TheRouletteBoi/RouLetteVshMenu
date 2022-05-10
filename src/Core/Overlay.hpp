@@ -39,7 +39,6 @@ private:
    uint32_t GetCpuClockSpeed();
    static void UpdateInfoThread(uint64_t arg);
    static void LoadExternalOffsets(uint64_t arg);
-   void LoadExternalOffsetsV2();
 
 public:
    sys_ppu_thread_t UpdateInfoThreadId = SYS_PPU_THREAD_ID_INVALID;
@@ -64,10 +63,6 @@ public:
    uint64_t m_CpuClockSpeedOffsetInLv1{};
 
 private:
-    // Thread
-    std::mutex LoadOffsetMutex;
-    jmj::thread<Overlay> LoadExternalOffsetsThread;
-
     // Positioning
    vsh::vec2 m_Position{};
    Render::Align m_HorizontalAlignment{};
