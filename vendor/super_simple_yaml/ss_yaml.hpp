@@ -87,6 +87,22 @@ struct Accessor
 
     virtual std::string str() { return getOp(node->type).str(this); } // FAIL("str not implemented for this node"); }
     virtual double dbl() { return getOp(node->type).dbl(this); } // FAIL("flt not implemented for this node"); }
+    virtual long integer()
+    {
+        const std::string& value = getOp(node->type).str(this);
+
+        long nValue = 0;
+        char* pszSuffix = (char*)value.c_str();
+        if (value.c_str()[0] == '0' && (value.c_str()[1] == 'x' || value.c_str()[1] == 'X')) {
+            if (!value.c_str()[2]) return 0;
+            nValue = vsh::strtol(&value.c_str()[2], &pszSuffix, 16);
+        }
+        else {
+            nValue = vsh::strtol(value.c_str(), &pszSuffix, 10);
+        }
+
+        return nValue;
+    }
     virtual bool boolean()
     {
         const std::string& value = getOp(node->type).str(this);
