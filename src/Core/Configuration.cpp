@@ -26,7 +26,7 @@ void Config::LoadFile(const std::string& fileName)
     ss_yaml::Yaml doc;
     doc.parse(fileName.c_str());
 
-    auto _version = doc.root()["version"].str();
+    auto _version = doc.root()["version"].integer();
     auto _displayMode = doc.root()["overlay"]["displayMode"].str();
     auto _position = doc.root()["overlay"]["position"].str();
     auto _showFPS = doc.root()["overlay"]["showFPS"].boolean();
@@ -36,6 +36,14 @@ void Config::LoadFile(const std::string& fileName)
     auto _showFanSpeed = doc.root()["overlay"]["showFanSpeed"].boolean();
     auto _showFirmware = doc.root()["overlay"]["showFirmware"].boolean();
     auto _showAppName = doc.root()["overlay"]["showAppName"].boolean();
+    bool _showClockSpeeds = true;
+    std::string _temperatureType = "BOTH";
+    if (_version == 1)
+    {
+        _showClockSpeeds = doc.root()["overlay"]["showClockSpeeds"].boolean();
+        _temperatureType = doc.root()["overlay"]["temperatureType"].str();
+    }
+
 
     switch (hash_str(_displayMode.c_str()))
     {
@@ -72,6 +80,22 @@ void Config::LoadFile(const std::string& fileName)
             break;
     }
 
+    switch (hash_str(_temperatureType.c_str()))
+    {
+        case hash_str("BOTH"):
+            overlay.temperatureType = TemperatureType::BOTH;
+            break;
+        case hash_str("CELSIUS"):
+            overlay.temperatureType = TemperatureType::CELSIUS;
+            break;
+        case hash_str("FAHRENHEIT"):
+            overlay.temperatureType = TemperatureType::FAHRENHEIT;
+            break;
+        default:
+            overlay.temperatureType = TemperatureType::BOTH;
+            break;
+    }
+
 
     overlay.showFPS = _showFPS;
     overlay.showCpuInfo = _showCpuInfo;
@@ -80,6 +104,7 @@ void Config::LoadFile(const std::string& fileName)
     overlay.showFanSpeed = _showFanSpeed;
     overlay.showFirmware = _showFirmware;
     overlay.showAppName = _showAppName;
+    overlay.showClockSpeeds = _showClockSpeeds;
 
 
     doc.parseEnd();

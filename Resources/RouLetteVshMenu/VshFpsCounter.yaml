@@ -1,4 +1,4 @@
-version: 0
+version: 1
 overlay:
    displayMode: XMB_GAME # Available options XMB_GAME, XMB, GAME 
    position: TOP_LEFT # Available options TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
@@ -9,3 +9,6 @@ overlay:
    showFanSpeed: On
    showFirmware: On
    showAppName: On
+   showClockSpeeds: On
+   temperatureType: BOTH # Available options BOTH, CELSIUS, FAHRENHEIT 
+   

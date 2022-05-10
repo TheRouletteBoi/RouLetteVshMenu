@@ -21,6 +21,13 @@ public:
         BOTTOM_RIGHT
     };
 
+    enum class TemperatureType : uint8_t
+    {
+        BOTH,
+        CELSIUS,
+        FAHRENHEIT
+    };
+
 public:
     Config();
 
@@ -39,6 +46,8 @@ public:
         bool showFanSpeed = true;
         bool showFirmware = true;
         bool showAppName = true;
+        bool showClockSpeeds = true;
+        TemperatureType temperatureType = TemperatureType::BOTH;
     } overlay;
 };
 
