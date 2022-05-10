@@ -225,6 +225,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to allocate executable memory 0x%X\n", ret);
+         vsh::ShowNofityWithSound(L"Failed to allocate executable memory", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
          return false;
       }
 
@@ -234,7 +235,8 @@ namespace GamePatching
       ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(uintptr_t)executableMemoryAddress, (void*)&temp_bytes, 4);
       if (ret != SUCCEEDED)
       {
-         vsh::printf("Failed read executable memory 0x%X\n", ret);
+         vsh::printf("Failed to read executable memory 0x%X\n", ret);
+         vsh::ShowNofityWithSound(L"Failed to read executable memory", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
          return false;
       }
 
@@ -243,7 +245,8 @@ namespace GamePatching
       ret = WritePayload((uintptr_t)executableMemoryAddress, fileName);
       if (ret != SUCCEEDED)
       {
-         vsh::printf("Failed read payload file %s 0x%X\n", fileName, ret);
+         vsh::printf("Failed to read payload file %s 0x%X\n", fileName, ret);
+         vsh::ShowNofityWithSound(L"Failed to read payload file", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
          return false;
       }
 
@@ -257,6 +260,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to start payload 0x%X\n", ret);
+         vsh::ShowNofityWithSound(L"Failed to start payload", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
          return false;
       }
 
