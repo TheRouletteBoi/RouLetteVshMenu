@@ -302,7 +302,6 @@ public:
 
         // allocate and ensure NULL terminated
         m_fpData = new char[fileSize + static_cast<size_t>(1)];
-        vsh::printf("m_fpData 0x%X\n", m_fpData);
         if (!m_fpData)
         {
             vsh::fclose(m_fp);
