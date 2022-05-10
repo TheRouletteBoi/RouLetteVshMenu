@@ -3,8 +3,40 @@
 
 Overlay g_Overlay;
 
+void Overlay::LoadExternalOffsetsV2()
+{
+    vsh::printf("hello thread \n");
+
+    uint32_t addr = FindPatternHypervisor(
+        "be.0.ref_clk",
+        vsh::strlen("be.0.ref_clk"),
+        "xxxxxxxxxxxx");
+    vsh::printf("addr 0x%X\n", addr);
+    //m_CpuClockSpeedOffsetInLv1 = addr + 0x24;
+    //vsh::printf("m_CpuClockSpeedOffsetInLv1 0x%X\n", m_CpuClockSpeedOffsetInLv1);
+
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C",
+        20,
+        "???x???x???x??xx??xx");
+    vsh::printf("addr 0x%X\n", addr);
+    //m_GpuClockSpeedOffsetInLv1 = addr + 0x14;
+    //vsh::printf("m_GpuClockSpeedOffsetInLv1 0x%X\n", m_GpuClockSpeedOffsetInLv1);
+
+    addr = FindPatternHypervisor(
+        "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14",
+        20,
+        "???x???x???x??xx??xx");
+    vsh::printf("addr 0x%X\n", addr);
+    //m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
+    //vsh::printf("m_GpuGddr3RamClockSpeedOffsetInLv1 0x%X\n", m_GpuGddr3RamClockSpeedOffsetInLv1);
+}
+
 Overlay::Overlay()
 {
+    std::lock_guard<std::mutex> lock(LoadOffsetMutex);
+    LoadExternalOffsetsThread = jmj::thread<Overlay>(&Overlay::LoadExternalOffsetsV2, this, "__Overlay::LoadExternalOffsets()");
+
     m_ReloadConfigTime = GetTimeNow() + 10000;
     sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
 
@@ -27,6 +59,9 @@ void Overlay::OnUpdate()
 
 void Overlay::OnShutdown()
 {
+   if (LoadExternalOffsetsThread.joinable())
+       LoadExternalOffsetsThread.join();
+
    if (LoadExternalOffsetsThreadId != SYS_PPU_THREAD_ID_INVALID)
    {
        uint64_t exitCode;
