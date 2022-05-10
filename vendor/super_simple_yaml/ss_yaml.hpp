@@ -341,7 +341,9 @@ public:
     {
         if (m_fpData)
             delete[] m_fpData;
-        vsh::fclose(m_fp);
+
+        if (m_fp)
+            vsh::fclose(m_fp);
     }
 
 
