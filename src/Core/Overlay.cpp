@@ -447,6 +447,23 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
 void Overlay::LoadExternalOffsets(uint64_t arg)
 {
+    std::vector<uint32_t> foundOffsets;
+    foundOffsets.reserve(3); // reserve 3 offsets for our use case
+
+    std::vector<Pattern> patterns = { 
+        { "be.0.ref_clk", "xxxxxxxxxxxx" },
+        { "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C", "???x???x???x??xx??xx" },
+        { "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14", "???x???x???x??xx??xx" }
+    };
+
+    FindPatternHypervisorSimultaneously(patterns, foundOffsets);
+    
+    g_Overlay.m_CpuClockSpeedOffsetInLv1 = foundOffsets[0] + 0x24;
+    g_Overlay.m_GpuClockSpeedOffsetInLv1 = foundOffsets[1] + 0x14;
+    g_Overlay.m_GpuGddr3RamClockSpeedOffsetInLv1 = foundOffsets[2] + 0x14;
+
+
+    /*
     uint32_t addr = FindPatternHypervisor(
         "be.0.ref_clk",
         vsh::strlen("be.0.ref_clk"),
@@ -464,6 +481,7 @@ void Overlay::LoadExternalOffsets(uint64_t arg)
         20,
         "???x???x???x??xx??xx");
     g_Overlay.m_GpuGddr3RamClockSpeedOffsetInLv1 = addr + 0x14;
+    */
 
     sys_ppu_thread_exit(0);
 }

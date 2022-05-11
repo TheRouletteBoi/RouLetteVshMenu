@@ -90,6 +90,56 @@ uint32_t FindPatternHypervisor(const char* bytes, size_t len, const char* mask)
     return address;
 }
 
+bool FindPatternHypervisorSimultaneously(uint32_t startAddress, uint32_t m, uint32_t chunk_size, char* mem, const char* sfind, const char* mask, uint32_t* found_offset)
+{
+    for (uint32_t offset = 0; offset < m; offset += 4)
+    {
+        if (DataCompare((uint8_t*)(mem + offset), (uint8_t*)sfind, mask))
+        {
+            uint32_t found = (startAddress + offset);
+            *found_offset = found;
+            return true;
+        }
+    }
+
+    *found_offset = 0;
+    return false;
+}
+
+void FindPatternHypervisorSimultaneously(const std::vector<Pattern>& patterns, std::vector<uint32_t>& foundOffsets)
+{
+    const uint32_t chunk_size = 65536; // 64KB
+
+    sys_addr_t sysmem = NULL;
+    if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
+        return;
+
+    char* mem = (char*)sysmem;
+    size_t patternApproximateLen = 20;
+    const uint32_t m = chunk_size - patternApproximateLen, gap = (patternApproximateLen + 0x10) - (patternApproximateLen % 0x10);
+    uint32_t startAddress = 0x00000000;
+    uint32_t stopAddress = 0x0FFFFFC;
+    for (; startAddress < stopAddress; startAddress += chunk_size - gap)
+    {
+        bool retval = PeekChunkLV1((startAddress | 0x8000000000000000ULL), (uint64_t*)mem, chunk_size);
+        if (!retval)
+            break;
+
+        for (const auto& pat : patterns)
+        {
+            uint32_t offset = 0;
+            if (FindPatternHypervisorSimultaneously(startAddress, m, chunk_size, mem, pat.sfind, pat.mask, &offset))
+                foundOffsets.push_back(offset);
+        }
+
+        // Limit 3 patterns for our specific use case
+        if (foundOffsets.size() == 3)
+            break;
+    }
+
+    sys_memory_free(sysmem);
+}
+
 uint64_t FindPatternKernel(uint64_t startAddress, uint64_t stopAddress, uint8_t step, const char* sfind, size_t len, const char* mask)
 {
     const uint32_t chunk_size = 65536; // 64KB
