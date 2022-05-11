@@ -136,6 +136,9 @@ void FindPatternHypervisorSimultaneously(std::vector<Pattern>& patterns, std::ve
                 foundOffsets.push_back(offset);
                 pat.found = true;
             }
+
+            if (foundOffsets.size() == 0)
+                break;
         }
 
         // Limit 3 patterns for our specific use case
