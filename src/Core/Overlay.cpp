@@ -451,9 +451,9 @@ void Overlay::LoadExternalOffsets(uint64_t arg)
     foundOffsets.reserve(3); // reserve 3 offsets for our use case
 
     std::vector<Pattern> patterns = { 
-        { "be.0.ref_clk", "xxxxxxxxxxxx" },
-        { "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C", "???x???x???x??xx??xx" },
-        { "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14", "???x???x???x??xx??xx" }
+        { "be.0.ref_clk", "xxxxxxxxxxxx", false },
+        { "\x00\x00\x00\x01\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x40\x28\x00\x00\x40\x2C", "???x???x???x??xx??xx", false },
+        { "\x00\x00\x00\x05\x00\x00\x00\x03\x00\x00\x00\x06\x00\x00\x40\x10\x00\x00\x40\x14", "???x???x???x??xx??xx", false }
     };
 
     FindPatternHypervisorSimultaneously(patterns, foundOffsets);

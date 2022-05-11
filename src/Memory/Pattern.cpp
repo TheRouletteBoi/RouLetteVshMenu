@@ -106,7 +106,7 @@ bool FindPatternHypervisorSimultaneously(uint32_t startAddress, uint32_t m, uint
     return false;
 }
 
-void FindPatternHypervisorSimultaneously(const std::vector<Pattern>& patterns, std::vector<uint32_t>& foundOffsets)
+void FindPatternHypervisorSimultaneously(std::vector<Pattern>& patterns, std::vector<uint32_t>& foundOffsets)
 {
     const uint32_t chunk_size = 65536; // 64KB
 
@@ -125,11 +125,17 @@ void FindPatternHypervisorSimultaneously(const std::vector<Pattern>& patterns, s
         if (!retval)
             break;
 
-        for (const auto& pat : patterns)
+        for (auto& pat : patterns)
         {
+            if (pat.found)
+                continue;
+
             uint32_t offset = 0;
             if (FindPatternHypervisorSimultaneously(startAddress, m, chunk_size, mem, pat.sfind, pat.mask, &offset))
+            {
                 foundOffsets.push_back(offset);
+                pat.found = true;
+            }
         }
 
         // Limit 3 patterns for our specific use case
