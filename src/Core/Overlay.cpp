@@ -61,31 +61,28 @@ void Overlay::DrawOverlay()
        overlayText += L"FPS: " + to_wstring(m_FPS, 2) + L"\n";
    }
 
-   if (!g_Config.overlay.showClockSpeeds)
-   {
-       std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
-       overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr
-           + L" / GPU: " + to_wstring(m_GPUTemp) + tempTypeStr
-           + L"\n";
-   }
-
-   if (g_Config.overlay.showCpuInfo && g_Config.overlay.showClockSpeeds)
+   if (g_Config.overlay.showCpuInfo)
    {
        std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
        overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr;
 
-       if (m_CpuClock != 0)
+       if (m_CpuClock != 0 && g_Config.overlay.showClockSpeeds)
            overlayText += L" / " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz";
 
-       overlayText += L"\n";
+       if (!g_Config.overlay.showGpuInfo || g_Config.overlay.showClockSpeeds)
+           overlayText += L"\n";
    }
 
-   if (g_Config.overlay.showGpuInfo && g_Config.overlay.showClockSpeeds)
+   if (g_Config.overlay.showGpuInfo)
    {
        std::wstring tempTypeStr = tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
+
+       if (g_Config.overlay.showCpuInfo && !g_Config.overlay.showClockSpeeds)
+           overlayText += L" / ";
+
        overlayText += L"GPU: " + to_wstring(m_GPUTemp) + tempTypeStr;
 
-       if (m_GpuGddr3RamClock != 0)
+       if (m_GpuGddr3RamClock != 0 && g_Config.overlay.showClockSpeeds)
        {
            overlayText += L" / " + to_wstring(m_GpuClock) + L" MHz";
            overlayText += L" / " + to_wstring(m_GpuGddr3RamClock) + L" MHz";
