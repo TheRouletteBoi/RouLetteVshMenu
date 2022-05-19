@@ -86,7 +86,20 @@ struct Accessor
     virtual Accessor tryNodeWith(const std::string& name, const std::string& key) { return getOp(node->type).tryNodeWith(this, name, key); } // FAIL("tryNodeWith not implemented for this node");
 
     virtual std::string str() { return getOp(node->type).str(this); } // FAIL("str not implemented for this node"); }
-    virtual double dbl() { return getOp(node->type).dbl(this); } // FAIL("flt not implemented for this node"); }
+    virtual double dbl_debug() { return getOp(node->type).dbl(this); } // FAIL("flt not implemented for this node"); }
+    virtual double dbl()
+    {
+        const std::string& value = getOp(node->type).str(this);
+
+        char* pszSuffix = NULL;
+        double nValue = vsh::strtod(value.c_str(), &pszSuffix);
+
+        // any invalid strings will return the default value
+        if (!pszSuffix || *pszSuffix)
+            return 0.0;
+
+        return nValue;
+    }
     virtual long integer()
     {
         const std::string& value = getOp(node->type).str(this);
