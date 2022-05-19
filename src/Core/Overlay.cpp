@@ -151,7 +151,7 @@ void Overlay::DrawOverlay()
    g_Render.Text(
       overlayText,
       m_Position,
-      m_SizeText,
+      g_Config.overlay.textSize,
       m_HorizontalAlignment,
       m_VerticalAlignment,
       m_ColorText);
@@ -314,7 +314,7 @@ void Overlay::Lv2LabelUpdate()
     g_Render.Text(
         m_Lv2Label,
         vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
-        m_SizeText,
+        g_Config.overlay.textSize,
         Render::Align::Right,
         Render::Align::Top,
         m_ColorText);

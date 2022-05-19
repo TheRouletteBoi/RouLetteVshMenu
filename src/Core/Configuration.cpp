@@ -36,6 +36,7 @@ void Config::LoadFile(const std::string& fileName)
     auto _showFanSpeed = doc.root()["overlay"]["showFanSpeed"].boolean();
     auto _showFirmware = doc.root()["overlay"]["showFirmware"].boolean();
     auto _showAppName = doc.root()["overlay"]["showAppName"].boolean();
+
     bool _showClockSpeeds = true;
     std::string _temperatureType = "BOTH";
     if (_version == 1)
@@ -43,6 +44,10 @@ void Config::LoadFile(const std::string& fileName)
         _showClockSpeeds = doc.root()["overlay"]["showClockSpeeds"].boolean();
         _temperatureType = doc.root()["overlay"]["temperatureType"].str();
     }
+
+    float _textSize = 20.0f;
+    if (_version == 2)
+        _textSize = doc.root()["overlay"]["textSize"].dbl();
 
 
     switch (hash_str(_displayMode.c_str()))
@@ -105,6 +110,7 @@ void Config::LoadFile(const std::string& fileName)
     overlay.showFirmware = _showFirmware;
     overlay.showAppName = _showAppName;
     overlay.showClockSpeeds = _showClockSpeeds;
+    overlay.textSize = _textSize;
 
 
     doc.parseEnd();

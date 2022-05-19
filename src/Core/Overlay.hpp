@@ -68,7 +68,6 @@ private:
    Render::Align m_HorizontalAlignment{};
    Render::Align m_VerticalAlignment{};
    vsh::vec2 m_SafeArea{ 31, 18 };
-   float m_SizeText = 20;
    vsh::vec4 m_ColorText{ 1, 1, 1, 1 };
    static const int refreshDelay = 1;
 

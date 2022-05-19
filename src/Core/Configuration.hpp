@@ -48,6 +48,7 @@ public:
         bool showAppName = true;
         bool showClockSpeeds = true;
         TemperatureType temperatureType = TemperatureType::BOTH;
+        float textSize = 20.0f;
     } overlay;
 };
 
