@@ -39,14 +39,14 @@ void Config::LoadFile(const std::string& fileName)
 
     bool _showClockSpeeds = true;
     std::string _temperatureType = "BOTH";
-    if (_version == 1)
+    if (_version >= 1)
     {
         _showClockSpeeds = doc.root()["overlay"]["showClockSpeeds"].boolean();
         _temperatureType = doc.root()["overlay"]["temperatureType"].str();
     }
 
     float _textSize = 20.0f;
-    if (_version == 2)
+    if (_version >= 2)
         _textSize = doc.root()["overlay"]["textSize"].dbl();
 
 
