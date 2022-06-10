@@ -124,7 +124,11 @@ void Overlay::DrawOverlay()
            to_wstring(m_PayloadVersion >> 8) 
            + L"."
            + to_wstring((m_PayloadVersion & 0xF0) >> 4)
-           + to_wstring(m_PayloadVersion & 0xF);
+           /*+ L"."
+           + to_wstring(m_PayloadVersion & 0xF)*/;
+
+       if (IsConsoleHen())
+           payloadVerStr += L"." + to_wstring(m_PayloadVersion & 0xF);
 
        overlayText += to_wstring(m_FirmwareVersion, 2) 
            + L" " + kernelName 
