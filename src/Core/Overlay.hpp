@@ -53,7 +53,8 @@ public:
    uint16_t m_PayloadVersion{};
    uint64_t m_TemperatureCycleTime{};
    bool m_CycleTemperatureType{};
-   TempType tempType{};
+   TempType m_tempType{};
+   char m_formattedSystemTime[80];
 
    uint32_t m_CpuClock{};
    uint32_t m_GpuClock{};
