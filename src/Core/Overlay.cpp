@@ -156,6 +156,38 @@ void Overlay::DrawOverlay()
        overlayText += L"Time: " + timeStr + L"\n";
    }
 
+   if (g_Config.overlay.showPlayTime)
+   {
+       uint64_t msec = 0;
+       if (gamePlugin) // check if we are in game
+           if (!msec)
+               msec = GetCurrentTick();
+           else
+               msec = 0;
+
+       if (msec)
+       {
+           uint32_t sec = ((msec + 500) / 1000); // milliseconds to seconds
+
+           uint32_t totalSeconds = sec;
+           //uint32_t days = totalSeconds / 86400;
+           totalSeconds = totalSeconds % 86400;
+
+           uint32_t hours = totalSeconds / 3600;
+           totalSeconds = totalSeconds % 3600;
+
+           uint32_t minutes = totalSeconds / 60;
+           totalSeconds = totalSeconds % 60;
+
+           uint32_t seconds = totalSeconds;
+
+           wchar_t playTimeStr[60]{};
+           vsh::swprintf(playTimeStr, sizeof(playTimeStr), L"Play Time: %02d:%02d:%02d\n", hours, minutes, seconds);
+
+           overlayText += playTimeStr;
+       }
+   }
+
 
    g_Render.Text(
       overlayText,
