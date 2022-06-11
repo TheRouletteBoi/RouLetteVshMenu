@@ -308,6 +308,24 @@ std::wstring to_wstring(T value)
    return std::wstring(buf);
 }
 
+template<class T>
+std::string _to_string(T value)
+{
+    char buf[25];
+    vsh::memset(buf, 0, 25);
+    int len = vsh::snprintf(buf, sizeof(buf), "%02d", value);
+    return std::string(buf);
+}
+
+template<class T>
+std::wstring _to_wstring(T value)
+{
+    wchar_t buf[25];
+    vsh::memset(buf, 0, 25);
+    int len = vsh::swprintf(buf, sizeof(buf), L"%02d", value);
+    return std::wstring(buf);
+}
+
 template<>
 std::string to_string(uint64_t value);
 
