@@ -149,6 +149,13 @@ void Overlay::DrawOverlay()
        overlayText += appName;
    }
 
+   if (g_Config.overlay.showSystemTime)
+   {
+       std::wstring timeStr(&m_FormattedSystemTime[0], &m_FormattedSystemTime[80]);
+
+       overlayText += L"Time: " + timeStr + L"\n";
+   }
+
 
    g_Render.Text(
       overlayText,
@@ -353,6 +360,13 @@ void Overlay::WaitAndQueueTextInLV2()
     }
 }
 
+void Overlay::FormatSystemTime()
+{
+    std::time_t now = vsh::time(0);
+    std::tm tstruct = *vsh::localtime(&now);
+    vsh::strftime(m_FormattedSystemTime, sizeof(m_FormattedSystemTime), "%m/%d %I:%M %p", &tstruct);
+}
+
 void Overlay::UpdateInfoThread(uint64_t arg)
 {
    g_Overlay.m_StateRunning = true;
@@ -439,6 +453,9 @@ void Overlay::UpdateInfoThread(uint64_t arg)
       g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
 
       g_Overlay.WaitAndQueueTextInLV2();
+
+      // this makes startup values delayed
+      //g_Overlay.FormatSystemTime();
    }
 
    sys_ppu_thread_exit(0);

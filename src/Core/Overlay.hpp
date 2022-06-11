@@ -37,6 +37,7 @@ private:
    uint32_t GetGpuClockSpeed();
    uint32_t GetGpuGddr3RamClockSpeed();
    uint32_t GetCpuClockSpeed();
+   void FormatSystemTime();
    static void UpdateInfoThread(uint64_t arg);
    static void LoadExternalOffsets(uint64_t arg);
 

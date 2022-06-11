@@ -49,6 +49,8 @@ public:
         bool showClockSpeeds = true;
         TemperatureType temperatureType = TemperatureType::BOTH;
         float textSize = 20.0f;
+        bool showSystemTime = false;
+        bool showPlayTime = false;
     } overlay;
 };
 
