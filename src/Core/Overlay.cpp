@@ -63,7 +63,7 @@ void Overlay::DrawOverlay()
 
    if (g_Config.overlay.showCpuInfo)
    {
-       std::wstring tempTypeStr = m_tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
+       std::wstring tempTypeStr = m_TempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
        overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr;
 
        if (m_CpuClock != 0 && g_Config.overlay.showClockSpeeds)
@@ -75,7 +75,7 @@ void Overlay::DrawOverlay()
 
    if (g_Config.overlay.showGpuInfo)
    {
-       std::wstring tempTypeStr = m_tempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
+       std::wstring tempTypeStr = m_TempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
 
        if (g_Config.overlay.showCpuInfo && !g_Config.overlay.showClockSpeeds)
            overlayText += L" / ";
@@ -384,37 +384,37 @@ void Overlay::UpdateInfoThread(uint64_t arg)
           {
               g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
               g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);
-              g_Overlay.m_tempType = TempType::Fahrenheit;
+              g_Overlay.m_TempType = TempType::Fahrenheit;
           }
           else
           {
               g_Overlay.m_CPUTemp = GetTemperatureCelsius(0);
               g_Overlay.m_GPUTemp = GetTemperatureCelsius(1);
-              g_Overlay.m_tempType = TempType::Celsius;
+              g_Overlay.m_TempType = TempType::Celsius;
           }
           break;
       case Config::TemperatureType::CELSIUS:
           g_Overlay.m_CPUTemp = GetTemperatureCelsius(0);
           g_Overlay.m_GPUTemp = GetTemperatureCelsius(1);
-          g_Overlay.m_tempType = TempType::Celsius;
+          g_Overlay.m_TempType = TempType::Celsius;
           break;
       case Config::TemperatureType::FAHRENHEIT:
           g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
           g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);
-          g_Overlay.m_tempType = TempType::Fahrenheit;
+          g_Overlay.m_TempType = TempType::Fahrenheit;
           break;
       default:
           if (g_Overlay.m_CycleTemperatureType)
           {
               g_Overlay.m_CPUTemp = GetTemperatureFahrenheit(0);
               g_Overlay.m_GPUTemp = GetTemperatureFahrenheit(1);
-              g_Overlay.m_tempType = TempType::Fahrenheit;
+              g_Overlay.m_TempType = TempType::Fahrenheit;
           }
           else
           {
               g_Overlay.m_CPUTemp = GetTemperatureCelsius(0);
               g_Overlay.m_GPUTemp = GetTemperatureCelsius(1);
-              g_Overlay.m_tempType = TempType::Celsius;
+              g_Overlay.m_TempType = TempType::Celsius;
           }
           break;
       }
