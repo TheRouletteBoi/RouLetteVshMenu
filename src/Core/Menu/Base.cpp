@@ -564,7 +564,7 @@ void Menu::DrawMenuTitle(const std::wstring& text)
 
    // Version Number
    g_Render.Text(
-       L"v1.2",
+       L"v1.3",
        vsh::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
        sizeText,
        Render::Left,

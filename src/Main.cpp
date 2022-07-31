@@ -30,6 +30,7 @@ SYS_MODULE_STOP(module_stop);
 * Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
 * Enhancement: add LUA scripting support
 * Enhancement: add config to load your favorite menu
+* Enhancement: cache Ida2Mem using std::unordered_map
 * 
 * 
 * 
