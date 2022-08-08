@@ -480,7 +480,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
-      if (!g_Config.overlay.showClockSpeeds)
+      if (g_Config.overlay.showClockSpeeds)
       {
         g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
         g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
