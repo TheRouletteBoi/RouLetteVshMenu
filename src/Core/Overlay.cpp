@@ -480,9 +480,12 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
-      g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
-      g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
-      g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
+      if (!g_Config.overlay.showClockSpeeds)
+      {
+        g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
+        g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
+        g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
+      }
 
       g_Overlay.WaitAndQueueTextInLV2();
 
