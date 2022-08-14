@@ -6,7 +6,9 @@ Overlay g_Overlay;
 Overlay::Overlay()
 {
     m_ReloadConfigTime = GetTimeNow() + 10000;
-    sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
+
+    if (g_Config.overlay.showClockSpeeds) // find clock speed offsets only when they are displayed
+        sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
 
     sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
 }
@@ -480,9 +482,12 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
-      g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
-      g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
-      g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
+      if (g_Config.overlay.showClockSpeeds)
+      {
+          g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
+          g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();
+          g_Overlay.m_GpuGddr3RamClock = g_Overlay.GetGpuGddr3RamClockSpeed();
+      }
 
       g_Overlay.WaitAndQueueTextInLV2();
 
