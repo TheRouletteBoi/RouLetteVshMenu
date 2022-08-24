@@ -56,7 +56,6 @@ void Config::LoadFile(const std::string& fileName)
         auto xmb_showClockSpeeds = doc.root()["overlay"]["type"]["xmb"]["showClockSpeeds"].boolean();
         std::string xmb_temperatureType = doc.root()["overlay"]["type"]["xmb"]["temperatureType"].str();
         float xmb_textSize = doc.root()["overlay"]["type"]["xmb"]["textSize"].dbl();
-        auto xmb_showSystemTime = doc.root()["overlay"]["type"]["xmb"]["showSystemTime"].boolean();
         auto xmb_showPlayTime = doc.root()["overlay"]["type"]["xmb"]["showPlayTime"].boolean();
 
 
@@ -99,7 +98,6 @@ void Config::LoadFile(const std::string& fileName)
         overlay.mode[DisplayMode::XMB].showAppName = xmb_showAppName;
         overlay.mode[DisplayMode::XMB].showClockSpeeds = xmb_showClockSpeeds;
         overlay.mode[DisplayMode::XMB].textSize = xmb_textSize;
-        overlay.mode[DisplayMode::XMB].showSystemTime = xmb_showSystemTime;
         overlay.mode[DisplayMode::XMB].showPlayTime = xmb_showPlayTime;
 
 
@@ -119,7 +117,6 @@ void Config::LoadFile(const std::string& fileName)
         bool game_showClockSpeeds = doc.root()["overlay"]["type"]["game"]["showClockSpeeds"].boolean();
         std::string game_temperatureType = doc.root()["overlay"]["type"]["game"]["temperatureType"].str();
         float game_textSize = doc.root()["overlay"]["type"]["game"]["textSize"].dbl();
-        auto game_showSystemTime = doc.root()["overlay"]["type"]["xmb"]["showSystemTime"].boolean();
         auto game_showPlayTime = doc.root()["overlay"]["type"]["xmb"]["showPlayTime"].boolean();
 
         switch (hash_str(game_position.c_str()))
@@ -161,7 +158,6 @@ void Config::LoadFile(const std::string& fileName)
         overlay.mode[DisplayMode::GAME].showAppName = game_showAppName;
         overlay.mode[DisplayMode::GAME].showClockSpeeds = game_showClockSpeeds;
         overlay.mode[DisplayMode::GAME].textSize = game_textSize;
-        overlay.mode[DisplayMode::GAME].showSystemTime = game_showSystemTime;
         overlay.mode[DisplayMode::GAME].showPlayTime = game_showPlayTime;
     }
 
@@ -185,7 +181,6 @@ void Config::ResetSettings()
         overlay.mode[i].showClockSpeeds = true;
         overlay.mode[i].temperatureType = TemperatureType::BOTH;
         overlay.mode[i].textSize = 20.0f;
-        overlay.mode[i].showSystemTime = false;
         overlay.mode[i].showPlayTime = false;
     }
 }
