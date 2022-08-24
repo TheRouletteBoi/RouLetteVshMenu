@@ -14,7 +14,6 @@ overlay:
         showClockSpeeds: On
         temperatureType: BOTH # Available options BOTH, CELSIUS, FAHRENHEIT 
         textSize: 20.0
-        showSystemTime: Off
         showPlayTime: Off
    
       game:
@@ -29,6 +28,5 @@ overlay:
         showClockSpeeds: On
         temperatureType: BOTH # Available options BOTH, CELSIUS, FAHRENHEIT 
         textSize: 20.0
-        showSystemTime: Off
         showPlayTime: Off
       
