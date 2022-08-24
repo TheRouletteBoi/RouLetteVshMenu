@@ -154,14 +154,14 @@ void Overlay::DrawOverlay()
        overlayText += appName;
    }
 
-   if (g_Config.overlay.mode[(int)m_CooperationMode].showPlayTime)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showPlayTime && gamePlugin)
    {
        uint64_t msec = 0;
-       if (gamePlugin) // check if we are in game
-           if (!msec)
-               msec = GetCurrentTick();
-           else
-               msec = 0;
+
+       if (!msec)
+           msec = GetCurrentTick();
+       else
+           msec = 0;
 
        if (msec)
        {
