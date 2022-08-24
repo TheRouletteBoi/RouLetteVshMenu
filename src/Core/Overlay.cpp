@@ -7,7 +7,9 @@ Overlay::Overlay()
 {
     m_ReloadConfigTime = GetTimeNow() + 10000;
 
-    if (g_Config.overlay.showClockSpeeds) // find clock speed offsets only when they are displayed
+    // find clock speed offsets only when they are displayed
+    if (g_Config.overlay.mode[Config::DisplayMode::XMB].showClockSpeeds 
+        || g_Config.overlay.mode[Config::DisplayMode::GAME].showClockSpeeds)
         sys_ppu_thread_create(&LoadExternalOffsetsThreadId, LoadExternalOffsets, 0, 0xB02, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::LoadExternalOffsets()");
 
     sys_ppu_thread_create(&UpdateInfoThreadId, UpdateInfoThread, 0, 0xB01, 512, SYS_PPU_THREAD_CREATE_JOINABLE, "Overlay::UpdateInfoThread()");
@@ -49,42 +51,44 @@ void Overlay::OnShutdown()
 
 void Overlay::DrawOverlay()
 {
-   if (g_Config.overlay.displayMode == Config::DisplayMode::XMB && vsh::GetCooperationMode() != vsh::eCooperationMode::XMB)
+   m_CooperationMode = vsh::GetCooperationMode();
+
+   if (g_Config.overlay.displayMode == Config::DisplayMode::XMB && m_CooperationMode != vsh::eCooperationMode::XMB)
        return;
 
-   if (g_Config.overlay.displayMode == Config::DisplayMode::GAME && vsh::GetCooperationMode() == vsh::eCooperationMode::XMB)
+   if (g_Config.overlay.displayMode == Config::DisplayMode::GAME && m_CooperationMode == vsh::eCooperationMode::XMB)
        return;
 
-
+   vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
    std::wstring overlayText;
 
-   if (g_Config.overlay.showFPS)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showFPS)
    {
        overlayText += L"FPS: " + to_wstring(m_FPS, 2) + L"\n";
    }
 
-   if (g_Config.overlay.showCpuInfo)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showCpuInfo)
    {
        std::wstring tempTypeStr = m_TempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
        overlayText += L"CPU: " + to_wstring(m_CPUTemp) + tempTypeStr;
 
-       if (m_CpuClock != 0 && g_Config.overlay.showClockSpeeds)
+       if (m_CpuClock != 0 && g_Config.overlay.mode[(int)m_CooperationMode].showClockSpeeds)
            overlayText += L" / " + to_wstring(m_CpuClock / 1000.0f, 1) + L" GHz";
 
-       if (!g_Config.overlay.showGpuInfo || g_Config.overlay.showClockSpeeds)
+       if (!g_Config.overlay.mode[(int)m_CooperationMode].showGpuInfo || g_Config.overlay.mode[(int)m_CooperationMode].showClockSpeeds)
            overlayText += L"\n";
    }
 
-   if (g_Config.overlay.showGpuInfo)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showGpuInfo)
    {
        std::wstring tempTypeStr = m_TempType == TempType::Fahrenheit ? L"\u2109" : L"\u2103";
 
-       if (g_Config.overlay.showCpuInfo && !g_Config.overlay.showClockSpeeds)
+       if (g_Config.overlay.mode[(int)m_CooperationMode].showCpuInfo && !g_Config.overlay.mode[(int)m_CooperationMode].showClockSpeeds)
            overlayText += L" / ";
 
        overlayText += L"GPU: " + to_wstring(m_GPUTemp) + tempTypeStr;
 
-       if (m_GpuGddr3RamClock != 0 && g_Config.overlay.showClockSpeeds)
+       if (m_GpuGddr3RamClock != 0 && g_Config.overlay.mode[(int)m_CooperationMode].showClockSpeeds)
        {
            overlayText += L" / " + to_wstring(m_GpuClock) + L" MHz";
            overlayText += L" / " + to_wstring(m_GpuGddr3RamClock) + L" MHz";
@@ -92,7 +96,7 @@ void Overlay::DrawOverlay()
        overlayText += L"\n";
    }
 
-   if (g_Config.overlay.showRamInfo)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showRamInfo)
    {
        overlayText += L"RAM: " + to_wstring(m_MemoryUsage.percent, 1) 
            + L"% " + to_wstring(m_MemoryUsage.used, 1) 
@@ -101,14 +105,14 @@ void Overlay::DrawOverlay()
            + L"\n";
    }
 
-   if (g_Config.overlay.showFanSpeed)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showFanSpeed)
    {
        overlayText += L"Fan speed: " 
            + to_wstring(m_FanSpeed) 
            + L"%\n";
    }
 
-   if (g_Config.overlay.showFirmware)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showFirmware)
    {
        std::wstring kernelName;
        switch (m_KernelType)
@@ -137,8 +141,7 @@ void Overlay::DrawOverlay()
            + L"\n";
    }
 
-   vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
-   if (g_Config.overlay.showAppName && gamePlugin)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showAppName && gamePlugin)
    {
        char gameTitleId[16]{};
        char gameTitleName[64]{};
@@ -151,14 +154,14 @@ void Overlay::DrawOverlay()
        overlayText += appName;
    }
 
-   if (g_Config.overlay.showSystemTime)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showSystemTime)
    {
        std::wstring timeStr(&m_FormattedSystemTime[0], &m_FormattedSystemTime[80]);
 
        overlayText += L"Time: " + timeStr + L"\n";
    }
 
-   if (g_Config.overlay.showPlayTime)
+   if (g_Config.overlay.mode[(int)m_CooperationMode].showPlayTime)
    {
        uint64_t msec = 0;
        if (gamePlugin) // check if we are in game
@@ -194,7 +197,7 @@ void Overlay::DrawOverlay()
    g_Render.Text(
       overlayText,
       m_Position,
-      g_Config.overlay.textSize,
+      g_Config.overlay.mode[(int)m_CooperationMode].textSize,
       m_HorizontalAlignment,
       m_VerticalAlignment,
       m_ColorText);
@@ -202,7 +205,7 @@ void Overlay::DrawOverlay()
 
 void Overlay::UpdatePosition()
 {
-    switch (g_Config.overlay.positionStyle)
+    switch (g_Config.overlay.mode[(int)m_CooperationMode].positionStyle)
     {
         case Config::PostionStyle::TOP_LEFT:
         {
@@ -357,7 +360,7 @@ void Overlay::Lv2LabelUpdate()
     g_Render.Text(
         m_Lv2Label,
         vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - m_SafeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SafeArea.y - 100),
-        g_Config.overlay.textSize,
+        g_Config.overlay.mode[(int)m_CooperationMode].textSize,
         Render::Align::Right,
         Render::Align::Top,
         m_ColorText);
@@ -425,7 +428,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_FanSpeed = GetFanSpeed();
 
-      switch (g_Config.overlay.temperatureType)
+      switch (g_Config.overlay.mode[(int)g_Overlay.m_CooperationMode].temperatureType)
       {
       case Config::TemperatureType::BOTH:
           if (g_Overlay.m_CycleTemperatureType)
@@ -482,7 +485,7 @@ void Overlay::UpdateInfoThread(uint64_t arg)
 
       g_Overlay.m_PayloadVersion = GetPayloadVersion();
 
-      if (g_Config.overlay.showClockSpeeds)
+      if (g_Config.overlay.mode[(int)g_Overlay.m_CooperationMode].showClockSpeeds)
       {
           g_Overlay.m_CpuClock = g_Overlay.GetCpuClockSpeed();
           g_Overlay.m_GpuClock = g_Overlay.GetGpuClockSpeed();

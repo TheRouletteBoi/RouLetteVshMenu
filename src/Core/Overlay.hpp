@@ -65,6 +65,9 @@ public:
    uint64_t m_CpuClockSpeedOffsetInLv1{};
 
 private:
+    // Common
+    vsh::eCooperationMode m_CooperationMode;
+
     // Positioning
    vsh::vec2 m_Position{};
    Render::Align m_HorizontalAlignment{};
