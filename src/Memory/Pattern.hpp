@@ -12,7 +12,9 @@ constexpr size_t gInfo_SizeOfImage = 0x008FFFFF;  // open the eboot in ida then 
 
 bool DataCompare(const uint8_t* pbData, const uint8_t* pbMask, const char* szMask);
 uintptr_t FindPattern(uintptr_t address, uint32_t length, uint8_t* bytes, const char* mask);
+uintptr_t FindPattern(uintptr_t address, uint32_t length, uint8_t* bytes, const char* mask, int occurancesIndex);
 uintptr_t FindPatternInTextSegment(uint8_t* bytes, const char* mask);
+uintptr_t FindPatternInTextSegment(uint8_t* bytes, const char* mask, int occurancesIndex);
 uint32_t ReadHighLow(uint32_t address, uint32_t highAdditive, uint32_t lowAdditive);
 uint32_t ResolveBranch(uint32_t branchAddress);
 

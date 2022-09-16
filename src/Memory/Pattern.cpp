@@ -21,6 +21,21 @@ uintptr_t FindPattern(uintptr_t address, uint32_t length, uint8_t* bytes, const 
    return 0;
 }
 
+uintptr_t FindPattern(uintptr_t address, uint32_t length, uint8_t* bytes, const char* mask, int occurancesIndex)
+{
+    uint32_t numFound = 0;
+    for (uint32_t i = 0; i < length; i++)
+    {
+        if (DataCompare((uint8_t*)(address + i), bytes, mask))
+        {
+            if (numFound == occurancesIndex)
+                return (uintptr_t)(address + i);
+            numFound++;
+        }
+    }
+    return 0;
+}
+
 uintptr_t FindPatternInTextSegment(uint8_t* bytes, const char* mask)
 {
    uintptr_t address = FindPattern(gBaseAddress, gInfo_SizeOfImage, bytes, mask);
@@ -28,6 +43,15 @@ uintptr_t FindPatternInTextSegment(uint8_t* bytes, const char* mask)
       return 0;
 
    return address;
+}
+
+uintptr_t FindPatternInTextSegment(uint8_t* bytes, const char* mask, int occurancesIndex)
+{
+    uintptr_t address = FindPattern(gBaseAddress, gInfo_SizeOfImage, bytes, mask, occurancesIndex);
+    if (address == 0)
+        return 0;
+
+    return address;
 }
 
 uint32_t ReadHighLow(uint32_t address, uint32_t highAdditive, uint32_t lowAdditive)
