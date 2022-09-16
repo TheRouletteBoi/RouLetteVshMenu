@@ -30,7 +30,7 @@ SYS_MODULE_STOP(module_stop);
 * Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
 * Enhancement: add LUA scripting support
 * Enhancement: add config to load your favorite menu
-* Enhancement: cache Ida2Mem using std::unordered_map
+* Enhancement: cache Ida2Mem using std::unordered_map. Caveat if user reloads game or if user loads sprx using PS3ToolBox. To fix try a auto refresh or re-cache all modules on function call
 * 
 * 
 * 
