@@ -129,6 +129,7 @@
     <ClInclude Include="Core\Menu\Submenus.hpp" />
     <ClInclude Include="Core\Helpers.hpp" />
     <ClInclude Include="Core\Hooks.hpp" />
+    <ClInclude Include="Games\Minecraft.hpp" />
     <ClInclude Include="Memory\Detour.hpp" />
     <ClInclude Include="Memory\Pattern.hpp" />
     <ClInclude Include="Memory\Memory.hpp" />

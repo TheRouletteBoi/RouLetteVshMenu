@@ -1,5 +1,6 @@
 #include "FindActiveGame.hpp"
 #include "GTAV.hpp"
+#include "Minecraft.hpp"
 #include "CODBO1.hpp"
 #include "CODBO2.hpp"
 #include "CODBO3.hpp"
@@ -174,6 +175,14 @@ void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char*
       }
 
       //GTAV::Update();
+   }
+   else if (IsGameMinecraft(titleId))
+   {
+       if (!hasGameInitialized)
+       {
+           Minecraft::Initialize();
+           hasGameInitialized = true;
+       }
    }
    else if (IsGameBO1(titleId))
    {

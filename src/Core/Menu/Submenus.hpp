@@ -7,6 +7,7 @@
 
 void MainSubmenu();
 void GtavSubmenu();
+void MinecraftSubmenu();
 void CodBo1Submenu();
 void CodBo2Submenu();
 void CodBo3Submenu();

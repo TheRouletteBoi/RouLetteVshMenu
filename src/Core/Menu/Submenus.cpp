@@ -5,6 +5,7 @@ void MainSubmenu()
 {
     g_Menu.Title(L"Main menu");
     g_Menu.Option(L"GTAV Menus \uF477\uF477").Submenu(GtavSubmenu);
+    g_Menu.Option(L"Minecraft Menus").Submenu(MinecraftSubmenu);
     g_Menu.Option(L"Black Ops 1 Menus").Submenu(CodBo1Submenu);
     g_Menu.Option(L"Black Ops 2 Menus \uF476").Submenu(CodBo2Submenu);
     g_Menu.Option(L"Black Ops 3 Menus").Submenu(CodBo3Submenu);
@@ -62,6 +63,16 @@ void GtavSubmenu()
     {
         if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVDebugPayload))
             vsh::ShowNofityWithSound(L"GTAV Debug payload is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+    });
+}
+
+void MinecraftSubmenu()
+{
+    g_Menu.Title(L"Minecraft Menus");
+    g_Menu.Option(L"Modcraft V4").RightText(L"\uF888 + \uF884").Action([]
+    {
+        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MinecraftModcraftV4))
+            vsh::ShowNofityWithSound(L"Modcraft Minecraft is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
     });
 }
 

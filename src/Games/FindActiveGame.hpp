@@ -22,6 +22,9 @@ public:
       GTAVTerrorizer,
       GTAVDebugPayload,
 
+      // Minecraft
+      MinecraftModcraftV4,
+
       // COD Black Ops 1
       BO1Paradox,
       BO1Fusion,
