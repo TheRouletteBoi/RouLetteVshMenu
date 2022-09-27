@@ -8,15 +8,12 @@ uint64_t GetTimeNow()
    return sys_time_get_system_time() / 1000;
 }
 
-uint64_t GetCurrentTick()
+uint64_t GetElapseAsMsec(uint64_t from)
 {
+    uint64_t now;
+    SYS_TIMEBASE_GET(now);
     uint64_t freq = sys_time_get_timebase_frequency(); // This function returns the Time Base frequency in Hz
-    double dFreq = ((double)freq) / 1000.0;
-
-    uint64_t newTime;
-    SYS_TIMEBASE_GET(newTime); // Get the current Time Base
-
-    return (uint64_t)((double(newTime)) / dFreq);
+    return ((now - from) * 1000 / freq);
 }
 
 void Sleep(uint64_t ms)

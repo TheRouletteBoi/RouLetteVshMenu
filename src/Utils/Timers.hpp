@@ -7,7 +7,7 @@
 #include "vsh/vshmath.h"
 
 uint64_t GetTimeNow();
-uint64_t GetCurrentTick();
+uint64_t GetElapseAsMsec(uint64_t from);
 void Sleep(uint64_t ms);
 
 constexpr int MAX_VALUE_TIMERS = 20;
