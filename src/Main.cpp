@@ -59,8 +59,6 @@ SYS_MODULE_STOP(module_stop);
 
 sys_ppu_thread_t gVshMenuPpuThreadId = SYS_PPU_THREAD_ID_INVALID;
 
-uint64_t mUpdateTime = 0;
-
 CDECL_BEGIN
 int module_start(unsigned int args, void* argp)
 {
@@ -79,20 +77,6 @@ int module_start(unsigned int args, void* argp)
       g_FindActiveGame = CFindActiveGame();
 
       InstallHooks();
-
-
-      while (true)
-      {
-          uint64_t elapse = GetElapseAsMsec(mUpdateTime);
-          if (elapse > 1000) 
-          {
-              // update status every 1 second
-              SYS_TIMEBASE_GET(mUpdateTime);
-
-              // your code...
-          }
-      }
-
 
       sys_ppu_thread_exit(0);
 
