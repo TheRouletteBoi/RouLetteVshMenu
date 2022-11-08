@@ -107,6 +107,12 @@ void CodBo1Submenu()
 void CodBo2Submenu()
 {
     g_Menu.Title(L"Black Ops 2 Menus");
+
+    g_Menu.Option(L"Kebab").RightText(L"Idk lol").Description(L"This is a HEN menu").Action([] {
+        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO2Kebab))
+            vsh::ShowNofityWithSound(L"Kebab BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        });
+
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
         if (!IsConsoleDex())

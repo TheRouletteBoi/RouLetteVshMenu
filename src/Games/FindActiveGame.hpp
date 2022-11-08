@@ -30,6 +30,7 @@ public:
       BO1Fusion,
 
       // COD Black Ops 2
+      BO2Kebab,
       BO2Paradox,
       BO2Sprxio,
       BO2Destiny,
