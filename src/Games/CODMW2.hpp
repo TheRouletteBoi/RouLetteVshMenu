@@ -9,7 +9,7 @@ namespace CODMW2
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::MW2Paradox:
+         case FindActiveGame::PatchedMenu::MW2Paradox:
          {
             SetNop(0x25CAC18); // stop connect to paradox.sh
             SetNop(0x25CB6C4); // request addresses from server
@@ -38,14 +38,14 @@ namespace CODMW2
             SetBranch(0x25CAC1C, 0x25CB6AC); // skip the bullshit
             break;
          }
-         case CFindActiveGame::PatchedMenu::MW2Reborn:
+         case FindActiveGame::PatchedMenu::MW2Reborn:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/reborn_by_enstone_446.bin";
             if (StartPayload(fileName.c_str(), KB(140), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Reborn is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Reborn is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
       }

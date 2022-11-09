@@ -1,14 +1,12 @@
 #pragma once
 
-#include <vsh/pafPhPlane.h>
-#include <vsh/pafPhText.h>
-#include <vsh/pafView.h>
-#include <vsh/vshcommon.h>
+#include <vsh/paf.hpp>
+#include <vsh/vshcommon.hpp>
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
 #include "Utils/Std.hpp"
 #include "Core/Input.hpp"
-#include "Core/Rendering.hpp"
+#include "Core/Renderer.hpp"
 #include "Core/Helpers.hpp"
 
 using Function = void(*)();
@@ -39,7 +37,7 @@ public:
    Menu& Slider(int& var, int min, int max);
    Menu& Strings(const std::vector<std::wstring>& display, int& index);
    Menu& ColorPreview(float& var);
-   Menu& EditColor(vsh::vec4& color, bool editAlpha, Function onChangeFn = nullptr);
+   Menu& EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn = nullptr);
 
 private:
    bool IsInitialized();
@@ -88,7 +86,7 @@ private:
    void DrawMenuToggle(bool var);
    void DrawMenuSlider(const std::wstring& text, float progress);
    void DrawMenuStringOption(const std::wstring& item);
-   void DrawMenuColorPreview(const vsh::vec4& color);
+   void DrawMenuColorPreview(const paf::vec4& color);
 
    template <typename T>
    void processOptionItemControls(T& var, T min, T max, T step)
@@ -121,20 +119,20 @@ private:
 
 public:
    bool stateMoving{};
-   vsh::vec2 position{ 297.0, 14.0 };
-   vsh::vec2 safeArea{ 31.0, 18.0 };
+   paf::vec2 position{ 297.0, 14.0 };
+   paf::vec2 safeArea{ 31.0, 18.0 };
    float sizeHeader = 60.0;
    float sizeWidth = 300.0;
    float sizeText = 20.0;
    float sizeTextHeader = 30.0;
    float sizeTextDescription = 18.0;
-   vsh::vec4 colorMenu{ 1.0, 0.0, 0.0, 0.80 };
-   vsh::vec4 colorBackground{ 0, 0, 0, 0.65 };
-   vsh::vec4 colorText{ 1, 1, 1, 1 };
-   vsh::vec4 colorFillerBar{ 0.0, 1.0, 1.0, 0.9 };
-   vsh::vec4 colorFillerCursor{ 0.423, 0.443, 0.415, 0.9 };
-   vsh::vec4 colorToggleOn{ 0.0, 1.0, 0.0, 1.0 };
-   vsh::vec4 colorToggleOff{ 1.0, 0.0, 0.0, 1.0 };
+   paf::vec4 colorMenu{ 1.0, 0.0, 0.0, 0.80 };
+   paf::vec4 colorBackground{ 0, 0, 0, 0.65 };
+   paf::vec4 colorText{ 1, 1, 1, 1 };
+   paf::vec4 colorFillerBar{ 0.0, 1.0, 1.0, 0.9 };
+   paf::vec4 colorFillerCursor{ 0.423, 0.443, 0.415, 0.9 };
+   paf::vec4 colorToggleOn{ 0.0, 1.0, 0.0, 1.0 };
+   paf::vec4 colorToggleOff{ 1.0, 0.0, 0.0, 1.0 };
 
 private:
    bool m_StateInitialized{};
@@ -177,7 +175,7 @@ private:
    std::wstring m_DescriptionText;
 
    bool m_EditingAlpha = true;
-   vsh::vec4* m_ColorToEdit{};
+   paf::vec4* m_ColorToEdit{};
    Function m_ColorChangeFn{};
 };
 

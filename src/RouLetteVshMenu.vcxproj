@@ -95,7 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Core\Input.cpp" />
     <ClCompile Include="Core\Menu\Overlay.cpp" />
-    <ClCompile Include="Core\Rendering.cpp" />
+    <ClCompile Include="Core\Renderer.cpp" />
     <ClCompile Include="Games\FindActiveGame.cpp" />
     <ClCompile Include="Core\Menu\Base.cpp" />
     <ClCompile Include="Core\Menu\Submenus.cpp" />
@@ -114,7 +114,7 @@
   <ItemGroup>
     <ClInclude Include="Core\Input.hpp" />
     <ClInclude Include="Core\Menu\Overlay.hpp" />
-    <ClInclude Include="Core\Rendering.hpp" />
+    <ClInclude Include="Core\Renderer.hpp" />
     <ClInclude Include="Games\CODAdvanceWarfare.hpp" />
     <ClInclude Include="Games\CODBO1.hpp" />
     <ClInclude Include="Games\CODBO2.hpp" />
@@ -135,7 +135,6 @@
     <ClInclude Include="Memory\Memory.hpp" />
     <ClInclude Include="Utils\ConsoleInfo.hpp" />
     <ClInclude Include="Utils\FileSystem.hpp" />
-    <ClInclude Include="Utils\NewDeleteOverride.hpp" />
     <ClInclude Include="Utils\Std.hpp" />
     <ClInclude Include="Utils\SystemCalls.hpp" />
     <ClInclude Include="Utils\Timers.hpp" />

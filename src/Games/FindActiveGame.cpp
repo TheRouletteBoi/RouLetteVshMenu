@@ -10,23 +10,23 @@
 #include "CODAdvanceWarfare.hpp"
 
 
-CFindActiveGame g_FindActiveGame;
+FindActiveGame g_FindActiveGame;
 
-CFindActiveGame::CFindActiveGame()
+FindActiveGame::FindActiveGame()
 {
    sys_ppu_thread_create(&m_GameProcessPpuThreadId, GameProcessThread, 0, 1109, 0x8000, SYS_PPU_THREAD_CREATE_JOINABLE, "RouLetteGameProcess");
 }
 
-void CFindActiveGame::Initialize()
+void FindActiveGame::Initialize()
 {
 
 }
 
-void CFindActiveGame::ShutDown()
+void FindActiveGame::ShutDown()
 {
    if (m_GameProcessPpuThreadId != SYS_PPU_THREAD_ID_INVALID)
    {
-      gameProcessThreadRunning = false;
+      m_GameProcessThreadRunning = false;
 
       // Prevent unload too fast (give time to other threads to finish)
       sys_ppu_thread_yield();
@@ -37,33 +37,33 @@ void CFindActiveGame::ShutDown()
    }
 }
 
-uint32_t CFindActiveGame::GetRunningGameProcessId()
+uint32_t FindActiveGame::GetRunningGameProcessId()
 {
    return m_CurrentGamePid;
 }
 
-void CFindActiveGame::SetRunningGameProcessId(uint32_t pid)
+void FindActiveGame::SetRunningGameProcessId(uint32_t pid)
 {
    m_CurrentGamePid = pid;
 }
 
-void CFindActiveGame::GetGameName(char outTitleId[16], char outTitleName[64])
+void FindActiveGame::GetGameName(char outTitleId[16], char outTitleName[64])
 {
-   vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
+   paf::View* gamePlugin = paf::View::Find("game_plugin");
    if (!gamePlugin)
       return;
 
-   vsh::game_plugin_interface* game_interface = gamePlugin->GetInterface<vsh::game_plugin_interface*>(1);
-   if (!game_interface)
+   vsh::GamePluginInterface* gameInterface = gamePlugin->GetInterface<vsh::GamePluginInterface*>(1);
+   if (!gameInterface)
       return;
 
    char _gameInfo[0x120]{};
-   game_interface->gameInfo(_gameInfo);
+   gameInterface->gameInfo(_gameInfo);
    vsh::snprintf(outTitleId, 10, "%s", _gameInfo + 0x04);
    vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
 
-bool CFindActiveGame::IsGameGTAV(const std::string& titleId)
+bool FindActiveGame::IsGameGTAV(const std::string& titleId)
 {
    if (titleId == "BLES01807" || titleId == "BLUS31156" || titleId == "BLJM61019"
       || titleId == "NPEB01283" || titleId == "NPUB31154")
@@ -72,7 +72,7 @@ bool CFindActiveGame::IsGameGTAV(const std::string& titleId)
    return false;
 }
 
-bool CFindActiveGame::IsGameRDR(const std::string& titleId)
+bool FindActiveGame::IsGameRDR(const std::string& titleId)
 {
    if (titleId == "BLES01294" || titleId == "BLUS30418" || titleId == "BLES01179" || titleId == "BLES00680"
       || titleId == "BLJM60265" || titleId == "NPEB00833" || titleId == "NPUB30638")
@@ -81,7 +81,7 @@ bool CFindActiveGame::IsGameRDR(const std::string& titleId)
    return false;
 }
 
-bool CFindActiveGame::IsGameMinecraft(const std::string& titleId)
+bool FindActiveGame::IsGameMinecraft(const std::string& titleId)
 {
     if (titleId == "BLES01976" || titleId == "BLUS31426" || titleId == "NPUB31419" || titleId == "NPEB01899"
         || titleId == "NPJB00549")
@@ -90,7 +90,7 @@ bool CFindActiveGame::IsGameMinecraft(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameBO1(const std::string& titleId)
+bool FindActiveGame::IsGameCodBO1(const std::string& titleId)
 {
     if (titleId == "BLUS30591" || titleId == "BLUS30625" || titleId == "BLUS30638" || titleId == "BLES01031"
         || titleId == "BLES01032" || titleId == "BLES01033" || titleId == "NPUB30584" || titleId == "NPEB00758"
@@ -101,7 +101,7 @@ bool CFindActiveGame::IsGameBO1(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameBO2(const std::string& titleId)
+bool FindActiveGame::IsGameCodBO2(const std::string& titleId)
 {
     if (titleId == "BLUS31011" || titleId == "BLUS41005" || titleId == "BLUS31141" || titleId == "BLUS31140"
         || titleId == "BLES01717" || titleId == "BLES01718" || titleId == "BLES01719" || titleId == "BLES01720"
@@ -112,7 +112,7 @@ bool CFindActiveGame::IsGameBO2(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameBO3(const std::string& titleId)
+bool FindActiveGame::IsGameCodBO3(const std::string& titleId)
 {
     if (titleId == "BCJS35003" || titleId == "BLES02166" || titleId == "BLES02168" || titleId == "BLUS31527"
         || titleId == "NPEB02266" || titleId == "NPEB02268" || titleId == "NPJA00135" || titleId == "NPUB31665")
@@ -121,7 +121,7 @@ bool CFindActiveGame::IsGameBO3(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameMW2(const std::string& titleId)
+bool FindActiveGame::IsGameCodMW2(const std::string& titleId)
 {
     if (titleId == "BLUS30450" || titleId == "BLUS30377" || titleId == "BLUS30337" || titleId == "BLUS30429"
         || titleId == "BLES00683" || titleId == "BLES00691" || titleId == "BLES00690" || titleId == "BLES00686"
@@ -132,7 +132,7 @@ bool CFindActiveGame::IsGameMW2(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameMW3(const std::string& titleId)
+bool FindActiveGame::IsGameCodMW3(const std::string& titleId)
 {
     if (titleId == "BLUS30838" || titleId == "BLUS30887" || titleId == "BLES01428" || titleId == "BLES01433"
         || titleId == "BLES01429" || titleId == "BLES01431" || titleId == "BLES01432" || titleId == "BLES01430"
@@ -144,7 +144,7 @@ bool CFindActiveGame::IsGameMW3(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameCodGhost(const std::string& titleId)
+bool FindActiveGame::IsGameCodGhost(const std::string& titleId)
 {
     if (titleId == "BLUS31270" || titleId == "BLES01948" || titleId == "BLES01945" || titleId == "NPEB01832"
         || titleId == "NPEB01835" || titleId == "NPUB31301" || titleId == "NPJB00527" || titleId == "NPJB00528"
@@ -154,7 +154,7 @@ bool CFindActiveGame::IsGameCodGhost(const std::string& titleId)
     return false;
 }
 
-bool CFindActiveGame::IsGameAW(const std::string& titleId)
+bool FindActiveGame::IsGameCodAW(const std::string& titleId)
 {
     if (titleId == "BLUS31466" || titleId == "BLES02077" || titleId == "BLES02078" || titleId == "BLES02079"
         || titleId == "NPEB02087" || titleId == "NPEB02092" || titleId == "NPEB02088" || titleId == "NPUB31553"
@@ -164,90 +164,90 @@ bool CFindActiveGame::IsGameAW(const std::string& titleId)
     return false;
 }
 
-void CFindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char* titleName)
+void FindActiveGame::WhileInGame(uint32_t pid, const char* titleId, const char* titleName)
 {
    if (IsGameGTAV(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          GTAV::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
 
-      //GTAV::Update();
+      //GTAV::OnUpdate();
    }
    else if (IsGameMinecraft(titleId))
    {
-       if (!hasGameInitialized)
+       if (!m_HasGameInitialized)
        {
            Minecraft::Initialize();
-           hasGameInitialized = true;
+           m_HasGameInitialized = true;
        }
    }
-   else if (IsGameBO1(titleId))
+   else if (IsGameCodBO1(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODBO1::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
-   else if (IsGameBO2(titleId))
+   else if (IsGameCodBO2(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODBO2::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
-   else if (IsGameBO3(titleId))
+   else if (IsGameCodBO3(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODBO3::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
-   else if (IsGameMW2(titleId))
+   else if (IsGameCodMW2(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODMW2::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
-   else if (IsGameMW3(titleId))
+   else if (IsGameCodMW3(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODMW3::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
    else if (IsGameCodGhost(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODGhost::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
-   else if (IsGameAW(titleId))
+   else if (IsGameCodAW(titleId))
    {
-      if (!hasGameInitialized)
+      if (!m_HasGameInitialized)
       {
          CODAW::Initialize();
-         hasGameInitialized = true;
+         m_HasGameInitialized = true;
       }
    }
 
 }
 
-bool CFindActiveGame::LoadMenu(PatchedMenu menuId)
+bool FindActiveGame::LoadMenu(PatchedMenu menuId)
 {
-   if (m_MenuToLoad != PatchedMenu::None && vsh::GetCooperationMode() == vsh::eCooperationMode::Game)
+   if (m_MenuToLoad != PatchedMenu::None && vsh::GetCooperationMode() == vsh::CooperationMode::Game)
    {
-      vsh::ShowButtonNavigationMessage(L"\uF46B You can not change menu while in game \uF46B");
+      vsh::ShowNavigationMessage(L"\uF46B You can not change menu while in game \uF46B");
       return false;
    }
 
@@ -255,13 +255,13 @@ bool CFindActiveGame::LoadMenu(PatchedMenu menuId)
    return true;
 }
 
-void CFindActiveGame::GameProcessThread(uint64_t arg)
+void FindActiveGame::GameProcessThread(uint64_t arg)
 {
-   g_FindActiveGame.gameProcessThreadRunning = true;
+   g_FindActiveGame.m_GameProcessThreadRunning = true;
    uint32_t gameProcessID = 0;
-   while (g_FindActiveGame.gameProcessThreadRunning)
+   while (g_FindActiveGame.m_GameProcessThreadRunning)
    {
-      gameProcessID = vsh::GetGameProcessID();
+      gameProcessID = vsh::GetGameProcessId();
 
       if (gameProcessID != 0)
       {
@@ -287,7 +287,7 @@ void CFindActiveGame::GameProcessThread(uint64_t arg)
          {
             g_FindActiveGame.SetRunningGameProcessId(0);
             g_FindActiveGame.m_MenuToLoad = PatchedMenu::None;
-            g_FindActiveGame.hasGameInitialized = false;
+            g_FindActiveGame.m_HasGameInitialized = false;
          }
       }
 

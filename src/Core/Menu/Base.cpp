@@ -140,11 +140,11 @@ void Menu::OnOpen()
    m_CurrentIndex = (m_SavedMenu == nullptr) ? 1 : m_SavedCurrentIndex;
 
    // opening animation
-   g_ChangeOvertime.Add(&m_OpacityBackground, colorBackground.a, 200);
-   g_ChangeOvertime.Add(&m_OpacityGlobal, 1, 200);
-   g_ChangeOvertime.Add(&m_OpacityHighlightBar, 0.65, 200, 200);
-   g_ChangeOvertime.Add(&m_OpacityText, 1, 200, 200);
-   g_ChangeOvertime.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250, 0, true);
+   g_Timer.Add(&m_OpacityBackground, colorBackground.a, 200);
+   g_Timer.Add(&m_OpacityGlobal, 1, 200);
+   g_Timer.Add(&m_OpacityHighlightBar, 0.65, 200, 200);
+   g_Timer.Add(&m_OpacityText, 1, 200, 200);
+   g_Timer.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250);
 }
 
 void Menu::OnClose()
@@ -157,11 +157,11 @@ void Menu::OnClose()
    m_SavedCurrentIndex = m_CurrentIndex;
 
    // closing animation
-   g_ChangeOvertime.Add(&m_SizeBackground, 0, 200, 200, true);
-   g_ChangeOvertime.Add(&m_OpacityBackground, 0, 200, 200);
-   g_ChangeOvertime.Add(&m_OpacityGlobal, 0, 200, 200);
-   g_ChangeOvertime.Add(&m_OpacityHighlightBar, 0, 200);
-   g_ChangeOvertime.Add(&m_OpacityText, 0, 200);
+   g_Timer.Add(&m_SizeBackground, 0, 200, 200);
+   g_Timer.Add(&m_OpacityBackground, 0, 200, 200);
+   g_Timer.Add(&m_OpacityGlobal, 0, 200, 200);
+   g_Timer.Add(&m_OpacityHighlightBar, 0, 200);
+   g_Timer.Add(&m_OpacityText, 0, 200);
 }
 
 void Menu::OnBack()
@@ -171,7 +171,7 @@ void Menu::OnBack()
    m_CurrentOption = m_LastOption[m_SubmenuLevel];
    m_CurrentIndex = m_LastIndex[m_SubmenuLevel];
 
-   g_ChangeOvertime.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250, 0, true);
+   g_Timer.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250);
 }
 
 void Menu::OnScrollUp()
@@ -191,7 +191,7 @@ void Menu::OnScrollUp()
       m_CurrentIndex = (m_TotalOptions > maxOptionsPerPage) ? m_CurrentOption - maxOptionsPerPage + 1 : 1;
    }
 
-   g_ChangeOvertime.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250, 0, true);
+   g_Timer.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250);
 }
 
 void Menu::OnScrollDown()
@@ -211,7 +211,7 @@ void Menu::OnScrollDown()
       m_CurrentIndex = 1;
    }
 
-   g_ChangeOvertime.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250, 0, true);
+   g_Timer.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 250);
 }
 
 void Menu::EnterSubmenu(Function submenu)
@@ -227,7 +227,7 @@ void Menu::EnterSubmenu(Function submenu)
    m_CurrentIndex = 1;
    m_SubmenuLevel++;
 
-   g_ChangeOvertime.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 200, 0, true);
+   g_Timer.Add(&m_HighlightBarPosY, (m_CurrentOption - m_CurrentIndex) * sizeText, 200);
 }
 
 void Menu::ChangeSubmenu(Function submenu)
@@ -238,10 +238,10 @@ void Menu::ChangeSubmenu(Function submenu)
 
 void Menu::PlaySound(const char* sound)
 {
-   if (!g_Helpers.system_plugin)
+   if (!g_Helpers.m_SystemPlugin)
       return;
 
-   g_Helpers.system_plugin->PlaySound(sound);
+   g_Helpers.m_SystemPlugin->PlaySound(sound);
 }
 
 void Menu::UpdateButtons()
@@ -291,7 +291,7 @@ void Menu::UpdatePosition()
       if (stickX != 0.0)
       {
          float xAdvance = position.x + stickX * 5.0;
-         float xSafeLimit = vsh::paf::PhWidget::GetViewportWidth() / 2 - sizeWidth / 2;
+         float xSafeLimit = g_Renderer.m_ViewportWidth / 2 - sizeWidth / 2;
 
          if (xAdvance > -xSafeLimit && xAdvance < xSafeLimit)
             position.x += stickX * 5.0;
@@ -306,7 +306,7 @@ void Menu::UpdatePosition()
       if (stickY != 0.0)
       {
          float yAdvance = position.y + stickY * 5.0;
-         float ySafeLimit = vsh::paf::PhWidget::GetViewportHeight() / 2 - m_SizeBackground / 2 - sizeText;
+         float ySafeLimit = g_Renderer.m_ViewportHeight / 2 - m_SizeBackground / 2 - sizeText;
 
          if (yAdvance > -ySafeLimit && yAdvance < ySafeLimit)
             position.y += stickY * 5.0;
@@ -324,8 +324,8 @@ void Menu::UpdateBackgroundSize()
 {
    if (m_StateOpened)
    {
-      static bool done = false;
-      static uint64_t lastTime = 0;
+      //static bool done = false;
+      //static uint64_t lastTime = 0;
 
 
       int optionsCount = (m_TotalOptions > maxOptionsPerPage) ? maxOptionsPerPage : m_TotalOptions;
@@ -333,16 +333,16 @@ void Menu::UpdateBackgroundSize()
          return;
 
       float size = sizeText * optionsCount + m_SizeBackgroundSpace * 2;
-      uint64_t timeNow = GetTimeNow();
+      //uint64_t timeNow = GetTimeNow();
 
-      if (done && (timeNow - lastTime >= 200))
-         done = false;
+      //if (done && (timeNow - lastTime >= 200))
+      //   done = false;
 
-      if ((m_SizeBackground != size) && !done)
-      {
-         done = g_ChangeOvertime.Add(&m_SizeBackground, size, 200);
-         lastTime = timeNow;
-      }
+      //if ((m_SizeBackground != size) && !done)
+      //{
+            g_Timer.Add(&m_SizeBackground, size, 200);
+        // lastTime = timeNow;
+      //}
 
    }
 }
@@ -351,20 +351,20 @@ void Menu::UpdateHighlightBarPos()
 {
    if (m_StateOpened)
    {
-      static bool done = false;
-      static uint64_t lastTime = 0;
+      //static bool done = false;
+      //static uint64_t lastTime = 0;
 
       float pos = (m_CurrentOption - m_CurrentIndex) * sizeText;
-      uint64_t timeNow = GetTimeNow();
+      //uint64_t timeNow = GetTimeNow();
 
-      if (done && (timeNow - lastTime >= 200))
-         done = false;
+      //if (done && (timeNow - lastTime >= 200))
+      //   done = false;
 
-      if ((m_HighlightBarPosY != pos) && !done)
-      {
-         done = g_ChangeOvertime.Add(&m_HighlightBarPosY, pos, 200);
-         lastTime = timeNow;
-      }
+      //if ((m_HighlightBarPosY != pos) && !done)
+      //{
+         g_Timer.Add(&m_HighlightBarPosY, pos, 200);
+         //lastTime = timeNow;
+      //}
    }
 }
 
@@ -423,10 +423,10 @@ void Menu::OnUpdate()
    if (!IsInitialized())
       Initialize();
 
-   g_ChangeOvertime.Update();
+   g_Timer.OnUpdate();
 
    // Close the menu if the xmb isn't loaded
-   if (!vsh::paf::View::Find("xmb_plugin"))
+   if (!paf::View::Find("xmb_plugin"))
    {
       if (m_StateOpened)
          OnClose();
@@ -439,267 +439,267 @@ void Menu::OnUpdate()
 
 void Menu::DrawHeader()
 {
-   // Background
-   g_Render.Rectangle(
-      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + m_SizeBackgroundSpace + sizeText / 2 + sizeHeader / 2),
-      vsh::vec2(sizeWidth, sizeHeader),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityBackground));
+    // Background
+    g_Renderer.Rectangle(
+        paf::vec2(position.x, position.y + m_SizeBackground / 2 + m_SizeBackgroundSpace + sizeText / 2 + sizeHeader / 2),
+        paf::vec2(sizeWidth, sizeHeader),
+        paf::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityBackground),
+        Renderer::Centered,
+        Renderer::Centered);
 
-   // Title
-   g_Render.Text(
-      L"RouLette's Launcher",
-      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + sizeTextHeader / 2 + sizeHeader / 2),
-      sizeTextHeader,
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+    // Title
+    g_Renderer.Text(
+        L"RouLette's Launcher",
+        paf::vec2(position.x, position.y + m_SizeBackground / 2 + sizeTextHeader / 2 + sizeHeader / 2),
+        sizeTextHeader,
+        paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+        Renderer::Centered,
+        Renderer::Centered);
 }
 
 void Menu::DrawBody()
 {
-   // Background
-   g_Render.Rectangle(
-      position,
-      vsh::vec2(sizeWidth, m_SizeBackground),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground));
+    // Background
+    g_Renderer.Rectangle(
+        position,
+        paf::vec2(sizeWidth, m_SizeBackground),
+        paf::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground),
+        Renderer::Centered,
+        Renderer::Centered);
 }
 
 void Menu::DrawHighlightBar()
 {
-   vsh::vec2 pos = vsh::vec2(position.x, position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - m_HighlightBarPosY - sizeText / 2);
+    paf::vec2 pos = paf::vec2(position.x, position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - m_HighlightBarPosY - sizeText / 2);
 
-   g_Render.Rectangle(
-      pos,
-      vsh::vec2(sizeWidth, sizeText),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityHighlightBar));
+    g_Renderer.Rectangle(
+        pos,
+        paf::vec2(sizeWidth, sizeText),
+        paf::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityHighlightBar),
+        Renderer::Centered,
+        Renderer::Centered);
 }
 
 void Menu::DrawFooter()
 {
-   // Background
-   g_Render.Rectangle(
-      vsh::vec2(position.x, position.y - m_SizeBackground / 2 - sizeText / 2),
-      vsh::vec2(sizeWidth, sizeText),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityBackground));
+    // Background
+    g_Renderer.Rectangle(
+        paf::vec2(position.x, position.y - m_SizeBackground / 2 - sizeText / 2),
+        paf::vec2(sizeWidth, sizeText),
+        paf::vec4(colorMenu.r, colorMenu.g, colorMenu.b, m_OpacityBackground),
+        Renderer::Centered,
+        Renderer::Centered);
 }
 
 void Menu::DrawDescription()
 {
-   if (m_DescriptionText.empty())
-      return;
+    if (m_DescriptionText.empty())
+        return;
 
-   g_Render.Rectangle(
-      vsh::vec2(position.x, position.y - m_SizeBackground / 2 - sizeTextDescription / 2 - 22.0f),
-      vsh::vec2(sizeWidth, sizeTextDescription),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground));
+    g_Renderer.Rectangle(
+        paf::vec2(position.x, position.y - m_SizeBackground / 2 - sizeTextDescription / 2 - 22.0f),
+        paf::vec2(sizeWidth, sizeTextDescription),
+        paf::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground),
+        Renderer::Centered,
+        Renderer::Centered);
 
-   g_Render.Text(
-      m_DescriptionText,
-      vsh::vec2(
-         position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4,
-         position.y - m_SizeBackground / 2 - sizeTextDescription / 2 - 20.0f),
-       sizeTextDescription,
-      Render::Left,
-      Render::Centered,
-      vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+    g_Renderer.Text(
+        m_DescriptionText,
+        paf::vec2(
+            position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4,
+            position.y - m_SizeBackground / 2 - sizeTextDescription / 2 - 20.0f),
+        sizeTextDescription,
+        paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+        Renderer::Left,
+        Renderer::Centered);
 }
 
 void Menu::DrawInstructions()
 {
-   if (m_StateOpened)
-       return;
+    if (m_StateOpened)
+        return;
 
-   vsh::vec2 pos = vsh::vec2(vsh::paf::PhWidget::GetViewportWidth() / 2 - g_Menu.safeArea.x - 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5);
+    paf::vec2 pos = paf::vec2(g_Renderer.m_ViewportWidth / 2 - g_Menu.safeArea.x - 5, g_Renderer.m_ViewportHeight / 2 - g_Menu.safeArea.y - 5);
 
-   g_Render.Text(
-      L"Press \uF886 & \uF88D to open RouLette's Launcher",
-      pos,
-      sizeText,
-      Render::Right,
-      Render::Top,
-      colorText);
+    g_Renderer.Text(
+        L"Press \uF886 & \uF88D to open RouLette's Launcher",
+        pos,
+        sizeText,
+        colorText,
+        Renderer::Right,
+        Renderer::Top);
 }
 
 void Menu::DrawMovingHelp()
 {
-   if (!stateMoving)
-      return;
+    if (!stateMoving)
+        return;
 
-   g_Render.Text(
-      L"Use \uF88D to move the menu",
-      vsh::vec2(),
-      sizeText,
-      Render::Centered,
-      Render::Centered,
-      colorText);
+    g_Renderer.Text(
+        L"Use \uF88D to move the menu",
+        paf::vec2(),
+        sizeText,
+        colorText,
+        Renderer::Centered,
+        Renderer::Centered);
 
-   g_Render.Text(
-      L"X: " + to_wstring(position.x) + L"\nY: " + to_wstring(position.y),
-      vsh::vec2(0, -sizeText * 2),
-      sizeText,
-      Render::Centered,
-      Render::Centered,
-      colorText);
+    g_Renderer.Text(
+        L"X: " + to_wstring(position.x) + L"\nY: " + to_wstring(position.y),
+        paf::vec2(0, -sizeText * 2),
+        sizeText,
+        colorText,
+        Renderer::Centered,
+        Renderer::Centered);
 }
 
 void Menu::DrawMenuTitle(const std::wstring& text)
 {
     // Background
-   g_Render.Rectangle(
-      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + sizeText / 2),
-      vsh::vec2(sizeWidth, sizeText),
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground));
+    g_Renderer.Rectangle(
+        paf::vec2(position.x, position.y + m_SizeBackground / 2 + sizeText / 2),
+        paf::vec2(sizeWidth, sizeText),
+        paf::vec4(colorBackground.r, colorBackground.g, colorBackground.b, m_OpacityBackground),
+        Renderer::Centered,
+        Renderer::Centered);
 
-   // Version Number
-   g_Render.Text(
-       L"v1.3",
-       vsh::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
-       sizeText,
-       Render::Left,
-       Render::Centered,
-       vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+    // Version Number
+    g_Renderer.Text(
+        L"v1.3",
+        paf::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
+        sizeText,
+        paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+        Renderer::Left,
+        Renderer::Centered);
 
-   g_Render.Text(
-      text,
-      vsh::vec2(position.x, position.y + m_SizeBackground / 2 + sizeText / 2),
-      sizeText,
-      Render::Centered,
-      Render::Centered,
-      vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+    g_Renderer.Text(
+        text,
+        paf::vec2(position.x, position.y + m_SizeBackground / 2 + sizeText / 2),
+        sizeText,
+        paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+        Renderer::Centered,
+        Renderer::Centered);
 
-   // Current option counter
-   g_Render.Text(
-       to_wstring(m_CurrentOption) + L" / " + to_wstring(m_TotalOptions),
-       vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
-       sizeText,
-       Render::Right,
-       Render::Centered,
-       vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+    // Current option counter
+    g_Renderer.Text(
+        to_wstring(m_CurrentOption) + L" / " + to_wstring(m_TotalOptions),
+        paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
+        sizeText,
+        paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+        Renderer::Right,
+        Renderer::Centered);
 }
 
 void Menu::DrawMenuOption(const std::wstring& text)
 {
-   if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
-   {
-      g_Render.Text(
-         text,
-         vsh::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 2,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         sizeText,
-         Render::Left,
-         Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
-   }
+    if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
+    {
+        g_Renderer.Text(
+            text,
+            paf::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 2,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            sizeText,
+            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            Renderer::Left,
+            Renderer::Centered);
+    }
 }
 
 void Menu::DrawMenuToggle(bool var)
 {
-   if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
-   {
-      g_Render.Rectangle(
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2(sizeText * 0.7, sizeText * 0.7),
-         Render::Right,
-         Render::Centered,
-         var ? vsh::vec4(colorToggleOn.r, colorToggleOn.g, colorToggleOn.b, m_OpacityText)
-         : vsh::vec4(colorToggleOff.r, colorToggleOff.g, colorToggleOff.b, m_OpacityText), 
-          "tex_busy");
-   }
+    if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
+    {
+        g_Renderer.Rectangle(
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            paf::vec2(sizeText * 0.7, sizeText * 0.7),
+            var ? paf::vec4(colorToggleOn.r, colorToggleOn.g, colorToggleOn.b, m_OpacityText)
+            : paf::vec4(colorToggleOff.r, colorToggleOff.g, colorToggleOff.b, m_OpacityText),
+            Renderer::Right,
+            Renderer::Centered,
+            "tex_busy");
+    }
 }
 
 void Menu::DrawMenuSlider(const std::wstring& text, float progress)
 {
-   if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
-   {
-      float sliderWidth = sizeWidth / 4;
+    if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
+    {
+        float sliderWidth = sizeWidth / 4;
 
-      // Bar
-      g_Render.Rectangle(
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2(sliderWidth, 6),
-         Render::Left,
-         Render::Centered,
-         vsh::vec4(0.15, 0.15, 0.15, m_OpacityText), 
-         "tex_operation_guide_base");
+        // Bar
+        g_Renderer.Rectangle(
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            paf::vec2(sliderWidth, 6),
+            paf::vec4(0.15, 0.15, 0.15, m_OpacityText),
+            Renderer::Left,
+            Renderer::Centered,
+            "tex_operation_guide_base");
 
-      // Filled bar
-      g_Render.Rectangle(
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2((sliderWidth * progress), 6),
-         Render::Left,
-         Render::Centered,
-         vsh::vec4(colorFillerBar.r, colorFillerBar.g, colorFillerBar.b, m_OpacityText),
-         "tex_operation_guide_base");
+        // Filled bar
+        g_Renderer.Rectangle(
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            paf::vec2((sliderWidth * progress), 6),
+            paf::vec4(colorFillerBar.r, colorFillerBar.g, colorFillerBar.b, m_OpacityText),
+            Renderer::Left,
+            Renderer::Centered,
+            "tex_operation_guide_base");
 
-      // Cursor
-      g_Render.Rectangle(
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth + (sliderWidth * progress),
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         vsh::vec2(sizeText * 0.7, sizeText * 0.7),
-         Render::Centered,
-         Render::Centered,
-         vsh::vec4(colorFillerCursor.r, colorFillerCursor.g, colorFillerCursor.b, m_OpacityText),
-         "tex_busy");
+        // Cursor
+        g_Renderer.Rectangle(
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth + (sliderWidth * progress),
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            paf::vec2(sizeText * 0.7, sizeText * 0.7),
+            paf::vec4(colorFillerCursor.r, colorFillerCursor.g, colorFillerCursor.b, m_OpacityText),
+            Renderer::Centered,
+            Renderer::Centered,
+            "tex_busy");
 
 #ifdef LAUNCHER_DEBUG
-      // Value
-      g_Render.Text(
-          text,
-          vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth - 5,
-              position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-          sizeText,
-          Render::Right,
-          Render::Centered,
-          vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
+        // Value
+        g_Renderer.Text(
+            text,
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2 - sliderWidth - 5,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            sizeText,
+            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            Renderer::Right,
+            Renderer::Centered);
 #endif // LAUNCHER_DEBUG
-   }
+    }
 }
 
 void Menu::DrawMenuStringOption(const std::wstring& item)
 {
-   if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
-   {
-      g_Render.Text(
-         item,
-         vsh::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         sizeText,
-         Render::Right,
-         Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
-   }
+    if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
+    {
+        g_Renderer.Text(
+            item,
+            paf::vec2(position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            sizeText,
+            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            Renderer::Right,
+            Renderer::Centered);
+    }
 }
 
-void Menu::DrawMenuColorPreview(const vsh::vec4& color)
+void Menu::DrawMenuColorPreview(const paf::vec4& color)
 {
-   if (IsHovered())
-   {
-      vsh::vec2 pos = vsh::vec2(
-         position.x + sizeWidth,
-         position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - m_HighlightBarPosY - sizeText / 2);
+    if (IsHovered())
+    {
+        paf::vec2 pos = paf::vec2(
+            position.x + sizeWidth,
+            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - m_HighlightBarPosY - sizeText / 2);
 
-      g_Render.Rectangle(
-         pos,
-         vsh::vec2(50, 50),
-         Render::Right,
-         Render::Centered,
-         color);
-   }
+        g_Renderer.Rectangle(
+            pos,
+            paf::vec2(50, 50),
+            color,
+            Renderer::Right,
+            Renderer::Centered);
+    }
 }
 
 void Menu::Title(const std::wstring& text)
@@ -740,10 +740,10 @@ Menu& Menu::Skip()
 
 Menu& Menu::Toggle(bool& var)
 {
-   DrawMenuToggle(var);
-   if (IsPressed())
-      var ^= 1;
-   return *this;
+    DrawMenuToggle(var);
+    if (IsPressed())
+        var ^= 1;
+    return *this;
 }
 
 Menu& Menu::Toggle(bool& var, Function onEnable, Function onDisable)
@@ -784,20 +784,20 @@ Menu& Menu::Action(Function fn)
 
 Menu& Menu::RightText(const std::wstring& text)
 {
-   if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
-   {
-      g_Render.Text(
-         text,
-         vsh::vec2(
-            position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         sizeText,
-         Render::Right,
-         Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
-   }
+    if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
+    {
+        g_Renderer.Text(
+            text,
+            paf::vec2(
+                position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            sizeText,
+            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            Renderer::Right,
+            Renderer::Centered);
+    }
 
-   return *this;
+    return *this;
 }
 
 Menu& Menu::Description(const std::wstring& text)
@@ -840,37 +840,37 @@ Menu& Menu::Slider(int& var, int min, int max)
 
 Menu& Menu::Strings(const std::vector<std::wstring>& items, int& index)
 {
-   int min = 0;
-   int max = static_cast<int>(items.size()) - 1;
-   processOptionItemControls<int>(index, min, max, 1);
+    int min = 0;
+    int max = static_cast<int>(items.size()) - 1;
+    processOptionItemControls<int>(index, min, max, 1);
 
-   if (index > static_cast<int>(items.size()) || index < 0)
-   {
-      g_Render.Text(
-         L"error (" + to_wstring(index) + L")",
-         vsh::vec2(
-            position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
-            position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
-         sizeText,
-         Render::Right,
-         Render::Centered,
-         vsh::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
-      return *this;
-   }
+    if (index > static_cast<int>(items.size()) || index < 0)
+    {
+        g_Renderer.Text(
+            L"error (" + to_wstring(index) + L")",
+            paf::vec2(
+                position.x + sizeWidth / 2 - m_SizeBackgroundSpace / 2,
+                position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
+            sizeText,
+            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            Renderer::Right,
+            Renderer::Centered);
+        return *this;
+    }
 
-   if (IsHovered())
-   {
-      std::wstring selectedItem = items[index];
-      std::wstring item = ((index > 0) ? L"\uF886 " : L" ") + selectedItem + ((index < max) ? L" \uF887" : L" ");
+    if (IsHovered())
+    {
+        std::wstring selectedItem = items[index];
+        std::wstring item = ((index > 0) ? L"\uF886 " : L" ") + selectedItem + ((index < max) ? L" \uF887" : L" ");
 
-      DrawMenuStringOption(item);
+        DrawMenuStringOption(item);
 
-      m_SliderDelay = 200;
-   }
-   else
-      DrawMenuStringOption(items[index]);
+        m_SliderDelay = 200;
+    }
+    else
+        DrawMenuStringOption(items[index]);
 
-   return *this;
+    return *this;
 }
 
 Menu& Menu::ColorPreview(float& var)
@@ -881,7 +881,7 @@ Menu& Menu::ColorPreview(float& var)
    return *this;
 }
 
-Menu& Menu::EditColor(vsh::vec4& color, bool editAlpha, Function onChangeFn)
+Menu& Menu::EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn)
 {
    if (IsPressed())
    {

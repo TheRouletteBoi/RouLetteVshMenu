@@ -1,5 +1,5 @@
 #pragma once
-#include <vsh/allocator.h>
+#include <vsh/allocator.hpp>
 #include "FindActiveGame.hpp"
 #include "Memory/Memory.hpp"
 #include "Utils/Timers.hpp"
@@ -178,7 +178,7 @@ namespace GamePatching
    bool StartSprx(const char* path)
    {
       // check that we are in game
-      vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
+      paf::View* gamePlugin = paf::View::Find("game_plugin");
       if (!gamePlugin)
          return false;
 
@@ -225,7 +225,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to allocate executable memory 0x%X\n", ret);
-         vsh::ShowNofityWithSound(L"Failed to allocate executable memory", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
+         vsh::ShowNotificationWithIcon(L"Failed to allocate executable memory", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
          return false;
       }
 
@@ -236,7 +236,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to read executable memory 0x%X\n", ret);
-         vsh::ShowNofityWithSound(L"Failed to read executable memory", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
+         vsh::ShowNotificationWithIcon(L"Failed to read executable memory", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
          return false;
       }
 
@@ -246,7 +246,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to read payload file %s 0x%X\n", fileName, ret);
-         vsh::ShowNofityWithSound(L"Failed to read payload file", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
+         vsh::ShowNotificationWithIcon(L"Failed to read payload file", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
          return false;
       }
 
@@ -260,7 +260,7 @@ namespace GamePatching
       if (ret != SUCCEEDED)
       {
          vsh::printf("Failed to start payload 0x%X\n", ret);
-         vsh::ShowNofityWithSound(L"Failed to start payload", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Error);
+         vsh::ShowNotificationWithIcon(L"Failed to start payload", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
          return false;
       }
 

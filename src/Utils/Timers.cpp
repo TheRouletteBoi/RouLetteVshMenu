@@ -1,13 +1,26 @@
-
 #include "Timers.hpp"
 
-ChangeOvertime g_ChangeOvertime;
+Timer g_Timer;
 
 uint64_t GetTimeNow()
 {
-   return sys_time_get_system_time() / 1000;
-}
+    return sys_time_get_system_time() / 1000;
+} 
 
+/*
+* Example useage: 
+*  while (true)
+*  {
+*      uint64_t elapse = GetElapseAsMsec(mUpdateTime);
+*      if (elapse > 1000) 
+*      {
+*          // update status every 1 second
+*          SYS_TIMEBASE_GET(mUpdateTime);
+*
+*          // your code...
+*      }
+*  } 
+*/
 uint64_t GetElapseAsMsec(uint64_t from)
 {
     uint64_t now;
@@ -18,103 +31,150 @@ uint64_t GetElapseAsMsec(uint64_t from)
 
 void Sleep(uint64_t ms)
 {
-   sys_timer_usleep(ms * 1000);
+    sys_timer_usleep(ms * 1000);
 }
 
-ValueTimer::ValueTimer(float* from, float to, uint64_t duration, uint64_t startDelay)
-   : m_From(from), m_To(to), m_Duration(duration)
+void TimerData::Process()
 {
-   m_StartValue = *from;
-   m_StartTime = GetTimeNow() + startDelay;
+    uint64_t timeNow = GetTimeNow();
+    if (timeNow < m_StartTime)
+        return;
+
+    uint64_t endTime = m_StartTime + m_Duration;
+    bool isBoolean = IsValueBoolean();
+
+    // if it is a boolean, we aint gonna interpolate it
+    if (!isBoolean && timeNow < endTime)
+    {
+        uint64_t timePassed = timeNow - m_StartTime;
+        float deltaTime = static_cast<float>(timePassed) / static_cast<float>(m_Duration); // should be between 0.0 and 1.0
+        float progress = (m_EndValue - m_StartValue) * m_Interpolate(deltaTime);
+
+        *m_From = m_StartValue + progress;
+    }
+
+    // if is finished
+    if (timeNow >= endTime)
+    {
+        if (!isBoolean)
+            *m_From = m_EndValue;
+
+        // find our current index in the timer stack
+        for (int i = 0; i < g_Timer.m_TimerStack.size(); i++)
+        {
+            if (m_From == g_Timer.m_TimerStack[i].m_From)
+            {
+                // execute the callback
+                auto cb = g_Timer.m_TimerStack[i].m_Callback;
+                if (cb)
+                    cb(m_From);
+
+                // done, we erase our timer data from the stack
+                g_Timer.m_TimerStack.erase(g_Timer.m_TimerStack.begin() + i);
+            }
+        }
+    }
 }
 
-bool ValueTimer::IsFinished()
+bool TimerData::IsValueBoolean()
 {
-   return m_From == nullptr;
+    uint8_t* pToggle = reinterpret_cast<uint8_t*>(m_From);
+    if (*pToggle < 2) // in case u dont know, a bool is 8 bits and is either a 0 or a 1
+        return m_Interpolate == nullptr && m_Callback != nullptr;
+
+    return false;
 }
 
-bool ValueTimer::IsSame(float* from)
+bool Timer::IsAlreadyPresent(float* pFrom)
 {
-   return m_From == from;
+    for (auto t : m_TimerStack)
+        if (t.m_From == pFrom)
+            return true;
+
+    return false;
 }
 
-void ValueTimer::Update()
+TimerData* Timer::FindTimer(float* pFrom)
 {
-   if (!m_From)
-      return;
+    for (int i = 0; i < m_TimerStack.size(); i++)
+        if (m_TimerStack[i].m_From == pFrom)
+            return &m_TimerStack[i];
 
-   uint64_t timeNow = GetTimeNow();
-   if (timeNow < m_StartTime)
-      return;
-
-   if (timeNow >= m_StartTime + m_Duration)
-   {
-      *m_From = m_To;
-      m_From = nullptr;
-      return;
-   }
-
-   uint64_t timePassed = timeNow - m_StartTime;
-   float timeProgress = static_cast<float>(timePassed) / static_cast<float>(m_Duration);
-   float progress = (m_To - m_StartValue) * timeProgress;
-
-   *m_From = m_StartValue + progress;
+    return nullptr;
 }
 
-
-bool ChangeOvertime::Add(float* from, float to, uint64_t duration, uint64_t startDelay, bool ignoreCheck)
+void Timer::Add(float* from, float to, uint64_t duration, uint64_t startDelay, float(*interpolation)(float), void(*callback)(float*))
 {
-   if (!ignoreCheck && AlreadyExist(from))
-      return false;
+    if (!from || (*from == to))
+        return;
 
-   for (int i = 0; i < MAX_VALUE_TIMERS; i++)
-   {
-      if (m_Timers[i].IsFinished())
-      {
-         m_Timers[i] = ValueTimer(from, to, duration, startDelay);
-         return true;
-      }
-   }
-   return false;
+    bool isPresent = IsAlreadyPresent(from);
+
+    TimerData newTimer = TimerData();
+    TimerData& currentTimer = isPresent ? *FindTimer(from) : newTimer;
+    currentTimer.m_From = from;
+    currentTimer.m_StartValue = *from;
+    currentTimer.m_EndValue = to;
+    currentTimer.m_Interpolate = interpolation;
+    currentTimer.m_Callback = callback;
+    currentTimer.m_StartTime = GetTimeNow() + startDelay;
+    currentTimer.m_Duration = duration;
+
+    if (!isPresent)
+        m_TimerStack.push_back(newTimer);
 }
 
-bool ChangeOvertime::Add(vsh::vec2* from, vsh::vec2 to, uint64_t duration, uint64_t startDelay, bool ignoreCheck)
+void Timer::Add(paf::vec2* from, paf::vec2 to, uint64_t duration, uint64_t startDelay, float(*interpolation)(float))
 {
-   for (int i = 0; i < 2; i++)
-      if (!Add(&from->v[i], to.v[i], duration, startDelay, ignoreCheck))
-         return false;
-   return true;
+    if (!from)
+        return;
+
+    for (int i = 0; i < 2; i++)
+        Add(&from->operator[](i), to[i], duration, startDelay, interpolation, nullptr);
 }
 
-bool ChangeOvertime::Add(vsh::vec3* from, vsh::vec3 to, uint64_t duration, uint64_t startDelay, bool ignoreCheck)
+void Timer::Add(paf::vec3* from, paf::vec3 to, uint64_t duration, uint64_t startDelay, float(*interpolation)(float))
 {
-   for (int i = 0; i < 3; i++)
-      if (!Add(&from->v[i], to.v[i], duration, startDelay, ignoreCheck))
-         return false;
-   return true;
+    if (!from)
+        return;
+
+    for (int i = 0; i < 3; i++)
+        Add(&from->operator[](i), to[i], duration, startDelay, interpolation, nullptr);
 }
 
-bool ChangeOvertime::Add(vsh::vec4* from, vsh::vec4 to, uint64_t duration, uint64_t startDelay, bool ignoreCheck)
+void Timer::Add(paf::vec4* from, paf::vec4 to, uint64_t duration, uint64_t startDelay, float(*interpolation)(float))
 {
-   for (int i = 0; i < 4; i++)
-      if (!Add(&from->v[i], to.v[i], duration, startDelay, ignoreCheck))
-         return false;
-   return true;
+    if (!from)
+        return;
+
+    for (int i = 0; i < 4; i++)
+        Add(&from->operator[](i), to[i], duration, startDelay, interpolation, nullptr);
 }
 
-void ChangeOvertime::Update()
+void Timer::Add(int* from, int to, uint64_t duration, uint64_t startDelay, float(*interpolation)(float), void(*callback)(int*))
 {
-   for (int i = 0; i < MAX_VALUE_TIMERS; i++)
-      m_Timers[i].Update();
+    Add((float*)from, *(float*)&to, duration, startDelay, interpolation, (void(*)(float*))callback);
 }
 
-bool ChangeOvertime::AlreadyExist(float* from)
+void Timer::Add(bool* toggle, uint64_t delayBeforeToggle)
 {
-   for (int i = 0; i < MAX_VALUE_TIMERS; i++)
-   {
-      if (m_Timers[i].IsSame(from))
-         return true;
-   }
+    if (!toggle)
+        return;
 
-   return false;
+    // it just works
+    int to = *toggle ^ 1;
+    Add((float*)toggle, *(float*)&to, 0, delayBeforeToggle, nullptr, [](float* pFrom)
+    {
+        if (pFrom)
+        {
+            bool* pToggle = reinterpret_cast<bool*>(pFrom);
+            *pToggle ^= 1;
+        }
+    });
+}
+
+void Timer::OnUpdate()
+{
+    for (auto t : m_TimerStack)
+        t.Process();
 }

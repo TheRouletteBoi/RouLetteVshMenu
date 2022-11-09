@@ -3,7 +3,7 @@
 #include <sys/ppu_thread.h>
 #include <sys/timer.h>
 #include <cell/pad.h>
-#include "Utils/NewDeleteOverride.hpp"
+#include <vsh/newDelete.hpp>
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
 #include "Core/Input.hpp"
@@ -41,7 +41,7 @@ SYS_MODULE_STOP(module_stop);
 * paf_F21655F3(); View_Find
 * paf_794CEACB(); View_FindWidget
 * paf_3A8454FC(); View_GetTexture
-* paf_8ABAE2F3(void*, void*, int _0);
+* paf_8ABAE2F3(void*, void*, int _0);  _ZN3paf10PhPlaneDivC1EPNS_8PhWidgetEPNS_8PhAppearE | paf::PhPlaneDiv::PhPlaneDiv(paf::PhWidget*, paf::PhAppear*)
 * paf_7F0930C6(); PhText_Constructor
 * paf_23AFB290(); View_GetInterface
 * paf_2CBA5A33(); PhHandler_KillTimerCB
@@ -67,14 +67,14 @@ int module_start(unsigned int args, void* argp)
       // wait for XMB to load
       do 
           Sleep(1000); 
-      while (!vsh::paf::View::Find("explore_plugin"));
+      while (!paf::View::Find("explore_plugin"));
 
       g_Input = Input();
-      g_Render = Render();
+      g_Renderer = Renderer();
       g_Helpers = Helpers();
       g_Menu = Menu(MainSubmenu);
       g_Overlay = Overlay();
-      g_FindActiveGame = CFindActiveGame();
+      g_FindActiveGame = FindActiveGame();
 
       InstallHooks();
 
@@ -97,7 +97,7 @@ int module_stop(unsigned int args, void* argp)
 
       g_Overlay.OnShutdown();
       g_FindActiveGame.ShutDown();
-      g_Render.DestroyWidgets();
+      g_Renderer.~Renderer();
 
       // Prevent unload too fast (give time to other threads to finish)
       sys_ppu_thread_yield();

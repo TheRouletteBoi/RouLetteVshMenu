@@ -1,15 +1,14 @@
 #pragma once
-#include <vsh/vshmain.h>
-#include <vsh/vshcommon.h>
-#include <vsh/pafView.h>
-#include <vsh/explore_plugin.h>
-#include <vsh/game_plugin.h>
+#include <vsh/vshmain.hpp>
+#include <vsh/vshcommon.hpp>
+#include <vsh/paf.hpp>
+#include <vsh/plugins.hpp>
 #include <sys/timer.h>
 #include <sys/ppu_thread.h>
 #include <string>
 
 
-class CFindActiveGame
+class FindActiveGame
 {
 public:
    enum class PatchedMenu
@@ -56,8 +55,8 @@ public:
    };
 
 public:
-   CFindActiveGame();
-   ~CFindActiveGame() noexcept = default;
+   FindActiveGame();
+   ~FindActiveGame() noexcept = default;
 
    static void GameProcessThread(uint64_t arg);
    void Initialize();
@@ -71,13 +70,13 @@ private:
    bool IsGameGTAV(const std::string& titleId);
    bool IsGameRDR(const std::string& titleId);
    bool IsGameMinecraft(const std::string& titleId);
-   bool IsGameBO1(const std::string& titleId);
-   bool IsGameBO2(const std::string& titleId);
-   bool IsGameBO3(const std::string& titleId);
-   bool IsGameMW2(const std::string& titleId);
-   bool IsGameMW3(const std::string& titleId);
+   bool IsGameCodBO1(const std::string& titleId);
+   bool IsGameCodBO2(const std::string& titleId);
+   bool IsGameCodBO3(const std::string& titleId);
+   bool IsGameCodMW2(const std::string& titleId);
+   bool IsGameCodMW3(const std::string& titleId);
    bool IsGameCodGhost(const std::string& titleId);
-   bool IsGameAW(const std::string& titleId);
+   bool IsGameCodAW(const std::string& titleId);
    void WhileInGame(uint32_t pid, const char* titleId, const char* titleName);
 
 public:
@@ -85,9 +84,9 @@ public:
 
 private:
    sys_ppu_thread_t m_GameProcessPpuThreadId = SYS_PPU_THREAD_ID_INVALID;
-   bool hasGameInitialized{};
-   bool gameProcessThreadRunning{};
+   bool m_HasGameInitialized{};
+   bool m_GameProcessThreadRunning{};
    uint32_t m_CurrentGamePid{};
 };
 
-extern CFindActiveGame g_FindActiveGame;
+extern FindActiveGame g_FindActiveGame;

@@ -9,7 +9,7 @@ namespace CODGhost
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::GhostParadox:
+         case FindActiveGame::PatchedMenu::GhostParadox:
          {
             SetNop(0x297B7D0); // stop downloading address from the server
             SetNop(0x297AD24); // stop connection to the server
@@ -38,14 +38,14 @@ namespace CODGhost
             SetBranch(0x297AD28, 0x297B7B8); // skip the bullshit
             break;
          }
-         case CFindActiveGame::PatchedMenu::GhostEternity:
+         case FindActiveGame::PatchedMenu::GhostEternity:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/eternity_by_enstone_105.bin";
             if (StartPayload(fileName.c_str(), KB(300), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Eternity is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Eternity is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
       }

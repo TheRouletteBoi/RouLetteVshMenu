@@ -9,7 +9,7 @@ namespace CODAW
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::AWParadox:
+         case FindActiveGame::PatchedMenu::AWParadox:
          {
             SetMem<uint32_t>(0x32CABA4, 0x38600001);  // read license key return true
             uint32_t license_and_auth_vars[] = { 0xD00279A0, 0x0012B344, 0x01000000, 0x00050000 };
@@ -36,17 +36,17 @@ namespace CODAW
             SetBranch(0x32CAD28, 0x32CB7B8);          // skip the bullshit
             SetBranch(0x32CB8D0, 0x32CBE9C);          // skip the bullshit
 
-            vsh::ShowNofityWithSound(L"Paradox has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+            vsh::ShowNotificationWithIcon(L"Paradox has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
-         case CFindActiveGame::PatchedMenu::AWFury:
+         case FindActiveGame::PatchedMenu::AWFury:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fury_by_enstone_220_patched.bin";
             if (StartPayload(fileName.c_str(), KB(496), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Fury is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Fury is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
       }

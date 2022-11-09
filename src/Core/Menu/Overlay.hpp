@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 #include <sys/ppu_thread.h>
-#include <vsh/netctl_main.h>
+#include <vsh/netctl_main.hpp>
 #include "Utils/ConsoleInfo.hpp"
 #include "Core/Helpers.hpp"
-#include "Core/Rendering.hpp"
+#include "Core/Renderer.hpp"
 #include "Core/Menu/Base.hpp"
 
 class Overlay
@@ -33,7 +33,7 @@ public:
    static const uint64_t refreshDelay = 1;
 
 private:
-   vsh::vec2 m_Position{};
+   paf::vec2 m_Position{};
 
    float m_FPS = 100.0f;
    float m_FpsLastTime = 0;

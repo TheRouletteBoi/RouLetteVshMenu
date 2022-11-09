@@ -9,7 +9,7 @@ namespace CODBO2
 
         switch (g_FindActiveGame.m_MenuToLoad)
         {
-            case CFindActiveGame::PatchedMenu::BO2Paradox:
+            case FindActiveGame::PatchedMenu::BO2Paradox:
             {
                 SetMem<uint32_t>(0x30FADB8, 0x38600001);            // read license key return true
 
@@ -52,10 +52,10 @@ namespace CODBO2
                 SetMem<uint32_t>(0x10021594, 0xDE7BBE46);           // xor value 2
                 SetBranch(0x311DBAC, 0x311DC24);                    // skip thread exit. ##Crashes sometimes if load too quickly or too slowly
 
-                vsh::ShowNofityWithSound(L"Paradox has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+                vsh::ShowNotificationWithIcon(L"Paradox has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
                 break;
             }
-            case CFindActiveGame::PatchedMenu::BO2Sprxio:
+            case FindActiveGame::PatchedMenu::BO2Sprxio:
             {
                 // Incomplete... ##Crashes as soon as you press load 'yes'
                 /*SetBlr(0x3101A34);								// block read license key
@@ -64,18 +64,18 @@ namespace CODBO2
                 SetBlr(0x3101E7C);								// block auth sprx
                 SetBlr(0x3102190);								// block auth welcome
                 SetMem<uint32_t>(0x313D224, 0x00000001);	// has auth success
-                vsh::ShowNofityWithSound(L"SPRX.IO has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);*/
-                vsh::ShowNofityWithSound(L"Unable to patch SPRX.IO", vsh::eNotifyIcon::Caution, vsh::eNotifySound::Trophy);
+                vsh::ShowNotificationWithIcon(L"SPRX.IO has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);*/
+                vsh::ShowNotificationWithIcon(L"Unable to patch SPRX.IO", vsh::NotifyIcon::Caution, vsh::NotifySound::Trophy);
                 break;
             }
-            case CFindActiveGame::PatchedMenu::BO2Destiny:
+            case FindActiveGame::PatchedMenu::BO2Destiny:
             {
                 // wait because injecting menu too fast can result in a crash
                 Sleep(50000);
 
                 const std::string& fileName = GetCurrentDir() + "modmenus/enstone/destiny_by_enstone_120_patched.bin";
                 if (StartPayload(fileName.c_str(), KB(628), 0x7D0, 0x4000))
-                    vsh::ShowNofityWithSound(L"Destiny is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+                    vsh::ShowNotificationWithIcon(L"Destiny is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
                 break;
             }
         }

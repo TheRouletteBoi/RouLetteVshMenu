@@ -9,7 +9,7 @@ namespace CODBO1
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::BO1Paradox:
+         case FindActiveGame::PatchedMenu::BO1Paradox:
          {
             SetMem<uint32_t>(0x28F7CEC, 0x38600001);     // read license key return true
             
@@ -42,17 +42,17 @@ namespace CODBO1
             SetBranch(0x28F7E70, 0x28F8900);    // skip the bullshit
             SetBranch(0x28F8A18, 0x28F8FE4);    // skip the bullshit
 
-            vsh::ShowNofityWithSound(L"Paradox has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+            vsh::ShowNotificationWithIcon(L"Paradox has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
-         case CFindActiveGame::PatchedMenu::BO1Fusion:
+         case FindActiveGame::PatchedMenu::BO1Fusion:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fusion_by_enstone_114.bin";
             if (StartPayload(fileName.c_str(), KB(156), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Fusion is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Fusion is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
       }

@@ -9,7 +9,7 @@ namespace CODMW3
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::MW3Paradox:
+         case FindActiveGame::PatchedMenu::MW3Paradox:
          {
             SetNop(0x23CBA3C); // stops connecting the server
             SetNop(0x23CCA20); // stops the auto updater
@@ -43,24 +43,24 @@ namespace CODMW3
             SetBranch(0x23CBA40, 0x23CC4D0); // skip the bullshit
             break;
          }
-         case CFindActiveGame::PatchedMenu::MW3Phantom:
+         case FindActiveGame::PatchedMenu::MW3Phantom:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/phantom_by_enstone_221.bin";
             if (StartPayload(fileName.c_str(), KB(484), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Phantom is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Phantom is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
-         case CFindActiveGame::PatchedMenu::MW3ProjectMemories:
+         case FindActiveGame::PatchedMenu::MW3ProjectMemories:
          {
             // wait because injecting menu too fast can result in a crash
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/project_memories_by_enstone_388.bin";
             if (StartPayload(fileName.c_str(), KB(112), 0x7D0, 0x4000))
-               vsh::ShowNofityWithSound(L"Project Memories is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+               vsh::ShowNotificationWithIcon(L"Project Memories is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
       }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vsh/vshcommon.h>
+#include <vsh/vshcommon.hpp>
 #include "Base.hpp"
 #include "Overlay.hpp"
 #include "Games/FindActiveGame.hpp"

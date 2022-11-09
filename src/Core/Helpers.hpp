@@ -1,10 +1,9 @@
 #pragma once
 #include <string>
-#include <vsh/system_plugin.h>
-#include <vsh/pafPhWidget.h>
-#include <vsh/pafView.h>
-#include <vsh/vshcommon.h>
-#include <vsh/vshmain.h>
+#include <vsh/plugins.hpp>
+#include <vsh/paf.hpp>
+#include <vsh/vshcommon.hpp>
+#include <vsh/vshmain.hpp>
 #include "Utils/SystemCalls.hpp"
 #include "Utils/Timers.hpp"
 #include "Utils/FileSystem.hpp"
@@ -22,11 +21,11 @@ private:
    void MonitorGameState();
 
 public:
-   vsh::paf::View* system_plugin{};
-   vsh::paf::View* game_plugin{};
-   vsh::paf::View* game_ext_plugin{};
-   vsh::paf::View* xmb_plugin{};
-   vsh::paf::PhWidget* page_autooff_guide{};
+   paf::View* m_SystemPlugin{};
+   paf::View* m_GamePlugin{};
+   paf::View* m_GameExtPlugin{};
+   paf::View* m_XmbPlugin{};
+   paf::PhWidget* m_PageAutoOffGuide{};
 
    bool m_IsHen{};
    bool m_StateGameRunning{};

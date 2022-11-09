@@ -25,24 +25,24 @@ void GtavSubmenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVLexicon))
-            vsh::ShowNofityWithSound(L"Lexicon GTAV is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVLexicon))
+            vsh::ShowNotificationWithIcon(L"Lexicon GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Serendipity").RightText(L"\uF882 + \uF887").Description(L"\uF5B5 DEX only menu").Action([]
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVSerendipity))
-            vsh::ShowNofityWithSound(L"Serendipity GTAV is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVSerendipity))
+            vsh::ShowNotificationWithIcon(L"Serendipity GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
 
     });
 
@@ -50,19 +50,19 @@ void GtavSubmenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVTerrorizer))
-            vsh::ShowNofityWithSound(L"Terrorizer GTAV is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVTerrorizer))
+            vsh::ShowNotificationWithIcon(L"Terrorizer GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
 
     });
 
     g_Menu.Option(L"Debug Payload").Action([]
     {
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GTAVDebugPayload))
-            vsh::ShowNofityWithSound(L"GTAV Debug payload is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVDebugPayload))
+            vsh::ShowNotificationWithIcon(L"GTAV Debug payload is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -71,8 +71,8 @@ void MinecraftSubmenu()
     g_Menu.Title(L"Minecraft Menus");
     g_Menu.Option(L"Modcraft V4").RightText(L"\uF888 + \uF884").Action([]
     {
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MinecraftModcraftV4))
-            vsh::ShowNofityWithSound(L"Modcraft Minecraft is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MinecraftModcraftV4))
+            vsh::ShowNotificationWithIcon(L"Modcraft Minecraft is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -83,24 +83,24 @@ void CodBo1Submenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO1Paradox))
-            vsh::ShowNofityWithSound(L"Paradox BO1 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO1Paradox))
+            vsh::ShowNotificationWithIcon(L"Paradox BO1 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Fusion").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO1Fusion))
-            vsh::ShowNofityWithSound(L"Fusion BO1 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO1Fusion))
+            vsh::ShowNotificationWithIcon(L"Fusion BO1 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -111,36 +111,36 @@ void CodBo2Submenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO2Paradox))
-            vsh::ShowNofityWithSound(L"Paradox BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Paradox))
+            vsh::ShowNotificationWithIcon(L"Paradox BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"SPRX.IO").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO2Sprxio))
-            vsh::ShowNofityWithSound(L"SPRX.IO BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Sprxio))
+            vsh::ShowNotificationWithIcon(L"SPRX.IO BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Destiny").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO2Destiny))
-            vsh::ShowNofityWithSound(L"Destiny BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Destiny))
+            vsh::ShowNotificationWithIcon(L"Destiny BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -151,12 +151,12 @@ void CodBo3Submenu()
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO3Fatality))
-            vsh::ShowNofityWithSound(L"Fatality BO3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO3Fatality))
+            vsh::ShowNotificationWithIcon(L"Fatality BO3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -167,24 +167,24 @@ void CodMw2Submenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MW2Paradox))
-            vsh::ShowNofityWithSound(L"Paradox MW2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW2Paradox))
+            vsh::ShowNotificationWithIcon(L"Paradox MW2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Reborn").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MW2Reborn))
-            vsh::ShowNofityWithSound(L"Reborn MW2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW2Reborn))
+            vsh::ShowNotificationWithIcon(L"Reborn MW2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -195,36 +195,36 @@ void CodMw3Submenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MW3Paradox))
-            vsh::ShowNofityWithSound(L"Paradox MW3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3Paradox))
+            vsh::ShowNotificationWithIcon(L"Paradox MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Phantom").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MW3Phantom))
-            vsh::ShowNofityWithSound(L"Phantom MW3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3Phantom))
+            vsh::ShowNotificationWithIcon(L"Phantom MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Project Memories").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::MW3ProjectMemories))
-            vsh::ShowNofityWithSound(L"Project Memories MW3 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3ProjectMemories))
+            vsh::ShowNotificationWithIcon(L"Project Memories MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -235,24 +235,24 @@ void CodGhostSubmenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GhostParadox))
-            vsh::ShowNofityWithSound(L"Paradox Ghost is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GhostParadox))
+            vsh::ShowNotificationWithIcon(L"Paradox Ghost is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Eternity").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::GhostEternity))
-            vsh::ShowNofityWithSound(L"Eternity COD Ghost is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GhostEternity))
+            vsh::ShowNotificationWithIcon(L"Eternity COD Ghost is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 
@@ -263,24 +263,24 @@ void CodAwSubmenu()
     {
         if (!IsConsoleDex())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::AWParadox))
-            vsh::ShowNofityWithSound(L"Paradox Advance Warfare is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::AWParadox))
+            vsh::ShowNotificationWithIcon(L"Paradox Advance Warfare is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
     g_Menu.Option(L"Fury").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
         if (IsConsoleHen())
         {
-            vsh::ShowButtonNavigationMessage(L"This menu is only for CEX/DEX consoles");
+            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
             return;
         }
 
-        if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::AWFury))
-            vsh::ShowNofityWithSound(L"Fury Advance Warfare is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::AWFury))
+            vsh::ShowNotificationWithIcon(L"Fury Advance Warfare is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 }
 

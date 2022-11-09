@@ -9,7 +9,7 @@ namespace GTAV
 
       switch (g_FindActiveGame.m_MenuToLoad)
       {
-         case CFindActiveGame::PatchedMenu::GTAVLexicon:
+         case FindActiveGame::PatchedMenu::GTAVLexicon:
          {
              const char* sprxInternalName = "Lexicon";
              SetBranch(Ida2Mem(sprxInternalName, 0x57BC0), Ida2Mem(sprxInternalName, 0x57C5C)); // so you can load the menu offline
@@ -22,10 +22,10 @@ namespace GTAV
              //SetMem<uint32_t>(0x1C271E0, Ida2Mem(sprxInternalName, 0x50878));                 // hook GET_INDEX_OF_CURRENT_LEVEL  an old hook he used in his previous versions of lexicon
              SetMem<uint32_t>(0x1C2A3D0, Ida2Mem(sprxInternalName, 0x50DEC));                   // hook disable control actions
              SetMem<uint32_t>(0x1C2E9F8, Ida2Mem(sprxInternalName, 0x50EFC));                   // hook set ped current weapon
-             vsh::ShowNofityWithSound(L"Lexicon has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+             vsh::ShowNotificationWithIcon(L"Lexicon has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
              break;
          }
-         case CFindActiveGame::PatchedMenu::GTAVSerendipity:
+         case FindActiveGame::PatchedMenu::GTAVSerendipity:
          {
              const char* sprxInternalName = "GTA5_Menu";
              SetNop(Ida2Mem(sprxInternalName, 0x4194));                         // read key | 0x3968
@@ -43,10 +43,10 @@ namespace GTAV
              };
              WriteProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)Ida2Mem(sprxInternalName, 0x61C10), &menu_rgba, sizeof(menu_rgba));
 
-             vsh::ShowNofityWithSound(L"Serendipity has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+             vsh::ShowNotificationWithIcon(L"Serendipity has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
              break;
          }
-         case CFindActiveGame::PatchedMenu::GTAVTerrorizer:
+         case FindActiveGame::PatchedMenu::GTAVTerrorizer:
          {
              const char* sprxInternalName = "GTAOTerrorizer";
              SetNop(Ida2Mem(sprxInternalName, 0x4FD58));                       // nop auther thread
@@ -54,17 +54,17 @@ namespace GTAV
              SetMem<uint32_t>(Ida2Mem(sprxInternalName, 0x48D74), 0x2C030001); // set some check to true
              SetMem<uint32_t>(Ida2Mem(sprxInternalName, 0x48E48), 0x38600001); // set check to true
              SetBranchless(Ida2Mem(sprxInternalName, 0x48BF4));                // branch where he sets up all the hooks
-             vsh::ShowNofityWithSound(L"Terrorizer has been patched", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+             vsh::ShowNotificationWithIcon(L"Terrorizer has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
              break;
          }
-         case CFindActiveGame::PatchedMenu::GTAVDebugPayload:
+         case FindActiveGame::PatchedMenu::GTAVDebugPayload:
          {
              // wait because injecting menu too fast can result in a crash
              Sleep(50000);
 
              const std::string& fileName = GetCurrentDir() + "modmenus/GTAV/GTAVPayload.bin";
              if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000))
-                 vsh::ShowNofityWithSound(L"GTAV Debug Payload is now loaded", vsh::eNotifyIcon::Pen, vsh::eNotifySound::Trophy);
+                 vsh::ShowNotificationWithIcon(L"GTAV Debug Payload is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
              break;
          }
       }

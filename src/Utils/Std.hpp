@@ -6,7 +6,7 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include <vsh/stdc.h>
+#include <vsh/stdc.hpp>
 
 namespace std
 {
