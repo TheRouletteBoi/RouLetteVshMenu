@@ -68,7 +68,7 @@ void Overlay::DrawOverlay()
    overlayText += buffer;
 
 
-   vsh::paf::View* gamePlugin = vsh::paf::View::Find("game_plugin");
+   paf::View* gamePlugin = paf::View::Find("game_plugin");
    if (gamePlugin)
    {
        char gameTitleId[16]{};
@@ -80,13 +80,13 @@ void Overlay::DrawOverlay()
    }
 
 
-   g_Render.Text(
-      overlayText,
-      vsh::vec2(-vsh::paf::PhWidget::GetViewportWidth() / 2 + g_Menu.safeArea.x + 5, vsh::paf::PhWidget::GetViewportHeight() / 2 - g_Menu.safeArea.y - 5),
-      g_Menu.sizeText,
-      Render::Align::Left,
-      Render::Align::Top,
-      g_Menu.colorText);
+   g_Renderer.Text(
+       overlayText,
+       paf::vec2(-g_Renderer.m_ViewportWidth / 2 + g_Menu.safeArea.x + 5, g_Renderer.m_ViewportHeight / 2 - g_Menu.safeArea.y - 5),
+       g_Menu.sizeText,
+       g_Menu.colorText,
+       Renderer::Left,
+       Renderer::Top);
 #endif // LAUNCHER_DEBUG
 }
 
