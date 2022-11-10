@@ -74,7 +74,7 @@ void Helpers::TakeScreenshot()
 
         std::string screenshotName = screenshotPath + "/" + datestr + ".bmp";
 
-        systemInterface->saveBMP(screenshotName.c_str());
+        systemInterface->SaveBMP(screenshotName.c_str());
 
         wchar_t buffer[130];
         vsh::swprintf(buffer, sizeof(buffer), L"Screenshot saved as: %s", screenshotName.c_str());

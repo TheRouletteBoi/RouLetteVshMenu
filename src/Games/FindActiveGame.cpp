@@ -58,7 +58,7 @@ void FindActiveGame::GetGameName(char outTitleId[16], char outTitleName[64])
       return;
 
    char _gameInfo[0x120]{};
-   gameInterface->gameInfo(_gameInfo);
+   gameInterface->GameInfo(_gameInfo);
    vsh::snprintf(outTitleId, 10, "%s", _gameInfo + 0x04);
    vsh::snprintf(outTitleName, 63, "%s", _gameInfo + 0x14);
 }
