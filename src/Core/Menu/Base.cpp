@@ -322,50 +322,29 @@ void Menu::UpdatePosition()
 
 void Menu::UpdateBackgroundSize()
 {
-   if (m_StateOpened)
-   {
-      //static bool done = false;
-      //static uint64_t lastTime = 0;
+    if (m_StateOpened)
+    {
+        int optionsCount = (m_TotalOptions > maxOptionsPerPage) ? maxOptionsPerPage : m_TotalOptions;
+        if (!optionsCount)
+            return;
 
+        float size = sizeText * optionsCount + m_SizeBackgroundSpace * 2;
 
-      int optionsCount = (m_TotalOptions > maxOptionsPerPage) ? maxOptionsPerPage : m_TotalOptions;
-      if (!optionsCount)
-         return;
-
-      float size = sizeText * optionsCount + m_SizeBackgroundSpace * 2;
-      //uint64_t timeNow = GetTimeNow();
-
-      //if (done && (timeNow - lastTime >= 200))
-      //   done = false;
-
-      //if ((m_SizeBackground != size) && !done)
-      //{
+        if (!g_Timer.IsAlreadyPresent(&m_SizeBackground))
             g_Timer.Add(&m_SizeBackground, size, 200);
-        // lastTime = timeNow;
-      //}
 
-   }
+    }
 }
 
 void Menu::UpdateHighlightBarPos()
 {
-   if (m_StateOpened)
-   {
-      //static bool done = false;
-      //static uint64_t lastTime = 0;
+    if (m_StateOpened)
+    {
+        float pos = (m_CurrentOption - m_CurrentIndex) * sizeText;
 
-      float pos = (m_CurrentOption - m_CurrentIndex) * sizeText;
-      //uint64_t timeNow = GetTimeNow();
-
-      //if (done && (timeNow - lastTime >= 200))
-      //   done = false;
-
-      //if ((m_HighlightBarPosY != pos) && !done)
-      //{
-         g_Timer.Add(&m_HighlightBarPosY, pos, 200);
-         //lastTime = timeNow;
-      //}
-   }
+        if (!g_Timer.IsAlreadyPresent(&m_HighlightBarPosY))
+            g_Timer.Add(&m_HighlightBarPosY, pos, 200);
+    }
 }
 
 void Menu::WhileOpen()

@@ -255,8 +255,8 @@ void Renderer::Text(std::wstring const& text, paf::vec2 position, float height, 
     {
         //color /= 255;
 
-        position.y -= (height * 0.125);
-        height *= 0.75;
+        position.y += (height * 0.15); // position.y -= (height * 0.125);
+        height *= 0.80; // height *= 0.75;
 
         ViewportScale(position);
         ViewportScaleVertical(height);
