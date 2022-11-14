@@ -61,34 +61,6 @@ std::string GetCurrentDir()
    return cachedModulePath;
 }
 
-bool ReadFile(const std::string& filePath, void* data, size_t size)
-{
-   int fd;
-   if (cellFsOpen(filePath.c_str(), CELL_FS_O_RDONLY, &fd, nullptr, 0) == CELL_FS_SUCCEEDED)
-   {
-      cellFsLseek(fd, 0, CELL_FS_SEEK_SET, nullptr);
-      cellFsRead(fd, data, size, nullptr);
-      cellFsClose(fd);
-
-      return true;
-   }
-   return false;
-}
-
-bool WriteFile(const std::string& filePath, void* data, size_t size)
-{
-   int fd;
-   if (cellFsOpen(filePath.c_str(), CELL_FS_O_WRONLY | CELL_FS_O_CREAT | CELL_FS_O_TRUNC, &fd, nullptr, 0) == CELL_FS_SUCCEEDED)
-   {
-      cellFsLseek(fd, 0, CELL_FS_SEEK_SET, nullptr);
-      cellFsWrite(fd, data, size, nullptr);
-      cellFsClose(fd);
-
-      return true;
-   }
-   return false;
-}
-
 bool DirectoryExists(const std::string& directoryPath)
 {
    CellFsStat stat;
@@ -126,6 +98,55 @@ bool CreateDirectory(const std::string& directoryPath)
    return true;
 }
 
+void GetFilesInDirectory(const char* dir, std::vector<std::string>& files)
+{
+    int fd;
+    CellFsErrno err = cellFsOpendir(dir, &fd);
+    if (err != CELL_FS_SUCCEEDED)
+    {
+        cellFsClosedir(fd);
+        return;
+    }
+
+    uint64_t read;
+    CellFsDirent ent;
+    read = sizeof(CellFsDirent);
+    while (!cellFsReaddir(fd, &ent, &read))
+    {
+        if (!read)
+            break;
+
+        files.push_back(ent.d_name);
+    }
+
+    cellFsClosedir(fd);
+}
+
+void GetFilesInDirectory(const char* dir, std::vector<std::string>& files, const char* extensionToRead)
+{
+    int fd;
+    CellFsErrno err = cellFsOpendir(dir, &fd);
+    if (err != CELL_FS_SUCCEEDED)
+    {
+        cellFsClosedir(fd);
+        return;
+    }
+
+    uint64_t read;
+    CellFsDirent ent;
+    read = sizeof(CellFsDirent);
+    while (!cellFsReaddir(fd, &ent, &read))
+    {
+        if (!read)
+            break;
+
+        if (strstr(ent.d_name, extensionToRead) != NULL)
+            files.push_back(ent.d_name);
+    }
+
+    cellFsClosedir(fd);
+}
+
 bool DeleteFile(const std::string& filePath)
 {
    if (FileExist(filePath))
@@ -139,4 +160,62 @@ int64_t GetFileSize(const std::string& filePath)
    if (cellFsStat(filePath.c_str(), &stat) == CELL_FS_SUCCEEDED)
       return static_cast<int64_t>(stat.st_size);
    return -1;
+}
+
+/***
+ * read a file from the disk into a buffer.
+ * NOTE: this will allocate memory that needs to be free()d
+ * @param fileName the file to open
+ * @param buf where to put the file contents
+ * @param bytesRead will be set to the number of bytes read
+ * @returns 0 on success, -1 on failure
+ */
+bool ReadFile(const std::string& fileName, char** buf, size_t& bytesRead)
+{
+    struct stat st;
+    if (vsh::stat(fileName.c_str(), &st) != 0)
+        return false;
+
+    std::FILE* file = vsh::fopen(fileName.c_str(), "rb");
+    if (ferror(file) != 0)
+        return false;
+
+    // allocate memory
+    *buf = (char*)vsh::malloc((size_t)st.st_size);
+    if (buf == NULL)
+        return false;
+
+    // read file
+    bytesRead = vsh::fread(*buf, 1, (size_t)st.st_size, file);
+    if (vsh::feof(file) == 0 && vsh::ferror(file) != 0) // not at end of file, and we had an error
+    {
+        vsh::free(*buf);
+        vsh::fclose(file);
+        return false;
+    }
+
+    vsh::fclose(file);
+    return true;
+}
+
+void SaveFile(const std::string& fileName, const void* data, size_t size)
+{
+    int flags = CELL_FS_O_CREAT | CELL_FS_O_TRUNC | CELL_FS_O_WRONLY;
+
+    cellFsChmod(fileName.c_str(), 0777); // set permissions for overwrite
+
+    int fileHandle;
+    if (cellFsOpen(fileName.c_str(), flags, &fileHandle, NULL, 0) != CELL_FS_SUCCEEDED)
+        return;
+
+    uint64_t read_size = 0;
+    if (cellFsWrite(fileHandle, data, size, &read_size) != CELL_FS_SUCCEEDED)
+    {
+        cellFsClose(fileHandle);
+        return;
+    }
+
+    cellFsClose(fileHandle);
+
+    cellFsChmod(fileName.c_str(), 0777); // set permissions if created
 }

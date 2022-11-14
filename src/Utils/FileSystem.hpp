@@ -4,7 +4,7 @@
 #include <cell/cell_fs.h>
 #undef vector
 #include <vector>
-#include <vsh/stdc.hpp>
+#include <vshlib.hpp>
 
 sys_prx_id_t GetModuleHandle(const char* moduleName);
 sys_prx_module_info_t GetModuleInfo(sys_prx_id_t handle);
@@ -13,10 +13,12 @@ std::string RemoveBaseNameFromPath(const std::string& filePath);
 std::string GetFileName(const std::string& path);
 std::string GetCurrentDir();
 
-bool ReadFile(const std::string& filePath, void* data, size_t size);
-bool WriteFile(const std::string& filePath, void* data, size_t size);
 bool DirectoryExists(const std::string& directoryPath);
 bool FileExist(const std::string& filePath);
 bool CreateDirectory(const std::string& directoryPath);
+void GetFilesInDirectory(const char* dir, std::vector<std::string>& files);
+void GetFilesInDirectory(const char* dir, std::vector<std::string>& files, const char* extensionToRead);
 bool DeleteFile(const std::string& filePath);
 int64_t GetFileSize(const std::string& filePath);
+bool ReadFile(const std::string& fileName, char** buf, size_t& bytesRead);
+void SaveFile(const std::string& fileName, const void* data, size_t size);
