@@ -108,7 +108,8 @@ void CodBo2Submenu()
 {
     g_Menu.Title(L"Black Ops 2 Menus");
 
-    g_Menu.Option(L"Kebab").RightText(L"Idk lol").Description(L"This is a HEN menu").Action([] {
+    g_Menu.Option(L"Kebab").RightText(L"Idk lol").Description(L"This is a Hen menu").Action([] 
+        {
         if (g_FindActiveGame.LoadMenu(CFindActiveGame::PatchedMenu::BO2Kebab))
             vsh::ShowNofityWithSound(L"Kebab BO2 is ready to load", vsh::eNotifyIcon::BlueVerifiedCheckmark, vsh::eNotifySound::Trophy);
         });
