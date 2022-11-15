@@ -32,6 +32,7 @@ public:
       BO2Paradox,
       BO2Sprxio,
       BO2Destiny,
+      BO2Kebab,
 
       // COD Black Ops 3
       BO3Fatality,

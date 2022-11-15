@@ -142,6 +142,12 @@ void CodBo2Submenu()
         if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Destiny))
             vsh::ShowNotificationWithIcon(L"Destiny BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
+
+    g_Menu.Option(L"Kebab").RightText(L"\uF886 + \uF88D").Description(L"This is a CEX/DEX/HEN menu").Action([] 
+    {
+        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Kebab))
+            vsh::ShowNotificationWithIcon(L"Kebab BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+    });
 }
 
 void CodBo3Submenu()
