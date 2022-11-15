@@ -543,7 +543,7 @@ void Menu::DrawMenuTitle(const std::wstring& text)
 
     // Version Number
     g_Renderer.Text(
-        L"v1.3",
+        L"v1.4",
         paf::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 4, position.y + m_SizeBackground / 2 + sizeText / 2),
         sizeText,
         paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
