@@ -109,7 +109,7 @@ void Renderer::CreateGroups()
 
 paf::PhText* Renderer::CreateText(paf::PhWidget* parent)
 {
-    paf::PhText* phText = new paf::PhText(parent);
+    paf::PhText* phText = new paf::PhText(parent, nullptr);
 
     phText->SetName(vsh::va("text_%p", phText)) // using the ptr to be sure the name is unique
         .SetColor(paf::vec4())
@@ -120,7 +120,7 @@ paf::PhText* Renderer::CreateText(paf::PhWidget* parent)
 
 paf::PhPlane* Renderer::CreatePlane(paf::PhWidget* parent)
 {
-    paf::PhPlane* phPlane = new paf::PhPlane(parent);
+    paf::PhPlane* phPlane = new paf::PhPlane(parent, nullptr);
 
     phPlane->SetName(vsh::va("plane_%p", phPlane)) // using the ptr to be sure the name is unique
         .SetColor(paf::vec4());
@@ -224,7 +224,7 @@ void Renderer::Rectangle(paf::vec2 position, paf::vec2 size, paf::vec4 color, Al
         if (systemTexture)
             pTexture = g_Helpers.m_SystemPlugin->GetTexture(systemTexture);
 
-        plane->SetTexture(pTexture);
+        plane->SetTexture(pTexture, 0);
     }
 }
 
@@ -269,7 +269,7 @@ void Renderer::Text(std::wstring const& text, paf::vec2 position, float height, 
 
         label->SetStyle(paf::PhWidget::DrawTextShadow, drawShadow);
         label->SetStyle(paf::PhWidget::TextAlignment, int(horizontalAlign));
-        label->SetText(text);
+        label->SetText(text, 0);
         label->RefreshText();
     }
 }
@@ -298,6 +298,6 @@ void Renderer::RectangleOverText(paf::vec2 position, paf::vec2 size, paf::vec4 c
         if (systemTexture)
             pTexture = g_Helpers.m_SystemPlugin->GetTexture(systemTexture);
 
-        plane->SetTexture(pTexture);
+        plane->SetTexture(pTexture, 0);
     }
 }
