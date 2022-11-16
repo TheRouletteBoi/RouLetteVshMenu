@@ -164,6 +164,41 @@ namespace GamePatching
       return info;
    }
 
+   bool IsModuleLoaded(const char* moduleName)
+   {
+       constexpr int MAX_MODULES = 128;
+       sys_prx_id_t moduleList[MAX_MODULES]{};
+       vsh::memset(moduleList, 0, sizeof(moduleList));
+       ps3mapi_get_all_process_modules_prx_id(g_FindActiveGame.GetRunningGameProcessId(), moduleList);
+
+       sys_prx_module_info_t moduleInfo{};
+       sys_prx_segment_info_t segments[10]{};
+       char filename[SYS_PRX_MODULE_FILENAME_SIZE]{};
+       moduleInfo.size = sizeof(moduleInfo);
+       moduleInfo.segments = segments;
+       moduleInfo.segments_num = sizeof(segments) / sizeof(sys_prx_segment_info_t);
+       moduleInfo.filename = filename;
+       moduleInfo.filename_size = sizeof(filename);
+
+       for (int i = 0; i < MAX_MODULES; i++)
+       {
+           if (moduleList[i] != 0)
+           {
+               vsh::memset(moduleInfo.segments, 0, sizeof(moduleInfo.segments));
+               vsh::memset(moduleInfo.filename, 0, sizeof(moduleInfo.filename));
+
+               ps3mapi_get_process_module_segments(g_FindActiveGame.GetRunningGameProcessId(), moduleList[i], &moduleInfo);
+
+               if (vsh::strcmp(moduleInfo.name, moduleName) == 0)
+               {
+                   return true;
+               }
+           }
+       }
+
+       return false;
+   }
+
    uint32_t GetModuleBaseAddress(const char* moduleName)
    {
       sys_prx_module_info_t info = GetProcessModuleInfoByName(g_FindActiveGame.GetRunningGameProcessId(), moduleName);
