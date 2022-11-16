@@ -59,10 +59,29 @@ inline void VshSetMem(uint32_t address, T data)
    WriteProcessMemory(sys_process_getpid(), (void*)address, &data, sizeof(T));
 }
 
-template <typename R, typename... TArgs>
-__ALWAYS_INLINE R GameCall(std::uint32_t addr, TArgs... args)
+template <typename R, typename... Args>
+__ALWAYS_INLINE R CallByAddr(uint32_t addr, Args... args)
 {
-   volatile opd_s opd = { addr, GetCurrentToc() };
-   R(*func)(TArgs...) = (R(*)(TArgs...)) & opd;
-   return func(args...);
+	volatile opd_s opd = { addr, GetCurrentToc() };
+	R(*fn)(Args...) = (R(*)(Args...))&opd;
+	return fn(args...);
+}
+
+template <typename R, typename... Args>
+__ALWAYS_INLINE R CallByOpd(opd_s opd, Args... args)
+{
+	if (opd.sub && opd.toc) 
+	{
+		R(*fn)(Args...) = (R(*)(Args...))&opd;
+		return fn(args...);
+	}
+	return (R)0;
+}
+
+template<typename R, typename... Args>
+__ALWAYS_INLINE R CallVmtMethodByClassAddr(uint32_t addr, int index, Args... args)
+{
+	opd_s** opd = reinterpret_cast<opd_s**>(addr);
+	R(*fn)(Args...) = (R(*)(Args...))opd[index];
+	return fn(args...);
 }
