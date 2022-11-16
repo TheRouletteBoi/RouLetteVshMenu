@@ -75,11 +75,11 @@ void Renderer::DestroyWidgets()
 void Renderer::DestroyUnusedWidgets()
 {
     for (int i = 0; i < m_TextNodeChilds.size(); i++)
-        if (m_TextNodeChilds[i]->GetColor().a == 0.0)
+        if (m_TextNodeChilds[i]->colorScale.a == 0.0)
             m_TextNodeChilds.erase(m_TextNodeChilds.begin() + i);
 
     for (int i = 0; i < m_PlaneNodeChilds.size(); i++)
-        if (m_PlaneNodeChilds[i]->GetColor().a == 0.0)
+        if (m_PlaneNodeChilds[i]->colorScale.a == 0.0)
             m_PlaneNodeChilds.erase(m_PlaneNodeChilds.begin() + i);
 }
 
