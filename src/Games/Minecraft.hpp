@@ -12,8 +12,13 @@ namespace Minecraft
             case FindActiveGame::PatchedMenu::MinecraftModcraftV4:
             {
                 const char* sprxInternalName = "DownCraftSPRX";
-                SetBranch(Ida2Mem(sprxInternalName, 0x18ABC), Ida2Mem(sprxInternalName, 0x18B0C)); // skip all memory checks
-                vsh::ShowNotificationWithIcon(L"Modcraft has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
+                if (IsModuleLoaded(sprxInternalName))
+                {
+                    SetBranch(Ida2Mem(sprxInternalName, 0x18ABC), Ida2Mem(sprxInternalName, 0x18B0C)); // skip all memory checks
+                    vsh::ShowNotificationWithIcon(L"Modcraft has been patched", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
+                }
+                else
+                    vsh::ShowNotificationWithIcon(L"Modcraft sprx not detected", vsh::NotifyIcon::Caution, vsh::NotifySound::Trophy);
                 break;
             }
         }
