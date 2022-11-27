@@ -1,4 +1,6 @@
 #include "FileSystem.hpp"
+#include <vsh/stdc.hpp>
+#include <vsh/allocator.hpp>
 
 
 sys_prx_id_t GetModuleHandle(const char* moduleName)
