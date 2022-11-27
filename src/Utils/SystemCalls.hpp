@@ -117,6 +117,7 @@
 #define PS3MAPI_OPCODE_GET_PROC_MEM                0x0031
 #define PS3MAPI_OPCODE_SET_PROC_MEM                0x0032
 #define PS3MAPI_OPCODE_PROC_PAGE_ALLOCATE          0x0033
+#define PS3MAPI_OPCODE_PROC_PAGE_FREE              0x0034
 #define PS3MAPI_OPCODE_GET_ALL_PROC_MODULE_PID     0x0041
 #define PS3MAPI_OPCODE_GET_PROC_MODULE_NAME        0x0042
 #define PS3MAPI_OPCODE_GET_PROC_MODULE_FILENAME    0x0043
@@ -345,7 +346,8 @@ int ps3mapi_unload_dynamic_kernel_plugin(uint64_t residence);
 int ps3mapi_get_is_hen();
 int ps3mapi_get_hen_rev();
 int ps3mapi_poke_hen(uint64_t address, uint64_t value);
-int ps3mapi_process_page_allocate(sys_pid_t pid, uint64_t size, uint64_t page_size, uint64_t flags, uint64_t is_executable, uint64_t* page_address);
+int ps3mapi_process_page_allocate(sys_pid_t pid, uint64_t size, uint64_t page_size, uint64_t flags, uint64_t is_executable, uint64_t* page_table);
+int ps3mapi_process_page_free(sys_pid_t pid, uint64_t flags, uint64_t* page_table);
 int ps3mapi_get_process_module_segments(sys_pid_t pid, sys_prx_id_t prx_id, sys_prx_module_info_t* info);
 int ps3mapi_create_process_thread(sys_pid_t pid, thread_t* thread, void* entry, uint64_t arg, int prio, size_t stacksize, const char* threadname);
 int ps3mapi_get_all_processes_pid(uint32_t* pid_list);
