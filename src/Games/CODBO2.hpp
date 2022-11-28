@@ -11,7 +11,7 @@ namespace CODBO2
         {
             case FindActiveGame::PatchedMenu::BO2Paradox:
             {
-                // this whole code for paradox bo2 effectively does nothing as it's not fast enough to inject before module is started. To fix this we needed to implement the code into a sprx and then #load, #patch, #start sprx.
+                // this whole code for paradox bo2 effectively does nothing as it's not fast enough to inject before module is started. To fix this we needed to implement the same code into a sprx and then #load, #patch, #start sprx. Or edit the original sprx and increase the sleep at startup
                 const char* sprxInternalName = "ParadoxCE";
                 if (IsModuleLoaded(sprxInternalName))
                 {

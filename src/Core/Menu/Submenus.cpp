@@ -119,6 +119,7 @@ void CodBo2Submenu()
             vsh::ShowNotificationWithIcon(L"Paradox BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
 
+#ifdef DEPRECATED_MENU
     g_Menu.Option(L"SPRX.IO").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
         if (!IsConsoleDex())
@@ -130,6 +131,7 @@ void CodBo2Submenu()
         if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Sprxio))
             vsh::ShowNotificationWithIcon(L"SPRX.IO BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
+#endif // 0
 
     g_Menu.Option(L"Destiny").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
