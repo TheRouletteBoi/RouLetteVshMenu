@@ -41,33 +41,44 @@ void Overlay::DrawOverlay()
 
    std::wstring overlayText = L"";
 
-   std::string kernelName;
+   std::wstring kernelName;
    switch (m_KernelType)
    {
-      case 1: kernelName = "CEX"; break;
-      case 2: kernelName = "DEX"; break;
-      case 3: kernelName = "DEH"; break;
-      default: kernelName = "N/A";  break;
+      case 1: kernelName = L"CEX"; break;
+      case 2: kernelName = L"DEX"; break;
+      case 3: kernelName = L"DEH"; break;
+      default: kernelName = L"N/A";  break;
    }
 
-   char payloadType[64];
-   vsh::snprintf(payloadType, sizeof(payloadType),
-       "%s %X.%X%X",
-       IsConsoleHen() ? "PS3HEN" : IsConsoleMamba() ? "Mamba" : "Cobra",
-       m_PayloadVersion >> 8, (m_PayloadVersion & 0xF0) >> 4, (m_PayloadVersion & 0xF));
-
-
+   // FPS, Temps, Vsh Ram, Fan Speed
    vsh::swprintf(buffer, 150, 
-       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.1f%% %.1f / %.1f MB\nFan speed: %.0f%%\nFirmware: %1.2f %s %s\n",
+       L"FPS: %.2f\nCPU: %.0f\u2109 / GPU: %.0f\u2109\nRAM: %.1f%% %.1f / %.1f MB\nFan speed: %.0f%%\n",
        m_FPS, 
        m_CPUTemp, m_GPUTemp, 
        m_MemoryUsage.percent, m_MemoryUsage.used, m_MemoryUsage.total,
-       m_FanSpeed, 
-       m_FirmwareVersion,
-       kernelName.c_str(), payloadType);
+       m_FanSpeed);
    overlayText += buffer;
 
+   // Firmware Version
+   std::wstring payloadName = IsConsoleHen() ? L"PS3HEN" : IsConsoleMamba() ? L"Mamba" : L"Cobra";
+   std::wstring payloadStr = m_PayloadVersion == 0 ? L"" : payloadName;
+   std::wstring payloadVerStr = m_PayloadVersion == 0 ?
+       L"" :
+       to_wstring(m_PayloadVersion >> 8)
+       + L"."
+       + to_wstring((m_PayloadVersion & 0xF0) >> 4);
 
+   if (IsConsoleHen())
+       payloadVerStr += L"." + to_wstring(m_PayloadVersion & 0xF);
+
+   overlayText += to_wstring(m_FirmwareVersion, 2)
+       + L" " + kernelName
+       + L" " + payloadStr
+       + L" " + payloadVerStr
+       + L"\n";
+
+
+   // Game Name
    paf::View* gamePlugin = paf::View::Find("game_plugin");
    if (gamePlugin)
    {
@@ -83,7 +94,7 @@ void Overlay::DrawOverlay()
    g_Renderer.Text(
        overlayText,
        paf::vec2(-g_Renderer.m_ViewportWidth / 2 + g_Menu.safeArea.x + 5, g_Renderer.m_ViewportHeight / 2 - g_Menu.safeArea.y - 5),
-       g_Menu.sizeText,
+       16.0f,
        g_Menu.colorText,
        Renderer::Left,
        Renderer::Top);
