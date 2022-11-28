@@ -179,7 +179,7 @@ bool ReadFile(const std::string& fileName, char** buf, size_t& bytesRead)
         return false;
 
     std::FILE* file = vsh::fopen(fileName.c_str(), "rb");
-    if (ferror(file) != 0)
+    if (vsh::ferror(file) != 0)
         return false;
 
     // allocate memory
