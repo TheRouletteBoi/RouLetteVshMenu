@@ -77,9 +77,10 @@ namespace GTAV
              // wait because injecting menu too fast can result in a crash
              Sleep(50000);
 
-             const std::string& fileName = GetCurrentDir() + "modmenus/GTAV/GTAVPayload.bin";
-             if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000))
-                 vsh::ShowNotificationWithIcon(L"GTAV Debug Payload is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
+             const std::string& fileName = GetCurrentDir() + "modmenus/GTAV/gtav.bin";
+             uint64_t pageTable[2]{};
+             if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000, pageTable))
+                 vsh::ShowNotificationWithIcon(L"GTAV Payload is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
              break;
          }
       }

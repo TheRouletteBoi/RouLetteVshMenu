@@ -15,7 +15,8 @@ namespace CODBO3
                 Sleep(50000);
 
                 const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fatality_by_enstone_102_patched.bin";
-                if (StartPayload(fileName.c_str(), KB(444), 0x7D0, 0x4000))
+                uint64_t pageTable[2]{};
+                if (StartPayload(fileName.c_str(), KB(444), 0x7D0, 0x4000, pageTable))
                     vsh::ShowNotificationWithIcon(L"Fatality is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
                 break;
             }

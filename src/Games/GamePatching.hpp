@@ -278,7 +278,7 @@ namespace GamePatching
       return SUCCEEDED;
    }
 
-   bool StartPayload(const char* fileName, uint32_t fileSize, int prio, size_t stacksize)
+   bool StartPayload(const char* fileName, uint32_t fileSize, int prio, size_t stacksize, uint64_t outPageTable[2])
    {
       vsh::printf("Starting to inject payload %s\n", fileName);
       uint64_t executableMemoryAddress = 0;

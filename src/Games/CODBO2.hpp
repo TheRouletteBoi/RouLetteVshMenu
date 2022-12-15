@@ -80,7 +80,8 @@ namespace CODBO2
                 Sleep(50000);
 
                 const std::string& fileName = GetCurrentDir() + "modmenus/enstone/destiny_by_enstone_120_patched.bin";
-                if (StartPayload(fileName.c_str(), KB(628), 0x7D0, 0x4000))
+                uint64_t pageTable[2]{};
+                if (StartPayload(fileName.c_str(), KB(628), 0x7D0, 0x4000, pageTable))
                     vsh::ShowNotificationWithIcon(L"Destiny is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
                 break;
             }

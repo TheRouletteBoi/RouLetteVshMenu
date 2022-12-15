@@ -45,7 +45,8 @@ namespace CODAW
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fury_by_enstone_220_patched.bin";
-            if (StartPayload(fileName.c_str(), KB(496), 0x7D0, 0x4000))
+            uint64_t pageTable[2]{};
+            if (StartPayload(fileName.c_str(), KB(496), 0x7D0, 0x4000, pageTable))
                vsh::ShowNotificationWithIcon(L"Fury is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }

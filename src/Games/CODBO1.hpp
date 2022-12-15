@@ -51,7 +51,8 @@ namespace CODBO1
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/fusion_by_enstone_114.bin";
-            if (StartPayload(fileName.c_str(), KB(156), 0x7D0, 0x4000))
+            uint64_t pageTable[2]{};
+            if (StartPayload(fileName.c_str(), KB(156), 0x7D0, 0x4000, pageTable))
                vsh::ShowNotificationWithIcon(L"Fusion is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }

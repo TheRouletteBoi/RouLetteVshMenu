@@ -49,7 +49,8 @@ namespace CODMW3
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/phantom_by_enstone_221.bin";
-            if (StartPayload(fileName.c_str(), KB(484), 0x7D0, 0x4000))
+            uint64_t pageTable[2]{};
+            if (StartPayload(fileName.c_str(), KB(484), 0x7D0, 0x4000, pageTable))
                vsh::ShowNotificationWithIcon(L"Phantom is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
@@ -59,7 +60,8 @@ namespace CODMW3
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/project_memories_by_enstone_388.bin";
-            if (StartPayload(fileName.c_str(), KB(112), 0x7D0, 0x4000))
+            uint64_t pageTable[2]{};
+            if (StartPayload(fileName.c_str(), KB(112), 0x7D0, 0x4000, pageTable))
                vsh::ShowNotificationWithIcon(L"Project Memories is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }

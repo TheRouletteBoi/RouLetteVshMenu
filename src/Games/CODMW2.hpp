@@ -44,7 +44,8 @@ namespace CODMW2
             Sleep(50000);
 
             const std::string& fileName = GetCurrentDir() + "modmenus/enstone/reborn_by_enstone_446.bin";
-            if (StartPayload(fileName.c_str(), KB(140), 0x7D0, 0x4000))
+            uint64_t pageTable[2]{};
+            if (StartPayload(fileName.c_str(), KB(140), 0x7D0, 0x4000, pageTable))
                vsh::ShowNotificationWithIcon(L"Reborn is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
             break;
          }
