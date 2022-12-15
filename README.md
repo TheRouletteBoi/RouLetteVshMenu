@@ -18,7 +18,7 @@ To open the vsh menu press R3 + L1
     * [Cloning](#cloning)
  * [Staying Up To Date](#staying-up-to-date)
  * [Discontinued Features](#discontinued-features)
- * [credits](#credits)
+ * [Credits](#credits)
 
 ## Features
 - Load sprx menus into game without eboots (.sprx)
