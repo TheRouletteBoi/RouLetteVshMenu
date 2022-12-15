@@ -355,7 +355,8 @@ void DeveloperSubmenu()
             int64_t fileSize = GetFileSize(fileName) + 0x4000; // is + 0x4000 enough or will we crash??
             if (GamePatching::StartPayload(fileName, fileSize, 0x7D0, 0x4000, pageTable))
             {
-                vsh::printf("Payload injected at 0x%016llX\n", pageTable[1]);
+                vsh::printf("Payload injected at table[0] = 0x%016llX\n", pageTable[0]);
+                vsh::printf("Payload injected at table[1] = 0x%016llX\n", pageTable[1]);
                 vsh::ShowNavigationMessage(L"Successfully loaded /dev_hdd0/tmp/payload.bin into process");
             }
         }
