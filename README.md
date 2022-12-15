@@ -22,8 +22,8 @@ To open the vsh menu press R3 + L1
 
 ## Features
 - Load sprx menus into game without eboots (.sprx)
-- Load InGame payloads (.bin)
-- Write to into game memory on boot or constant
+- Load [InGame payloads](https://github.com/TheRouletteBoi/ingame_payloads) (.bin)
+- Write to into game memory on game startup or constantly
 
 
 ## Preview
