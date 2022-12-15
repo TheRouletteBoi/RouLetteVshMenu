@@ -132,7 +132,7 @@ void CodBo2Submenu()
         if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Sprxio))
             vsh::ShowNotificationWithIcon(L"SPRX.IO BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
     });
-#endif // 0
+#endif // DEPRECATED_MENU
 
     g_Menu.Option(L"Destiny").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
@@ -373,6 +373,7 @@ void DeveloperSubmenu()
             if (pageTable[0] && pageTable[1])
             {
                 int ret = ps3mapi_process_page_free(processId, 0x2F, pageTable);
+                vsh::memset(pageTable, 0, sizeof(pageTable));
                 if (ret == SUCCEEDED)
                     vsh::ShowNavigationMessage(L"page sucessfully free'd");
                 else
