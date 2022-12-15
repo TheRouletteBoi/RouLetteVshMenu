@@ -33,10 +33,11 @@ To open the vsh menu press R3 + L1
 
 
 ## Notes
-- Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
-- Cobra 8.3 or above is required to use the launcher. If you are on 4.84 Rebug DEX and want to use Cobra 8.3 download [4.84 DEX stage2.dex](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/REBUG/REX/BIN/stage2.dex "4.84 DEX stage2.dex") and [stage2.cex](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/REBUG/REX/BIN/stage2.cex "stage2.cex") transfer the file to /dev_rebug/rebug/cobra/ to your PS3
-- CCAPI 2.80rev5 or lower is required to use enstone menus. Also a console restart is required if you want to exit the game. To load a enstone menu open RouLetteVshMenu click on the menu you want to load then mount your game of choice and press R2 + L3 + R3 then finally start the game.
-- If you get placed into Safe Mode when loading into a game try to unload WebMan before starting any game (R2 + L3 + R3).
+* Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
+* Cobra 8.3 or above is required to use the launcher. If you are on 4.84 Rebug DEX and want to use Cobra 8.3 download [4.84 DEX stage2.dex](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/REBUG/REX/BIN/stage2.dex "4.84 DEX stage2.dex") and [stage2.cex](https://github.com/Evilnat/Cobra-PS3/blob/master/8.3/4.84/REBUG/REX/BIN/stage2.cex "stage2.cex") transfer the file to /dev_rebug/rebug/cobra/ to your PS3.
+   - `/dev_rebug/rebug/cobra/` path will only show up if you have the Rebug ToolBox opened on your console
+* CCAPI 2.80rev5 or lower is required to use enstone menus. Also a console restart is required if you want to exit the game. To load a enstone menu open RouLetteVshMenu click on the menu you want to load then mount your game of choice and press R2 + L3 + R3 then finally start the game.
+* If you get placed into Safe Mode when loading into a game try to unload WebMan before starting any game (R2 + L3 + R3).
 
 ## Download 
 [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
