@@ -115,6 +115,33 @@ namespace GamePatching
       return 0;
    }
 
+   sys_prx_id_t GetProcessModuleIdByFilePath(sys_pid_t pid, const char* filePath)
+   {
+       constexpr int MAX_MODULES = 128;
+       sys_prx_id_t moduleList[MAX_MODULES]{};
+       vsh::memset(moduleList, 0, sizeof(moduleList));
+       ps3mapi_get_all_process_modules_prx_id(pid, moduleList);
+
+       char filename[SYS_PRX_MODULE_FILENAME_SIZE]{};
+
+       for (int i = 0; i < MAX_MODULES; i++)
+       {
+           if (moduleList[i] != 0)
+           {
+               vsh::memset(filename, 0, sizeof(filename));
+
+               ps3mapi_get_process_module_filename_by_prx_id(pid, moduleList[i], filename);
+
+               if (vsh::strcmp(filename, filePath) == 0)
+               {
+                   return moduleList[i];
+               }
+           }
+       }
+
+       return 0;
+   }
+
    sys_prx_module_info_t GetProcessModuleInfoByName(sys_pid_t pid, const char* moduleName)
    {
       constexpr int MAX_MODULES = 128;
