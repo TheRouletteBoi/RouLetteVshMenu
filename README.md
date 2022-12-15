@@ -3,6 +3,23 @@ Vsh Menu that loads Playstation 3 game menus like Lexicon, Serendipity, Paradox 
 
 To open the vsh menu press R3 + L1
 
+## Table of contents
+
+ * [Features](#features)
+ * [Preview](#preview)
+ * [Notes](#notes)
+ * [Download](#download)
+ * [Installation](#installation)
+ * [How to build](#how-to-build)
+    * [Visual Studio 2013+](#visual-studio-2013)
+    * [Sony PS3 4.75+ SDK with Visual Studio Integration](#sony-ps3-475-sdk-with-visual-studio-integration)
+    * [Fixed std::string library](#fixed-stdstring-library)
+    * [Git](#git)
+    * [Cloning](#cloning)
+ * [Staying Up To Date](#staying-up-to-date)
+ * [Discontinued Features](#discontinued-features)
+ * [credits](#credits)
+
 ## Features
 - Load sprx menus into game without eboots (.sprx)
 - Load InGame payloads (.bin)
@@ -42,19 +59,64 @@ To open the vsh menu press R3 + L1
 4. Restart your console
 
 
-## Building Requirements
-- Visual Studio 2013+
-- Sony PS3 4.75+ SDK w/ Visual Studio Integration
-- [Fixed std::string library](https://github.com/skiff/libpsutil/releases "Fixed std::string library")
+## How to build
+
+Requirements:
+
+ * [Visual Studio 2013+](#visual-studio-2013)
+ * [Sony PS3 4.75+ SDK with Visual Studio Integration](#sony-ps3-475-sdk-with-visual-studio-integration)
+ * [Fixed std::string library](#fixed-stdstring-library)
+ * [Git](#git)
+ * [Cloning](#cloning)
+ 
+ If you have the above requirements you can skip to [cloning the git repo](#cloning-repository).
+ 
+ 
+### Visual Studio 2013+
+Visual Studio 2013 isn't required to build but is required to setup [Visual Studio Integration](#sony-ps3-475-sdk-with-visual-studio-integration). With that being said if you don't plan on creating projects you can use any version of Visual Studio.
+
+[Download Link](https://archive.org/details/en_visual_studio_ultimate_2013_x86_dvd_3175319)
+
+### Sony PS3 4.75+ SDK with Visual Studio Integration
+[Visual Studio Integration](https://archive.org/details/pro-dgfor-play-station-3v-470.1.0-leaked-by-01cedric-and-sn-0w-fr-1tz) is **REQUIRED** in order to build the project using Visual Studio.
+
+[Download Link](https://archive.org/details/ps3-4.75-sdk)
+
+### Fixed std::string library
+Follow their [install tutorial](https://github.com/skiff/libpsutil#installation)
+
+[Download Link](https://github.com/skiff/libpsutil/releases)
+
+### Git
+
+If you haven't installed git on your system go and do so it is **REQUIRED** for setting up a working build environment.
+
+[Download Link](https://git-scm.com/download/win)
+
+### Cloning
+
+Clone the repository including submodules:
+```bash
+git clone https://github.com/TheRouletteBoi/RouLetteVshMenu.git --recursive || echo "You don't have git installed, install it from https://git-scm.com/download/win"
+```
+
+Now, you will be able to open the solution, and simply build it in Visual Studio.
+
+## Staying Up To Date
+
+Pull the latest changes from Github:
+```bash
+git pull && git submodule update
+```
 
 
 ## Discontinued Features
-- [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like boost::function, boost::unordered_map and much more.
-- [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/bd7f9dc7cd4b64833795e4f148eb294852db446a) For editing .ini files
+* [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like boost::function, boost::unordered_map and much more.
+* [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/bd7f9dc7cd4b64833795e4f148eb294852db446a) For editing .ini files
 
 
 
 ## Credits
-[@Jordy-Nateur](https://github.com/Jordy-Nateur "Jordy-Nateur") for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
+[@Jordy-Nateur](https://github.com/Jordy-Nateur) for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
 
-[@CaneHaxs](https://github.com/CaneHaxs "CaneHaxs") for some of the Paradox patches, terrorizer patch and many others
+[@CaneHaxs](https://github.com/CaneHaxs) for some of the Paradox patches, terrorizer patch and many others
