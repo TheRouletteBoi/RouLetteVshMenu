@@ -15,6 +15,7 @@ void MainSubmenu()
     g_Menu.Option(L"Advance Warfare Menus").Submenu(CodAwSubmenu);
 #ifdef LAUNCHER_DEBUG
     g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
+    g_Menu.Option(L"Developer").Submenu(DeveloperSubmenu);
 #endif // LAUNCHER_DEBUG
 }
 
@@ -300,4 +301,93 @@ void SettingsSubmenu()
     g_Menu.Option(L"Menu width").Slider(g_Menu.sizeWidth, 200.f, 500.f, 2.f, 2);
     g_Menu.Option(L"Menu Color").EditColor(g_Menu.colorMenu, true);
     g_Menu.Option(L"Background opacity").Slider(g_Menu.colorBackground.a, 0.f, 1.f, 0.01f, 2);
+}
+
+void DeveloperSubmenu()
+{
+    g_Menu.Title(L"Developer");
+#ifdef TODO
+    g_Menu.Option(L"Load /dev_hdd0/tmp/plugin.sprx into game process").Action([]
+    {
+        if (FileExist("/dev_hdd0/tmp/plugin.sprx"))
+        {
+            bool couldLoad = GamePatching::StartSprx("/dev_hdd0/tmp/plugin.sprx");
+            if (couldLoad)
+                vsh::ShowNavigationMessage(L"Successfully loaded /dev_hdd0/tmp/plugin.sprx into process");
+            else
+                vsh::ShowNavigationMessage(L"You are not in game");
+        }
+        else
+        {
+            vsh::ShowNavigationMessage(L"File does not exist");
+        }
+    });
+
+    g_Menu.Option(L"UnLoad /dev_hdd0/tmp/plugin.sprx from game process").Action([] 
+    {
+        if (FileExist("/dev_hdd0/tmp/plugin.sprx"))
+        {
+            sys_pid_t processId = vsh::GetGameProcessId();
+            if (processId)
+            {
+                sys_prx_id_t prxId = GamePatching::GetProcessModuleIdByFilePath(processId, "/dev_hdd0/tmp/plugin.sprx");
+                if (prxId)
+                    ps3mapi_unload_process_modules(vsh::GetGameProcessId(), prxId);
+                else
+                    vsh::ShowNavigationMessage(L"sprx is not loaded into game");
+            }
+            else
+                vsh::ShowNavigationMessage(L"You are not in game");
+        }
+        else
+        {
+            vsh::ShowNavigationMessage(L"File does not exist");
+        }
+    });
+
+    static uint64_t pageTable[2]{};
+
+    g_Menu.Option(L"Load /dev_hdd0/tmp/payload.bin into game process").Action([]
+    {
+        const char* fileName = "/dev_hdd0/tmp/payload.bin";
+        if (FileExist(fileName))
+        {
+            int64_t fileSize = GetFileSize(fileName) + 0x4000; // is + 0x4000 enough or will we crash??
+            if (GamePatching::StartPayload(fileName, fileSize, 0x7D0, 0x4000, pageTable))
+            {
+                vsh::printf("Payload injected at 0x%016llX\n", pageTable[1]);
+                vsh::ShowNavigationMessage(L"Successfully loaded /dev_hdd0/tmp/payload.bin into process");
+            }
+        }
+        else
+        {
+            vsh::ShowNavigationMessage(L"File does not exist");
+        }
+    });
+
+    g_Menu.Option(L"Unload /dev_hdd0/tmp/payload.bin from game process").Action([]
+    {
+        sys_pid_t processId = vsh::GetGameProcessId();
+        if (processId)
+        {
+            if (pageTable[0] && pageTable[1])
+            {
+                int ret = ps3mapi_process_page_free(processId, 0x2F, pageTable);
+                if (ret == SUCCEEDED)
+                    vsh::ShowNavigationMessage(L"page sucessfully free'd");
+                else
+                {
+                    vsh::printf("failed to free page 0x%X\n", ret);
+                    vsh::ShowNavigationMessage(L"failed to free page");
+                }
+            }
+            else
+            {
+                vsh::ShowNavigationMessage(L"page has not been allocated");
+            }
+        }
+        else
+            vsh::ShowNavigationMessage(L"You are not in game");
+    });
+#endif
 }

@@ -16,3 +16,4 @@ void CodMw3Submenu();
 void CodGhostSubmenu();
 void CodAwSubmenu();
 void SettingsSubmenu();
+void DeveloperSubmenu();
