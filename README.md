@@ -84,7 +84,9 @@ Visual Studio 2013 isn't required to build but is required to setup [Visual Stud
 [Download Link](https://archive.org/details/ps3-4.75-sdk)
 
 ### Fixed std::string library
-Follow their [install tutorial](https://github.com/skiff/libpsutil#installation)
+Download and extract their zip file.
+1. Navigate to your SDK installation folder (default: C:\usr\local\cell\target\ppu)
+2. Drop the include and lib folders in and overwrite any existing files
 
 [Download Link](https://github.com/skiff/libpsutil/releases)
 
