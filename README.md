@@ -1,7 +1,7 @@
 # RouLette Vsh Menu
 Vsh Menu that loads Playstation 3 game menus like Lexicon, Serendipity, Paradox and FrenchModdingTeam. 
 
-To open the vsh menu press R3 + L1
+To open the vsh menu press R3 + DPAD LEFT
 
 ## Table of contents
 
