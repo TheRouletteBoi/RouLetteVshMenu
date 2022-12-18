@@ -323,7 +323,7 @@ void DeveloperSubmenu()
         }
     });
 
-    g_Menu.Option(L"UnLoad /dev_hdd0/tmp/plugin.sprx from game process").Action([] 
+    g_Menu.Option(L"Unload /dev_hdd0/tmp/plugin.sprx from game process").Action([] 
     {
         if (FileExist("/dev_hdd0/tmp/plugin.sprx"))
         {
