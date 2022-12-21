@@ -26,6 +26,7 @@ SYS_MODULE_STOP(module_stop);
 * 
 * TODO:
 * BUG: when exiting a game after StartPayload will result in a crash due to fail to free memory from ps3mapi_process_page_allocate. To fix we need to implement a new syscall ps3mapi_process_page_free, But then there is the caveat when we don't know when the user wan't to exit the game.
+* BUG: `bool Menu::IsLeftPressed()` is broken when using the second parameter 'delay'
 * Enhancement: Find a way to load eboot alongside it's own sprx (kernel -> load_process)
 * Enhancement: add LUA scripting support
 * Enhancement: add config to load your favorite menu

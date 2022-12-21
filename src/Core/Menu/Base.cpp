@@ -87,7 +87,7 @@ bool Menu::IsDownPressed()
 
 bool Menu::IsLeftPressed()
 {
-   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_LEFT, m_SliderDelay))
+   if (g_Input.IsButtonDownFor(Input::BUTTON_PAD_LEFT))
    {
       PlaySound("snd_cursor");
       return true;

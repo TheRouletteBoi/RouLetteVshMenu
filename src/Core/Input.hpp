@@ -55,7 +55,7 @@ public:
 
 private:
    CellPadData m_InputData{};
-   unsigned int m_InputButtonLastTime[16]{};
+   uint64_t m_InputButtonLastTime[16]{};
    short m_InputAnalogDeadzone = 20;
 };
 

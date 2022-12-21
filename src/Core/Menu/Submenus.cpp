@@ -14,8 +14,8 @@ void MainSubmenu()
     g_Menu.Option(L"COD Ghost Menus").Submenu(CodGhostSubmenu);
     g_Menu.Option(L"Advance Warfare Menus").Submenu(CodAwSubmenu);
 #ifdef LAUNCHER_DEBUG
-    g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
     g_Menu.Option(L"Developer").Submenu(DeveloperSubmenu);
+    g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
 #endif // LAUNCHER_DEBUG
 }
 

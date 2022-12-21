@@ -170,7 +170,7 @@ private:
 
    float m_HighlightBarPosY = 0;
 
-   unsigned int m_SliderDelay = 200;
+   uint64_t m_SliderDelay = 200;
 
    std::wstring m_DescriptionText;
 
