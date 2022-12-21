@@ -1,5 +1,5 @@
-
 #include "Submenus.hpp"
+#include "Games/GamePatching.hpp"
 
 void MainSubmenu()
 {
@@ -306,7 +306,6 @@ void SettingsSubmenu()
 void DeveloperSubmenu()
 {
     g_Menu.Title(L"Developer");
-#ifdef TODO
     g_Menu.Option(L"Load /dev_hdd0/tmp/plugin.sprx into game process").Action([]
     {
         if (FileExist("/dev_hdd0/tmp/plugin.sprx"))
@@ -391,5 +390,4 @@ void DeveloperSubmenu()
         else
             vsh::ShowNavigationMessage(L"You are not in game");
     });
-#endif
 }

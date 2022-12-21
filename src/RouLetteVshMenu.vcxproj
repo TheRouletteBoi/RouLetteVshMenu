@@ -101,6 +101,7 @@
     <ClCompile Include="Core\Menu\Submenus.cpp" />
     <ClCompile Include="Core\Helpers.cpp" />
     <ClCompile Include="Core\Hooks.cpp" />
+    <ClCompile Include="Games\GamePatching.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory\Detour.cpp" />
     <ClCompile Include="Memory\Pattern.cpp" />
