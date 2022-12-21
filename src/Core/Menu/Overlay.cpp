@@ -86,7 +86,9 @@ void Overlay::DrawOverlay()
        char gameTitleName[64]{};
        g_FindActiveGame.GetGameName(gameTitleId, gameTitleName);
 
-       vsh::swprintf(buffer, 120, L"App: %s / %s\n", gameTitleName, gameTitleId);
+       bool isTitleIdEmpty = (gameTitleId[0] == NULL) || (gameTitleId[0] == ' ');
+
+       vsh::swprintf(buffer, 120, L"%s %c %s\n", gameTitleName, isTitleIdEmpty ? ' ' : '/', gameTitleId);
        overlayText += buffer;
    }
 
