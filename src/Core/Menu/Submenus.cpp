@@ -331,7 +331,10 @@ void DeveloperSubmenu()
             {
                 sys_prx_id_t prxId = GamePatching::GetProcessModuleIdByFilePath(processId, "/dev_hdd0/tmp/plugin.sprx");
                 if (prxId)
+                {
                     ps3mapi_unload_process_modules(vsh::GetGameProcessId(), prxId);
+                    vsh::ShowNavigationMessage(L"Successfully unloaded /dev_hdd0/tmp/plugin.sprx from process");
+                }
                 else
                     vsh::ShowNavigationMessage(L"sprx is not loaded into game");
             }
