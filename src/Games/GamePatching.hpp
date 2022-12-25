@@ -53,5 +53,5 @@ namespace GamePatching
 
    bool StartSprx(const char* path);
    int WritePayload(uintptr_t startAddr, const char* fileName);
-   bool StartPayload(const char* fileName, uint64_t fileSize, int prio, size_t stacksize, uint64_t outPageTable[2]);
+   bool StartPayload(const char* fileName, uint64_t fileSizeOnDisk, int prio, size_t stacksize, uint64_t outPageTable[2]);
 }

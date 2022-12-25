@@ -246,11 +246,11 @@ namespace GamePatching
         return SUCCEEDED;
     }
 
-    bool StartPayload(const char* fileName, uint64_t fileSize, int prio, size_t stacksize, uint64_t outPageTable[2])
+    bool StartPayload(const char* fileName, uint64_t fileSizeOnDisk, int prio, size_t stacksize, uint64_t outPageTable[2])
     {
         vsh::printf("Starting to inject payload %s\n", fileName);
         uint64_t executableMemoryAddress = 0;
-        int ret = ps3mapi_process_page_allocate(g_FindActiveGame.GetRunningGameProcessId(), fileSize, 0x100, 0x2F, 0x1, &executableMemoryAddress);
+        int ret = ps3mapi_process_page_allocate(g_FindActiveGame.GetRunningGameProcessId(), fileSizeOnDisk, 0x100, 0x2F, 0x1, &executableMemoryAddress);
         vsh::printf("executableMemoryAddress 0x%X\n", executableMemoryAddress);
         if (ret != SUCCEEDED)
         {

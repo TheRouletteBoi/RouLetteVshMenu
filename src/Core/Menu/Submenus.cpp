@@ -354,8 +354,17 @@ void DeveloperSubmenu()
         const char* fileName = "/dev_hdd0/tmp/payload.bin";
         if (FileExist(fileName))
         {
-            int64_t fileSize = GetFileSize(fileName) + 0x4000; // is + 0x4000 enough or will we crash??
-            if (GamePatching::StartPayload(fileName, fileSize, 0x7D0, 0x4000, pageTable))
+            // I need to find a way to get file size on disk; see https://imgur.com/a/bSFHbGT
+            CellFsStat st;
+            cellFsStat(fileName, &st);
+            uint64_t fileSize = st.st_size;
+            uint64_t blockSize = st.st_blksize;
+            uint64_t payloadPadding = 0x4000; // https://imgur.com/a/aFEfVIM
+            uint64_t fileSizeOnDisk = fileSize + (4 * blockSize);
+            uint64_t fileSizeOnDisk2 = fileSize + payloadPadding;
+            vsh::printf("fileSize = %d | blockSize = %d | payloadPadding = %d | fileSizeOnDisk = %d | fileSizeOnDisk2 = %d\n", fileSize, blockSize, payloadPadding, fileSizeOnDisk, fileSizeOnDisk2);
+
+            if (GamePatching::StartPayload(fileName, KB(4), 0x7D0, 0x4000, pageTable))
             {
                 vsh::printf("Payload injected at table[0] = 0x%016llX\n", pageTable[0]);
                 vsh::printf("Payload injected at table[1] = 0x%016llX\n", pageTable[1]);
