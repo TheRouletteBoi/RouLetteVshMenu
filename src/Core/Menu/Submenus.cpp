@@ -1,6 +1,52 @@
 #include "Submenus.hpp"
 #include "Games/GamePatching.hpp"
 
+
+void LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu menuId, const char* menuName, const char* gameName)
+{
+    if (g_FindActiveGame.LoadMenu(menuId))
+    {
+        const wchar_t* message = vsh::wva(L"%s %s is ready to load", menuName, gameName);
+        vsh::ShowNotificationWithIcon(message, vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+    }
+}
+
+void LoadDexMenu(FindActiveGame::PatchedMenu menuId, const char* menuName, const char* gameName)
+{
+    if (!IsConsoleDex())
+    {
+        vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
+        return;
+    }
+
+    if (g_FindActiveGame.LoadMenu(menuId))
+    {
+        const wchar_t* message = vsh::wva(L"%s %s is ready to load", menuName, gameName);
+        vsh::ShowNotificationWithIcon(message, vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+    }
+}
+
+void LoadCcapiMenu(FindActiveGame::PatchedMenu menuId, const char* menuName, const char* gameName)
+{
+    if (IsConsoleHen())
+    {
+        vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
+        return;
+    }
+
+    if (!DoesConsoleHaveCCAPI())
+    {
+        vsh::ShowNavigationMessage(L"CCAPI is not installed on your console");
+        return;
+    }
+
+    if (g_FindActiveGame.LoadMenu(menuId))
+    {
+        const wchar_t* message = vsh::wva(L"%s %s is ready to load", menuName, gameName);
+        vsh::ShowNotificationWithIcon(message, vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+    }
+}
+
 void MainSubmenu()
 {
     g_Menu.Title(L"Main menu");
@@ -24,46 +70,22 @@ void GtavSubmenu()
     g_Menu.Title(L"GTAV Menus");
     g_Menu.Option(L"Lexicon").RightText(L"\uF888 + \uF88B").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVLexicon))
-            vsh::ShowNotificationWithIcon(L"Lexicon GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::GTAVLexicon, "Lexicon", "GTAV");
     });
 
     g_Menu.Option(L"Serendipity").RightText(L"\uF882 + \uF887").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVSerendipity))
-            vsh::ShowNotificationWithIcon(L"Serendipity GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
-
+        LoadDexMenu(FindActiveGame::PatchedMenu::GTAVSerendipity, "Serendipity", "GTAV");
     });
 
     g_Menu.Option(L"Terrorizer").RightText(L"\uF88B + \uF886").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVTerrorizer))
-            vsh::ShowNotificationWithIcon(L"Terrorizer GTAV is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
-
+        LoadDexMenu(FindActiveGame::PatchedMenu::GTAVTerrorizer, "Terrorizer", "GTAV");
     });
 
     g_Menu.Option(L"Debug Payload").Action([]
     {
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GTAVDebugPayload))
-            vsh::ShowNotificationWithIcon(L"GTAV Debug payload is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::GTAVDebugPayload, "Debug Payload", "GTAV");
     });
 }
 
@@ -72,8 +94,7 @@ void MinecraftSubmenu()
     g_Menu.Title(L"Minecraft Menus");
     g_Menu.Option(L"Modcraft V4").RightText(L"\uF888 + \uF884").Action([]
     {
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MinecraftModcraftV4))
-            vsh::ShowNotificationWithIcon(L"Modcraft Minecraft is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::MinecraftModcraftV4, "Modcraft", "Minecraft");
     });
 }
 
@@ -82,26 +103,12 @@ void CodBo1Submenu()
     g_Menu.Title(L"Black Ops 1 Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO1Paradox))
-            vsh::ShowNotificationWithIcon(L"Paradox BO1 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::BO1Paradox, "Paradox", "BO1");
     });
 
     g_Menu.Option(L"Fusion").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO1Fusion))
-            vsh::ShowNotificationWithIcon(L"Fusion BO1 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::BO1Fusion, "Fusion", "BO1");
     });
 }
 
@@ -110,46 +117,24 @@ void CodBo2Submenu()
     g_Menu.Title(L"Black Ops 2 Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Paradox))
-            vsh::ShowNotificationWithIcon(L"Paradox BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::BO2Paradox, "Paradox", "BO2");
     });
 
 #ifdef DEPRECATED_MENU
     g_Menu.Option(L"SPRX.IO").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Sprxio))
-            vsh::ShowNotificationWithIcon(L"SPRX.IO BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::BO2Sprxio, "SPRX.IO", "BO2");
     });
 #endif // DEPRECATED_MENU
 
     g_Menu.Option(L"Destiny").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Destiny))
-            vsh::ShowNotificationWithIcon(L"Destiny BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::BO2Destiny, "Destiny", "BO2");
     });
 
     g_Menu.Option(L"Kebab").RightText(L"\uF886 + \uF88D").Description(L"\uF5B5 CEX/DEX/HEN menu").Action([] 
     {
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO2Kebab))
-            vsh::ShowNotificationWithIcon(L"Kebab BO2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::BO2Kebab, "Kebab", "BO2");
     });
 }
 
@@ -158,14 +143,7 @@ void CodBo3Submenu()
     g_Menu.Title(L"Black Ops 3 Menus");
     g_Menu.Option(L"Fatality").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::BO3Fatality))
-            vsh::ShowNotificationWithIcon(L"Fatality BO3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::BO3Fatality, "Fatality", "BO3");
     });
 }
 
@@ -174,26 +152,12 @@ void CodMw2Submenu()
     g_Menu.Title(L"Modern Warfare 2 Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW2Paradox))
-            vsh::ShowNotificationWithIcon(L"Paradox MW2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::MW2Paradox, "Paradox", "MW2");
     });
 
     g_Menu.Option(L"Reborn").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW2Reborn))
-            vsh::ShowNotificationWithIcon(L"Reborn MW2 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::MW2Reborn, "Reborn", "MW2");
     });
 }
 
@@ -202,38 +166,17 @@ void CodMw3Submenu()
     g_Menu.Title(L"Modern Warfare 3 Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3Paradox))
-            vsh::ShowNotificationWithIcon(L"Paradox MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::MW3Paradox, "Paradox", "MW3");
     });
 
     g_Menu.Option(L"Phantom").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3Phantom))
-            vsh::ShowNotificationWithIcon(L"Phantom MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::MW3Phantom, "Phantom", "MW3");
     });
 
     g_Menu.Option(L"Project Memories").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::MW3ProjectMemories))
-            vsh::ShowNotificationWithIcon(L"Project Memories MW3 is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::MW3ProjectMemories, "Project Memories", "MW3");
     });
 }
 
@@ -242,26 +185,12 @@ void CodGhostSubmenu()
     g_Menu.Title(L"Cod Ghost Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GhostParadox))
-            vsh::ShowNotificationWithIcon(L"Paradox Ghost is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::GhostParadox, "Paradox", "COD Ghost");
     });
 
     g_Menu.Option(L"Eternity").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::GhostEternity))
-            vsh::ShowNotificationWithIcon(L"Eternity COD Ghost is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::GhostEternity, "Eternity", "COD Ghost");
     });
 }
 
@@ -270,26 +199,12 @@ void CodAwSubmenu()
     g_Menu.Title(L"Advance Warfare Menus");
     g_Menu.Option(L"Paradox").RightText(L"\uF88D + \uF884").Description(L"\uF5B5 DEX only menu").Action([]
     {
-        if (!IsConsoleDex())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::AWParadox))
-            vsh::ShowNotificationWithIcon(L"Paradox Advance Warfare is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadDexMenu(FindActiveGame::PatchedMenu::AWParadox, "Paradox", "COD Advance Warfare");
     });
 
     g_Menu.Option(L"Fury").RightText(L"\uF888 + \uF88D").Description(L"\uF5B5 CEX/DEX only menu").Action([]
     {
-        if (IsConsoleHen())
-        {
-            vsh::ShowNavigationMessage(L"This menu is only for CEX/DEX consoles");
-            return;
-        }
-
-        if (g_FindActiveGame.LoadMenu(FindActiveGame::PatchedMenu::AWFury))
-            vsh::ShowNotificationWithIcon(L"Fury Advance Warfare is ready to load", vsh::NotifyIcon::BlueVerifiedCheckmark, vsh::NotifySound::Trophy);
+        LoadCcapiMenu(FindActiveGame::PatchedMenu::AWFury, "Fury", "COD Advance Warfare");
     });
 }
 
@@ -301,6 +216,7 @@ void SettingsSubmenu()
     g_Menu.Option(L"Menu width").Slider(g_Menu.sizeWidth, 200.f, 500.f, 2.f, 2);
     g_Menu.Option(L"Menu Color").EditColor(g_Menu.colorMenu, true);
     g_Menu.Option(L"Background opacity").Slider(g_Menu.colorBackground.a, 0.f, 1.f, 0.01f, 2);
+    g_Menu.Option(L"Display [Yes | No] Prompt").Toggle(g_Menu.displayYesNoPrompt);
 }
 
 void DeveloperSubmenu()
