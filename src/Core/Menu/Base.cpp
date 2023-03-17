@@ -395,6 +395,7 @@ void Menu::UpdateUI()
    }
 
    DrawMovingHelp();
+   DrawYesNoPrompt(L"Warning! Current menu is known to accidentally active recovery screen. \nTo mitigate that would you like to unload webman mod?");
 }
 
 void Menu::OnUpdate()
@@ -529,6 +530,29 @@ void Menu::DrawMovingHelp()
         colorText,
         Renderer::Centered,
         Renderer::Centered);
+}
+
+void Menu::DrawYesNoPrompt(const std::wstring& text)
+{
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    ////////                               ///////
+    ////////        some warning?          ///////
+    ////////                               ///////
+    ////////    ///////       ///////      ///////
+    ////////    / YES /       / NO  /      ///////
+    ////////    ///////       ///////      ///////
+    ////////                               ///////
+    ////////                               ///////
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+
+    if (displayYesNoPrompt)
+    {
+        // TODO 
+    }
 }
 
 void Menu::DrawMenuTitle(const std::wstring& text)

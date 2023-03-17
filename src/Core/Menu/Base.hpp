@@ -80,6 +80,7 @@ private:
    void DrawDescription();
    void DrawInstructions();
    void DrawMovingHelp();
+   void DrawYesNoPrompt(const std::wstring& text);
 
    void DrawMenuTitle(const std::wstring& text);
    void DrawMenuOption(const std::wstring& text);
@@ -133,6 +134,7 @@ public:
    paf::vec4 colorFillerCursor{ 0.423, 0.443, 0.415, 0.9 };
    paf::vec4 colorToggleOn{ 0.0, 1.0, 0.0, 1.0 };
    paf::vec4 colorToggleOff{ 1.0, 0.0, 0.0, 1.0 };
+   bool displayYesNoPrompt{};
 
 private:
    bool m_StateInitialized{};
