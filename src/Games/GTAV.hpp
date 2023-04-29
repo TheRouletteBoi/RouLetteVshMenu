@@ -1,8 +1,64 @@
 #pragma once
 #include "GamePatching.hpp"
+#include "Memory/Pattern.hpp"
 
 namespace GTAV
 {
+    namespace CHEATS
+    {
+        using namespace GamePatching;
+
+        struct Vector3
+        {
+            float x, y, z;
+        };
+
+        static uintptr_t globalPtr = 0;
+
+        static void FindExternalOffsets()
+        {
+            uintptr_t addr = FindPatternGameProcess(g_FindActiveGame.GetRunningGameProcessId(),
+                0x00010200, 0x2269700, 4,
+                "\x60\x7F\x00\x00\x3B\xC0\x00\x00\x80\x64\x00\x00\x30\x63\x00\x00\x2C\x03\x00\x00\x90\x64\x00\x00\x40\x82\x00\x00",
+                28,
+                "xx??xx??xx??xx??xx??xx??xx??");
+
+            uint32_t high = GetMem<uint32_t>(addr + 0x1C);
+            uint32_t low = GetMem<uint32_t>(addr + 0x28);
+
+            uint32_t combineAddr = (((uint16_t)(high) << 16) | (uint16_t)(low));
+            uint32_t combineFinal = (combineAddr & 0x8000) ? combineAddr - 0x10000 : combineAddr;
+
+            globalPtr = combineFinal;
+        }
+
+        template <typename T>
+        T GetGlobal(int globalId)
+        {
+            if (!globalPtr)
+                return {};
+
+            uintptr_t ptr = GetMem<uintptr_t>(globalPtr + (((globalId / 0x40000) & 0x3F) * 4));
+
+            if (ptr)
+                return GetMem<T>(ptr + ((globalId % 0x40000) * 4));
+
+            return {};
+        }
+
+        template <typename T>
+        void SetGlobal(int globalId, T value)
+        {
+            if (!globalPtr)
+                return;
+
+            uintptr_t ptr = GetMem<uintptr_t>(globalPtr + (((globalId / 0x40000) & 0x3F) * 4));
+
+            if (ptr)
+                SetMem<T>(ptr + ((globalId % 0x40000) * 4), value);
+        }
+    }
+
    static void Initialize()
    {
       using namespace GamePatching;
@@ -81,6 +137,14 @@ namespace GTAV
              uint64_t pageTable[2]{};
              if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000, pageTable))
                  vsh::ShowNotificationWithIcon(L"GTAV Payload is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
+             break;
+         }
+         case FindActiveGame::PatchedMenu::GTAVFindExternalOffsetsFor112:
+         {
+             // wait because injecting menu too fast can result in a crash
+             Sleep(50000);
+
+             CHEATS::FindExternalOffsets();
              break;
          }
       }

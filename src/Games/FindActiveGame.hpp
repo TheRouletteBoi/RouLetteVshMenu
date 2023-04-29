@@ -20,6 +20,7 @@ public:
       GTAVSerendipity,
       GTAVTerrorizer,
       GTAVDebugPayload,
+      GTAVFindExternalOffsetsFor112,
 
       // Minecraft
       MinecraftModcraftV4,

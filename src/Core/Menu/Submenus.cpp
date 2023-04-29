@@ -1,6 +1,6 @@
 #include "Submenus.hpp"
 #include "Games/GamePatching.hpp"
-
+#include "Games/GTAV.hpp"
 
 void LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu menuId, const char* menuName, const char* gameName)
 {
@@ -86,6 +86,23 @@ void GtavSubmenu()
     g_Menu.Option(L"Debug Payload").Action([]
     {
         LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::GTAVDebugPayload, "Debug Payload", "GTAV");
+    });
+
+    g_Menu.Option(L"Load Offsets For 1.12").Action([]
+    {
+         LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::GTAVFindExternalOffsetsFor112, "Load Offsets For 1.12", "GTAV");
+    });
+
+    g_Menu.Option(L"Spawn Adder For 1.12").Action([] 
+    {
+        GTAV::CHEATS::SetGlobal<int>(2394760 + 1657, 1); // ???
+        GTAV::CHEATS::SetGlobal<int>(2394760 + 1656, 1); // ???
+        GTAV::CHEATS::SetGlobal<int>(2394760 + 1660, 3); // ???
+        int vehicleNetId = GamePatching::GetMem<int>(2394760 + 1665); // vehicleNetId
+        GTAV::CHEATS::SetGlobal<uint32_t>(2394760 + 1603 + 42, 0xB779A091); // vehicle hash
+        GTAV::CHEATS::Vector3 selfCoordinates = GTAV::CHEATS::GetGlobal<GTAV::CHEATS::Vector3>(2382711 + 279);
+        GTAV::CHEATS::SetGlobal<GTAV::CHEATS::Vector3>(2394760 + 1661, selfCoordinates); // coordinates 
+        GTAV::CHEATS::SetGlobal<float>(2394760 + 1664, 0); // heading
     });
 }
 
