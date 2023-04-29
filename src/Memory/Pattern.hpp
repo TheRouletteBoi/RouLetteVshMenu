@@ -22,3 +22,4 @@ uint32_t FindPatternHypervisor(uint32_t startAddress, uint32_t stopAddress, uint
 uint32_t FindPatternHypervisor(const char* bytes, uint8_t len, const char* mask);
 uint64_t FindPatternKernel(uint64_t startAddress, uint64_t stopAddress, uint8_t step, const char* sfind, uint8_t len, const char* mask);
 uint64_t FindPatternKernel(const char* bytes, uint8_t len, const char* mask);
+uint32_t FindPatternGameProcess(uint32_t pid, uint32_t startAddress, uint32_t stopAddress, uint8_t step, const char* sfind, uint8_t len, const char* mask);

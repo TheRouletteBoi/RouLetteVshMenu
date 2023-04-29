@@ -153,3 +153,35 @@ uint64_t FindPatternKernel(const char* bytes, uint8_t len, const char* mask)
 
     return address;
 }
+
+uint32_t FindPatternGameProcess(uint32_t pid, uint32_t startAddress, uint32_t stopAddress, uint8_t step, const char* sfind, uint8_t len, const char* mask)
+{
+    const uint32_t chunk_size = 65536; // 64KB
+    uint32_t found_offset = 0;
+
+    sys_addr_t sysmem = NULL;
+    if (sys_memory_allocate(chunk_size, SYS_MEMORY_PAGE_SIZE_64K, &sysmem) != SUCCEEDED)
+        return found_offset;
+
+    char* mem = (char*)sysmem;
+    const uint32_t m = chunk_size - len, gap = (len + 0x10) - (len % 0x10);
+    for (; startAddress < stopAddress; startAddress += chunk_size - gap)
+    {
+        int retval = ReadProcessMemory(pid, (void*)startAddress, mem, chunk_size);
+        if (retval != SUCCEEDED)
+            break;
+
+        for (uint32_t offset = 0; offset < m; offset += step)
+        {
+            if (DataCompare((uint8_t*)(mem + offset), (uint8_t*)sfind, mask))
+            {
+                found_offset = (startAddress + offset);
+                startAddress = stopAddress;
+                break;
+            }
+        }
+    }
+
+    sys_memory_free(sysmem);
+    return found_offset;
+}

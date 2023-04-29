@@ -20,10 +20,10 @@ namespace GamePatching
    template <typename var>
    var GetMem(uint32_t address)
    {
-      var value = 0;
+      var value{};
       int ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)address, &value, sizeof(var));
       if (ret != SUCCEEDED)
-         return 0;
+         return {};
 
       return value;
    }
