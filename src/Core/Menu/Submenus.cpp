@@ -88,21 +88,34 @@ void GtavSubmenu()
         LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::GTAVDebugPayload, "Debug Payload", "GTAV");
     });
 
-    g_Menu.Option(L"Load Offsets For 1.12").Action([]
+    g_Menu.Option(L"[Step 1] Load Offsets For 1.12").Action([]
     {
-         LoadMenuThatSupportsAllSyscalls(FindActiveGame::PatchedMenu::GTAVFindExternalOffsetsFor112, "Load Offsets For 1.12", "GTAV");
+        if (vsh::GetCooperationMode() == vsh::CooperationMode::Game)
+        {
+            GTAV::CHEATS::FindExternalOffsets();
+        }
+        else
+            vsh::ShowNotificationWithIcon(L"You must be in game", vsh::NotifyIcon::Error, vsh::NotifySound::None);
     });
 
-    g_Menu.Option(L"Spawn Adder For 1.12").Action([] 
+    g_Menu.Option(L"[Step 2] Spawn Adder For 1.12").Description(L"Spawned in last death location").Action([]
     {
-        GTAV::CHEATS::SetGlobal<int>(2394760 + 1657, 1); // ???
-        GTAV::CHEATS::SetGlobal<int>(2394760 + 1656, 1); // ???
-        GTAV::CHEATS::SetGlobal<int>(2394760 + 1660, 3); // ???
-        int vehicleNetId = GamePatching::GetMem<int>(2394760 + 1665); // vehicleNetId
-        GTAV::CHEATS::SetGlobal<uint32_t>(2394760 + 1603 + 42, 0xB779A091); // vehicle hash
-        GTAV::CHEATS::Vector3 selfCoordinates = GTAV::CHEATS::GetGlobal<GTAV::CHEATS::Vector3>(2382711 + 279);
-        GTAV::CHEATS::SetGlobal<GTAV::CHEATS::Vector3>(2394760 + 1661, selfCoordinates); // coordinates 
-        GTAV::CHEATS::SetGlobal<float>(2394760 + 1664, 0); // heading
+        if (vsh::GetCooperationMode() == vsh::CooperationMode::Game)
+        {
+            int selfPlayerId = GTAV::CHEATS::GetGlobal<int>(2385027 + 1); // PlayerId
+            int totalNumPlayers = GTAV::CHEATS::GetGlobal<int>(2390805); // totalNumPlayers
+
+            GTAV::CHEATS::SetGlobal<int>(2394760 + 1657, 1); // required for spawning
+            GTAV::CHEATS::SetGlobal<int>(2394760 + 1656, 1); // required for spawning
+            GTAV::CHEATS::SetGlobal<int>(2394760 + 1660, 3); // required for spawning
+            int vehicleNetId = GTAV::CHEATS::GetGlobal<int>(2394760 + 1665); // vehicleNetId
+            GTAV::CHEATS::SetGlobal<uint32_t>(2394760 + 1603 + 42, 0xB779A091); // vehicle hash
+            GTAV::CHEATS::Vector3 deathCoordinates = GTAV::CHEATS::GetGlobal<GTAV::CHEATS::Vector3>(2382711 + 279); // last death coordinates
+            GTAV::CHEATS::SetGlobal<GTAV::CHEATS::Vector3>(2394760 + 1661, deathCoordinates); // coordinates 
+            GTAV::CHEATS::SetGlobal<float>(2394760 + 1664, 0); // heading
+        }
+        else
+            vsh::ShowNotificationWithIcon(L"You must be in game", vsh::NotifyIcon::Error, vsh::NotifySound::None);
     });
 }
 
