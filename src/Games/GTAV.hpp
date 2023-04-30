@@ -23,10 +23,10 @@ namespace GTAV
                 28,
                 "xx??xx??xx??xx??xx??xx??xx??");
 
-            uint32_t high = GetMem<uint32_t>(addr + 0x1C);
-            uint32_t low = GetMem<uint32_t>(addr + 0x28);
+            uint32_t low = GetMem<uint32_t>(addr + 0x1C);
+            uint32_t high = GetMem<uint32_t>(addr + 0x28);
 
-            uint32_t combineAddr = (((uint16_t)(high) << 16) | (uint16_t)(low));
+            uint32_t combineAddr = (((uint16_t)(low) << 16) | (uint16_t)(high));
             uint32_t combineFinal = (combineAddr & 0x8000) ? combineAddr - 0x10000 : combineAddr;
 
             globalPtr = combineFinal;
@@ -137,14 +137,6 @@ namespace GTAV
              uint64_t pageTable[2]{};
              if (StartPayload(fileName.c_str(), KB(4), 0x7D0, 0x4000, pageTable))
                  vsh::ShowNotificationWithIcon(L"GTAV Payload is now loaded", vsh::NotifyIcon::Pen, vsh::NotifySound::Trophy);
-             break;
-         }
-         case FindActiveGame::PatchedMenu::GTAVFindExternalOffsetsFor112:
-         {
-             // wait because injecting menu too fast can result in a crash
-             Sleep(50000);
-
-             CHEATS::FindExternalOffsets();
              break;
          }
       }
