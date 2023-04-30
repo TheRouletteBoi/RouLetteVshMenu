@@ -249,9 +249,10 @@ namespace GamePatching
     bool StartPayload(const char* fileName, uint64_t fileSizeOnDisk, int prio, size_t stacksize, uint64_t outPageTable[2])
     {
         vsh::printf("Starting to inject payload %s\n", fileName);
-        uint64_t executableMemoryAddress = 0;
-        int ret = ps3mapi_process_page_allocate(g_FindActiveGame.GetRunningGameProcessId(), fileSizeOnDisk, 0x100, 0x2F, 0x1, &executableMemoryAddress);
-        vsh::printf("executableMemoryAddress 0x%X\n", executableMemoryAddress);
+        int ret = ps3mapi_process_page_allocate(g_FindActiveGame.GetRunningGameProcessId(), fileSizeOnDisk, 0x100, 0x2F, 0x1, outPageTable);
+        vsh::printf("outPageTable[0] 0x%016llX\n", outPageTable[0]);
+        vsh::printf("outPageTable[1] 0x%016llX\n", outPageTable[1]);
+
         if (ret != SUCCEEDED)
         {
             vsh::printf("Failed to allocate executable memory 0x%X\n", ret);
@@ -262,28 +263,30 @@ namespace GamePatching
         Sleep(1000);
 
         uint32_t temp_bytes = 0;
-        ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(uintptr_t)executableMemoryAddress, (void*)&temp_bytes, 4);
+        ret = ReadProcessMemory(g_FindActiveGame.GetRunningGameProcessId(), (void*)(uintptr_t)outPageTable[0], (void*)&temp_bytes, 4);
         if (ret != SUCCEEDED)
         {
             vsh::printf("Failed to read executable memory 0x%X\n", ret);
             vsh::ShowNotificationWithIcon(L"Failed to read executable memory", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
+            ps3mapi_process_page_free(g_FindActiveGame.GetRunningGameProcessId(), 0x2F, outPageTable);
             return false;
         }
 
         Sleep(1000);
 
-        ret = WritePayload((uintptr_t)executableMemoryAddress, fileName);
+        ret = WritePayload((uintptr_t)outPageTable[0], fileName);
         if (ret != SUCCEEDED)
         {
             vsh::printf("Failed to read payload file %s 0x%X\n", fileName, ret);
             vsh::ShowNotificationWithIcon(L"Failed to read payload file", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
+            ps3mapi_process_page_free(g_FindActiveGame.GetRunningGameProcessId(), 0x2F, outPageTable);
             return false;
         }
 
         Sleep(1000);
 
         uint32_t threadOpd[2]{};
-        threadOpd[0] = executableMemoryAddress;
+        threadOpd[0] = outPageTable[0];
         threadOpd[1] = 0x00000000;
         thread_t th;
         ret = ps3mapi_create_process_thread(g_FindActiveGame.GetRunningGameProcessId(), &th, threadOpd, 0, prio, stacksize, "PayloadThread");
@@ -291,6 +294,7 @@ namespace GamePatching
         {
             vsh::printf("Failed to start payload 0x%X\n", ret);
             vsh::ShowNotificationWithIcon(L"Failed to start payload", vsh::NotifyIcon::Pen, vsh::NotifySound::Error);
+            ps3mapi_process_page_free(g_FindActiveGame.GetRunningGameProcessId(), 0x2F, outPageTable);
             return false;
         }
 
