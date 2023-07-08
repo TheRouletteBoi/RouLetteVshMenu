@@ -21,16 +21,14 @@ To open the vsh menu press R3 + DPAD LEFT
  * [Credits](#credits)
 
 ## Features
-- Load sprx menus into game without eboots (.sprx)
-- Load [InGame payloads](https://github.com/TheRouletteBoi/ingame_payloads) (.bin)
+- Load sprx menus into game without eboots (`.sprx`)
+- Load [InGame payloads](https://github.com/TheRouletteBoi/ingame_payloads) (`.bin`)
 - Write to into game memory on game startup or constantly
-
 
 ## Preview
 ![2022-04-04_01-17-50](https://user-images.githubusercontent.com/9206290/161502591-f2ec4acb-6646-4d5d-a181-6ab92cc5844f.png)
 ![2022-04-04_01-18-04](https://user-images.githubusercontent.com/9206290/161502608-371a0f22-82f3-41d2-9795-b21c0fdfb14b.png)
 ![2022-04-04_01-18-18](https://user-images.githubusercontent.com/9206290/161502622-749c4b1a-bde3-4c83-b78a-62ed5bcc1643.png)
-
 
 ## Notes
 * Some games have exceeded their memory limit so using the function GamePatching::StartSprx will not work. So a workaround is to make a eboot for that game to load your sprx. (This is mainly for AAA games like GTAV and RDR)
@@ -41,8 +39,7 @@ To open the vsh menu press R3 + DPAD LEFT
 
 ## Download 
 [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases)
- 
- 
+
 ## Installation
 1. In your PS3 file system go to /dev_hdd0/plugins/ and transfer folder named RouLetteVshMenu provided in [Releases](https://github.com/TheRouletteBoi/RouLetteVshMenu/releases) and the inside of RouLetteVshMenu folder should look like this
 
@@ -53,12 +50,12 @@ To open the vsh menu press R3 + DPAD LEFT
 
 ![hdd0](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/hdd0.PNG)
 
-3. Open boot_plugins.txt and make a new line and type /dev_hdd0/plugins/RouLetteVshMenu/RouLetteVshMenu.sprx
+3. Open boot_plugins.txt and make a new line and type
+`/dev_hdd0/plugins/RouLetteVshMenu/RouLetteVshMenu.sprx`
 
 ![bootplugins](https://github.com/TheRouletteBoi/RouLetteVshMenu/blob/main/Resources/bootplugins.PNG)
 
 4. Restart your console
-
 
 ## How to build
 
@@ -71,8 +68,7 @@ Requirements:
  * [Cloning](#cloning)
  
  If you have the above requirements you can skip to [cloning the git repo](#cloning-repository).
- 
- 
+
 ### Visual Studio 2013+
 Visual Studio 2013 isn't required to build but is required to setup [Visual Studio Integration](#sony-ps3-475-sdk-with-visual-studio-integration). With that being said if you don't plan on creating projects you can use any version of Visual Studio.
 
@@ -105,6 +101,13 @@ git clone https://github.com/TheRouletteBoi/RouLetteVshMenu.git --recursive || e
 
 Now, you will be able to open the solution, and simply build it in Visual Studio.
 
+### Testing on HEN
+
+Make sure you resign the locally built SPRX file to `3.XX ALT` or `3.XX STD` after decrypting with `unfself` in `tools` folder from `TrueAncestor SELF Resigner`.
+
+PS3 with custom firmware does not require this step. Simply copy the built SPRX file to your PS3 HDD and it should work.
+<!-- todo: add images -->
+
 ## Staying Up To Date
 
 Pull the latest changes from Github:
@@ -112,12 +115,9 @@ Pull the latest changes from Github:
 git pull && git submodule update
 ```
 
-
 ## Discontinued Features
-* [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like boost::function, boost::unordered_map and much more.
-* [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/bd7f9dc7cd4b64833795e4f148eb294852db446a) For reading/editing .ini files
-
-
+* [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like `boost::function`, `boost::unordered_map` and much more.
+* [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/bd7f9dc7cd4b64833795e4f148eb294852db446a) For reading/editing `.ini` files.
 
 ## Credits
 [@Jordy-Nateur](https://github.com/Jordy-Nateur) for his paf classes Module, PhHandler, PhPlane, PhText, PhWidget and View and his VSH-Playground
