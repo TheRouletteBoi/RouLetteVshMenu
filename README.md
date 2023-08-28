@@ -101,13 +101,6 @@ git clone https://github.com/TheRouletteBoi/RouLetteVshMenu.git --recursive || e
 
 Now, you will be able to open the solution, and simply build it in Visual Studio.
 
-### Testing on HEN
-
-Make sure you resign the locally built SPRX file to `3.XX ALT` or `3.XX STD` after decrypting with `unfself` in `tools` folder from `TrueAncestor SELF Resigner`.
-
-PS3 with custom firmware does not require this step. Simply copy the built SPRX file to your PS3 HDD and it should work.
-<!-- todo: add images -->
-
 ## Staying Up To Date
 
 Pull the latest changes from Github:
