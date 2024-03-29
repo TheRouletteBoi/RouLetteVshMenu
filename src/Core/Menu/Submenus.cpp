@@ -110,6 +110,16 @@ public:
         return version;
     }
 
+    uint16_t GetCacheCount()
+    {
+        return cacheCount;
+    }
+
+    void SetCacheCount(uint16_t count)
+    {
+        cacheCount = count;
+    }
+
     MenuCache* GetModMenu(int i)
     {
         return &modMenu[i];
@@ -117,6 +127,7 @@ public:
 
 private:
     uint16_t version = 0;
+    uint16_t cacheCount = 0;
     MenuCache modMenu[MAX_MENU_CACHE];
 };
 
@@ -142,24 +153,39 @@ void GetAllLoaderFiles()
     {
         size_t fileSize = 0;
         ReadFile(cfgFileName.c_str(), (char**)&g_sprxCfg, fileSize);
+
+        // save to cache if we have a new count
+        if (g_sprxCfg->GetCacheCount() < sprxList.size())
+        {
+            // save new files to button of cache
+            for (int i = g_sprxCfg->GetCacheCount(); i < std::min(sprxList.size(), MAX_MENU_CACHE); i++)
+            {
+                // initialize structure variables
+                vsh::strncpy(g_sprxCfg->GetModMenu(i)->modMenuName, sprxList[i].c_str(), sizeof(g_sprxCfg->GetModMenu(i)->modMenuName));
+                vsh::strncpy(g_sprxCfg->GetModMenu(i)->gameTitleId, "", sizeof(g_sprxCfg->GetModMenu(i)->gameTitleId));
+                g_sprxCfg->GetModMenu(i)->autoLoad = false;
+            }
+        }
     }
     else
     {
         // if file doesn't exist then just allocate for default settings
         g_sprxCfg = new SprxCfg();
 
-        SaveFile(cfgFileName, &g_sprxCfg, sizeof(SprxCfg));
-
-
         // possible segment fault here if sprxList.size() is larger than modMenu[MAX_MENU_CACHE]
         for (int i = 0; i < std::min(sprxList.size(), MAX_MENU_CACHE); i++)
         {
-            // initialize variables
+            // initialize structure variables
             vsh::strncpy(g_sprxCfg->GetModMenu(i)->modMenuName, sprxList[i].c_str(), sizeof(g_sprxCfg->GetModMenu(i)->modMenuName));
             vsh::strncpy(g_sprxCfg->GetModMenu(i)->gameTitleId, "", sizeof(g_sprxCfg->GetModMenu(i)->gameTitleId));
             g_sprxCfg->GetModMenu(i)->autoLoad = false;
         }
     }
+
+
+    g_sprxCfg->SetCacheCount(sprxList.size());
+
+    SaveFile(cfgFileName, &g_sprxCfg, sizeof(SprxCfg));
 }
 
 void SprxLoaderSubmenu()
