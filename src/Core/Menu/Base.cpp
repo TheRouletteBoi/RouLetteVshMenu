@@ -913,3 +913,14 @@ Menu& Menu::EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn)
    }
    return *this;
 }
+
+
+Menu& Menu::Keyboard(KeyboardHandler handler)
+{
+    if (IsPressed())
+    {
+        // TODO...
+    }
+
+    return *this;
+}

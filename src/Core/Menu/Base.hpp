@@ -10,6 +10,7 @@
 #include "Core/Helpers.hpp"
 
 using Function = void(*)();
+using KeyboardHandler = void(*)(const std::wstring&);
 
 class Menu
 {
@@ -38,6 +39,7 @@ public:
    Menu& Strings(const std::vector<std::wstring>& display, int& index);
    Menu& ColorPreview(float& var);
    Menu& EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn = nullptr);
+   Menu& Keyboard(KeyboardHandler handler);
 
 private:
    bool IsInitialized();
