@@ -71,7 +71,7 @@ std::vector<std::string> sprxList;
 std::vector<std::string> binList;
 
 
-constexpr auto MAX_MENU_CACHE = 50;
+constexpr size_t MAX_MENU_CACHE = 50;
 
 struct MenuCache
 {
@@ -152,7 +152,7 @@ void GetAllLoaderFiles()
 
 
         // possible segment fault here if sprxList.size() is larger than modMenu[MAX_MENU_CACHE]
-        for (int i = 0; i < sprxList.size(); i++)
+        for (int i = 0; i < std::min(sprxList.size(), MAX_MENU_CACHE); i++)
         {
             // initialize variables
             vsh::strncpy(g_sprxCfg->GetModMenu(i)->modMenuName, sprxList[i].c_str(), sizeof(g_sprxCfg->GetModMenu(i)->modMenuName));
