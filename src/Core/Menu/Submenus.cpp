@@ -124,11 +124,14 @@ SprxCfg* g_sprxCfg{};
 
 void GetAllLoaderFiles()
 {
-    // Get all files in sprx directory 
+    // Get all .sprx in loader/sprx/ directory 
     const std::string& sprxDirectory = GetCurrentDir() + "loader/sprx/";
     GetFilesInDirectory(sprxDirectory.c_str(), sprxList, ".sprx");
 
-    // Get all files in bin directory 
+    // Get all .sprx in /dev_hdd0/tmp/ directory
+    //GetFilesInDirectory("/dev_hdd0/tmp/", sprxList, ".sprx");
+
+    // Get all .bin in loader/bin/ directory 
     const std::string& binDirectory = GetCurrentDir() + "loader/bin/";
     GetFilesInDirectory(binDirectory.c_str(), binList, ".bin");
 
