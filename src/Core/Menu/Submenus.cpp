@@ -411,7 +411,8 @@ void SettingsSubmenu()
     g_Menu.Option(L"Menu Color").EditColor(g_Menu.colorMenu, true);
     g_Menu.Option(L"Background opacity").Slider(g_Menu.colorBackground.a, 0.f, 1.f, 0.01f, 2);
     g_Menu.Option(L"Display [Yes | No] Prompt").Toggle(g_Menu.displayYesNoPrompt);
-    g_Menu.Option(L"Reset Config");
+    g_Menu.Option(L"Save Cache");
+    g_Menu.Option(L"Remove Cache");
 }
 
 void DeveloperSubmenu()
