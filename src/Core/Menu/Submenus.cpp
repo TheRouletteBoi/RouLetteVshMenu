@@ -178,8 +178,11 @@ void SprxLoaderSubmenu()
                 : (sprxCfg->autoLoad ? L"\uF5B5 This sprx will auto load on game boot"
                     : L"\uF5B5 Would you like to load sprx on boot?");
 
+            paf::vec4 textColor = 
+                hasEmptyTitleId ? paf::vec4(1.0f, 0.0f, 0.0f, 1.0f) 
+                : paf::vec4(0.0f, 1.0f, 0.0, 1.0f);
 
-            g_Menu.Option(wfileName)
+            g_Menu.Option(wfileName, textColor)
                 .Toggle(sprxCfg->autoLoad)
                 .RightText(wGameTitle)
                 .Description(description)

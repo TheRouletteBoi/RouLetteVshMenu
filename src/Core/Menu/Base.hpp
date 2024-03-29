@@ -25,6 +25,7 @@ public:
 
    void Title(const std::wstring& text);
    Menu& Option(const std::wstring& text);
+   Menu& Option(const std::wstring& text, paf::vec4 textColor);
    Menu& Submenu(Function sub);
    Menu& Skip();
    Menu& Toggle(bool& var);
@@ -85,7 +86,7 @@ private:
    void DrawYesNoPrompt(const std::wstring& text);
 
    void DrawMenuTitle(const std::wstring& text);
-   void DrawMenuOption(const std::wstring& text);
+   void DrawMenuOption(const std::wstring& text, paf::vec4 textColor);
    void DrawMenuToggle(bool var);
    void DrawMenuSlider(const std::wstring& text, float progress);
    void DrawMenuStringOption(const std::wstring& item);

@@ -592,7 +592,7 @@ void Menu::DrawMenuTitle(const std::wstring& text)
         Renderer::Centered);
 }
 
-void Menu::DrawMenuOption(const std::wstring& text)
+void Menu::DrawMenuOption(const std::wstring& text, paf::vec4 textColor)
 {
     if ((m_PrintingOption >= m_CurrentIndex) && (m_PrintingOption < (m_CurrentIndex + maxOptionsPerPage)))
     {
@@ -601,7 +601,7 @@ void Menu::DrawMenuOption(const std::wstring& text)
             paf::vec2(position.x - sizeWidth / 2 + m_SizeBackgroundSpace / 2,
                 position.y + m_SizeBackground / 2 - m_SizeBackgroundSpace - (m_PrintingOption - m_CurrentIndex) * sizeText - sizeText / 2),
             sizeText,
-            paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText),
+            textColor,
             Renderer::Left,
             Renderer::Centered);
     }
@@ -713,8 +713,15 @@ void Menu::Title(const std::wstring& text)
 Menu& Menu::Option(const std::wstring& text)
 {
    m_PrintingOption++;
-   DrawMenuOption(text);
+   DrawMenuOption(text, paf::vec4(colorText.r, colorText.g, colorText.b, m_OpacityText));
    return *this;
+}
+
+Menu& Menu::Option(const std::wstring& text, paf::vec4 textColor)
+{
+    m_PrintingOption++;
+    DrawMenuOption(text, textColor);
+    return *this;
 }
 
 Menu& Menu::Submenu(Function sub)
