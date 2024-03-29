@@ -50,19 +50,180 @@ void LoadCcapiMenu(FindActiveGame::PatchedMenu menuId, const char* menuName, con
 void MainSubmenu()
 {
     g_Menu.Title(L"Main menu");
-    g_Menu.Option(L"GTAV Menus \uF477\uF477").Submenu(GtavSubmenu);
-    g_Menu.Option(L"Minecraft Menus").Submenu(MinecraftSubmenu);
-    g_Menu.Option(L"Black Ops 1 Menus").Submenu(CodBo1Submenu);
-    g_Menu.Option(L"Black Ops 2 Menus \uF476").Submenu(CodBo2Submenu);
-    g_Menu.Option(L"Black Ops 3 Menus").Submenu(CodBo3Submenu);
-    g_Menu.Option(L"Modern Warfare 2 Menus \uF5BC").Submenu(CodMw2Submenu);
-    g_Menu.Option(L"Modern Warfare 3 Menus \uF46E").Submenu(CodMw3Submenu);
-    g_Menu.Option(L"COD Ghost Menus").Submenu(CodGhostSubmenu);
-    g_Menu.Option(L"Advance Warfare Menus").Submenu(CodAwSubmenu);
+    g_Menu.Option(L"Sprx Loader").Submenu(SprxLoaderSubmenu);
+    g_Menu.Option(L"Payload Loader").Submenu(PayloadLoaderSubmenu);
+    g_Menu.Option(L"Game Mod Menus").Submenu(GameModMenusSubmenu);
 #ifdef LAUNCHER_DEBUG
     g_Menu.Option(L"Developer").Submenu(DeveloperSubmenu);
     g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
 #endif // LAUNCHER_DEBUG
+}
+
+
+
+bool IsStringNullOrEmpty(const char* str)
+{
+    return str == nullptr || vsh::strlen(str) == 0;
+}
+
+
+std::vector<std::string> sprxList;
+std::vector<std::string> binList;
+
+
+constexpr auto MAX_MENU_CACHE = 50;
+
+struct MenuCache
+{
+    char modMenuName[40];
+    char gameTitleId[10];
+    bool autoLoad = false;
+    uint32_t placeholder1{};
+    uint32_t placeholder2{};
+    uint32_t placeholder3{};
+    uint32_t placeholder4{};
+    uint32_t placeholder5{};
+    uint32_t placeholder6{};
+    uint32_t placeholder7{};
+    uint32_t placeholder8{};
+    uint32_t placeholder9{};
+    uint32_t placeholder10{};
+    uint32_t placeholder11{};
+    uint32_t placeholder12{};
+    uint32_t placeholder13{};
+    uint32_t placeholder14{};
+    uint32_t placeholder15{};
+    uint32_t placeholder16{};
+    uint32_t placeholder17{};
+    uint32_t placeholder18{};
+    uint32_t placeholder19{};
+    uint32_t placeholder20{};
+    uint32_t placeholder21{};
+};
+
+class SprxCfg
+{
+
+public:
+    uint16_t GetCfgVersion()
+    {
+        return version;
+    }
+
+    MenuCache* GetModMenu(int i)
+    {
+        return &modMenu[i];
+    }
+
+private:
+    uint16_t version = 0;
+    MenuCache modMenu[MAX_MENU_CACHE];
+};
+
+SprxCfg* g_sprxCfg{};
+
+void GetAllLoaderFiles()
+{
+    // Get all files in sprx directory 
+    const std::string& sprxDirectory = GetCurrentDir() + "loader/sprx/";
+    GetFilesInDirectory(sprxDirectory.c_str(), sprxList, ".sprx");
+
+    // Get all files in bin directory 
+    const std::string& binDirectory = GetCurrentDir() + "loader/bin/";
+    GetFilesInDirectory(binDirectory.c_str(), binList, ".bin");
+
+    const std::string& cfgFileName = GetCurrentDir() + "loaderConfig.cache";
+
+    // read or create config file
+    if (FileExist(cfgFileName))
+    {
+        size_t fileSize = 0;
+        ReadFile(cfgFileName.c_str(), (char**)&g_sprxCfg, fileSize);
+    }
+    else
+    {
+        // if file doesn't exist then just allocate for default settings
+        g_sprxCfg = new SprxCfg();
+
+        SaveFile(cfgFileName, &g_sprxCfg, sizeof(SprxCfg));
+
+
+        // possible segment fault here if sprxList.size() is larger than modMenu[MAX_MENU_CACHE]
+        for (int i = 0; i < sprxList.size(); i++)
+        {
+            // initialize variables
+            vsh::strncpy(g_sprxCfg->GetModMenu(i)->modMenuName, sprxList[i].c_str(), sizeof(g_sprxCfg->GetModMenu(i)->modMenuName));
+            vsh::strncpy(g_sprxCfg->GetModMenu(i)->gameTitleId, "", sizeof(g_sprxCfg->GetModMenu(i)->gameTitleId));
+            g_sprxCfg->GetModMenu(i)->autoLoad = false;
+        }
+    }
+}
+
+void SprxLoaderSubmenu()
+{
+    g_Menu.Title(L"Sprx Loader");
+    if (!sprxList.empty())
+    {
+        for (int i = 0; i < sprxList.size(); i++)
+        {
+            MenuCache* sprxCfg = g_sprxCfg->GetModMenu(i);
+
+            std::wstring wfileName(sprxCfg->modMenuName, sprxCfg->modMenuName + sizeof(sprxCfg->modMenuName) / sizeof(sprxCfg->modMenuName[0]));
+            std::wstring wGameTitle(sprxCfg->gameTitleId, sprxCfg->gameTitleId + sizeof(sprxCfg->gameTitleId) / sizeof(sprxCfg->gameTitleId[0]));
+    
+            bool hasEmptyTitleId = IsStringNullOrEmpty(sprxCfg->gameTitleId);
+
+            std::wstring description = 
+                hasEmptyTitleId ? L"\uF5B5 Press \uF882 to input titleId" 
+                : (sprxCfg->autoLoad ? L"\uF5B5 This sprx will auto load on game boot"
+                    : L"\uF5B5 Would you like to load sprx on boot?");
+
+
+            g_Menu.Option(wfileName)
+                .Toggle(sprxCfg->autoLoad)
+                .RightText(wGameTitle)
+                .Description(description)
+                .Keyboard([](const std::wstring& text)
+                {
+                    vsh::ShowNavigationMessage(text.c_str());
+                });
+        }
+    }
+    else
+    {
+        g_Menu.Option(L"No Files Found");
+    }
+}
+
+void PayloadLoaderSubmenu()
+{
+    g_Menu.Title(L"Payload Loader");
+    if (!binList.empty())
+    {
+        for (const auto& fileName : binList)
+        {
+            std::wstring wfileName(fileName.begin(), fileName.end());
+            g_Menu.Option(wfileName);
+        }
+    }
+    else
+    {
+        g_Menu.Option(L"No Files Found");
+    }
+}
+
+void GameModMenusSubmenu()
+{
+    g_Menu.Title(L"Game Mod Menus");
+    g_Menu.Option(L"GTAV Menus \uF477\uF477").Submenu(GtavSubmenu);
+    g_Menu.Option(L"Minecraft Menus").Submenu(MinecraftSubmenu);
+    g_Menu.Option(L"COD Black Ops 1 Menus").Submenu(CodBo1Submenu);
+    g_Menu.Option(L"COD Black Ops 2 Menus \uF476").Submenu(CodBo2Submenu);
+    g_Menu.Option(L"COD Black Ops 3 Menus").Submenu(CodBo3Submenu);
+    g_Menu.Option(L"COD Modern Warfare 2 Menus \uF5BC").Submenu(CodMw2Submenu);
+    g_Menu.Option(L"COD Modern Warfare 3 Menus \uF46E").Submenu(CodMw3Submenu);
+    g_Menu.Option(L"COD Ghost Menus").Submenu(CodGhostSubmenu);
+    g_Menu.Option(L"COD Advance Warfare Menus").Submenu(CodAwSubmenu);
 }
 
 void GtavSubmenu()
@@ -247,6 +408,7 @@ void SettingsSubmenu()
     g_Menu.Option(L"Menu Color").EditColor(g_Menu.colorMenu, true);
     g_Menu.Option(L"Background opacity").Slider(g_Menu.colorBackground.a, 0.f, 1.f, 0.01f, 2);
     g_Menu.Option(L"Display [Yes | No] Prompt").Toggle(g_Menu.displayYesNoPrompt);
+    g_Menu.Option(L"Reset Config");
 }
 
 void DeveloperSubmenu()

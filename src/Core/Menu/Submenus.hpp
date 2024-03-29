@@ -6,6 +6,9 @@
 #include "Games/FindActiveGame.hpp"
 
 void MainSubmenu();
+void SprxLoaderSubmenu();
+void PayloadLoaderSubmenu();
+void GameModMenusSubmenu();
 void GtavSubmenu();
 void MinecraftSubmenu();
 void CodBo1Submenu();
