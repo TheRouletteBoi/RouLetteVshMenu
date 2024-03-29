@@ -12,6 +12,15 @@
 using Function = void(*)();
 using KeyboardHandler = void(*)(const std::wstring&);
 
+enum class ButtonFlag
+{
+    EnterPress = (1 << 0),
+    LeftPress = (1 << 1),
+    RightPress = (1 << 2),
+    LeftOrRightPress = (1 << 3),
+    SquarePress = (1 << 4)
+};
+
 class Menu
 {
 public:
@@ -41,6 +50,7 @@ public:
    Menu& ColorPreview(float& var);
    Menu& EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn = nullptr);
    Menu& Keyboard(KeyboardHandler handler);
+   Menu& Keyboard(ButtonFlag buttonFlag, KeyboardHandler handler);
 
 private:
    bool IsInitialized();
@@ -54,6 +64,7 @@ private:
    bool IsLeftPressed();
    bool IsRightPressed();
    bool IsLeftOrRightPressed();
+   bool IsSquarePressed();
    bool IsHovered();
    bool IsPressed();
 

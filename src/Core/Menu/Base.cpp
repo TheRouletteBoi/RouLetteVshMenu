@@ -118,6 +118,17 @@ bool Menu::IsLeftOrRightPressed()
    return false;
 }
 
+bool Menu::IsSquarePressed()
+{
+    if (g_Input.IsButtonDownFor(Input::BUTTON_SQUARE, 400))
+    {
+        PlaySound("snd_system_ok");
+        return true;
+    }
+
+    return false;
+}
+
 bool Menu::IsHovered()
 {
    return IsOpened() && (m_CurrentOption == m_PrintingOption);
@@ -921,10 +932,23 @@ Menu& Menu::EditColor(paf::vec4& color, bool editAlpha, Function onChangeFn)
    return *this;
 }
 
-
 Menu& Menu::Keyboard(KeyboardHandler handler)
 {
     if (IsPressed())
+    {
+        // TODO...
+    }
+
+    return *this;
+}
+
+Menu& Menu::Keyboard(ButtonFlag buttonFlag, KeyboardHandler handler)
+{
+    if ((static_cast<int>(buttonFlag) & static_cast<int>(ButtonFlag::EnterPress)) && IsPressed())
+    {
+
+    }
+    else if ((static_cast<int>(buttonFlag) & static_cast<int>(ButtonFlag::SquarePress)) && IsSquarePressed())
     {
         // TODO...
     }

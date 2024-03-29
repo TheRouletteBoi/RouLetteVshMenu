@@ -189,7 +189,7 @@ void SprxLoaderSubmenu()
                 .Toggle(sprxCfg->autoLoad)
                 .RightText(wGameTitle)
                 .Description(description)
-                .Keyboard([](const std::wstring& text)
+                .Keyboard(ButtonFlag::SquarePress, [](const std::wstring& text)
                 {
                     vsh::ShowNavigationMessage(text.c_str());
                 });
