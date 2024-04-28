@@ -32,29 +32,6 @@ SYS_MODULE_STOP(module_stop);
 * Enhancement: add config to load your favorite menu
 * Enhancement: cache Ida2Mem using std::unordered_map. Caveat if user reloads game or if user loads sprx using PS3ToolBox. To fix try a auto refresh or re-cache all modules on function call
 * 
-* 
-* 
-* ----------------------
-* DEBUG
-* ----------------------
-* paf_BE04476B(paf::PhFont::GlyphType, paf::SurfaceRCPtr<paf::Surface> &, int, int, wchar_t const*, unsigned int, paf::PhFont const&, paf::PhTextLetterSpace const*);
-* paf_F21655F3(); View_Find
-* paf_794CEACB(); View_FindWidget
-* paf_3A8454FC(); View_GetTexture
-* paf_8ABAE2F3(void*, void*, int _0);  _ZN3paf10PhPlaneDivC1EPNS_8PhWidgetEPNS_8PhAppearE | paf::PhPlaneDiv::PhPlaneDiv(paf::PhWidget*, paf::PhAppear*)
-* paf_7F0930C6(); PhText_Constructor
-* paf_23AFB290(); View_GetInterface
-* paf_2CBA5A33(); PhHandler_KillTimerCB
-* paf_B93AFE7E(); View_PlaySound
-* paf_EAA28B8(); Framework_End
-* paf_85D1D23B(); Framework_Run
-* paf_0C74837D();
-* paf_CC51D56(); paf::Surface::Copy
-* paf_C9826818();
-* paf_4192B349();
-* vshcommon_F1918912(); // NavigationMessageSetDuration
-* vshnet_FC7303C5(); // sceNpGetNpId
-* 
 */ 
 
 sys_ppu_thread_t gVshMenuPpuThreadId = SYS_PPU_THREAD_ID_INVALID;
