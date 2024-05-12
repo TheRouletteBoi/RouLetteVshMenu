@@ -109,7 +109,7 @@ git pull && git submodule update
 ```
 
 ## Discontinued Features
-* [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/4524ebb946bc536b7b1d84a07c4b5489cc2e1faa) For rich features like `boost::function`, `boost::unordered_map` and much more.
+* [C++ boost library](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/68abda539a6d63d71cfef71d2f1193140fef50e3) For rich features like `boost::function`, `boost::unordered_map` and much more.
 * [simpleini config](https://github.com/TheRouletteBoi/RouLetteVshMenu/tree/bd7f9dc7cd4b64833795e4f148eb294852db446a) For reading/editing `.ini` files.
 
 ## Credits
