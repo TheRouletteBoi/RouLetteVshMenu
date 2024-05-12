@@ -1,0 +1,99 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Class iso_format_base&lt;wchar_t&gt;</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../date_time/doxy.html#header.boost.date_time.iso_format.hpp" title="Header &lt;boost/date_time/iso_format.hpp&gt;">
+<link rel="prev" href="iso_format_base.html" title="Class template iso_format_base">
+<link rel="next" href="iso_format.html" title="Class template iso_format">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="iso_format_base.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.date_time.iso_format_base&lt;wchar_t&gt;_id2396207"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class iso_format_base&lt;wchar_t&gt;</span></h2>
+<p>boost::date_time::iso_format_base&lt;wchar_t&gt; &#8212; Class to provide common iso formatting spec. </p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis">
+<span class="bold"><strong>class</strong></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html" title="Class iso_format_base&lt;wchar_t&gt;">iso_format_base</a>&lt;<span class="bold"><strong>wchar_t</strong></span>&gt; {
+<span class="bold"><strong>public</strong></span>:
+
+  <span class="emphasis"><em>// <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2396219-bb">public static functions</a></em></span>
+  <span class="type"><span class="bold"><strong>static</strong></span> month_format_spec</span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2396222-bb">month_format</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2623671-bb">not_a_date</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2623681-bb">pos_infinity</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2452926-bb">neg_infinity</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2452936-bb">year_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2428798-bb">month_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2428809-bb">day_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2608166-bb">hour_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2608176-bb">minute_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2351528-bb">second_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2351538-bb">period_start_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2637246-bb">time_start_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2637257-bb">week_start_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2621878-bb">period_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2342894-bb">time_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2342905-bb">fractional_time_sep_char</a>() ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2401231-bb">is_component_sep</a>(<span class="bold"><strong>wchar_t</strong></span>) ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2401245-bb">is_fractional_time_sep</a>(<span class="bold"><strong>wchar_t</strong></span>) ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2593927-bb">is_timezone_sep</a>(<span class="bold"><strong>wchar_t</strong></span>) ;
+  <span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a class="link" href="iso_format_base_wchar_t__id2396207.html#id2619158-bb">element_sep_char</a>() ;
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id2846247"></a><h2>Description</h2>
+<div class="refsect2" lang="en">
+<a name="id2846250"></a><h3>
+<a name="id2396219-bb"></a><code class="computeroutput">iso_format_base</code> public static functions</h3>
+<div class="orderedlist"><ol type="1">
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> month_format_spec</span> <a name="id2396222-bb"></a>month_format() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a name="id2623671-bb"></a>not_a_date() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a name="id2623681-bb"></a>pos_infinity() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>const</strong></span> <span class="bold"><strong>wchar_t</strong></span> *</span> <a name="id2452926-bb"></a>neg_infinity() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2452936-bb"></a>year_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2428798-bb"></a>month_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2428809-bb"></a>day_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2608166-bb"></a>hour_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2608176-bb"></a>minute_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2351528-bb"></a>second_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2351538-bb"></a>period_start_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2637246-bb"></a>time_start_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2637257-bb"></a>week_start_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2621878-bb"></a>period_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2342894-bb"></a>time_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2342905-bb"></a>fractional_time_sep_char() ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id2401231-bb"></a>is_component_sep(<span class="bold"><strong>wchar_t</strong></span> sep) ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id2401245-bb"></a>is_fractional_time_sep(<span class="bold"><strong>wchar_t</strong></span> sep) ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>bool</strong></span></span> <a name="id2593927-bb"></a>is_timezone_sep(<span class="bold"><strong>wchar_t</strong></span> sep) ;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>static</strong></span> <span class="bold"><strong>wchar_t</strong></span></span> <a name="id2619158-bb"></a>element_sep_char() ;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2001-2005 CrystalClear Software, Inc<p>Subject to the Boost Software License, Version 1.0. (See accompanying file
+    <code class="filename">LICENSE_1_0.txt</code> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="iso_format_base.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

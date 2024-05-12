@@ -1,0 +1,116 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Class file_mapping</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping.hpp" title="Header &lt;boost/interprocess/file_mapping.hpp&gt;">
+<link rel="prev" href="bad_alloc.html" title="Class bad_alloc">
+<link rel="next" href="remove_file_on_destroy.html" title="Class remove_file_on_destroy">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="remove_file_on_destroy.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.interprocess.file_mapping"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class file_mapping</span></h2>
+<p>boost::interprocess::file_mapping</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis">
+<span class="bold"><strong>class</strong></span> <a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// <a class="link" href="file_mapping.html#boost.interprocess.file_mappingconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="file_mapping.html#id2896429-bb">file_mapping</a>();
+  <a class="link" href="file_mapping.html#id2896434-bb">file_mapping</a>(<span class="bold"><strong>const</strong></span> <span class="bold"><strong>char</strong></span> *, mode_t);
+  <a class="link" href="file_mapping.html#id2896454-bb">file_mapping</a>(<span class="emphasis"><em>unspecified</em></span>);
+  file_mapping&amp; <a class="link" href="file_mapping.html#id2896468-bb"><span class="bold"><strong>operator</strong></span>=</a>(<span class="emphasis"><em>unspecified</em></span>);
+  <a class="link" href="file_mapping.html#id2896481-bb">~file_mapping</a>();
+
+  <span class="emphasis"><em>// <a class="link" href="file_mapping.html#id2896368-bb">public member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="file_mapping.html#id2896371-bb">swap</a>(<a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> &amp;) ;
+  <span class="type">mode_t</span> <a class="link" href="file_mapping.html#id2896392-bb">get_mode</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">mapping_handle_t</span> <a class="link" href="file_mapping.html#id2896404-bb">get_mapping_handle</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>char</strong></span> *</span> <a class="link" href="file_mapping.html#id2896416-bb">get_name</a>() <span class="bold"><strong>const</strong></span>;
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id3114630"></a><h2>Description</h2>
+<p>A class that wraps a file-mapping that can be used to create mapped regions from the mapped files </p>
+<div class="refsect2" lang="en">
+<a name="id3114637"></a><h3>
+<a name="boost.interprocess.file_mappingconstruct-copy-destruct"></a><code class="computeroutput">file_mapping</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol type="1">
+<li>
+<pre class="literallayout"><a name="id2896429-bb"></a>file_mapping();</pre>
+<p>Constructs an empty file mapping. Does not throw </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2896434-bb"></a>file_mapping(<span class="bold"><strong>const</strong></span> <span class="bold"><strong>char</strong></span> * filename, mode_t mode);</pre>
+<p>Opens a file mapping of file "filename", starting in offset "file_offset", and the mapping's size will be "size". The mapping can be opened for read-only "read_only" or read-write "read_write" modes. Throws interprocess_exception on error. </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2896454-bb"></a>file_mapping(<span class="emphasis"><em>unspecified</em></span> moved);</pre>
+<p>Moves the ownership of "moved"'s shared memory object to *this. After the call, "moved" does not represent any shared memory object. Does not throw </p>
+</li>
+<li>
+<pre class="literallayout">file_mapping&amp; <a name="id2896468-bb"></a><span class="bold"><strong>operator</strong></span>=(<span class="emphasis"><em>unspecified</em></span> moved);</pre>
+<p>Moves the ownership of "moved"'s shared memory to *this. After the call, "moved" does not represent any shared memory. Does not throw </p>
+</li>
+<li>
+<pre class="literallayout"><a name="id2896481-bb"></a>~file_mapping();</pre>
+<p>Destroys the file mapping. All mapped regions created from this are still valid. Does not throw </p>
+</li>
+</ol></div>
+</div>
+<div class="refsect2" lang="en">
+<a name="id3114776"></a><h3>
+<a name="id2896368-bb"></a><code class="computeroutput">file_mapping</code> public member functions</h3>
+<div class="orderedlist"><ol type="1">
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2896371-bb"></a>swap(<a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> &amp; other) ;</pre>
+<p>Swaps to file_mappings. Does not throw. </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">mode_t</span> <a name="id2896392-bb"></a>get_mode() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns access mode used in the constructor </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type">mapping_handle_t</span> <a name="id2896404-bb"></a>get_mapping_handle() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Obtains the mapping handle to be used with mapped_region </p>
+</li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>const</strong></span> <span class="bold"><strong>char</strong></span> *</span> <a name="id2896416-bb"></a>get_name() <span class="bold"><strong>const</strong></span>;</pre>
+<p>Returns the name of the file used in the constructor. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2005 - 2007 Ion Gaztañaga<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="remove_file_on_destroy.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

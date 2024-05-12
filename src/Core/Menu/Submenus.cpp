@@ -57,6 +57,11 @@ void MainSubmenu()
     g_Menu.Option(L"Developer").Submenu(DeveloperSubmenu);
     g_Menu.Option(L"Settings").Submenu(SettingsSubmenu);
 #endif // LAUNCHER_DEBUG
+
+    bool boost_var = false;
+    g_Menu.Option(L"boost action").ActionHeavyweight([&] {
+        boost_var = true;
+        });
 }
 
 

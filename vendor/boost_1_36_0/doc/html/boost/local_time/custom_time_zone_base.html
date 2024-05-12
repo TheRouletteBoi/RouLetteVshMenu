@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Class template custom_time_zone_base</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../date_time/doxy.html#header.boost.date_time.local_time.custom_time_zone.hpp" title="Header &lt;boost/date_time/local_time/custom_time_zone.hpp&gt;">
+<link rel="prev" href="../posix_time/duration_from_string.html" title="Function duration_from_string">
+<link rel="next" href="operator__id2604572.html" title="Function operator+">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../posix_time/duration_from_string.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.local_time.custom_time_zone.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="operator__id2604572.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.local_time.custom_time_zone_base"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template custom_time_zone_base</span></h2>
+<p>boost::local_time::custom_time_zone_base &#8212; A real time zone. </p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharT&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="custom_time_zone_base.html" title="Class template custom_time_zone_base">custom_time_zone_base</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// types</em></span>
+  <span class="bold"><strong>typedef</strong></span> boost::posix_time::time_duration                      <a name="boost.local_time.custom_time_zone_base.time_duration_type"></a>time_duration_type;
+  <span class="bold"><strong>typedef</strong></span> date_time::time_zone_base&lt; posix_time::ptime, CharT &gt; <a name="boost.local_time.custom_time_zone_base.base_type"></a>base_type;         
+  <span class="bold"><strong>typedef</strong></span> base_type::string_type                                <a name="boost.local_time.custom_time_zone_base.string_type"></a>string_type;       
+  <span class="bold"><strong>typedef</strong></span> base_type::stringstream_type                          <a name="boost.local_time.custom_time_zone_base.stringstream_type"></a>stringstream_type; 
+  <span class="bold"><strong>typedef</strong></span> date_time::time_zone_names_base&lt; CharT &gt;              <a name="boost.local_time.custom_time_zone_base.time_zone_names"></a>time_zone_names;   
+  <span class="bold"><strong>typedef</strong></span> CharT                                                 <a name="boost.local_time.custom_time_zone_base.char_type"></a>char_type;         
+
+  <span class="emphasis"><em>// <a class="link" href="custom_time_zone_base.html#boost.local_time.custom_time_zone_baseconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="custom_time_zone_base.html#id2475331-bb">custom_time_zone_base</a>(<span class="bold"><strong>const</strong></span> time_zone_names &amp;, <span class="bold"><strong>const</strong></span> time_duration_type &amp;, 
+                        <span class="bold"><strong>const</strong></span> dst_adjustment_offsets &amp;, 
+                        boost::shared_ptr&lt; dst_calc_rule &gt;);
+  <a class="link" href="custom_time_zone_base.html#id2604533-bb">~custom_time_zone_base</a>();
+
+  <span class="emphasis"><em>// <a class="link" href="custom_time_zone_base.html#id2355164-bb">public member functions</a></em></span>
+  <span class="type">string_type</span> <a class="link" href="custom_time_zone_base.html#id2355167-bb">dst_zone_abbrev</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">string_type</span> <a class="link" href="custom_time_zone_base.html#id2355176-bb">std_zone_abbrev</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">string_type</span> <a class="link" href="custom_time_zone_base.html#id2355184-bb">dst_zone_name</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">string_type</span> <a class="link" href="custom_time_zone_base.html#id2475245-bb">std_zone_name</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type"><span class="bold"><strong>bool</strong></span></span> <a class="link" href="custom_time_zone_base.html#id2475253-bb">has_dst</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">posix_time::ptime</span> <a class="link" href="custom_time_zone_base.html#id2475264-bb">dst_local_start_time</a>(gregorian::greg_year) <span class="bold"><strong>const</strong></span>;
+  <span class="type">posix_time::ptime</span> <a class="link" href="custom_time_zone_base.html#id2475280-bb">dst_local_end_time</a>(gregorian::greg_year) <span class="bold"><strong>const</strong></span>;
+  <span class="type">time_duration_type</span> <a class="link" href="custom_time_zone_base.html#id2475297-bb">base_utc_offset</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">time_duration_type</span> <a class="link" href="custom_time_zone_base.html#id2475309-bb">dst_offset</a>() <span class="bold"><strong>const</strong></span>;
+  <span class="type">string_type</span> <a class="link" href="custom_time_zone_base.html#id2475320-bb">to_posix_string</a>() <span class="bold"><strong>const</strong></span>;
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id2890046"></a><h2>Description</h2>
+<div class="refsect2" lang="en">
+<a name="id2890050"></a><h3>
+<a name="boost.local_time.custom_time_zone_baseconstruct-copy-destruct"></a><code class="computeroutput">custom_time_zone_base</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol type="1">
+<li><pre class="literallayout"><a name="id2475331-bb"></a>custom_time_zone_base(<span class="bold"><strong>const</strong></span> time_zone_names &amp; zone_names, 
+                      <span class="bold"><strong>const</strong></span> time_duration_type &amp; utc_offset, 
+                      <span class="bold"><strong>const</strong></span> dst_adjustment_offsets &amp; dst_shift, 
+                      boost::shared_ptr&lt; dst_calc_rule &gt; calc_rule);</pre></li>
+<li><pre class="literallayout"><a name="id2604533-bb"></a>~custom_time_zone_base();</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" lang="en">
+<a name="id2890125"></a><h3>
+<a name="id2355164-bb"></a><code class="computeroutput">custom_time_zone_base</code> public member functions</h3>
+<div class="orderedlist"><ol type="1">
+<li><pre class="literallayout"><span class="type">string_type</span> <a name="id2355167-bb"></a>dst_zone_abbrev() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">string_type</span> <a name="id2355176-bb"></a>std_zone_abbrev() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">string_type</span> <a name="id2355184-bb"></a>dst_zone_name() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">string_type</span> <a name="id2475245-bb"></a>std_zone_name() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>bool</strong></span></span> <a name="id2475253-bb"></a>has_dst() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">posix_time::ptime</span> <a name="id2475264-bb"></a>dst_local_start_time(gregorian::greg_year y) <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">posix_time::ptime</span> <a name="id2475280-bb"></a>dst_local_end_time(gregorian::greg_year y) <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">time_duration_type</span> <a name="id2475297-bb"></a>base_utc_offset() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">time_duration_type</span> <a name="id2475309-bb"></a>dst_offset() <span class="bold"><strong>const</strong></span>;</pre></li>
+<li><pre class="literallayout"><span class="type">string_type</span> <a name="id2475320-bb"></a>to_posix_string() <span class="bold"><strong>const</strong></span>;</pre></li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2001-2005 CrystalClear Software, Inc<p>Subject to the Boost Software License, Version 1.0. (See accompanying file
+    <code class="filename">LICENSE_1_0.txt</code> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="../posix_time/duration_from_string.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.local_time.custom_time_zone.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="operator__id2604572.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

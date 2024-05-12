@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Class template basic_managed_external_buffer</title>
+<link rel="stylesheet" href="../../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.73.2">
+<link rel="start" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
+<link rel="up" href="../../boost_interprocess_reference.html#header.boost.interprocess.managed_external_buffer.hpp" title="Header &lt;boost/interprocess/managed_external_buffer.hpp&gt;">
+<link rel="prev" href="message_queue.html" title="Class message_queue">
+<link rel="next" href="basic_managed_heap_memory.html" title="Class template basic_managed_heap_memory">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr>
+<td valign="top"><img alt="Boost C++ Libraries" width="277" height="86" src="../../../../boost.png"></td>
+<td align="center"><a href="../../../../index.html">Home</a></td>
+<td align="center"><a href="../../../../libs/libraries.htm">Libraries</a></td>
+<td align="center"><a href="http://www.boost.org/users/people.html">People</a></td>
+<td align="center"><a href="http://www.boost.org/users/faq.html">FAQ</a></td>
+<td align="center"><a href="../../../../more/index.htm">More</a></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="message_queue.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.managed_external_buffer.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="basic_managed_heap_memory.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+<div class="refentry" lang="en">
+<a name="boost.interprocess.basic_managed_external_buffer"></a><div class="titlepage"></div>
+<div class="refnamediv">
+<h2><span class="refentrytitle">Class template basic_managed_external_buffer</span></h2>
+<p>boost::interprocess::basic_managed_external_buffer</p>
+</div>
+<h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="bold"><strong>template</strong></span>&lt;<span class="bold"><strong>typename</strong></span> CharType, <span class="bold"><strong>typename</strong></span> AllocationAlgorithm, 
+         <span class="bold"><strong>template</strong></span>&lt; <span class="bold"><strong>class</strong></span> IndexConfig &gt; <span class="bold"><strong>class</strong></span> IndexType&gt; 
+<span class="bold"><strong>class</strong></span> <a class="link" href="basic_managed_external_buffer.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a> {
+<span class="bold"><strong>public</strong></span>:
+  <span class="emphasis"><em>// <a class="link" href="basic_managed_external_buffer.html#boost.interprocess.basic_managed_external_bufferconstruct-copy-destruct">construct/copy/destruct</a></em></span>
+  <a class="link" href="basic_managed_external_buffer.html#id2897995-bb">basic_managed_external_buffer</a>();
+  <a class="link" href="basic_managed_external_buffer.html#id2898001-bb">basic_managed_external_buffer</a>(<a class="link" href="create_only_t.html" title="Struct create_only_t">create_only_t</a>, <span class="bold"><strong>void</strong></span> *, std::size_t);
+  <a class="link" href="basic_managed_external_buffer.html#id2898024-bb">basic_managed_external_buffer</a>(<a class="link" href="open_only_t.html" title="Struct open_only_t">open_only_t</a>, <span class="bold"><strong>void</strong></span> *, std::size_t);
+  <a class="link" href="basic_managed_external_buffer.html#id2898046-bb">basic_managed_external_buffer</a>(<span class="emphasis"><em>unspecified</em></span>);
+  basic_managed_external_buffer&amp; <a class="link" href="basic_managed_external_buffer.html#id2898057-bb"><span class="bold"><strong>operator</strong></span>=</a>(<span class="emphasis"><em>unspecified</em></span>);
+
+  <span class="emphasis"><em>// <a class="link" href="basic_managed_external_buffer.html#id2897956-bb">public member functions</a></em></span>
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="basic_managed_external_buffer.html#id2897960-bb">grow</a>(std::size_t) ;
+  <span class="type"><span class="bold"><strong>void</strong></span></span> <a class="link" href="basic_managed_external_buffer.html#id2897974-bb">swap</a>(<a class="link" href="basic_managed_external_buffer.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a> &amp;) ;
+};</pre></div>
+<div class="refsect1" lang="en">
+<a name="id3119901"></a><h2>Description</h2>
+<p>A basic user memory named object creation class. Inherits all basic functionality from basic_managed_memory_impl&lt;CharType, AllocationAlgorithm, IndexType&gt; </p>
+<div class="refsect2" lang="en">
+<a name="id3119911"></a><h3>
+<a name="boost.interprocess.basic_managed_external_bufferconstruct-copy-destruct"></a><code class="computeroutput">basic_managed_external_buffer</code> 
+        public
+       construct/copy/destruct</h3>
+<div class="orderedlist"><ol type="1">
+<li>
+<pre class="literallayout"><a name="id2897995-bb"></a>basic_managed_external_buffer();</pre>
+<p>Default constructor. Does nothing. Useful in combination with move semantics </p>
+</li>
+<li><pre class="literallayout"><a name="id2898001-bb"></a>basic_managed_external_buffer(<a class="link" href="create_only_t.html" title="Struct create_only_t">create_only_t</a>, <span class="bold"><strong>void</strong></span> * addr, std::size_t size);</pre></li>
+<li><pre class="literallayout"><a name="id2898024-bb"></a>basic_managed_external_buffer(<a class="link" href="open_only_t.html" title="Struct open_only_t">open_only_t</a>, <span class="bold"><strong>void</strong></span> * addr, std::size_t size);</pre></li>
+<li><pre class="literallayout"><a name="id2898046-bb"></a>basic_managed_external_buffer(<span class="emphasis"><em>unspecified</em></span> moved);</pre></li>
+<li><pre class="literallayout">basic_managed_external_buffer&amp; <a name="id2898057-bb"></a><span class="bold"><strong>operator</strong></span>=(<span class="emphasis"><em>unspecified</em></span> moved);</pre></li>
+</ol></div>
+</div>
+<div class="refsect2" lang="en">
+<a name="id3120049"></a><h3>
+<a name="id2897956-bb"></a><code class="computeroutput">basic_managed_external_buffer</code> public member functions</h3>
+<div class="orderedlist"><ol type="1">
+<li><pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2897960-bb"></a>grow(std::size_t extra_bytes) ;</pre></li>
+<li>
+<pre class="literallayout"><span class="type"><span class="bold"><strong>void</strong></span></span> <a name="id2897974-bb"></a>swap(<a class="link" href="basic_managed_external_buffer.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a> &amp; other) ;</pre>
+<p>Swaps the ownership of the managed heap memories managed by *this and other. Never throws. </p>
+</li>
+</ol></div>
+</div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer">Copyright © 2005 - 2007 Ion Gaztañaga<p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="message_queue.html"><img src="../../../../doc/html/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.managed_external_buffer.hpp"><img src="../../../../doc/html/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/html/images/home.png" alt="Home"></a><a accesskey="n" href="basic_managed_heap_memory.html"><img src="../../../../doc/html/images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>
